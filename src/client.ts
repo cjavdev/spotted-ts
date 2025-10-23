@@ -267,9 +267,7 @@ export class Spotted {
     if (!this.oAuth2AuthState) {
       this.oAuth2AuthState = {
         promise: this.fetch(
-          this.buildURL('https://accounts.spotify.com/api/token?grant_type=client_credentials', {
-            grant_type: 'client_credentials',
-          }),
+          this.buildURL('https://accounts.spotify.com/api/token', { grant_type: 'client_credentials' }),
           {
             method: 'POST',
             headers: {
