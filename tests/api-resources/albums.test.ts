@@ -32,4 +32,26 @@ describe('resource albums', () => {
       ),
     ).rejects.toThrow(Spotted.NotFoundError);
   });
+
+  // Prism tests are disabled
+  test.skip('list: only required params', async () => {
+    const responsePromise = client.albums.list({
+      ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('list: required and optional params', async () => {
+    const response = await client.albums.list({
+      ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc',
+      market: 'ES',
+    });
+  });
 });

@@ -32,7 +32,9 @@ Types:
 Types:
 
 - <code><a href="./src/resources/albums.ts">AlbumRetrieveResponse</a></code>
+- <code><a href="./src/resources/albums.ts">AlbumListResponse</a></code>
 
 Methods:
 
 - <code title="get /albums/{id}">client.albums.<a href="./src/resources/albums.ts">retrieve</a>(id, { ...params }) -> AlbumRetrieveResponse</code>
+- <code title="get /albums">client.albums.<a href="./src/resources/albums.ts">list</a>({ ...params }) -> AlbumListResponse</code>

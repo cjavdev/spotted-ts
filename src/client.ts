@@ -18,7 +18,13 @@ import { AbstractPage, CursorURLPageResponse } from './core/pagination';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
-import { AlbumRetrieveParams, AlbumRetrieveResponse, Albums } from './resources/albums';
+import {
+  AlbumListParams,
+  AlbumListResponse,
+  AlbumRetrieveParams,
+  AlbumRetrieveResponse,
+  Albums,
+} from './resources/albums';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -841,7 +847,9 @@ export declare namespace Spotted {
   export {
     Albums as Albums,
     type AlbumRetrieveResponse as AlbumRetrieveResponse,
+    type AlbumListResponse as AlbumListResponse,
     type AlbumRetrieveParams as AlbumRetrieveParams,
+    type AlbumListParams as AlbumListParams,
   };
 
   export type AlbumRestrictionObject = API.AlbumRestrictionObject;
