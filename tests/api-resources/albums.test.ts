@@ -2,7 +2,11 @@
 
 import Spotted from 'spotted';
 
-const client = new Spotted({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010' });
+const client = new Spotted({
+  clientID: 'My Client ID',
+  clientSecret: 'My Client Secret',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
 
 describe('resource albums', () => {
   // Prism tests are disabled
