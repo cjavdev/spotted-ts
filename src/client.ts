@@ -11,7 +11,6 @@ import type { APIResponseProps } from './internal/parse';
 import { getPlatformHeaders } from './internal/detect-platform';
 import * as Shims from './internal/shims';
 import * as Opts from './internal/request-options';
-import * as qs from './internal/qs';
 import { VERSION } from './version';
 import * as Errors from './core/error';
 import * as Pagination from './core/pagination';
@@ -19,87 +18,7 @@ import { AbstractPage, CursorURLPageResponse } from './core/pagination';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
-import {
-  AlbumListParams,
-  AlbumListResponse,
-  AlbumListTracksParams,
-  AlbumRetrieveParams,
-  AlbumRetrieveResponse,
-  Albums,
-} from './resources/albums';
-import {
-  ArtistListAlbumsParams,
-  ArtistListAlbumsResponse,
-  ArtistListAlbumsResponsesCursorURLPage,
-  ArtistListParams,
-  ArtistListRelatedArtistsResponse,
-  ArtistListResponse,
-  ArtistListTopTracksParams,
-  ArtistListTopTracksResponse,
-  Artists,
-} from './resources/artists';
-import { AudioAnalysis, AudioAnalysisRetrieveResponse, TimeIntervalObject } from './resources/audio-analysis';
-import {
-  AudioFeatureListParams,
-  AudioFeatureListResponse,
-  AudioFeatureRetrieveResponse,
-  AudioFeatures,
-} from './resources/audio-features';
-import {
-  AudiobookListChaptersParams,
-  AudiobookListParams,
-  AudiobookListResponse,
-  AudiobookRetrieveParams,
-  AudiobookRetrieveResponse,
-  Audiobooks,
-  SimplifiedChapterObject,
-  SimplifiedChapterObjectsCursorURLPage,
-} from './resources/audiobooks';
-import {
-  ChapterListParams,
-  ChapterListResponse,
-  ChapterRetrieveParams,
-  ChapterRetrieveResponse,
-  Chapters,
-} from './resources/chapters';
-import {
-  EpisodeListParams,
-  EpisodeListResponse,
-  EpisodeRetrieveParams,
-  Episodes,
-} from './resources/episodes';
-import { MarketListResponse, Markets } from './resources/markets';
-import {
-  RecommendationGetParams,
-  RecommendationGetResponse,
-  RecommendationListAvailableGenreSeedsResponse,
-  Recommendations,
-} from './resources/recommendations';
-import { Search, SearchRetrieveParams, SearchRetrieveResponse } from './resources/search';
-import {
-  ShowListEpisodesParams,
-  ShowListParams,
-  ShowListResponse,
-  ShowRetrieveParams,
-  ShowRetrieveResponse,
-  Shows,
-} from './resources/shows';
-import { TrackListParams, TrackListResponse, TrackRetrieveParams, Tracks } from './resources/tracks';
-import {
-  Browse,
-  BrowseGetFeaturedPlaylistsParams,
-  BrowseGetFeaturedPlaylistsResponse,
-  BrowseGetNewReleasesParams,
-  BrowseGetNewReleasesResponse,
-} from './resources/browse/browse';
-import { Me, MeRetrieveResponse } from './resources/me/me';
-import {
-  PlaylistRetrieveParams,
-  PlaylistRetrieveResponse,
-  PlaylistUpdateParams,
-  Playlists,
-} from './resources/playlists/playlists';
-import { UserRetrieveProfileResponse, Users } from './resources/users/users';
+import { AlbumRetrieveParams, AlbumRetrieveResponse, Albums } from './resources/albums';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -114,11 +33,6 @@ import {
 import { isEmptyObj } from './internal/utils/values';
 
 export interface ClientOptions {
-  /**
-   * Defaults to process.env['SPOTTED_API_KEY'].
-   */
-  apiKey?: string | null | undefined;
-
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
@@ -192,8 +106,6 @@ export interface ClientOptions {
  * API Client for interfacing with the Spotted API.
  */
 export class Spotted {
-  apiKey: string | null;
-
   baseURL: string;
   maxRetries: number;
   timeout: number;
@@ -209,7 +121,6 @@ export class Spotted {
   /**
    * API Client for interfacing with the Spotted API.
    *
-   * @param {string | null | undefined} [opts.apiKey=process.env['SPOTTED_API_KEY'] ?? null]
    * @param {string} [opts.baseURL=process.env['SPOTTED_BASE_URL'] ?? https://api.spotify.com/v1] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -218,13 +129,8 @@ export class Spotted {
    * @param {HeadersLike} opts.defaultHeaders - Default headers to include with every request to the API.
    * @param {Record<string, string | undefined>} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
-  constructor({
-    baseURL = readEnv('SPOTTED_BASE_URL'),
-    apiKey = readEnv('SPOTTED_API_KEY') ?? null,
-    ...opts
-  }: ClientOptions = {}) {
+  constructor({ baseURL = readEnv('SPOTTED_BASE_URL'), ...opts }: ClientOptions = {}) {
     const options: ClientOptions = {
-      apiKey,
       ...opts,
       baseURL: baseURL || `https://api.spotify.com/v1`,
     };
@@ -245,8 +151,6 @@ export class Spotted {
     this.#encoder = Opts.FallbackEncoder;
 
     this._options = options;
-
-    this.apiKey = apiKey;
   }
 
   /**
@@ -262,7 +166,6 @@ export class Spotted {
       logLevel: this.logLevel,
       fetch: this.fetch,
       fetchOptions: this.fetchOptions,
-      apiKey: this.apiKey,
       ...options,
     });
     return client;
@@ -280,27 +183,27 @@ export class Spotted {
   }
 
   protected validateHeaders({ values, nulls }: NullableHeaders) {
-    if (this.apiKey && values.get('authorization')) {
-      return;
-    }
-    if (nulls.has('authorization')) {
-      return;
-    }
-
-    throw new Error(
-      'Could not resolve authentication method. Expected the apiKey to be set. Or for the "Authorization" headers to be explicitly omitted',
-    );
+    return;
   }
 
-  protected async authHeaders(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
-    if (this.apiKey == null) {
-      return undefined;
-    }
-    return buildHeaders([{ Authorization: `Bearer ${this.apiKey}` }]);
-  }
-
+  /**
+   * Basic re-implementation of `qs.stringify` for primitive types.
+   */
   protected stringifyQuery(query: Record<string, unknown>): string {
-    return qs.stringify(query, { arrayFormat: 'comma' });
+    return Object.entries(query)
+      .filter(([_, value]) => typeof value !== 'undefined')
+      .map(([key, value]) => {
+        if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+          return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
+        }
+        if (value === null) {
+          return `${encodeURIComponent(key)}=`;
+        }
+        throw new Errors.SpottedError(
+          `Cannot stringify type ${typeof value}; Expected string, number, boolean, or null. If you need to pass nested query parameters, you can manually encode them, e.g. { query: { 'foo[key1]': value1, 'foo[key2]': value2 } }, and please open a GitHub issue requesting better support for your use case.`,
+        );
+      })
+      .join('&');
   }
 
   private getUserAgent(): string {
@@ -739,7 +642,6 @@ export class Spotted {
         ...(options.timeout ? { 'X-Stainless-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
         ...getPlatformHeaders(),
       },
-      await this.authHeaders(options),
       this._options.defaultHeaders,
       bodyHeaders,
       options.headers,
@@ -807,39 +709,9 @@ export class Spotted {
   static toFile = Uploads.toFile;
 
   albums: API.Albums = new API.Albums(this);
-  artists: API.Artists = new API.Artists(this);
-  shows: API.Shows = new API.Shows(this);
-  episodes: API.Episodes = new API.Episodes(this);
-  audiobooks: API.Audiobooks = new API.Audiobooks(this);
-  me: API.Me = new API.Me(this);
-  chapters: API.Chapters = new API.Chapters(this);
-  tracks: API.Tracks = new API.Tracks(this);
-  search: API.Search = new API.Search(this);
-  playlists: API.Playlists = new API.Playlists(this);
-  users: API.Users = new API.Users(this);
-  browse: API.Browse = new API.Browse(this);
-  audioFeatures: API.AudioFeatures = new API.AudioFeatures(this);
-  audioAnalysis: API.AudioAnalysis = new API.AudioAnalysis(this);
-  recommendations: API.Recommendations = new API.Recommendations(this);
-  markets: API.Markets = new API.Markets(this);
 }
 
 Spotted.Albums = Albums;
-Spotted.Artists = Artists;
-Spotted.Shows = Shows;
-Spotted.Episodes = Episodes;
-Spotted.Audiobooks = Audiobooks;
-Spotted.Me = Me;
-Spotted.Chapters = Chapters;
-Spotted.Tracks = Tracks;
-Spotted.Search = Search;
-Spotted.Playlists = Playlists;
-Spotted.Users = Users;
-Spotted.Browse = Browse;
-Spotted.AudioFeatures = AudioFeatures;
-Spotted.AudioAnalysis = AudioAnalysis;
-Spotted.Recommendations = Recommendations;
-Spotted.Markets = Markets;
 
 export declare namespace Spotted {
   export type RequestOptions = Opts.RequestOptions;
@@ -850,112 +722,8 @@ export declare namespace Spotted {
   export {
     Albums as Albums,
     type AlbumRetrieveResponse as AlbumRetrieveResponse,
-    type AlbumListResponse as AlbumListResponse,
     type AlbumRetrieveParams as AlbumRetrieveParams,
-    type AlbumListParams as AlbumListParams,
-    type AlbumListTracksParams as AlbumListTracksParams,
   };
-
-  export {
-    Artists as Artists,
-    type ArtistListResponse as ArtistListResponse,
-    type ArtistListAlbumsResponse as ArtistListAlbumsResponse,
-    type ArtistListRelatedArtistsResponse as ArtistListRelatedArtistsResponse,
-    type ArtistListTopTracksResponse as ArtistListTopTracksResponse,
-    type ArtistListAlbumsResponsesCursorURLPage as ArtistListAlbumsResponsesCursorURLPage,
-    type ArtistListParams as ArtistListParams,
-    type ArtistListAlbumsParams as ArtistListAlbumsParams,
-    type ArtistListTopTracksParams as ArtistListTopTracksParams,
-  };
-
-  export {
-    Shows as Shows,
-    type ShowRetrieveResponse as ShowRetrieveResponse,
-    type ShowListResponse as ShowListResponse,
-    type ShowRetrieveParams as ShowRetrieveParams,
-    type ShowListParams as ShowListParams,
-    type ShowListEpisodesParams as ShowListEpisodesParams,
-  };
-
-  export {
-    Episodes as Episodes,
-    type EpisodeListResponse as EpisodeListResponse,
-    type EpisodeRetrieveParams as EpisodeRetrieveParams,
-    type EpisodeListParams as EpisodeListParams,
-  };
-
-  export {
-    Audiobooks as Audiobooks,
-    type SimplifiedChapterObject as SimplifiedChapterObject,
-    type AudiobookRetrieveResponse as AudiobookRetrieveResponse,
-    type AudiobookListResponse as AudiobookListResponse,
-    type SimplifiedChapterObjectsCursorURLPage as SimplifiedChapterObjectsCursorURLPage,
-    type AudiobookRetrieveParams as AudiobookRetrieveParams,
-    type AudiobookListParams as AudiobookListParams,
-    type AudiobookListChaptersParams as AudiobookListChaptersParams,
-  };
-
-  export { Me as Me, type MeRetrieveResponse as MeRetrieveResponse };
-
-  export {
-    Chapters as Chapters,
-    type ChapterRetrieveResponse as ChapterRetrieveResponse,
-    type ChapterListResponse as ChapterListResponse,
-    type ChapterRetrieveParams as ChapterRetrieveParams,
-    type ChapterListParams as ChapterListParams,
-  };
-
-  export {
-    Tracks as Tracks,
-    type TrackListResponse as TrackListResponse,
-    type TrackRetrieveParams as TrackRetrieveParams,
-    type TrackListParams as TrackListParams,
-  };
-
-  export {
-    Search as Search,
-    type SearchRetrieveResponse as SearchRetrieveResponse,
-    type SearchRetrieveParams as SearchRetrieveParams,
-  };
-
-  export {
-    Playlists as Playlists,
-    type PlaylistRetrieveResponse as PlaylistRetrieveResponse,
-    type PlaylistRetrieveParams as PlaylistRetrieveParams,
-    type PlaylistUpdateParams as PlaylistUpdateParams,
-  };
-
-  export { Users as Users, type UserRetrieveProfileResponse as UserRetrieveProfileResponse };
-
-  export {
-    Browse as Browse,
-    type BrowseGetFeaturedPlaylistsResponse as BrowseGetFeaturedPlaylistsResponse,
-    type BrowseGetNewReleasesResponse as BrowseGetNewReleasesResponse,
-    type BrowseGetFeaturedPlaylistsParams as BrowseGetFeaturedPlaylistsParams,
-    type BrowseGetNewReleasesParams as BrowseGetNewReleasesParams,
-  };
-
-  export {
-    AudioFeatures as AudioFeatures,
-    type AudioFeatureRetrieveResponse as AudioFeatureRetrieveResponse,
-    type AudioFeatureListResponse as AudioFeatureListResponse,
-    type AudioFeatureListParams as AudioFeatureListParams,
-  };
-
-  export {
-    AudioAnalysis as AudioAnalysis,
-    type TimeIntervalObject as TimeIntervalObject,
-    type AudioAnalysisRetrieveResponse as AudioAnalysisRetrieveResponse,
-  };
-
-  export {
-    Recommendations as Recommendations,
-    type RecommendationGetResponse as RecommendationGetResponse,
-    type RecommendationListAvailableGenreSeedsResponse as RecommendationListAvailableGenreSeedsResponse,
-    type RecommendationGetParams as RecommendationGetParams,
-  };
-
-  export { Markets as Markets, type MarketListResponse as MarketListResponse };
 
   export type AlbumRestrictionObject = API.AlbumRestrictionObject;
   export type ArtistObject = API.ArtistObject;

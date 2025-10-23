@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import * as Shared from './shared';
-import { CursorURLPage } from '../core/pagination';
 
 export interface AlbumRestrictionObject {
   /**
@@ -1104,11 +1103,3 @@ export interface TrackRestrictionObject {
    */
   reason?: string;
 }
-
-export type SimplifiedTrackObjectsCursorURLPage = CursorURLPage<SimplifiedTrackObject>;
-
-export type SimplifiedEpisodeObjectsCursorURLPage = CursorURLPage<SimplifiedEpisodeObject>;
-
-export type SimplifiedPlaylistObjectsCursorURLPage = CursorURLPage<SimplifiedPlaylistObject>;
-
-export type PlaylistTrackObjectsCursorURLPage = CursorURLPage<PlaylistTrackObject>;
