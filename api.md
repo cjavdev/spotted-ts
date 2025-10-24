@@ -4,6 +4,7 @@ Types:
 
 - <code><a href="./src/resources/shared.ts">AlbumRestrictionObject</a></code>
 - <code><a href="./src/resources/shared.ts">ArtistObject</a></code>
+- <code><a href="./src/resources/shared.ts">AudiobookBase</a></code>
 - <code><a href="./src/resources/shared.ts">AuthorObject</a></code>
 - <code><a href="./src/resources/shared.ts">ChapterRestrictionObject</a></code>
 - <code><a href="./src/resources/shared.ts">CopyrightObject</a></code>
@@ -20,6 +21,7 @@ Types:
 - <code><a href="./src/resources/shared.ts">PlaylistTracksRefObject</a></code>
 - <code><a href="./src/resources/shared.ts">PlaylistUserObject</a></code>
 - <code><a href="./src/resources/shared.ts">ResumePointObject</a></code>
+- <code><a href="./src/resources/shared.ts">ShowBase</a></code>
 - <code><a href="./src/resources/shared.ts">SimplifiedArtistObject</a></code>
 - <code><a href="./src/resources/shared.ts">SimplifiedEpisodeObject</a></code>
 - <code><a href="./src/resources/shared.ts">SimplifiedPlaylistObject</a></code>

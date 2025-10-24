@@ -70,6 +70,110 @@ export interface ArtistObject {
   uri?: string;
 }
 
+export interface AudiobookBase {
+  /**
+   * The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) for the
+   * audiobook.
+   */
+  id: string;
+
+  /**
+   * The author(s) for the audiobook.
+   */
+  authors: Array<AuthorObject>;
+
+  /**
+   * A list of the countries in which the audiobook can be played, identified by
+   * their [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
+   * code.
+   */
+  available_markets: Array<string>;
+
+  /**
+   * The copyright statements of the audiobook.
+   */
+  copyrights: Array<CopyrightObject>;
+
+  /**
+   * A description of the audiobook. HTML tags are stripped away from this field, use
+   * `html_description` field in case HTML tags are needed.
+   */
+  description: string;
+
+  /**
+   * Whether or not the audiobook has explicit content (true = yes it does; false =
+   * no it does not OR unknown).
+   */
+  explicit: boolean;
+
+  /**
+   * External URLs for this audiobook.
+   */
+  external_urls: ExternalURLObject;
+
+  /**
+   * A link to the Web API endpoint providing full details of the audiobook.
+   */
+  href: string;
+
+  /**
+   * A description of the audiobook. This field may contain HTML tags.
+   */
+  html_description: string;
+
+  /**
+   * The cover art for the audiobook in various sizes, widest first.
+   */
+  images: Array<ImageObject>;
+
+  /**
+   * A list of the languages used in the audiobook, identified by their
+   * [ISO 639](https://en.wikipedia.org/wiki/ISO_639) code.
+   */
+  languages: Array<string>;
+
+  /**
+   * The media type of the audiobook.
+   */
+  media_type: string;
+
+  /**
+   * The name of the audiobook.
+   */
+  name: string;
+
+  /**
+   * The narrator(s) for the audiobook.
+   */
+  narrators: Array<NarratorObject>;
+
+  /**
+   * The publisher of the audiobook.
+   */
+  publisher: string;
+
+  /**
+   * The number of chapters in this audiobook.
+   */
+  total_chapters: number;
+
+  /**
+   * The object type.
+   */
+  type: 'audiobook';
+
+  /**
+   * The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for the
+   * audiobook.
+   */
+  uri: string;
+
+  /**
+   * The edition of the audiobook.
+   */
+  edition?: string;
+}
+
 export interface AuthorObject {
   /**
    * The name of the author.
@@ -192,7 +296,7 @@ export interface EpisodeObject {
   /**
    * The show on which the episode belongs.
    */
-  show: EpisodeObject.Show;
+  show: ShowBase;
 
   /**
    * The object type.
@@ -222,104 +326,6 @@ export interface EpisodeObject {
    * is a user token and has the scope 'user-read-playback-position'.
    */
   resume_point?: ResumePointObject;
-}
-
-export namespace EpisodeObject {
-  /**
-   * The show on which the episode belongs.
-   */
-  export interface Show {
-    /**
-     * The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) for the show.
-     */
-    id: string;
-
-    /**
-     * A list of the countries in which the show can be played, identified by their
-     * [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code.
-     */
-    available_markets: Array<string>;
-
-    /**
-     * The copyright statements of the show.
-     */
-    copyrights: Array<Shared.CopyrightObject>;
-
-    /**
-     * A description of the show. HTML tags are stripped away from this field, use
-     * `html_description` field in case HTML tags are needed.
-     */
-    description: string;
-
-    /**
-     * Whether or not the show has explicit content (true = yes it does; false = no it
-     * does not OR unknown).
-     */
-    explicit: boolean;
-
-    /**
-     * External URLs for this show.
-     */
-    external_urls: Shared.ExternalURLObject;
-
-    /**
-     * A link to the Web API endpoint providing full details of the show.
-     */
-    href: string;
-
-    /**
-     * A description of the show. This field may contain HTML tags.
-     */
-    html_description: string;
-
-    /**
-     * The cover art for the show in various sizes, widest first.
-     */
-    images: Array<Shared.ImageObject>;
-
-    /**
-     * True if all of the shows episodes are hosted outside of Spotify's CDN. This
-     * field might be `null` in some cases.
-     */
-    is_externally_hosted: boolean;
-
-    /**
-     * A list of the languages used in the show, identified by their
-     * [ISO 639](https://en.wikipedia.org/wiki/ISO_639) code.
-     */
-    languages: Array<string>;
-
-    /**
-     * The media type of the show.
-     */
-    media_type: string;
-
-    /**
-     * The name of the episode.
-     */
-    name: string;
-
-    /**
-     * The publisher of the show.
-     */
-    publisher: string;
-
-    /**
-     * The total number of episodes in the show.
-     */
-    total_episodes: number;
-
-    /**
-     * The object type.
-     */
-    type: 'show';
-
-    /**
-     * The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for the
-     * show.
-     */
-    uri: string;
-  }
 }
 
 export interface EpisodeRestrictionObject {
@@ -540,6 +546,99 @@ export interface ResumePointObject {
    * The user's most recent position in the episode in milliseconds.
    */
   resume_position_ms?: number;
+}
+
+export interface ShowBase {
+  /**
+   * The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) for the show.
+   */
+  id: string;
+
+  /**
+   * A list of the countries in which the show can be played, identified by their
+   * [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code.
+   */
+  available_markets: Array<string>;
+
+  /**
+   * The copyright statements of the show.
+   */
+  copyrights: Array<CopyrightObject>;
+
+  /**
+   * A description of the show. HTML tags are stripped away from this field, use
+   * `html_description` field in case HTML tags are needed.
+   */
+  description: string;
+
+  /**
+   * Whether or not the show has explicit content (true = yes it does; false = no it
+   * does not OR unknown).
+   */
+  explicit: boolean;
+
+  /**
+   * External URLs for this show.
+   */
+  external_urls: ExternalURLObject;
+
+  /**
+   * A link to the Web API endpoint providing full details of the show.
+   */
+  href: string;
+
+  /**
+   * A description of the show. This field may contain HTML tags.
+   */
+  html_description: string;
+
+  /**
+   * The cover art for the show in various sizes, widest first.
+   */
+  images: Array<ImageObject>;
+
+  /**
+   * True if all of the shows episodes are hosted outside of Spotify's CDN. This
+   * field might be `null` in some cases.
+   */
+  is_externally_hosted: boolean;
+
+  /**
+   * A list of the languages used in the show, identified by their
+   * [ISO 639](https://en.wikipedia.org/wiki/ISO_639) code.
+   */
+  languages: Array<string>;
+
+  /**
+   * The media type of the show.
+   */
+  media_type: string;
+
+  /**
+   * The name of the episode.
+   */
+  name: string;
+
+  /**
+   * The publisher of the show.
+   */
+  publisher: string;
+
+  /**
+   * The total number of episodes in the show.
+   */
+  total_episodes: number;
+
+  /**
+   * The object type.
+   */
+  type: 'show';
+
+  /**
+   * The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for the
+   * show.
+   */
+  uri: string;
 }
 
 export interface SimplifiedArtistObject {
