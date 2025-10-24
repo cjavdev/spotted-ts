@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import * as Shared from './shared';
+import { CursorURLPage } from '../core/pagination';
 
 export interface AlbumRestrictionObject {
   /**
@@ -953,7 +954,7 @@ export interface TrackObject {
    * and the requested track has been replaced with different track. The track in the
    * `linked_from` object contains information about the originally requested track.
    */
-  linked_from?: unknown;
+  linked_from?: LinkedTrackObject;
 
   /**
    * The name of the track.
@@ -1103,3 +1104,15 @@ export interface TrackRestrictionObject {
    */
   reason?: string;
 }
+
+export type SimplifiedTrackObjectsCursorURLPage = CursorURLPage<SimplifiedTrackObject>;
+
+export type SimplifiedEpisodeObjectsCursorURLPage = CursorURLPage<SimplifiedEpisodeObject>;
+
+export type SimplifiedPlaylistObjectsCursorURLPage = CursorURLPage<SimplifiedPlaylistObject>;
+
+export type ArtistObjectsCursorURLPage = CursorURLPage<ArtistObject>;
+
+export type TrackObjectsCursorURLPage = CursorURLPage<TrackObject>;
+
+export type PlaylistTrackObjectsCursorURLPage = CursorURLPage<PlaylistTrackObject>;
