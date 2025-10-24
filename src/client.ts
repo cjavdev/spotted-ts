@@ -213,7 +213,7 @@ export class Spotted {
       clientSecret: this.clientSecret,
       ...options,
     });
-    client.oAuth2AuthState = this.oAuth2AuthState;
+    client.oauth2_0AuthState = this.oauth2_0AuthState;
     return client;
   }
 
@@ -232,7 +232,7 @@ export class Spotted {
     return;
   }
 
-  private oAuth2AuthState:
+  private oauth2_0AuthState:
     | {
         promise: Promise<{
           access_token: string;
@@ -251,21 +251,21 @@ export class Spotted {
     }
 
     // Invalidate the cache if the token is expired
-    if (this.oAuth2AuthState && +(await this.oAuth2AuthState.promise).expires_at < Date.now()) {
-      this.oAuth2AuthState = undefined;
+    if (this.oauth2_0AuthState && +(await this.oauth2_0AuthState.promise).expires_at < Date.now()) {
+      this.oauth2_0AuthState = undefined;
     }
 
     // Invalidate the cache if the relevant state has been changed
     if (
-      this.oAuth2AuthState &&
-      this.oAuth2AuthState.clientID !== this.clientID &&
-      this.oAuth2AuthState.clientSecret !== this.clientSecret
+      this.oauth2_0AuthState &&
+      this.oauth2_0AuthState.clientID !== this.clientID &&
+      this.oauth2_0AuthState.clientSecret !== this.clientSecret
     ) {
-      this.oAuth2AuthState = undefined;
+      this.oauth2_0AuthState = undefined;
     }
 
-    if (!this.oAuth2AuthState) {
-      this.oAuth2AuthState = {
+    if (!this.oauth2_0AuthState) {
+      this.oauth2_0AuthState = {
         promise: this.fetch(
           this.buildURL('https://accounts.spotify.com/api/token', { grant_type: 'client_credentials' }),
           {
@@ -296,7 +296,7 @@ export class Spotted {
       };
     }
 
-    const token = await this.oAuth2AuthState.promise;
+    const token = await this.oauth2_0AuthState.promise;
 
     return buildHeaders([{ Authorization: `Bearer ${token.access_token}` }]);
   }
@@ -636,9 +636,9 @@ export class Spotted {
     if (shouldRetryHeader === 'false') return false;
 
     // Retry if the token has expired
-    const oAuth2Auth = await this.oAuth2AuthState?.promise;
-    if (response.status === 401 && oAuth2Auth && +oAuth2Auth.expires_at - Date.now() < 10 * 1000) {
-      this.oAuth2AuthState = undefined;
+    const oauth2_0Auth = await this.oauth2_0AuthState?.promise;
+    if (response.status === 401 && oauth2_0Auth && +oauth2_0Auth.expires_at - Date.now() < 10 * 1000) {
+      this.oauth2_0AuthState = undefined;
       return true;
     }
 
