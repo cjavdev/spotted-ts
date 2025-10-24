@@ -1,5 +1,5 @@
-import { multipartFormRequestOptions, createForm } from 'spotted/internal/uploads';
-import { toFile } from 'spotted/core/uploads';
+import { multipartFormRequestOptions, createForm } from 'spotted-ts/internal/uploads';
+import { toFile } from 'spotted-ts/core/uploads';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {

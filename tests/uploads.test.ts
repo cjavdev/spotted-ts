@@ -1,6 +1,6 @@
 import fs from 'fs';
-import type { ResponseLike } from 'spotted/internal/to-file';
-import { toFile } from 'spotted/core/uploads';
+import type { ResponseLike } from 'spotted-ts/internal/to-file';
+import { toFile } from 'spotted-ts/core/uploads';
 import { File } from 'node:buffer';
 
 class MyClass {
@@ -97,7 +97,7 @@ describe('missing File error message', () => {
   });
 
   test('is thrown', async () => {
-    const uploads = await import('spotted/core/uploads');
+    const uploads = await import('spotted-ts/core/uploads');
     await expect(
       uploads.toFile(mockResponse({ url: 'https://example.com/my/audio.mp3' })),
     ).rejects.toMatchInlineSnapshot(

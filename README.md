@@ -1,6 +1,6 @@
 # Spotted TypeScript API Library
 
-[![NPM version](<https://img.shields.io/npm/v/spotted.svg?label=npm%20(stable)>)](https://npmjs.org/package/spotted) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/spotted)
+[![NPM version](<https://img.shields.io/npm/v/spotted-ts.svg?label=npm%20(stable)>)](https://npmjs.org/package/spotted-ts) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/spotted-ts)
 
 This library provides convenient access to the Spotted REST API from server-side TypeScript or JavaScript.
 
@@ -11,11 +11,8 @@ It is generated with [Stainless](https://www.stainless.com/).
 ## Installation
 
 ```sh
-npm install git+ssh://git@github.com:cjavdev/spotted-ts.git
+npm install spotted-ts
 ```
-
-> [!NOTE]
-> Once this package is [published to npm](https://www.stainless.com/docs/guides/publish), this will become: `npm install spotted`
 
 ## Usage
 
@@ -23,7 +20,7 @@ The full API of this library can be found in [api.md](api.md).
 
 <!-- prettier-ignore -->
 ```js
-import Spotted from 'spotted';
+import Spotted from 'spotted-ts';
 
 const client = new Spotted();
 
@@ -38,7 +35,7 @@ This library includes TypeScript definitions for all request params and response
 
 <!-- prettier-ignore -->
 ```ts
-import Spotted from 'spotted';
+import Spotted from 'spotted-ts';
 
 const client = new Spotted();
 
@@ -158,7 +155,7 @@ The log level can be configured in two ways:
 2. Using the `logLevel` client option (overrides the environment variable if set)
 
 ```ts
-import Spotted from 'spotted';
+import Spotted from 'spotted-ts';
 
 const client = new Spotted({
   logLevel: 'debug', // Show all log messages
@@ -186,7 +183,7 @@ When providing a custom logger, the `logLevel` option still controls which messa
 below the configured level will not be sent to your logger.
 
 ```ts
-import Spotted from 'spotted';
+import Spotted from 'spotted-ts';
 import pino from 'pino';
 
 const logger = pino();
@@ -255,7 +252,7 @@ globalThis.fetch = fetch;
 Or pass it to the client:
 
 ```ts
-import Spotted from 'spotted';
+import Spotted from 'spotted-ts';
 import fetch from 'my-fetch';
 
 const client = new Spotted({ fetch });
@@ -266,7 +263,7 @@ const client = new Spotted({ fetch });
 If you want to set custom `fetch` options without overriding the `fetch` function, you can provide a `fetchOptions` object when instantiating the client or making a request. (Request-specific options override client options.)
 
 ```ts
-import Spotted from 'spotted';
+import Spotted from 'spotted-ts';
 
 const client = new Spotted({
   fetchOptions: {
@@ -283,7 +280,7 @@ options to requests:
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/node.svg" align="top" width="18" height="21"> **Node** <sup>[[docs](https://github.com/nodejs/undici/blob/main/docs/docs/api/ProxyAgent.md#example---proxyagent-with-fetch)]</sup>
 
 ```ts
-import Spotted from 'spotted';
+import Spotted from 'spotted-ts';
 import * as undici from 'undici';
 
 const proxyAgent = new undici.ProxyAgent('http://localhost:8888');
@@ -297,7 +294,7 @@ const client = new Spotted({
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/bun.svg" align="top" width="18" height="21"> **Bun** <sup>[[docs](https://bun.sh/guides/http/proxy)]</sup>
 
 ```ts
-import Spotted from 'spotted';
+import Spotted from 'spotted-ts';
 
 const client = new Spotted({
   fetchOptions: {
@@ -309,7 +306,7 @@ const client = new Spotted({
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/deno.svg" align="top" width="18" height="21"> **Deno** <sup>[[docs](https://docs.deno.com/api/deno/~/Deno.createHttpClient)]</sup>
 
 ```ts
-import Spotted from 'npm:spotted';
+import Spotted from 'npm:spotted-ts';
 
 const httpClient = Deno.createHttpClient({ proxy: { url: 'http://localhost:8888' } });
 const client = new Spotted({
