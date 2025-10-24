@@ -1043,6 +1043,7 @@ export declare namespace Spotted {
 
   export type AlbumRestrictionObject = API.AlbumRestrictionObject;
   export type ArtistObject = API.ArtistObject;
+  export type AudiobookBase = API.AudiobookBase;
   export type AuthorObject = API.AuthorObject;
   export type ChapterRestrictionObject = API.ChapterRestrictionObject;
   export type CopyrightObject = API.CopyrightObject;
@@ -1059,6 +1060,7 @@ export declare namespace Spotted {
   export type PlaylistTracksRefObject = API.PlaylistTracksRefObject;
   export type PlaylistUserObject = API.PlaylistUserObject;
   export type ResumePointObject = API.ResumePointObject;
+  export type ShowBase = API.ShowBase;
   export type SimplifiedArtistObject = API.SimplifiedArtistObject;
   export type SimplifiedEpisodeObject = API.SimplifiedEpisodeObject;
   export type SimplifiedPlaylistObject = API.SimplifiedPlaylistObject;

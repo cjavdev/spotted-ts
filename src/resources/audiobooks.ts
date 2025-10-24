@@ -160,113 +160,11 @@ export interface SimplifiedChapterObject {
   resume_point?: Shared.ResumePointObject;
 }
 
-export interface AudiobookRetrieveResponse {
-  /**
-   * The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) for the
-   * audiobook.
-   */
-  id: string;
-
-  /**
-   * The author(s) for the audiobook.
-   */
-  authors: Array<Shared.AuthorObject>;
-
-  /**
-   * A list of the countries in which the audiobook can be played, identified by
-   * their [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-   * code.
-   */
-  available_markets: Array<string>;
-
+export interface AudiobookRetrieveResponse extends Shared.AudiobookBase {
   /**
    * The chapters of the audiobook.
    */
   chapters: AudiobookRetrieveResponse.Chapters;
-
-  /**
-   * The copyright statements of the audiobook.
-   */
-  copyrights: Array<Shared.CopyrightObject>;
-
-  /**
-   * A description of the audiobook. HTML tags are stripped away from this field, use
-   * `html_description` field in case HTML tags are needed.
-   */
-  description: string;
-
-  /**
-   * Whether or not the audiobook has explicit content (true = yes it does; false =
-   * no it does not OR unknown).
-   */
-  explicit: boolean;
-
-  /**
-   * External URLs for this audiobook.
-   */
-  external_urls: Shared.ExternalURLObject;
-
-  /**
-   * A link to the Web API endpoint providing full details of the audiobook.
-   */
-  href: string;
-
-  /**
-   * A description of the audiobook. This field may contain HTML tags.
-   */
-  html_description: string;
-
-  /**
-   * The cover art for the audiobook in various sizes, widest first.
-   */
-  images: Array<Shared.ImageObject>;
-
-  /**
-   * A list of the languages used in the audiobook, identified by their
-   * [ISO 639](https://en.wikipedia.org/wiki/ISO_639) code.
-   */
-  languages: Array<string>;
-
-  /**
-   * The media type of the audiobook.
-   */
-  media_type: string;
-
-  /**
-   * The name of the audiobook.
-   */
-  name: string;
-
-  /**
-   * The narrator(s) for the audiobook.
-   */
-  narrators: Array<Shared.NarratorObject>;
-
-  /**
-   * The publisher of the audiobook.
-   */
-  publisher: string;
-
-  /**
-   * The number of chapters in this audiobook.
-   */
-  total_chapters: number;
-
-  /**
-   * The object type.
-   */
-  type: 'audiobook';
-
-  /**
-   * The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for the
-   * audiobook.
-   */
-  uri: string;
-
-  /**
-   * The edition of the audiobook.
-   */
-  edition?: string;
 }
 
 export namespace AudiobookRetrieveResponse {
@@ -313,113 +211,11 @@ export interface AudiobookListResponse {
 }
 
 export namespace AudiobookListResponse {
-  export interface Audiobook {
-    /**
-     * The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) for the
-     * audiobook.
-     */
-    id: string;
-
-    /**
-     * The author(s) for the audiobook.
-     */
-    authors: Array<Shared.AuthorObject>;
-
-    /**
-     * A list of the countries in which the audiobook can be played, identified by
-     * their [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-     * code.
-     */
-    available_markets: Array<string>;
-
+  export interface Audiobook extends Shared.AudiobookBase {
     /**
      * The chapters of the audiobook.
      */
     chapters: Audiobook.Chapters;
-
-    /**
-     * The copyright statements of the audiobook.
-     */
-    copyrights: Array<Shared.CopyrightObject>;
-
-    /**
-     * A description of the audiobook. HTML tags are stripped away from this field, use
-     * `html_description` field in case HTML tags are needed.
-     */
-    description: string;
-
-    /**
-     * Whether or not the audiobook has explicit content (true = yes it does; false =
-     * no it does not OR unknown).
-     */
-    explicit: boolean;
-
-    /**
-     * External URLs for this audiobook.
-     */
-    external_urls: Shared.ExternalURLObject;
-
-    /**
-     * A link to the Web API endpoint providing full details of the audiobook.
-     */
-    href: string;
-
-    /**
-     * A description of the audiobook. This field may contain HTML tags.
-     */
-    html_description: string;
-
-    /**
-     * The cover art for the audiobook in various sizes, widest first.
-     */
-    images: Array<Shared.ImageObject>;
-
-    /**
-     * A list of the languages used in the audiobook, identified by their
-     * [ISO 639](https://en.wikipedia.org/wiki/ISO_639) code.
-     */
-    languages: Array<string>;
-
-    /**
-     * The media type of the audiobook.
-     */
-    media_type: string;
-
-    /**
-     * The name of the audiobook.
-     */
-    name: string;
-
-    /**
-     * The narrator(s) for the audiobook.
-     */
-    narrators: Array<Shared.NarratorObject>;
-
-    /**
-     * The publisher of the audiobook.
-     */
-    publisher: string;
-
-    /**
-     * The number of chapters in this audiobook.
-     */
-    total_chapters: number;
-
-    /**
-     * The object type.
-     */
-    type: 'audiobook';
-
-    /**
-     * The [Spotify URI](/documentation/web-api/concepts/spotify-uris-ids) for the
-     * audiobook.
-     */
-    uri: string;
-
-    /**
-     * The edition of the audiobook.
-     */
-    edition?: string;
   }
 
   export namespace Audiobook {
