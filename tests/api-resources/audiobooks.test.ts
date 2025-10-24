@@ -8,10 +8,10 @@ const client = new Spotted({
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource albums', () => {
+describe('resource audiobooks', () => {
   // Prism tests are disabled
   test.skip('retrieve', async () => {
-    const responsePromise = client.albums.retrieve('4aawyAB9vmqN3uQ7FjRGTy');
+    const responsePromise = client.audiobooks.retrieve('7iHfbu1YPACw6oZPAFJtqe');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -25,8 +25,8 @@ describe('resource albums', () => {
   test.skip('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.albums.retrieve(
-        '4aawyAB9vmqN3uQ7FjRGTy',
+      client.audiobooks.retrieve(
+        '7iHfbu1YPACw6oZPAFJtqe',
         { market: 'ES' },
         { path: '/_stainless_unknown_path' },
       ),
@@ -35,8 +35,8 @@ describe('resource albums', () => {
 
   // Prism tests are disabled
   test.skip('list: only required params', async () => {
-    const responsePromise = client.albums.list({
-      ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc',
+    const responsePromise = client.audiobooks.list({
+      ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -49,15 +49,15 @@ describe('resource albums', () => {
 
   // Prism tests are disabled
   test.skip('list: required and optional params', async () => {
-    const response = await client.albums.list({
-      ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc',
+    const response = await client.audiobooks.list({
+      ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe',
       market: 'ES',
     });
   });
 
   // Prism tests are disabled
-  test.skip('listTracks', async () => {
-    const responsePromise = client.albums.listTracks('4aawyAB9vmqN3uQ7FjRGTy');
+  test.skip('listChapters', async () => {
+    const responsePromise = client.audiobooks.listChapters('7iHfbu1YPACw6oZPAFJtqe');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -68,11 +68,11 @@ describe('resource albums', () => {
   });
 
   // Prism tests are disabled
-  test.skip('listTracks: request options and params are passed correctly', async () => {
+  test.skip('listChapters: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.albums.listTracks(
-        '4aawyAB9vmqN3uQ7FjRGTy',
+      client.audiobooks.listChapters(
+        '7iHfbu1YPACw6oZPAFJtqe',
         { limit: 10, market: 'ES', offset: 5 },
         { path: '/_stainless_unknown_path' },
       ),

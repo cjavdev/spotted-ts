@@ -8,10 +8,10 @@ const client = new Spotted({
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource albums', () => {
+describe('resource browse', () => {
   // Prism tests are disabled
-  test.skip('retrieve', async () => {
-    const responsePromise = client.albums.retrieve('4aawyAB9vmqN3uQ7FjRGTy');
+  test.skip('getFeaturedPlaylists', async () => {
+    const responsePromise = client.browse.getFeaturedPlaylists();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,22 +22,19 @@ describe('resource albums', () => {
   });
 
   // Prism tests are disabled
-  test.skip('retrieve: request options and params are passed correctly', async () => {
+  test.skip('getFeaturedPlaylists: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.albums.retrieve(
-        '4aawyAB9vmqN3uQ7FjRGTy',
-        { market: 'ES' },
+      client.browse.getFeaturedPlaylists(
+        { limit: 10, locale: 'sv_SE', offset: 5 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Spotted.NotFoundError);
   });
 
   // Prism tests are disabled
-  test.skip('list: only required params', async () => {
-    const responsePromise = client.albums.list({
-      ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc',
-    });
+  test.skip('getNewReleases', async () => {
+    const responsePromise = client.browse.getNewReleases();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -48,34 +45,10 @@ describe('resource albums', () => {
   });
 
   // Prism tests are disabled
-  test.skip('list: required and optional params', async () => {
-    const response = await client.albums.list({
-      ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc',
-      market: 'ES',
-    });
-  });
-
-  // Prism tests are disabled
-  test.skip('listTracks', async () => {
-    const responsePromise = client.albums.listTracks('4aawyAB9vmqN3uQ7FjRGTy');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Prism tests are disabled
-  test.skip('listTracks: request options and params are passed correctly', async () => {
+  test.skip('getNewReleases: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.albums.listTracks(
-        '4aawyAB9vmqN3uQ7FjRGTy',
-        { limit: 10, market: 'ES', offset: 5 },
-        { path: '/_stainless_unknown_path' },
-      ),
+      client.browse.getNewReleases({ limit: 10, offset: 5 }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Spotted.NotFoundError);
   });
 });

@@ -10,8 +10,8 @@ const client = new Spotted({
 
 describe('resource albums', () => {
   // Prism tests are disabled
-  test.skip('retrieve', async () => {
-    const responsePromise = client.albums.retrieve('4aawyAB9vmqN3uQ7FjRGTy');
+  test.skip('list', async () => {
+    const responsePromise = client.me.albums.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,20 +22,16 @@ describe('resource albums', () => {
   });
 
   // Prism tests are disabled
-  test.skip('retrieve: request options and params are passed correctly', async () => {
+  test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.albums.retrieve(
-        '4aawyAB9vmqN3uQ7FjRGTy',
-        { market: 'ES' },
-        { path: '/_stainless_unknown_path' },
-      ),
+      client.me.albums.list({ limit: 10, market: 'ES', offset: 5 }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Spotted.NotFoundError);
   });
 
   // Prism tests are disabled
-  test.skip('list: only required params', async () => {
-    const responsePromise = client.albums.list({
+  test.skip('check: only required params', async () => {
+    const responsePromise = client.me.albums.check({
       ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -48,16 +44,17 @@ describe('resource albums', () => {
   });
 
   // Prism tests are disabled
-  test.skip('list: required and optional params', async () => {
-    const response = await client.albums.list({
+  test.skip('check: required and optional params', async () => {
+    const response = await client.me.albums.check({
       ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc',
-      market: 'ES',
     });
   });
 
   // Prism tests are disabled
-  test.skip('listTracks', async () => {
-    const responsePromise = client.albums.listTracks('4aawyAB9vmqN3uQ7FjRGTy');
+  test.skip('remove: only required params', async () => {
+    const responsePromise = client.me.albums.remove({
+      query_ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -68,14 +65,32 @@ describe('resource albums', () => {
   });
 
   // Prism tests are disabled
-  test.skip('listTracks: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.albums.listTracks(
-        '4aawyAB9vmqN3uQ7FjRGTy',
-        { limit: 10, market: 'ES', offset: 5 },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Spotted.NotFoundError);
+  test.skip('remove: required and optional params', async () => {
+    const response = await client.me.albums.remove({
+      query_ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc',
+      body_ids: ['string'],
+    });
+  });
+
+  // Prism tests are disabled
+  test.skip('save: only required params', async () => {
+    const responsePromise = client.me.albums.save({
+      query_ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('save: required and optional params', async () => {
+    const response = await client.me.albums.save({
+      query_ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc',
+      body_ids: ['string'],
+    });
   });
 });
