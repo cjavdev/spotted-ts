@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "spotted/*": ["./dist/src/*"],
-      "spotted": ["./dist/src/index.ts"]
+      "spotted-ts/*": ["./dist/src/*"],
+      "spotted-ts": ["./dist/src/index.ts"]
     },
     "noEmit": false,
     "declaration": true,

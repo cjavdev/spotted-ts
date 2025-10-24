@@ -8,8 +8,8 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "paths": {
-      "spotted/*": ["./src/*"],
-      "spotted": ["./src/index.ts"]
+      "spotted-ts/*": ["./src/*"],
+      "spotted-ts": ["./src/index.ts"]
     },
     "noEmit": true,
 

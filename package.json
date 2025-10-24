@@ -1,5 +1,5 @@
 {
-  "name": "spotted",
+  "name": "spotted-ts",
   "version": "0.0.1",
   "description": "The official TypeScript library for the Spotted API",
   "author": "Spotted <wave@cjav.dev>",

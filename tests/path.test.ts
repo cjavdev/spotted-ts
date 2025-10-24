@@ -1,4 +1,4 @@
-import { createPathTagFunction, encodeURIPath } from 'spotted/internal/utils/path';
+import { createPathTagFunction, encodeURIPath } from 'spotted-ts/internal/utils/path';
 import { inspect } from 'node:util';
 import { runInNewContext } from 'node:vm';
 

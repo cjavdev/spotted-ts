@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIPromise } from 'spotted/core/api-promise';
+import { APIPromise } from 'spotted-ts/core/api-promise';
 
 import util from 'node:util';
-import Spotted from 'spotted';
-import { APIUserAbortError } from 'spotted';
+import Spotted from 'spotted-ts';
+import { APIUserAbortError } from 'spotted-ts';
 const defaultFetch = fetch;
 
 describe('instantiate client', () => {

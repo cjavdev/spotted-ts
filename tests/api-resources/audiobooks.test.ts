@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Spotted from 'spotted';
+import Spotted from 'spotted-ts';
 
 const client = new Spotted({
   clientID: 'My Client ID',
