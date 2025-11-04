@@ -85,6 +85,7 @@ import {
   Shows,
 } from './resources/shows';
 import { TrackListParams, TrackListResponse, TrackRetrieveParams, Tracks } from './resources/tracks';
+import { UnwrapWebhookEvent, Webhooks } from './resources/webhooks';
 import {
   Browse,
   BrowseGetFeaturedPlaylistsParams,
@@ -124,6 +125,11 @@ export interface ClientOptions {
    * Defaults to process.env['SPOTIFY_CLIENT_SECRET'].
    */
   clientSecret?: string | undefined;
+
+  /**
+   * Defaults to process.env['ORG_WEBHOOK_KEY'].
+   */
+  webhookKey?: string | null | undefined;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
@@ -200,6 +206,7 @@ export interface ClientOptions {
 export class Spotted {
   clientID: string;
   clientSecret: string;
+  webhookKey: string | null;
 
   baseURL: string;
   maxRetries: number;
@@ -218,6 +225,7 @@ export class Spotted {
    *
    * @param {string | undefined} [opts.clientID=process.env['SPOTIFY_CLIENT_ID'] ?? undefined]
    * @param {string | undefined} [opts.clientSecret=process.env['SPOTIFY_CLIENT_SECRET'] ?? undefined]
+   * @param {string | null | undefined} [opts.webhookKey=process.env['ORG_WEBHOOK_KEY'] ?? null]
    * @param {string} [opts.baseURL=process.env['SPOTTED_BASE_URL'] ?? https://api.spotify.com/v1] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -230,6 +238,7 @@ export class Spotted {
     baseURL = readEnv('SPOTTED_BASE_URL'),
     clientID = readEnv('SPOTIFY_CLIENT_ID'),
     clientSecret = readEnv('SPOTIFY_CLIENT_SECRET'),
+    webhookKey = readEnv('ORG_WEBHOOK_KEY') ?? null,
     ...opts
   }: ClientOptions = {}) {
     if (clientID === undefined) {
@@ -246,6 +255,7 @@ export class Spotted {
     const options: ClientOptions = {
       clientID,
       clientSecret,
+      webhookKey,
       ...opts,
       baseURL: baseURL || `https://api.spotify.com/v1`,
     };
@@ -269,6 +279,7 @@ export class Spotted {
 
     this.clientID = clientID;
     this.clientSecret = clientSecret;
+    this.webhookKey = webhookKey;
   }
 
   /**
@@ -286,6 +297,7 @@ export class Spotted {
       fetchOptions: this.fetchOptions,
       clientID: this.clientID,
       clientSecret: this.clientSecret,
+      webhookKey: this.webhookKey,
       ...options,
     });
     client.oauth2_0AuthState = this.oauth2_0AuthState;
@@ -905,6 +917,7 @@ export class Spotted {
   audioFeatures: API.AudioFeatures = new API.AudioFeatures(this);
   audioAnalysis: API.AudioAnalysis = new API.AudioAnalysis(this);
   recommendations: API.Recommendations = new API.Recommendations(this);
+  webhooks: API.Webhooks = new API.Webhooks(this);
   markets: API.Markets = new API.Markets(this);
 }
 
@@ -923,6 +936,7 @@ Spotted.Browse = Browse;
 Spotted.AudioFeatures = AudioFeatures;
 Spotted.AudioAnalysis = AudioAnalysis;
 Spotted.Recommendations = Recommendations;
+Spotted.Webhooks = Webhooks;
 Spotted.Markets = Markets;
 
 export declare namespace Spotted {
@@ -1038,6 +1052,8 @@ export declare namespace Spotted {
     type RecommendationListAvailableGenreSeedsResponse as RecommendationListAvailableGenreSeedsResponse,
     type RecommendationGetParams as RecommendationGetParams,
   };
+
+  export { Webhooks as Webhooks, type UnwrapWebhookEvent as UnwrapWebhookEvent };
 
   export { Markets as Markets, type MarketListResponse as MarketListResponse };
 
