@@ -34,8 +34,8 @@ describe('resource albums', () => {
   });
 
   // Prism tests are disabled
-  test.skip('list: only required params', async () => {
-    const responsePromise = client.albums.list({
+  test.skip('bulkRetrieve: only required params', async () => {
+    const responsePromise = client.albums.bulkRetrieve({
       ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -48,8 +48,8 @@ describe('resource albums', () => {
   });
 
   // Prism tests are disabled
-  test.skip('list: required and optional params', async () => {
-    const response = await client.albums.list({
+  test.skip('bulkRetrieve: required and optional params', async () => {
+    const response = await client.albums.bulkRetrieve({
       ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc',
       market: 'ES',
     });

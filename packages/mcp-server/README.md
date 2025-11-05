@@ -201,7 +201,7 @@ The following tools are available in this MCP server.
 ### Resource `albums`:
 
 - `retrieve_albums` (`read`): Get Spotify catalog information for a single album.
-- `list_albums` (`read`): Get Spotify catalog information for multiple albums identified by their Spotify IDs.
+- `bulk_retrieve_albums` (`read`): Get Spotify catalog information for multiple albums identified by their Spotify IDs.
 - `list_tracks_albums` (`read`): Get Spotify catalog information about an album’s tracks.
   Optional parameters can be used to limit the number of tracks returned.
 

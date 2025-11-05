@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export const tool: Tool = {
-  name: 'list_albums',
+  name: 'bulk_retrieve_albums',
   description: 'Get Spotify catalog information for multiple albums identified by their Spotify IDs.\n',
   inputSchema: {
     type: 'object',
@@ -42,7 +42,7 @@ export const tool: Tool = {
 
 export const handler = async (client: Spotted, args: Record<string, unknown> | undefined) => {
   const body = args as any;
-  return asTextContentResult(await client.albums.list(body));
+  return asTextContentResult(await client.albums.bulkRetrieve(body));
 };
 
 export default { metadata, tool, handler };
