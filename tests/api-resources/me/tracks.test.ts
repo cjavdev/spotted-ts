@@ -51,10 +51,8 @@ describe('resource tracks', () => {
   });
 
   // Prism tests are disabled
-  test.skip('remove: only required params', async () => {
-    const responsePromise = client.me.tracks.remove({
-      query_ids: '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B',
-    });
+  test.skip('remove', async () => {
+    const responsePromise = client.me.tracks.remove();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -65,11 +63,11 @@ describe('resource tracks', () => {
   });
 
   // Prism tests are disabled
-  test.skip('remove: required and optional params', async () => {
-    const response = await client.me.tracks.remove({
-      query_ids: '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B',
-      body_ids: ['string'],
-    });
+  test.skip('remove: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.me.tracks.remove({ ids: ['string'] }, { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Spotted.NotFoundError);
   });
 
   // Prism tests are disabled

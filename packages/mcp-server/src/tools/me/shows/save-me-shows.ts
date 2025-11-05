@@ -20,13 +20,7 @@ export const tool: Tool = {
   inputSchema: {
     type: 'object',
     properties: {
-      query_ids: {
-        type: 'string',
-        title: 'Ids',
-        description:
-          'A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for the shows. Maximum: 50 IDs.\n',
-      },
-      body_ids: {
+      ids: {
         type: 'array',
         description:
           'A JSON array of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).  \nA maximum of 50 items can be specified in one request. *Note: if the `ids` parameter is present in the query string, any IDs listed here in the body will be ignored.*',
@@ -35,7 +29,7 @@ export const tool: Tool = {
         },
       },
     },
-    required: ['query_ids'],
+    required: [],
   },
   annotations: {
     idempotentHint: true,

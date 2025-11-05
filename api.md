@@ -406,16 +406,6 @@ Methods:
 - <code title="get /recommendations">client.recommendations.<a href="./src/resources/recommendations.ts">get</a>({ ...params }) -> RecommendationGetResponse</code>
 - <code title="get /recommendations/available-genre-seeds">client.recommendations.<a href="./src/resources/recommendations.ts">listAvailableGenreSeeds</a>() -> RecommendationListAvailableGenreSeedsResponse</code>
 
-# Webhooks
-
-Types:
-
-- <code><a href="./src/resources/webhooks.ts">UnwrapWebhookEvent</a></code>
-
-Methods:
-
-- <code>client.webhooks.<a href="./src/resources/webhooks.ts">unwrap</a>(body) -> void</code>
-
 # Markets
 
 Types:

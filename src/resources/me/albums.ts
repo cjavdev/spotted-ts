@@ -47,16 +47,11 @@ export class Albums extends APIResource {
    *
    * @example
    * ```ts
-   * await client.me.albums.remove({
-   *   query_ids:
-   *     '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc',
-   * });
+   * await client.me.albums.remove();
    * ```
    */
-  remove(params: AlbumRemoveParams, options?: RequestOptions): APIPromise<void> {
-    const { query_ids, ...body } = params;
+  remove(body: AlbumRemoveParams | null | undefined = {}, options?: RequestOptions): APIPromise<void> {
     return this._client.delete('/me/albums', {
-      query: { ids: query_ids },
       body,
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
@@ -68,16 +63,11 @@ export class Albums extends APIResource {
    *
    * @example
    * ```ts
-   * await client.me.albums.save({
-   *   query_ids:
-   *     '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc',
-   * });
+   * await client.me.albums.save();
    * ```
    */
-  save(params: AlbumSaveParams, options?: RequestOptions): APIPromise<void> {
-    const { query_ids, ...body } = params;
+  save(body: AlbumSaveParams | null | undefined = {}, options?: RequestOptions): APIPromise<void> {
     return this._client.put('/me/albums', {
-      query: { ids: query_ids },
       body,
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
@@ -296,40 +286,26 @@ export interface AlbumCheckParams {
 
 export interface AlbumRemoveParams {
   /**
-   * Query param: A comma-separated list of the
-   * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for the albums.
-   * Maximum: 20 IDs.
-   */
-  query_ids: string;
-
-  /**
-   * Body param: A JSON array of the
+   * A JSON array of the
    * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example:
    * `["4iV5W9uYEdYUVa79Axb7Rh", "1301WleyT98MSxVHPZCA6M"]`<br/>A maximum of 50 items
    * can be specified in one request. _**Note**: if the `ids` parameter is present in
    * the query string, any IDs listed here in the body will be ignored._
    */
-  body_ids?: Array<string>;
+  ids?: Array<string>;
 
   [k: string]: unknown;
 }
 
 export interface AlbumSaveParams {
   /**
-   * Query param: A comma-separated list of the
-   * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for the albums.
-   * Maximum: 20 IDs.
-   */
-  query_ids: string;
-
-  /**
-   * Body param: A JSON array of the
+   * A JSON array of the
    * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example:
    * `["4iV5W9uYEdYUVa79Axb7Rh", "1301WleyT98MSxVHPZCA6M"]`<br/>A maximum of 50 items
    * can be specified in one request. _**Note**: if the `ids` parameter is present in
    * the query string, any IDs listed here in the body will be ignored._
    */
-  body_ids?: Array<string>;
+  ids?: Array<string>;
 
   [k: string]: unknown;
 }

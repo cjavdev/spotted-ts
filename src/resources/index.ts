@@ -82,4 +82,3 @@ export {
 } from './shows';
 export { Tracks, type TrackListResponse, type TrackRetrieveParams, type TrackListParams } from './tracks';
 export { Users, type UserRetrieveProfileResponse } from './users/users';
-export { Webhooks, type UnwrapWebhookEvent } from './webhooks';

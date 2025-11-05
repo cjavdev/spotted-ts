@@ -11,7 +11,6 @@ You can run the MCP Server directly via `npx`:
 ```sh
 export SPOTIFY_CLIENT_ID="My Client ID"
 export SPOTIFY_CLIENT_SECRET="My Client Secret"
-export ORG_WEBHOOK_KEY="My Webhook Key"
 npx -y spotted-ts-mcp@latest
 ```
 
@@ -30,8 +29,7 @@ For clients with a configuration JSON, it might look something like this:
       "args": ["-y", "spotted-ts-mcp", "--client=claude", "--tools=dynamic"],
       "env": {
         "SPOTIFY_CLIENT_ID": "My Client ID",
-        "SPOTIFY_CLIENT_SECRET": "My Client Secret",
-        "ORG_WEBHOOK_KEY": "My Webhook Key"
+        "SPOTIFY_CLIENT_SECRET": "My Client Secret"
       }
     }
   }
