@@ -55,11 +55,7 @@ describe('resource following', () => {
 
   // Prism tests are disabled
   test.skip('follow: only required params', async () => {
-    const responsePromise = client.me.following.follow({
-      query_ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6',
-      type: 'artist',
-      body_ids: ['string'],
-    });
+    const responsePromise = client.me.following.follow({ ids: ['string'] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -71,19 +67,12 @@ describe('resource following', () => {
 
   // Prism tests are disabled
   test.skip('follow: required and optional params', async () => {
-    const response = await client.me.following.follow({
-      query_ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6',
-      type: 'artist',
-      body_ids: ['string'],
-    });
+    const response = await client.me.following.follow({ ids: ['string'] });
   });
 
   // Prism tests are disabled
-  test.skip('unfollow: only required params', async () => {
-    const responsePromise = client.me.following.unfollow({
-      query_ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6',
-      type: 'artist',
-    });
+  test.skip('unfollow', async () => {
+    const responsePromise = client.me.following.unfollow();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -94,11 +83,10 @@ describe('resource following', () => {
   });
 
   // Prism tests are disabled
-  test.skip('unfollow: required and optional params', async () => {
-    const response = await client.me.following.unfollow({
-      query_ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6',
-      type: 'artist',
-      body_ids: ['string'],
-    });
+  test.skip('unfollow: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.me.following.unfollow({ ids: ['string'] }, { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Spotted.NotFoundError);
   });
 });

@@ -60,7 +60,6 @@ export async function codeTool(): Promise<Endpoint> {
           baseURL: client.baseURL,
           clientID: client.clientID,
           clientSecret: client.clientSecret,
-          webhookKey: client.webhookKey,
           defaultHeaders: {
             'X-Stainless-MCP': 'true',
           },

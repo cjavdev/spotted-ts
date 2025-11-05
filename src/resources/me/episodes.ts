@@ -55,16 +55,11 @@ export class Episodes extends APIResource {
    *
    * @example
    * ```ts
-   * await client.me.episodes.remove({
-   *   query_ids:
-   *     '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B',
-   * });
+   * await client.me.episodes.remove();
    * ```
    */
-  remove(params: EpisodeRemoveParams, options?: RequestOptions): APIPromise<void> {
-    const { query_ids, ...body } = params;
+  remove(body: EpisodeRemoveParams | null | undefined = {}, options?: RequestOptions): APIPromise<void> {
     return this._client.delete('/me/episodes', {
-      query: { ids: query_ids },
       body,
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
@@ -79,17 +74,11 @@ export class Episodes extends APIResource {
    *
    * @example
    * ```ts
-   * await client.me.episodes.save({
-   *   query_ids:
-   *     '77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf',
-   *   body_ids: ['string'],
-   * });
+   * await client.me.episodes.save({ ids: ['string'] });
    * ```
    */
-  save(params: EpisodeSaveParams, options?: RequestOptions): APIPromise<void> {
-    const { query_ids, ...body } = params;
+  save(body: EpisodeSaveParams, options?: RequestOptions): APIPromise<void> {
     return this._client.put('/me/episodes', {
-      query: { ids: query_ids },
       body,
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
@@ -152,40 +141,26 @@ export interface EpisodeCheckParams {
 
 export interface EpisodeRemoveParams {
   /**
-   * Query param: A comma-separated list of the
-   * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example:
-   * `ids=4iV5W9uYEdYUVa79Axb7Rh,1301WleyT98MSxVHPZCA6M`. Maximum: 50 IDs.
-   */
-  query_ids: string;
-
-  /**
-   * Body param: A JSON array of the
+   * A JSON array of the
    * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). <br/>A maximum
    * of 50 items can be specified in one request. _**Note**: if the `ids` parameter
    * is present in the query string, any IDs listed here in the body will be
    * ignored._
    */
-  body_ids?: Array<string>;
+  ids?: Array<string>;
 
   [k: string]: unknown;
 }
 
 export interface EpisodeSaveParams {
   /**
-   * Query param: A comma-separated list of the
-   * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). Maximum: 50
-   * IDs.
-   */
-  query_ids: string;
-
-  /**
-   * Body param: A JSON array of the
+   * A JSON array of the
    * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). <br/>A maximum
    * of 50 items can be specified in one request. _**Note**: if the `ids` parameter
    * is present in the query string, any IDs listed here in the body will be
    * ignored._
    */
-  body_ids: Array<string>;
+  ids: Array<string>;
 
   [k: string]: unknown;
 }

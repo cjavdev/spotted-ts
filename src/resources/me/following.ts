@@ -43,18 +43,11 @@ export class Following extends APIResource {
    *
    * @example
    * ```ts
-   * await client.me.following.follow({
-   *   query_ids:
-   *     '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6',
-   *   type: 'artist',
-   *   body_ids: ['string'],
-   * });
+   * await client.me.following.follow({ ids: ['string'] });
    * ```
    */
-  follow(params: FollowingFollowParams, options?: RequestOptions): APIPromise<void> {
-    const { query_ids, type, ...body } = params;
+  follow(body: FollowingFollowParams, options?: RequestOptions): APIPromise<void> {
     return this._client.put('/me/following', {
-      query: { ids: query_ids, type },
       body,
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
@@ -67,17 +60,14 @@ export class Following extends APIResource {
    *
    * @example
    * ```ts
-   * await client.me.following.unfollow({
-   *   query_ids:
-   *     '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6',
-   *   type: 'artist',
-   * });
+   * await client.me.following.unfollow();
    * ```
    */
-  unfollow(params: FollowingUnfollowParams, options?: RequestOptions): APIPromise<void> {
-    const { query_ids, type, ...body } = params;
+  unfollow(
+    body: FollowingUnfollowParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<void> {
     return this._client.delete('/me/following', {
-      query: { ids: query_ids, type },
       body,
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
@@ -173,51 +163,26 @@ export interface FollowingCheckParams {
 
 export interface FollowingFollowParams {
   /**
-   * Query param: A comma-separated list of the artist or the user
-   * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). A maximum of 50
-   * IDs can be sent in one request.
-   */
-  query_ids: string;
-
-  /**
-   * Query param: The ID type.
-   */
-  type: 'artist' | 'user';
-
-  /**
-   * Body param: A JSON array of the artist or user
+   * A JSON array of the artist or user
    * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example:
    * `{ids:["74ASZWbe4lXaubB36ztrGX", "08td7MxkoHQkXnWAYD8d6Q"]}`. A maximum of 50
    * IDs can be sent in one request. _**Note**: if the `ids` parameter is present in
    * the query string, any IDs listed here in the body will be ignored._
    */
-  body_ids: Array<string>;
+  ids: Array<string>;
 
   [k: string]: unknown;
 }
 
 export interface FollowingUnfollowParams {
   /**
-   * Query param: A comma-separated list of the artist or the user
-   * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example:
-   * `ids=74ASZWbe4lXaubB36ztrGX,08td7MxkoHQkXnWAYD8d6Q`. A maximum of 50 IDs can be
-   * sent in one request.
-   */
-  query_ids: string;
-
-  /**
-   * Query param: The ID type: either `artist` or `user`.
-   */
-  type: 'artist' | 'user';
-
-  /**
-   * Body param: A JSON array of the artist or user
+   * A JSON array of the artist or user
    * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example:
    * `{ids:["74ASZWbe4lXaubB36ztrGX", "08td7MxkoHQkXnWAYD8d6Q"]}`. A maximum of 50
    * IDs can be sent in one request. _**Note**: if the `ids` parameter is present in
    * the query string, any IDs listed here in the body will be ignored._
    */
-  body_ids?: Array<string>;
+  ids?: Array<string>;
 
   [k: string]: unknown;
 }

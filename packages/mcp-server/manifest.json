@@ -21,8 +21,7 @@
       "args": ["${__dirname}/index.js"],
       "env": {
         "SPOTIFY_CLIENT_ID": "${user_config.SPOTIFY_CLIENT_ID}",
-        "SPOTIFY_CLIENT_SECRET": "${user_config.SPOTIFY_CLIENT_SECRET}",
-        "ORG_WEBHOOK_KEY": "${user_config.ORG_WEBHOOK_KEY}"
+        "SPOTIFY_CLIENT_SECRET": "${user_config.SPOTIFY_CLIENT_SECRET}"
       }
     }
   },
@@ -37,12 +36,6 @@
       "title": "client_secret",
       "description": "",
       "required": true,
-      "type": "string"
-    },
-    "ORG_WEBHOOK_KEY": {
-      "title": "webhook_key",
-      "description": "",
-      "required": false,
       "type": "string"
     }
   },

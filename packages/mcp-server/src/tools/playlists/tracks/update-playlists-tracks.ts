@@ -27,12 +27,6 @@ export const tool: Tool = {
         title: 'Playlist ID',
         description: 'The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) of the playlist.\n',
       },
-      query_uris: {
-        type: 'string',
-        title: 'Spotify Track URIs',
-        description:
-          'A comma-separated list of [Spotify URIs](/documentation/web-api/concepts/spotify-uris-ids) to set, can be track or episode URIs. For example: `uris=spotify:track:4iV5W9uYEdYUVa79Axb7Rh,spotify:track:1301WleyT98MSxVHPZCA6M,spotify:episode:512ojhOuo1ktJprKbVcKyQ`<br/>A maximum of 100 items can be set in one request.\n',
-      },
       insert_before: {
         type: 'integer',
         description:
@@ -51,7 +45,7 @@ export const tool: Tool = {
         type: 'string',
         description: "The playlist's snapshot ID against which you want to make the changes.\n",
       },
-      body_uris: {
+      uris: {
         type: 'array',
         items: {
           type: 'string',
