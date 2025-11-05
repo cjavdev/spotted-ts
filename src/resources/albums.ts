@@ -24,7 +24,10 @@ export class Albums extends APIResource {
    * Get Spotify catalog information for multiple albums identified by their Spotify
    * IDs.
    */
-  list(query: AlbumListParams, options?: RequestOptions): APIPromise<AlbumListResponse> {
+  bulkRetrieve(
+    query: AlbumBulkRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<AlbumBulkRetrieveResponse> {
     return this._client.get('/albums', { query, ...options });
   }
 
@@ -193,11 +196,11 @@ export namespace AlbumRetrieveResponse {
   }
 }
 
-export interface AlbumListResponse {
-  albums: Array<AlbumListResponse.Album>;
+export interface AlbumBulkRetrieveResponse {
+  albums: Array<AlbumBulkRetrieveResponse.Album>;
 }
 
-export namespace AlbumListResponse {
+export namespace AlbumBulkRetrieveResponse {
   export interface Album {
     /**
      * The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) for the
@@ -363,7 +366,7 @@ export interface AlbumRetrieveParams {
   market?: string;
 }
 
-export interface AlbumListParams {
+export interface AlbumBulkRetrieveParams {
   /**
    * A comma-separated list of the
    * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for the albums.
@@ -414,9 +417,9 @@ export interface AlbumListTracksParams {
 export declare namespace Albums {
   export {
     type AlbumRetrieveResponse as AlbumRetrieveResponse,
-    type AlbumListResponse as AlbumListResponse,
+    type AlbumBulkRetrieveResponse as AlbumBulkRetrieveResponse,
     type AlbumRetrieveParams as AlbumRetrieveParams,
-    type AlbumListParams as AlbumListParams,
+    type AlbumBulkRetrieveParams as AlbumBulkRetrieveParams,
     type AlbumListTracksParams as AlbumListTracksParams,
   };
 }

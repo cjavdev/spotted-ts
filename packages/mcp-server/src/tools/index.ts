@@ -5,7 +5,7 @@ import { Metadata, Endpoint, HandlerFunction } from './types';
 export { Metadata, Endpoint, HandlerFunction };
 
 import retrieve_albums from './albums/retrieve-albums';
-import list_albums from './albums/list-albums';
+import bulk_retrieve_albums from './albums/bulk-retrieve-albums';
 import list_tracks_albums from './albums/list-tracks-albums';
 import retrieve_artists from './artists/retrieve-artists';
 import list_artists from './artists/list-artists';
@@ -101,7 +101,7 @@ function addEndpoint(endpoint: Endpoint) {
 }
 
 addEndpoint(retrieve_albums);
-addEndpoint(list_albums);
+addEndpoint(bulk_retrieve_albums);
 addEndpoint(list_tracks_albums);
 addEndpoint(retrieve_artists);
 addEndpoint(list_artists);
