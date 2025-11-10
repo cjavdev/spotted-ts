@@ -75,7 +75,7 @@ import {
   RecommendationListAvailableGenreSeedsResponse,
   Recommendations,
 } from './resources/recommendations';
-import { Search, SearchRetrieveParams, SearchRetrieveResponse } from './resources/search';
+import { Search, SearchSearchParams, SearchSearchResponse } from './resources/search';
 import {
   ShowListEpisodesParams,
   ShowListParams,
@@ -998,8 +998,8 @@ export declare namespace Spotted {
 
   export {
     Search as Search,
-    type SearchRetrieveResponse as SearchRetrieveResponse,
-    type SearchRetrieveParams as SearchRetrieveParams,
+    type SearchSearchResponse as SearchSearchResponse,
+    type SearchSearchParams as SearchSearchParams,
   };
 
   export {

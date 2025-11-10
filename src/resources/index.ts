@@ -71,7 +71,7 @@ export {
   type RecommendationListAvailableGenreSeedsResponse,
   type RecommendationGetParams,
 } from './recommendations';
-export { Search, type SearchRetrieveResponse, type SearchRetrieveParams } from './search';
+export { Search, type SearchSearchResponse, type SearchSearchParams } from './search';
 export {
   Shows,
   type ShowRetrieveResponse,

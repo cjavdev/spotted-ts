@@ -269,11 +269,11 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/search.ts">SearchRetrieveResponse</a></code>
+- <code><a href="./src/resources/search.ts">SearchSearchResponse</a></code>
 
 Methods:
 
-- <code title="get /search">client.search.<a href="./src/resources/search.ts">retrieve</a>({ ...params }) -> SearchRetrieveResponse</code>
+- <code title="get /search">client.search.<a href="./src/resources/search.ts">search</a>({ ...params }) -> SearchSearchResponse</code>
 
 # Playlists
 
