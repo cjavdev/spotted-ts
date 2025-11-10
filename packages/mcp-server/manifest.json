@@ -21,7 +21,8 @@
       "args": ["${__dirname}/index.js"],
       "env": {
         "SPOTIFY_CLIENT_ID": "${user_config.SPOTIFY_CLIENT_ID}",
-        "SPOTIFY_CLIENT_SECRET": "${user_config.SPOTIFY_CLIENT_SECRET}"
+        "SPOTIFY_CLIENT_SECRET": "${user_config.SPOTIFY_CLIENT_SECRET}",
+        "SPOTIFY_ACCESS_TOKEN": "${user_config.SPOTIFY_ACCESS_TOKEN}"
       }
     }
   },
@@ -29,13 +30,19 @@
     "SPOTIFY_CLIENT_ID": {
       "title": "client_id",
       "description": "",
-      "required": true,
+      "required": false,
       "type": "string"
     },
     "SPOTIFY_CLIENT_SECRET": {
       "title": "client_secret",
       "description": "",
-      "required": true,
+      "required": false,
+      "type": "string"
+    },
+    "SPOTIFY_ACCESS_TOKEN": {
+      "title": "access_token",
+      "description": "",
+      "required": false,
       "type": "string"
     }
   },

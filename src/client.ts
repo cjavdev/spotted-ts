@@ -123,12 +123,17 @@ export interface ClientOptions {
   /**
    * Defaults to process.env['SPOTIFY_CLIENT_ID'].
    */
-  clientID?: string | undefined;
+  clientID?: string | null | undefined;
 
   /**
    * Defaults to process.env['SPOTIFY_CLIENT_SECRET'].
    */
-  clientSecret?: string | undefined;
+  clientSecret?: string | null | undefined;
+
+  /**
+   * Defaults to process.env['SPOTIFY_ACCESS_TOKEN'].
+   */
+  accessToken?: string | null | undefined;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
@@ -203,8 +208,9 @@ export interface ClientOptions {
  * API Client for interfacing with the Spotted API.
  */
 export class Spotted {
-  clientID: string;
-  clientSecret: string;
+  clientID: string | null;
+  clientSecret: string | null;
+  accessToken: string | null;
 
   baseURL: string;
   maxRetries: number;
@@ -221,8 +227,9 @@ export class Spotted {
   /**
    * API Client for interfacing with the Spotted API.
    *
-   * @param {string | undefined} [opts.clientID=process.env['SPOTIFY_CLIENT_ID'] ?? undefined]
-   * @param {string | undefined} [opts.clientSecret=process.env['SPOTIFY_CLIENT_SECRET'] ?? undefined]
+   * @param {string | null | undefined} [opts.clientID=process.env['SPOTIFY_CLIENT_ID'] ?? null]
+   * @param {string | null | undefined} [opts.clientSecret=process.env['SPOTIFY_CLIENT_SECRET'] ?? null]
+   * @param {string | null | undefined} [opts.accessToken=process.env['SPOTIFY_ACCESS_TOKEN'] ?? null]
    * @param {string} [opts.baseURL=process.env['SPOTTED_BASE_URL'] ?? https://api.spotify.com/v1] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -233,24 +240,15 @@ export class Spotted {
    */
   constructor({
     baseURL = readEnv('SPOTTED_BASE_URL'),
-    clientID = readEnv('SPOTIFY_CLIENT_ID'),
-    clientSecret = readEnv('SPOTIFY_CLIENT_SECRET'),
+    clientID = readEnv('SPOTIFY_CLIENT_ID') ?? null,
+    clientSecret = readEnv('SPOTIFY_CLIENT_SECRET') ?? null,
+    accessToken = readEnv('SPOTIFY_ACCESS_TOKEN') ?? null,
     ...opts
   }: ClientOptions = {}) {
-    if (clientID === undefined) {
-      throw new Errors.SpottedError(
-        "The SPOTIFY_CLIENT_ID environment variable is missing or empty; either provide it, or instantiate the Spotted client with an clientID option, like new Spotted({ clientID: 'My Client ID' }).",
-      );
-    }
-    if (clientSecret === undefined) {
-      throw new Errors.SpottedError(
-        "The SPOTIFY_CLIENT_SECRET environment variable is missing or empty; either provide it, or instantiate the Spotted client with an clientSecret option, like new Spotted({ clientSecret: 'My Client Secret' }).",
-      );
-    }
-
     const options: ClientOptions = {
       clientID,
       clientSecret,
+      accessToken,
       ...opts,
       baseURL: baseURL || `https://api.spotify.com/v1`,
     };
@@ -274,6 +272,7 @@ export class Spotted {
 
     this.clientID = clientID;
     this.clientSecret = clientSecret;
+    this.accessToken = accessToken;
   }
 
   /**
@@ -291,6 +290,7 @@ export class Spotted {
       fetchOptions: this.fetchOptions,
       clientID: this.clientID,
       clientSecret: this.clientSecret,
+      accessToken: this.accessToken,
       ...options,
     });
     client.oauth2_0AuthState = this.oauth2_0AuthState;
@@ -312,6 +312,17 @@ export class Spotted {
     return;
   }
 
+  protected async authHeaders(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
+    return buildHeaders([await this.bearerAuth(opts), await this.oauth2_0Auth(opts)]);
+  }
+
+  protected async bearerAuth(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
+    if (this.accessToken == null) {
+      return undefined;
+    }
+    return buildHeaders([{ Authorization: `Bearer ${this.accessToken}` }]);
+  }
+
   private oauth2_0AuthState:
     | {
         promise: Promise<{
@@ -325,7 +336,7 @@ export class Spotted {
         clientSecret: string;
       }
     | undefined;
-  protected async authHeaders(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
+  protected async oauth2_0Auth(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
     if (!this.clientID || !this.clientSecret) {
       return undefined;
     }
