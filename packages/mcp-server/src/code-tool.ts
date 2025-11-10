@@ -60,6 +60,7 @@ export async function codeTool(): Promise<Endpoint> {
           baseURL: client.baseURL,
           clientID: client.clientID,
           clientSecret: client.clientSecret,
+          accessToken: client.accessToken,
           defaultHeaders: {
             'X-Stainless-MCP': 'true',
           },
