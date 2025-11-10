@@ -22,12 +22,15 @@ export class Episodes extends APIResource {
   /**
    * Get Spotify catalog information for several episodes based on their Spotify IDs.
    */
-  list(query: EpisodeListParams, options?: RequestOptions): APIPromise<EpisodeListResponse> {
+  bulkRetrieve(
+    query: EpisodeBulkRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<EpisodeBulkRetrieveResponse> {
     return this._client.get('/episodes', { query, ...options });
   }
 }
 
-export interface EpisodeListResponse {
+export interface EpisodeBulkRetrieveResponse {
   episodes: Array<Shared.EpisodeObject>;
 }
 
@@ -46,7 +49,7 @@ export interface EpisodeRetrieveParams {
   market?: string;
 }
 
-export interface EpisodeListParams {
+export interface EpisodeBulkRetrieveParams {
   /**
    * A comma-separated list of the
    * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for the
@@ -70,8 +73,8 @@ export interface EpisodeListParams {
 
 export declare namespace Episodes {
   export {
-    type EpisodeListResponse as EpisodeListResponse,
+    type EpisodeBulkRetrieveResponse as EpisodeBulkRetrieveResponse,
     type EpisodeRetrieveParams as EpisodeRetrieveParams,
-    type EpisodeListParams as EpisodeListParams,
+    type EpisodeBulkRetrieveParams as EpisodeBulkRetrieveParams,
   };
 }

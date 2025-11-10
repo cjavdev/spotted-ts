@@ -22,8 +22,8 @@ describe('resource audioFeatures', () => {
   });
 
   // Prism tests are disabled
-  test.skip('list: only required params', async () => {
-    const responsePromise = client.audioFeatures.list({
+  test.skip('bulkRetrieve: only required params', async () => {
+    const responsePromise = client.audioFeatures.bulkRetrieve({
       ids: '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -36,8 +36,8 @@ describe('resource audioFeatures', () => {
   });
 
   // Prism tests are disabled
-  test.skip('list: required and optional params', async () => {
-    const response = await client.audioFeatures.list({
+  test.skip('bulkRetrieve: required and optional params', async () => {
+    const response = await client.audioFeatures.bulkRetrieve({
       ids: '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B',
     });
   });

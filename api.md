@@ -46,7 +46,7 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/artists.ts">ArtistListResponse</a></code>
+- <code><a href="./src/resources/artists.ts">ArtistBulkRetrieveResponse</a></code>
 - <code><a href="./src/resources/artists.ts">ArtistListAlbumsResponse</a></code>
 - <code><a href="./src/resources/artists.ts">ArtistListRelatedArtistsResponse</a></code>
 - <code><a href="./src/resources/artists.ts">ArtistListTopTracksResponse</a></code>
@@ -54,7 +54,7 @@ Types:
 Methods:
 
 - <code title="get /artists/{id}">client.artists.<a href="./src/resources/artists.ts">retrieve</a>(id) -> ArtistObject</code>
-- <code title="get /artists">client.artists.<a href="./src/resources/artists.ts">list</a>({ ...params }) -> ArtistListResponse</code>
+- <code title="get /artists">client.artists.<a href="./src/resources/artists.ts">bulkRetrieve</a>({ ...params }) -> ArtistBulkRetrieveResponse</code>
 - <code title="get /artists/{id}/albums">client.artists.<a href="./src/resources/artists.ts">listAlbums</a>(id, { ...params }) -> ArtistListAlbumsResponsesCursorURLPage</code>
 - <code title="get /artists/{id}/related-artists">client.artists.<a href="./src/resources/artists.ts">listRelatedArtists</a>(id) -> ArtistListRelatedArtistsResponse</code>
 - <code title="get /artists/{id}/top-tracks">client.artists.<a href="./src/resources/artists.ts">listTopTracks</a>(id, { ...params }) -> ArtistListTopTracksResponse</code>
@@ -64,24 +64,24 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/shows.ts">ShowRetrieveResponse</a></code>
-- <code><a href="./src/resources/shows.ts">ShowListResponse</a></code>
+- <code><a href="./src/resources/shows.ts">ShowBulkRetrieveResponse</a></code>
 
 Methods:
 
 - <code title="get /shows/{id}">client.shows.<a href="./src/resources/shows.ts">retrieve</a>(id, { ...params }) -> ShowRetrieveResponse</code>
-- <code title="get /shows">client.shows.<a href="./src/resources/shows.ts">list</a>({ ...params }) -> ShowListResponse</code>
+- <code title="get /shows">client.shows.<a href="./src/resources/shows.ts">bulkRetrieve</a>({ ...params }) -> ShowBulkRetrieveResponse</code>
 - <code title="get /shows/{id}/episodes">client.shows.<a href="./src/resources/shows.ts">listEpisodes</a>(id, { ...params }) -> SimplifiedEpisodeObjectsCursorURLPage</code>
 
 # Episodes
 
 Types:
 
-- <code><a href="./src/resources/episodes.ts">EpisodeListResponse</a></code>
+- <code><a href="./src/resources/episodes.ts">EpisodeBulkRetrieveResponse</a></code>
 
 Methods:
 
 - <code title="get /episodes/{id}">client.episodes.<a href="./src/resources/episodes.ts">retrieve</a>(id, { ...params }) -> EpisodeObject</code>
-- <code title="get /episodes">client.episodes.<a href="./src/resources/episodes.ts">list</a>({ ...params }) -> EpisodeListResponse</code>
+- <code title="get /episodes">client.episodes.<a href="./src/resources/episodes.ts">bulkRetrieve</a>({ ...params }) -> EpisodeBulkRetrieveResponse</code>
 
 # Audiobooks
 
@@ -89,12 +89,12 @@ Types:
 
 - <code><a href="./src/resources/audiobooks.ts">SimplifiedChapterObject</a></code>
 - <code><a href="./src/resources/audiobooks.ts">AudiobookRetrieveResponse</a></code>
-- <code><a href="./src/resources/audiobooks.ts">AudiobookListResponse</a></code>
+- <code><a href="./src/resources/audiobooks.ts">AudiobookBulkRetrieveResponse</a></code>
 
 Methods:
 
 - <code title="get /audiobooks/{id}">client.audiobooks.<a href="./src/resources/audiobooks.ts">retrieve</a>(id, { ...params }) -> AudiobookRetrieveResponse</code>
-- <code title="get /audiobooks">client.audiobooks.<a href="./src/resources/audiobooks.ts">list</a>({ ...params }) -> AudiobookListResponse</code>
+- <code title="get /audiobooks">client.audiobooks.<a href="./src/resources/audiobooks.ts">bulkRetrieve</a>({ ...params }) -> AudiobookBulkRetrieveResponse</code>
 - <code title="get /audiobooks/{id}/chapters">client.audiobooks.<a href="./src/resources/audiobooks.ts">listChapters</a>(id, { ...params }) -> SimplifiedChapterObjectsCursorURLPage</code>
 
 # Me
@@ -194,12 +194,12 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/me/following.ts">FollowingListResponse</a></code>
+- <code><a href="./src/resources/me/following.ts">FollowingBulkRetrieveResponse</a></code>
 - <code><a href="./src/resources/me/following.ts">FollowingCheckResponse</a></code>
 
 Methods:
 
-- <code title="get /me/following">client.me.following.<a href="./src/resources/me/following.ts">list</a>({ ...params }) -> FollowingListResponse</code>
+- <code title="get /me/following">client.me.following.<a href="./src/resources/me/following.ts">bulkRetrieve</a>({ ...params }) -> FollowingBulkRetrieveResponse</code>
 - <code title="get /me/following/contains">client.me.following.<a href="./src/resources/me/following.ts">check</a>({ ...params }) -> FollowingCheckResponse</code>
 - <code title="put /me/following">client.me.following.<a href="./src/resources/me/following.ts">follow</a>({ ...params }) -> void</code>
 - <code title="delete /me/following">client.me.following.<a href="./src/resources/me/following.ts">unfollow</a>({ ...params }) -> void</code>
@@ -247,23 +247,23 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/chapters.ts">ChapterRetrieveResponse</a></code>
-- <code><a href="./src/resources/chapters.ts">ChapterListResponse</a></code>
+- <code><a href="./src/resources/chapters.ts">ChapterBulkRetrieveResponse</a></code>
 
 Methods:
 
 - <code title="get /chapters/{id}">client.chapters.<a href="./src/resources/chapters.ts">retrieve</a>(id, { ...params }) -> ChapterRetrieveResponse</code>
-- <code title="get /chapters">client.chapters.<a href="./src/resources/chapters.ts">list</a>({ ...params }) -> ChapterListResponse</code>
+- <code title="get /chapters">client.chapters.<a href="./src/resources/chapters.ts">bulkRetrieve</a>({ ...params }) -> ChapterBulkRetrieveResponse</code>
 
 # Tracks
 
 Types:
 
-- <code><a href="./src/resources/tracks.ts">TrackListResponse</a></code>
+- <code><a href="./src/resources/tracks.ts">TrackBulkRetrieveResponse</a></code>
 
 Methods:
 
 - <code title="get /tracks/{id}">client.tracks.<a href="./src/resources/tracks.ts">retrieve</a>(id, { ...params }) -> TrackObject</code>
-- <code title="get /tracks">client.tracks.<a href="./src/resources/tracks.ts">list</a>({ ...params }) -> TrackListResponse</code>
+- <code title="get /tracks">client.tracks.<a href="./src/resources/tracks.ts">bulkRetrieve</a>({ ...params }) -> TrackBulkRetrieveResponse</code>
 
 # Search
 
@@ -376,12 +376,12 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/audio-features.ts">AudioFeatureRetrieveResponse</a></code>
-- <code><a href="./src/resources/audio-features.ts">AudioFeatureListResponse</a></code>
+- <code><a href="./src/resources/audio-features.ts">AudioFeatureBulkRetrieveResponse</a></code>
 
 Methods:
 
 - <code title="get /audio-features/{id}">client.audioFeatures.<a href="./src/resources/audio-features.ts">retrieve</a>(id) -> AudioFeatureRetrieveResponse</code>
-- <code title="get /audio-features">client.audioFeatures.<a href="./src/resources/audio-features.ts">list</a>({ ...params }) -> AudioFeatureListResponse</code>
+- <code title="get /audio-features">client.audioFeatures.<a href="./src/resources/audio-features.ts">bulkRetrieve</a>({ ...params }) -> AudioFeatureBulkRetrieveResponse</code>
 
 # AudioAnalysis
 

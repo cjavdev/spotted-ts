@@ -19,7 +19,10 @@ export class Artists extends APIResource {
   /**
    * Get Spotify catalog information for several artists based on their Spotify IDs.
    */
-  list(query: ArtistListParams, options?: RequestOptions): APIPromise<ArtistListResponse> {
+  bulkRetrieve(
+    query: ArtistBulkRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<ArtistBulkRetrieveResponse> {
     return this._client.get('/artists', { query, ...options });
   }
 
@@ -61,7 +64,7 @@ export class Artists extends APIResource {
 
 export type ArtistListAlbumsResponsesCursorURLPage = CursorURLPage<ArtistListAlbumsResponse>;
 
-export interface ArtistListResponse {
+export interface ArtistBulkRetrieveResponse {
   artists: Array<Shared.ArtistObject>;
 }
 
@@ -157,7 +160,7 @@ export interface ArtistListTopTracksResponse {
   tracks: Array<Shared.TrackObject>;
 }
 
-export interface ArtistListParams {
+export interface ArtistBulkRetrieveParams {
   /**
    * A comma-separated list of the
    * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for the artists.
@@ -217,12 +220,12 @@ export interface ArtistListTopTracksParams {
 
 export declare namespace Artists {
   export {
-    type ArtistListResponse as ArtistListResponse,
+    type ArtistBulkRetrieveResponse as ArtistBulkRetrieveResponse,
     type ArtistListAlbumsResponse as ArtistListAlbumsResponse,
     type ArtistListRelatedArtistsResponse as ArtistListRelatedArtistsResponse,
     type ArtistListTopTracksResponse as ArtistListTopTracksResponse,
     type ArtistListAlbumsResponsesCursorURLPage as ArtistListAlbumsResponsesCursorURLPage,
-    type ArtistListParams as ArtistListParams,
+    type ArtistBulkRetrieveParams as ArtistBulkRetrieveParams,
     type ArtistListAlbumsParams as ArtistListAlbumsParams,
     type ArtistListTopTracksParams as ArtistListTopTracksParams,
   };

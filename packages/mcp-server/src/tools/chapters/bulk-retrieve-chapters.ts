@@ -6,25 +6,26 @@ import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import Spotted from 'spotted-ts';
 
 export const metadata: Metadata = {
-  resource: 'episodes',
+  resource: 'chapters',
   operation: 'read',
   tags: [],
   httpMethod: 'get',
-  httpPath: '/episodes',
-  operationId: 'get-multiple-episodes',
+  httpPath: '/chapters',
+  operationId: 'get-several-chapters',
 };
 
 export const tool: Tool = {
-  name: 'list_episodes',
-  description: 'Get Spotify catalog information for several episodes based on their Spotify IDs.\n',
+  name: 'bulk_retrieve_chapters',
+  description:
+    'Get Spotify catalog information for several audiobook chapters identified by their Spotify IDs. Chapters are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.\n',
   inputSchema: {
     type: 'object',
     properties: {
       ids: {
         type: 'string',
-        title: 'Ids',
+        title: 'Spotify Chapter IDs',
         description:
-          'A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for the episodes. Maximum: 50 IDs.\n',
+          'A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example: `ids=0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU`. Maximum: 50 IDs.\n',
       },
       market: {
         type: 'string',
@@ -42,7 +43,7 @@ export const tool: Tool = {
 
 export const handler = async (client: Spotted, args: Record<string, unknown> | undefined) => {
   const body = args as any;
-  return asTextContentResult(await client.episodes.list(body));
+  return asTextContentResult(await client.chapters.bulkRetrieve(body));
 };
 
 export default { metadata, tool, handler };

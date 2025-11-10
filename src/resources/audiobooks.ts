@@ -26,7 +26,10 @@ export class Audiobooks extends APIResource {
    * Spotify IDs. Audiobooks are only available within the US, UK, Canada, Ireland,
    * New Zealand and Australia markets.
    */
-  list(query: AudiobookListParams, options?: RequestOptions): APIPromise<AudiobookListResponse> {
+  bulkRetrieve(
+    query: AudiobookBulkRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<AudiobookBulkRetrieveResponse> {
     return this._client.get('/audiobooks', { query, ...options });
   }
 
@@ -206,11 +209,11 @@ export namespace AudiobookRetrieveResponse {
   }
 }
 
-export interface AudiobookListResponse {
-  audiobooks: Array<AudiobookListResponse.Audiobook>;
+export interface AudiobookBulkRetrieveResponse {
+  audiobooks: Array<AudiobookBulkRetrieveResponse.Audiobook>;
 }
 
-export namespace AudiobookListResponse {
+export namespace AudiobookBulkRetrieveResponse {
   export interface Audiobook extends Shared.AudiobookBase {
     /**
      * The chapters of the audiobook.
@@ -273,7 +276,7 @@ export interface AudiobookRetrieveParams {
   market?: string;
 }
 
-export interface AudiobookListParams {
+export interface AudiobookBulkRetrieveParams {
   /**
    * A comma-separated list of the
    * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example:
@@ -325,10 +328,10 @@ export declare namespace Audiobooks {
   export {
     type SimplifiedChapterObject as SimplifiedChapterObject,
     type AudiobookRetrieveResponse as AudiobookRetrieveResponse,
-    type AudiobookListResponse as AudiobookListResponse,
+    type AudiobookBulkRetrieveResponse as AudiobookBulkRetrieveResponse,
     type SimplifiedChapterObjectsCursorURLPage as SimplifiedChapterObjectsCursorURLPage,
     type AudiobookRetrieveParams as AudiobookRetrieveParams,
-    type AudiobookListParams as AudiobookListParams,
+    type AudiobookBulkRetrieveParams as AudiobookBulkRetrieveParams,
     type AudiobookListChaptersParams as AudiobookListChaptersParams,
   };
 }

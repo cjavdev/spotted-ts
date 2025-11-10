@@ -21,7 +21,10 @@ export class AudioFeatures extends APIResource {
    *
    * @deprecated
    */
-  list(query: AudioFeatureListParams, options?: RequestOptions): APIPromise<AudioFeatureListResponse> {
+  bulkRetrieve(
+    query: AudioFeatureBulkRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<AudioFeatureBulkRetrieveResponse> {
     return this._client.get('/audio-features', { query, ...options });
   }
 }
@@ -153,11 +156,11 @@ export interface AudioFeatureRetrieveResponse {
   valence?: number;
 }
 
-export interface AudioFeatureListResponse {
-  audio_features: Array<AudioFeatureListResponse.AudioFeature>;
+export interface AudioFeatureBulkRetrieveResponse {
+  audio_features: Array<AudioFeatureBulkRetrieveResponse.AudioFeature>;
 }
 
-export namespace AudioFeatureListResponse {
+export namespace AudioFeatureBulkRetrieveResponse {
   export interface AudioFeature {
     /**
      * The Spotify ID for the track.
@@ -286,7 +289,7 @@ export namespace AudioFeatureListResponse {
   }
 }
 
-export interface AudioFeatureListParams {
+export interface AudioFeatureBulkRetrieveParams {
   /**
    * A comma-separated list of the
    * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for the tracks.
@@ -298,7 +301,7 @@ export interface AudioFeatureListParams {
 export declare namespace AudioFeatures {
   export {
     type AudioFeatureRetrieveResponse as AudioFeatureRetrieveResponse,
-    type AudioFeatureListResponse as AudioFeatureListResponse,
-    type AudioFeatureListParams as AudioFeatureListParams,
+    type AudioFeatureBulkRetrieveResponse as AudioFeatureBulkRetrieveResponse,
+    type AudioFeatureBulkRetrieveParams as AudioFeatureBulkRetrieveParams,
   };
 }

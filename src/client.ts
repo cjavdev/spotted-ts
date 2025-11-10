@@ -28,27 +28,27 @@ import {
   Albums,
 } from './resources/albums';
 import {
+  ArtistBulkRetrieveParams,
+  ArtistBulkRetrieveResponse,
   ArtistListAlbumsParams,
   ArtistListAlbumsResponse,
   ArtistListAlbumsResponsesCursorURLPage,
-  ArtistListParams,
   ArtistListRelatedArtistsResponse,
-  ArtistListResponse,
   ArtistListTopTracksParams,
   ArtistListTopTracksResponse,
   Artists,
 } from './resources/artists';
 import { AudioAnalysis, AudioAnalysisRetrieveResponse, TimeIntervalObject } from './resources/audio-analysis';
 import {
-  AudioFeatureListParams,
-  AudioFeatureListResponse,
+  AudioFeatureBulkRetrieveParams,
+  AudioFeatureBulkRetrieveResponse,
   AudioFeatureRetrieveResponse,
   AudioFeatures,
 } from './resources/audio-features';
 import {
+  AudiobookBulkRetrieveParams,
+  AudiobookBulkRetrieveResponse,
   AudiobookListChaptersParams,
-  AudiobookListParams,
-  AudiobookListResponse,
   AudiobookRetrieveParams,
   AudiobookRetrieveResponse,
   Audiobooks,
@@ -56,15 +56,15 @@ import {
   SimplifiedChapterObjectsCursorURLPage,
 } from './resources/audiobooks';
 import {
-  ChapterListParams,
-  ChapterListResponse,
+  ChapterBulkRetrieveParams,
+  ChapterBulkRetrieveResponse,
   ChapterRetrieveParams,
   ChapterRetrieveResponse,
   Chapters,
 } from './resources/chapters';
 import {
-  EpisodeListParams,
-  EpisodeListResponse,
+  EpisodeBulkRetrieveParams,
+  EpisodeBulkRetrieveResponse,
   EpisodeRetrieveParams,
   Episodes,
 } from './resources/episodes';
@@ -77,14 +77,19 @@ import {
 } from './resources/recommendations';
 import { Search, SearchSearchParams, SearchSearchResponse } from './resources/search';
 import {
+  ShowBulkRetrieveParams,
+  ShowBulkRetrieveResponse,
   ShowListEpisodesParams,
-  ShowListParams,
-  ShowListResponse,
   ShowRetrieveParams,
   ShowRetrieveResponse,
   Shows,
 } from './resources/shows';
-import { TrackListParams, TrackListResponse, TrackRetrieveParams, Tracks } from './resources/tracks';
+import {
+  TrackBulkRetrieveParams,
+  TrackBulkRetrieveResponse,
+  TrackRetrieveParams,
+  Tracks,
+} from './resources/tracks';
 import {
   Browse,
   BrowseGetFeaturedPlaylistsParams,
@@ -942,12 +947,12 @@ export declare namespace Spotted {
 
   export {
     Artists as Artists,
-    type ArtistListResponse as ArtistListResponse,
+    type ArtistBulkRetrieveResponse as ArtistBulkRetrieveResponse,
     type ArtistListAlbumsResponse as ArtistListAlbumsResponse,
     type ArtistListRelatedArtistsResponse as ArtistListRelatedArtistsResponse,
     type ArtistListTopTracksResponse as ArtistListTopTracksResponse,
     type ArtistListAlbumsResponsesCursorURLPage as ArtistListAlbumsResponsesCursorURLPage,
-    type ArtistListParams as ArtistListParams,
+    type ArtistBulkRetrieveParams as ArtistBulkRetrieveParams,
     type ArtistListAlbumsParams as ArtistListAlbumsParams,
     type ArtistListTopTracksParams as ArtistListTopTracksParams,
   };
@@ -955,27 +960,27 @@ export declare namespace Spotted {
   export {
     Shows as Shows,
     type ShowRetrieveResponse as ShowRetrieveResponse,
-    type ShowListResponse as ShowListResponse,
+    type ShowBulkRetrieveResponse as ShowBulkRetrieveResponse,
     type ShowRetrieveParams as ShowRetrieveParams,
-    type ShowListParams as ShowListParams,
+    type ShowBulkRetrieveParams as ShowBulkRetrieveParams,
     type ShowListEpisodesParams as ShowListEpisodesParams,
   };
 
   export {
     Episodes as Episodes,
-    type EpisodeListResponse as EpisodeListResponse,
+    type EpisodeBulkRetrieveResponse as EpisodeBulkRetrieveResponse,
     type EpisodeRetrieveParams as EpisodeRetrieveParams,
-    type EpisodeListParams as EpisodeListParams,
+    type EpisodeBulkRetrieveParams as EpisodeBulkRetrieveParams,
   };
 
   export {
     Audiobooks as Audiobooks,
     type SimplifiedChapterObject as SimplifiedChapterObject,
     type AudiobookRetrieveResponse as AudiobookRetrieveResponse,
-    type AudiobookListResponse as AudiobookListResponse,
+    type AudiobookBulkRetrieveResponse as AudiobookBulkRetrieveResponse,
     type SimplifiedChapterObjectsCursorURLPage as SimplifiedChapterObjectsCursorURLPage,
     type AudiobookRetrieveParams as AudiobookRetrieveParams,
-    type AudiobookListParams as AudiobookListParams,
+    type AudiobookBulkRetrieveParams as AudiobookBulkRetrieveParams,
     type AudiobookListChaptersParams as AudiobookListChaptersParams,
   };
 
@@ -984,16 +989,16 @@ export declare namespace Spotted {
   export {
     Chapters as Chapters,
     type ChapterRetrieveResponse as ChapterRetrieveResponse,
-    type ChapterListResponse as ChapterListResponse,
+    type ChapterBulkRetrieveResponse as ChapterBulkRetrieveResponse,
     type ChapterRetrieveParams as ChapterRetrieveParams,
-    type ChapterListParams as ChapterListParams,
+    type ChapterBulkRetrieveParams as ChapterBulkRetrieveParams,
   };
 
   export {
     Tracks as Tracks,
-    type TrackListResponse as TrackListResponse,
+    type TrackBulkRetrieveResponse as TrackBulkRetrieveResponse,
     type TrackRetrieveParams as TrackRetrieveParams,
-    type TrackListParams as TrackListParams,
+    type TrackBulkRetrieveParams as TrackBulkRetrieveParams,
   };
 
   export {
@@ -1022,8 +1027,8 @@ export declare namespace Spotted {
   export {
     AudioFeatures as AudioFeatures,
     type AudioFeatureRetrieveResponse as AudioFeatureRetrieveResponse,
-    type AudioFeatureListResponse as AudioFeatureListResponse,
-    type AudioFeatureListParams as AudioFeatureListParams,
+    type AudioFeatureBulkRetrieveResponse as AudioFeatureBulkRetrieveResponse,
+    type AudioFeatureBulkRetrieveParams as AudioFeatureBulkRetrieveParams,
   };
 
   export {

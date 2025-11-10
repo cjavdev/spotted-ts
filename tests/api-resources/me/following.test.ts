@@ -10,8 +10,8 @@ const client = new Spotted({
 
 describe('resource following', () => {
   // Prism tests are disabled
-  test.skip('list: only required params', async () => {
-    const responsePromise = client.me.following.list({ type: 'artist' });
+  test.skip('bulkRetrieve: only required params', async () => {
+    const responsePromise = client.me.following.bulkRetrieve({ type: 'artist' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,8 +22,8 @@ describe('resource following', () => {
   });
 
   // Prism tests are disabled
-  test.skip('list: required and optional params', async () => {
-    const response = await client.me.following.list({
+  test.skip('bulkRetrieve: required and optional params', async () => {
+    const response = await client.me.following.bulkRetrieve({
       type: 'artist',
       after: '0I2XqVXqHScXjHhk6AYYRe',
       limit: 10,

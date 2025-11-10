@@ -34,8 +34,10 @@ describe('resource episodes', () => {
   });
 
   // Prism tests are disabled
-  test.skip('list: only required params', async () => {
-    const responsePromise = client.episodes.list({ ids: '77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf' });
+  test.skip('bulkRetrieve: only required params', async () => {
+    const responsePromise = client.episodes.bulkRetrieve({
+      ids: '77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -46,8 +48,8 @@ describe('resource episodes', () => {
   });
 
   // Prism tests are disabled
-  test.skip('list: required and optional params', async () => {
-    const response = await client.episodes.list({
+  test.skip('bulkRetrieve: required and optional params', async () => {
+    const response = await client.episodes.bulkRetrieve({
       ids: '77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf',
       market: 'ES',
     });

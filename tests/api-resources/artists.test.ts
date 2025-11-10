@@ -22,8 +22,8 @@ describe('resource artists', () => {
   });
 
   // Prism tests are disabled
-  test.skip('list: only required params', async () => {
-    const responsePromise = client.artists.list({
+  test.skip('bulkRetrieve: only required params', async () => {
+    const responsePromise = client.artists.bulkRetrieve({
       ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -36,8 +36,8 @@ describe('resource artists', () => {
   });
 
   // Prism tests are disabled
-  test.skip('list: required and optional params', async () => {
-    const response = await client.artists.list({
+  test.skip('bulkRetrieve: required and optional params', async () => {
+    const response = await client.artists.bulkRetrieve({
       ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6',
     });
   });
