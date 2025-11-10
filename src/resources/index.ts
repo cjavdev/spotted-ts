@@ -14,10 +14,10 @@ export {
   type ArtistBulkRetrieveResponse,
   type ArtistListAlbumsResponse,
   type ArtistListRelatedArtistsResponse,
-  type ArtistListTopTracksResponse,
+  type ArtistTopTracksResponse,
   type ArtistBulkRetrieveParams,
   type ArtistListAlbumsParams,
-  type ArtistListTopTracksParams,
+  type ArtistTopTracksParams,
   type ArtistListAlbumsResponsesCursorURLPage,
 } from './artists';
 export { AudioAnalysis, type TimeIntervalObject, type AudioAnalysisRetrieveResponse } from './audio-analysis';

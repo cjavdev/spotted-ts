@@ -79,8 +79,8 @@ describe('resource artists', () => {
   });
 
   // Prism tests are disabled
-  test.skip('listTopTracks', async () => {
-    const responsePromise = client.artists.listTopTracks('0TnOYISbd1XYRBk9myaseg');
+  test.skip('topTracks', async () => {
+    const responsePromise = client.artists.topTracks('0TnOYISbd1XYRBk9myaseg');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -91,10 +91,10 @@ describe('resource artists', () => {
   });
 
   // Prism tests are disabled
-  test.skip('listTopTracks: request options and params are passed correctly', async () => {
+  test.skip('topTracks: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.artists.listTopTracks(
+      client.artists.topTracks(
         '0TnOYISbd1XYRBk9myaseg',
         { market: 'ES' },
         { path: '/_stainless_unknown_path' },

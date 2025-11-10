@@ -34,8 +34,8 @@ import {
   ArtistListAlbumsResponse,
   ArtistListAlbumsResponsesCursorURLPage,
   ArtistListRelatedArtistsResponse,
-  ArtistListTopTracksParams,
-  ArtistListTopTracksResponse,
+  ArtistTopTracksParams,
+  ArtistTopTracksResponse,
   Artists,
 } from './resources/artists';
 import { AudioAnalysis, AudioAnalysisRetrieveResponse, TimeIntervalObject } from './resources/audio-analysis';
@@ -950,11 +950,11 @@ export declare namespace Spotted {
     type ArtistBulkRetrieveResponse as ArtistBulkRetrieveResponse,
     type ArtistListAlbumsResponse as ArtistListAlbumsResponse,
     type ArtistListRelatedArtistsResponse as ArtistListRelatedArtistsResponse,
-    type ArtistListTopTracksResponse as ArtistListTopTracksResponse,
+    type ArtistTopTracksResponse as ArtistTopTracksResponse,
     type ArtistListAlbumsResponsesCursorURLPage as ArtistListAlbumsResponsesCursorURLPage,
     type ArtistBulkRetrieveParams as ArtistBulkRetrieveParams,
     type ArtistListAlbumsParams as ArtistListAlbumsParams,
-    type ArtistListTopTracksParams as ArtistListTopTracksParams,
+    type ArtistTopTracksParams as ArtistTopTracksParams,
   };
 
   export {
