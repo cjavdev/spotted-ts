@@ -11,11 +11,11 @@ export {
 } from './albums';
 export {
   Artists,
-  type ArtistListResponse,
+  type ArtistBulkRetrieveResponse,
   type ArtistListAlbumsResponse,
   type ArtistListRelatedArtistsResponse,
   type ArtistListTopTracksResponse,
-  type ArtistListParams,
+  type ArtistBulkRetrieveParams,
   type ArtistListAlbumsParams,
   type ArtistListTopTracksParams,
   type ArtistListAlbumsResponsesCursorURLPage,
@@ -24,16 +24,16 @@ export { AudioAnalysis, type TimeIntervalObject, type AudioAnalysisRetrieveRespo
 export {
   AudioFeatures,
   type AudioFeatureRetrieveResponse,
-  type AudioFeatureListResponse,
-  type AudioFeatureListParams,
+  type AudioFeatureBulkRetrieveResponse,
+  type AudioFeatureBulkRetrieveParams,
 } from './audio-features';
 export {
   Audiobooks,
   type SimplifiedChapterObject,
   type AudiobookRetrieveResponse,
-  type AudiobookListResponse,
+  type AudiobookBulkRetrieveResponse,
   type AudiobookRetrieveParams,
-  type AudiobookListParams,
+  type AudiobookBulkRetrieveParams,
   type AudiobookListChaptersParams,
   type SimplifiedChapterObjectsCursorURLPage,
 } from './audiobooks';
@@ -47,15 +47,15 @@ export {
 export {
   Chapters,
   type ChapterRetrieveResponse,
-  type ChapterListResponse,
+  type ChapterBulkRetrieveResponse,
   type ChapterRetrieveParams,
-  type ChapterListParams,
+  type ChapterBulkRetrieveParams,
 } from './chapters';
 export {
   Episodes,
-  type EpisodeListResponse,
+  type EpisodeBulkRetrieveResponse,
   type EpisodeRetrieveParams,
-  type EpisodeListParams,
+  type EpisodeBulkRetrieveParams,
 } from './episodes';
 export { Markets, type MarketListResponse } from './markets';
 export { Me, type MeRetrieveResponse } from './me/me';
@@ -75,10 +75,15 @@ export { Search, type SearchSearchResponse, type SearchSearchParams } from './se
 export {
   Shows,
   type ShowRetrieveResponse,
-  type ShowListResponse,
+  type ShowBulkRetrieveResponse,
   type ShowRetrieveParams,
-  type ShowListParams,
+  type ShowBulkRetrieveParams,
   type ShowListEpisodesParams,
 } from './shows';
-export { Tracks, type TrackListResponse, type TrackRetrieveParams, type TrackListParams } from './tracks';
+export {
+  Tracks,
+  type TrackBulkRetrieveResponse,
+  type TrackRetrieveParams,
+  type TrackBulkRetrieveParams,
+} from './tracks';
 export { Users, type UserRetrieveProfileResponse } from './users/users';

@@ -38,11 +38,11 @@ import {
 import * as FollowingAPI from './following';
 import {
   Following,
+  FollowingBulkRetrieveParams,
+  FollowingBulkRetrieveResponse,
   FollowingCheckParams,
   FollowingCheckResponse,
   FollowingFollowParams,
-  FollowingListParams,
-  FollowingListResponse,
   FollowingUnfollowParams,
 } from './following';
 import * as PlaylistsAPI from './playlists';
@@ -301,9 +301,9 @@ export declare namespace Me {
 
   export {
     Following as Following,
-    type FollowingListResponse as FollowingListResponse,
+    type FollowingBulkRetrieveResponse as FollowingBulkRetrieveResponse,
     type FollowingCheckResponse as FollowingCheckResponse,
-    type FollowingListParams as FollowingListParams,
+    type FollowingBulkRetrieveParams as FollowingBulkRetrieveParams,
     type FollowingCheckParams as FollowingCheckParams,
     type FollowingFollowParams as FollowingFollowParams,
     type FollowingUnfollowParams as FollowingUnfollowParams,

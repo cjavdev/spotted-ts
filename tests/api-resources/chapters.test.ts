@@ -34,8 +34,8 @@ describe('resource chapters', () => {
   });
 
   // Prism tests are disabled
-  test.skip('list: only required params', async () => {
-    const responsePromise = client.chapters.list({
+  test.skip('bulkRetrieve: only required params', async () => {
+    const responsePromise = client.chapters.bulkRetrieve({
       ids: '0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -48,8 +48,8 @@ describe('resource chapters', () => {
   });
 
   // Prism tests are disabled
-  test.skip('list: required and optional params', async () => {
-    const response = await client.chapters.list({
+  test.skip('bulkRetrieve: required and optional params', async () => {
+    const response = await client.chapters.bulkRetrieve({
       ids: '0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29',
       market: 'ES',
     });

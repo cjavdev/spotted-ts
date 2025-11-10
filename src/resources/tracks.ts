@@ -22,12 +22,15 @@ export class Tracks extends APIResource {
   /**
    * Get Spotify catalog information for multiple tracks based on their Spotify IDs.
    */
-  list(query: TrackListParams, options?: RequestOptions): APIPromise<TrackListResponse> {
+  bulkRetrieve(
+    query: TrackBulkRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<TrackBulkRetrieveResponse> {
     return this._client.get('/tracks', { query, ...options });
   }
 }
 
-export interface TrackListResponse {
+export interface TrackBulkRetrieveResponse {
   tracks: Array<Shared.TrackObject>;
 }
 
@@ -46,7 +49,7 @@ export interface TrackRetrieveParams {
   market?: string;
 }
 
-export interface TrackListParams {
+export interface TrackBulkRetrieveParams {
   /**
    * A comma-separated list of the
    * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example:
@@ -70,8 +73,8 @@ export interface TrackListParams {
 
 export declare namespace Tracks {
   export {
-    type TrackListResponse as TrackListResponse,
+    type TrackBulkRetrieveResponse as TrackBulkRetrieveResponse,
     type TrackRetrieveParams as TrackRetrieveParams,
-    type TrackListParams as TrackListParams,
+    type TrackBulkRetrieveParams as TrackBulkRetrieveParams,
   };
 }

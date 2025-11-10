@@ -242,7 +242,7 @@ The following tools are available in this MCP server.
 ### Resource `artists`:
 
 - `retrieve_artists` (`read`): Get Spotify catalog information for a single artist identified by their unique Spotify ID.
-- `list_artists` (`read`): Get Spotify catalog information for several artists based on their Spotify IDs.
+- `bulk_retrieve_artists` (`read`): Get Spotify catalog information for several artists based on their Spotify IDs.
 - `list_albums_artists` (`read`): Get Spotify catalog information about an artist's albums.
 - `list_related_artists_artists` (`read`): Get Spotify catalog information about artists similar to a given artist. Similarity is based on analysis of the Spotify community's listening history.
 - `list_top_tracks_artists` (`read`): Get Spotify catalog information about an artist's top tracks by country.
@@ -251,19 +251,19 @@ The following tools are available in this MCP server.
 
 - `retrieve_shows` (`read`): Get Spotify catalog information for a single show identified by its
   unique Spotify ID.
-- `list_shows` (`read`): Get Spotify catalog information for several shows based on their Spotify IDs.
+- `bulk_retrieve_shows` (`read`): Get Spotify catalog information for several shows based on their Spotify IDs.
 - `list_episodes_shows` (`read`): Get Spotify catalog information about an show’s episodes. Optional parameters can be used to limit the number of episodes returned.
 
 ### Resource `episodes`:
 
 - `retrieve_episodes` (`read`): Get Spotify catalog information for a single episode identified by its
   unique Spotify ID.
-- `list_episodes` (`read`): Get Spotify catalog information for several episodes based on their Spotify IDs.
+- `bulk_retrieve_episodes` (`read`): Get Spotify catalog information for several episodes based on their Spotify IDs.
 
 ### Resource `audiobooks`:
 
 - `retrieve_audiobooks` (`read`): Get Spotify catalog information for a single audiobook. Audiobooks are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.
-- `list_audiobooks` (`read`): Get Spotify catalog information for several audiobooks identified by their Spotify IDs. Audiobooks are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.
+- `bulk_retrieve_audiobooks` (`read`): Get Spotify catalog information for several audiobooks identified by their Spotify IDs. Audiobooks are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.
 - `list_chapters_audiobooks` (`read`): Get Spotify catalog information about an audiobook's chapters. Audiobooks are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.
 
 ### Resource `me`:
@@ -322,7 +322,7 @@ The following tools are available in this MCP server.
 
 ### Resource `me.following`:
 
-- `list_me_following` (`read`): Get the current user's followed artists.
+- `bulk_retrieve_me_following` (`read`): Get the current user's followed artists.
 - `check_me_following` (`read`): Check to see if the current user is following one or more artists or other Spotify users.
 - `follow_me_following` (`write`): Add the current user as a follower of one or more artists or other Spotify users.
 - `unfollow_me_following` (`write`): Remove the current user as a follower of one or more artists or other Spotify users.
@@ -352,13 +352,13 @@ The following tools are available in this MCP server.
 ### Resource `chapters`:
 
 - `retrieve_chapters` (`read`): Get Spotify catalog information for a single audiobook chapter. Chapters are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.
-- `list_chapters` (`read`): Get Spotify catalog information for several audiobook chapters identified by their Spotify IDs. Chapters are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.
+- `bulk_retrieve_chapters` (`read`): Get Spotify catalog information for several audiobook chapters identified by their Spotify IDs. Chapters are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.
 
 ### Resource `tracks`:
 
 - `retrieve_tracks` (`read`): Get Spotify catalog information for a single track identified by its
   unique Spotify ID.
-- `list_tracks` (`read`): Get Spotify catalog information for multiple tracks based on their Spotify IDs.
+- `bulk_retrieve_tracks` (`read`): Get Spotify catalog information for multiple tracks based on their Spotify IDs.
 
 ### Resource `search`:
 
@@ -421,7 +421,7 @@ The following tools are available in this MCP server.
 
 - `retrieve_audio_features` (`read`): Get audio feature information for a single track identified by its unique
   Spotify ID.
-- `list_audio_features` (`read`): Get audio features for multiple tracks based on their Spotify IDs.
+- `bulk_retrieve_audio_features` (`read`): Get audio features for multiple tracks based on their Spotify IDs.
 
 ### Resource `audio_analysis`:
 

@@ -34,8 +34,8 @@ describe('resource audiobooks', () => {
   });
 
   // Prism tests are disabled
-  test.skip('list: only required params', async () => {
-    const responsePromise = client.audiobooks.list({
+  test.skip('bulkRetrieve: only required params', async () => {
+    const responsePromise = client.audiobooks.bulkRetrieve({
       ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -48,8 +48,8 @@ describe('resource audiobooks', () => {
   });
 
   // Prism tests are disabled
-  test.skip('list: required and optional params', async () => {
-    const response = await client.audiobooks.list({
+  test.skip('bulkRetrieve: required and optional params', async () => {
+    const response = await client.audiobooks.bulkRetrieve({
       ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe',
       market: 'ES',
     });

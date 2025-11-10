@@ -32,9 +32,9 @@ export {
 } from './episodes';
 export {
   Following,
-  type FollowingListResponse,
+  type FollowingBulkRetrieveResponse,
   type FollowingCheckResponse,
-  type FollowingListParams,
+  type FollowingBulkRetrieveParams,
   type FollowingCheckParams,
   type FollowingFollowParams,
   type FollowingUnfollowParams,

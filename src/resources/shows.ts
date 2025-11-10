@@ -24,7 +24,10 @@ export class Shows extends APIResource {
   /**
    * Get Spotify catalog information for several shows based on their Spotify IDs.
    */
-  list(query: ShowListParams, options?: RequestOptions): APIPromise<ShowListResponse> {
+  bulkRetrieve(
+    query: ShowBulkRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<ShowBulkRetrieveResponse> {
     return this._client.get('/shows', { query, ...options });
   }
 
@@ -91,7 +94,7 @@ export namespace ShowRetrieveResponse {
   }
 }
 
-export interface ShowListResponse {
+export interface ShowBulkRetrieveResponse {
   shows: Array<Shared.ShowBase>;
 }
 
@@ -110,7 +113,7 @@ export interface ShowRetrieveParams {
   market?: string;
 }
 
-export interface ShowListParams {
+export interface ShowBulkRetrieveParams {
   /**
    * A comma-separated list of the
    * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for the shows.
@@ -161,9 +164,9 @@ export interface ShowListEpisodesParams {
 export declare namespace Shows {
   export {
     type ShowRetrieveResponse as ShowRetrieveResponse,
-    type ShowListResponse as ShowListResponse,
+    type ShowBulkRetrieveResponse as ShowBulkRetrieveResponse,
     type ShowRetrieveParams as ShowRetrieveParams,
-    type ShowListParams as ShowListParams,
+    type ShowBulkRetrieveParams as ShowBulkRetrieveParams,
     type ShowListEpisodesParams as ShowListEpisodesParams,
   };
 }
