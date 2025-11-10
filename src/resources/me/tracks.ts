@@ -47,16 +47,11 @@ export class Tracks extends APIResource {
    *
    * @example
    * ```ts
-   * await client.me.tracks.remove({
-   *   query_ids:
-   *     '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B',
-   * });
+   * await client.me.tracks.remove();
    * ```
    */
-  remove(params: TrackRemoveParams, options?: RequestOptions): APIPromise<void> {
-    const { query_ids, ...body } = params;
+  remove(body: TrackRemoveParams | null | undefined = {}, options?: RequestOptions): APIPromise<void> {
     return this._client.delete('/me/tracks', {
-      query: { ids: query_ids },
       body,
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
@@ -137,20 +132,13 @@ export interface TrackCheckParams {
 
 export interface TrackRemoveParams {
   /**
-   * Query param: A comma-separated list of the
-   * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example:
-   * `ids=4iV5W9uYEdYUVa79Axb7Rh,1301WleyT98MSxVHPZCA6M`. Maximum: 50 IDs.
-   */
-  query_ids: string;
-
-  /**
-   * Body param: A JSON array of the
+   * A JSON array of the
    * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example:
    * `["4iV5W9uYEdYUVa79Axb7Rh", "1301WleyT98MSxVHPZCA6M"]`<br/>A maximum of 50 items
    * can be specified in one request. _**Note**: if the `ids` parameter is present in
    * the query string, any IDs listed here in the body will be ignored._
    */
-  body_ids?: Array<string>;
+  ids?: Array<string>;
 
   [k: string]: unknown;
 }

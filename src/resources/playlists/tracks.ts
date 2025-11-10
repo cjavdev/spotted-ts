@@ -29,15 +29,10 @@ export class Tracks extends APIResource {
    */
   update(
     playlistID: string,
-    params: TrackUpdateParams | null | undefined = {},
+    body: TrackUpdateParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<TrackUpdateResponse> {
-    const { query_uris, ...body } = params ?? {};
-    return this._client.put(path`/playlists/${playlistID}/tracks`, {
-      query: { uris: query_uris },
-      body,
-      ...options,
-    });
+    return this._client.put(path`/playlists/${playlistID}/tracks`, { body, ...options });
   }
 
   /**
@@ -77,15 +72,10 @@ export class Tracks extends APIResource {
    */
   add(
     playlistID: string,
-    params: TrackAddParams | null | undefined = {},
+    body: TrackAddParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<TrackAddResponse> {
-    const { query_position, query_uris, ...body } = params ?? {};
-    return this._client.post(path`/playlists/${playlistID}/tracks`, {
-      query: { position: query_position, uris: query_uris },
-      body,
-      ...options,
-    });
+    return this._client.post(path`/playlists/${playlistID}/tracks`, { body, ...options });
   }
 
   /**
@@ -122,48 +112,35 @@ export interface TrackRemoveResponse {
 
 export interface TrackUpdateParams {
   /**
-   * Query param: A comma-separated list of
-   * [Spotify URIs](/documentation/web-api/concepts/spotify-uris-ids) to set, can be
-   * track or episode URIs. For example:
-   * `uris=spotify:track:4iV5W9uYEdYUVa79Axb7Rh,spotify:track:1301WleyT98MSxVHPZCA6M,spotify:episode:512ojhOuo1ktJprKbVcKyQ`<br/>A
-   * maximum of 100 items can be set in one request.
-   */
-  query_uris?: string;
-
-  /**
-   * Body param: The position where the items should be inserted.<br/>To reorder the
-   * items to the end of the playlist, simply set _insert_before_ to the position
-   * after the last item.<br/>Examples:<br/>To reorder the first item to the last
-   * position in a playlist with 10 items, set _range_start_ to 0, and
-   * _insert_before_ to 10.<br/>To reorder the last item in a playlist with 10 items
-   * to the start of the playlist, set _range_start_ to 9, and _insert_before_ to 0.
+   * The position where the items should be inserted.<br/>To reorder the items to the
+   * end of the playlist, simply set _insert_before_ to the position after the last
+   * item.<br/>Examples:<br/>To reorder the first item to the last position in a
+   * playlist with 10 items, set _range_start_ to 0, and _insert_before_
+   * to 10.<br/>To reorder the last item in a playlist with 10 items to the start of
+   * the playlist, set _range_start_ to 9, and _insert_before_ to 0.
    */
   insert_before?: number;
 
   /**
-   * Body param: The amount of items to be reordered. Defaults to 1 if not
-   * set.<br/>The range of items to be reordered begins from the _range_start_
-   * position, and includes the _range_length_ subsequent items.<br/>Example:<br/>To
-   * move the items at index 9-10 to the start of the playlist, _range_start_ is set
-   * to 9, and _range_length_ is set to 2.
+   * The amount of items to be reordered. Defaults to 1 if not set.<br/>The range of
+   * items to be reordered begins from the _range_start_ position, and includes the
+   * _range_length_ subsequent items.<br/>Example:<br/>To move the items at index
+   * 9-10 to the start of the playlist, _range_start_ is set to 9, and _range_length_
+   * is set to 2.
    */
   range_length?: number;
 
   /**
-   * Body param: The position of the first item to be reordered.
+   * The position of the first item to be reordered.
    */
   range_start?: number;
 
   /**
-   * Body param: The playlist's snapshot ID against which you want to make the
-   * changes.
+   * The playlist's snapshot ID against which you want to make the changes.
    */
   snapshot_id?: string;
 
-  /**
-   * Body param:
-   */
-  body_uris?: Array<string>;
+  uris?: Array<string>;
 
   [k: string]: unknown;
 }
@@ -220,38 +197,16 @@ export interface TrackListParams {
 
 export interface TrackAddParams {
   /**
-   * Query param: The position to insert the items, a zero-based index. For example,
-   * to insert the items in the first position: `position=0`; to insert the items in
-   * the third position: `position=2`. If omitted, the items will be appended to the
-   * playlist. Items are added in the order they are listed in the query string or
-   * request body.
-   */
-  query_position?: number;
-
-  /**
-   * Query param: A comma-separated list of
-   * [Spotify URIs](/documentation/web-api/concepts/spotify-uris-ids) to add, can be
-   * track or episode URIs. For
-   * example:<br/>`uris=spotify:track:4iV5W9uYEdYUVa79Axb7Rh, spotify:track:1301WleyT98MSxVHPZCA6M, spotify:episode:512ojhOuo1ktJprKbVcKyQ`<br/>A
-   * maximum of 100 items can be added in one request. <br/> _**Note**: it is likely
-   * that passing a large number of item URIs as a query parameter will exceed the
-   * maximum length of the request URI. When adding a large number of items, it is
-   * recommended to pass them in the request body, see below._
-   */
-  query_uris?: string;
-
-  /**
-   * Body param: The position to insert the items, a zero-based index. For example,
-   * to insert the items in the first position: `position=0` ; to insert the items in
-   * the third position: `position=2`. If omitted, the items will be appended to the
-   * playlist. Items are added in the order they appear in the uris array. For
-   * example:
+   * The position to insert the items, a zero-based index. For example, to insert the
+   * items in the first position: `position=0` ; to insert the items in the third
+   * position: `position=2`. If omitted, the items will be appended to the playlist.
+   * Items are added in the order they appear in the uris array. For example:
    * `{"uris": ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh","spotify:track:1301WleyT98MSxVHPZCA6M"], "position": 3}`
    */
-  body_position?: number;
+  position?: number;
 
   /**
-   * Body param: A JSON array of the
+   * A JSON array of the
    * [Spotify URIs](/documentation/web-api/concepts/spotify-uris-ids) to add. For
    * example:
    * `{"uris": ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh","spotify:track:1301WleyT98MSxVHPZCA6M", "spotify:episode:512ojhOuo1ktJprKbVcKyQ"]}`<br/>A
@@ -259,7 +214,7 @@ export interface TrackAddParams {
    * parameter is present in the query string, any URIs listed here in the body will
    * be ignored._
    */
-  body_uris?: Array<string>;
+  uris?: Array<string>;
 
   [k: string]: unknown;
 }

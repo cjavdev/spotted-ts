@@ -1,7 +1,7 @@
 import iconv from 'iconv-lite';
-import { stringify } from 'spotted/internal/qs';
-import { encode } from 'spotted/internal/qs/utils';
-import { StringifyOptions } from 'spotted/internal/qs/types';
+import { stringify } from 'spotted-ts/internal/qs';
+import { encode } from 'spotted-ts/internal/qs/utils';
+import { StringifyOptions } from 'spotted-ts/internal/qs/types';
 import { empty_test_cases } from './empty-keys-cases';
 import assert from 'assert';
 

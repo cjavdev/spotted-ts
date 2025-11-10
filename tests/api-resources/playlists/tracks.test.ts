@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Spotted from 'spotted';
+import Spotted from 'spotted-ts';
 
 const client = new Spotted({
   clientID: 'My Client ID',
@@ -27,14 +27,7 @@ describe('resource tracks', () => {
     await expect(
       client.playlists.tracks.update(
         '3cEYpjA9oz9GiPac4AsH4n',
-        {
-          query_uris: 'uris',
-          insert_before: 3,
-          range_length: 2,
-          range_start: 1,
-          snapshot_id: 'snapshot_id',
-          body_uris: ['string'],
-        },
+        { insert_before: 3, range_length: 2, range_start: 1, snapshot_id: 'snapshot_id', uris: ['string'] },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Spotted.NotFoundError);
@@ -88,12 +81,7 @@ describe('resource tracks', () => {
     await expect(
       client.playlists.tracks.add(
         '3cEYpjA9oz9GiPac4AsH4n',
-        {
-          query_position: 0,
-          query_uris: 'spotify:track:4iV5W9uYEdYUVa79Axb7Rh,spotify:track:1301WleyT98MSxVHPZCA6M',
-          body_position: 0,
-          body_uris: ['string'],
-        },
+        { position: 0, uris: ['string'] },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Spotted.NotFoundError);

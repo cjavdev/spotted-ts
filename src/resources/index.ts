@@ -4,9 +4,9 @@ export * from './shared';
 export {
   Albums,
   type AlbumRetrieveResponse,
-  type AlbumListResponse,
+  type AlbumBulkRetrieveResponse,
   type AlbumRetrieveParams,
-  type AlbumListParams,
+  type AlbumBulkRetrieveParams,
   type AlbumListTracksParams,
 } from './albums';
 export {

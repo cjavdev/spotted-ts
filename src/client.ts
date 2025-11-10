@@ -20,8 +20,8 @@ import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
 import {
-  AlbumListParams,
-  AlbumListResponse,
+  AlbumBulkRetrieveParams,
+  AlbumBulkRetrieveResponse,
   AlbumListTracksParams,
   AlbumRetrieveParams,
   AlbumRetrieveResponse,
@@ -934,9 +934,9 @@ export declare namespace Spotted {
   export {
     Albums as Albums,
     type AlbumRetrieveResponse as AlbumRetrieveResponse,
-    type AlbumListResponse as AlbumListResponse,
+    type AlbumBulkRetrieveResponse as AlbumBulkRetrieveResponse,
     type AlbumRetrieveParams as AlbumRetrieveParams,
-    type AlbumListParams as AlbumListParams,
+    type AlbumBulkRetrieveParams as AlbumBulkRetrieveParams,
     type AlbumListTracksParams as AlbumListTracksParams,
   };
 
