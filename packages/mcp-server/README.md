@@ -245,7 +245,7 @@ The following tools are available in this MCP server.
 - `bulk_retrieve_artists` (`read`): Get Spotify catalog information for several artists based on their Spotify IDs.
 - `list_albums_artists` (`read`): Get Spotify catalog information about an artist's albums.
 - `list_related_artists_artists` (`read`): Get Spotify catalog information about artists similar to a given artist. Similarity is based on analysis of the Spotify community's listening history.
-- `list_top_tracks_artists` (`read`): Get Spotify catalog information about an artist's top tracks by country.
+- `top_tracks_artists` (`read`): Get Spotify catalog information about an artist's top tracks by country.
 
 ### Resource `shows`:
 

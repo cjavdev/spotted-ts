@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export const tool: Tool = {
-  name: 'list_top_tracks_artists',
+  name: 'top_tracks_artists',
   description: "Get Spotify catalog information about an artist's top tracks by country.\n",
   inputSchema: {
     type: 'object',
@@ -41,7 +41,7 @@ export const tool: Tool = {
 
 export const handler = async (client: Spotted, args: Record<string, unknown> | undefined) => {
   const { id, ...body } = args as any;
-  return asTextContentResult(await client.artists.listTopTracks(id, body));
+  return asTextContentResult(await client.artists.topTracks(id, body));
 };
 
 export default { metadata, tool, handler };

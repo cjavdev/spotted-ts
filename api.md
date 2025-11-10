@@ -49,7 +49,7 @@ Types:
 - <code><a href="./src/resources/artists.ts">ArtistBulkRetrieveResponse</a></code>
 - <code><a href="./src/resources/artists.ts">ArtistListAlbumsResponse</a></code>
 - <code><a href="./src/resources/artists.ts">ArtistListRelatedArtistsResponse</a></code>
-- <code><a href="./src/resources/artists.ts">ArtistListTopTracksResponse</a></code>
+- <code><a href="./src/resources/artists.ts">ArtistTopTracksResponse</a></code>
 
 Methods:
 
@@ -57,7 +57,7 @@ Methods:
 - <code title="get /artists">client.artists.<a href="./src/resources/artists.ts">bulkRetrieve</a>({ ...params }) -> ArtistBulkRetrieveResponse</code>
 - <code title="get /artists/{id}/albums">client.artists.<a href="./src/resources/artists.ts">listAlbums</a>(id, { ...params }) -> ArtistListAlbumsResponsesCursorURLPage</code>
 - <code title="get /artists/{id}/related-artists">client.artists.<a href="./src/resources/artists.ts">listRelatedArtists</a>(id) -> ArtistListRelatedArtistsResponse</code>
-- <code title="get /artists/{id}/top-tracks">client.artists.<a href="./src/resources/artists.ts">listTopTracks</a>(id, { ...params }) -> ArtistListTopTracksResponse</code>
+- <code title="get /artists/{id}/top-tracks">client.artists.<a href="./src/resources/artists.ts">topTracks</a>(id, { ...params }) -> ArtistTopTracksResponse</code>
 
 # Shows
 

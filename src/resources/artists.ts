@@ -53,11 +53,11 @@ export class Artists extends APIResource {
   /**
    * Get Spotify catalog information about an artist's top tracks by country.
    */
-  listTopTracks(
+  topTracks(
     id: string,
-    query: ArtistListTopTracksParams | null | undefined = {},
+    query: ArtistTopTracksParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<ArtistListTopTracksResponse> {
+  ): APIPromise<ArtistTopTracksResponse> {
     return this._client.get(path`/artists/${id}/top-tracks`, { query, ...options });
   }
 }
@@ -156,7 +156,7 @@ export interface ArtistListRelatedArtistsResponse {
   artists: Array<Shared.ArtistObject>;
 }
 
-export interface ArtistListTopTracksResponse {
+export interface ArtistTopTracksResponse {
   tracks: Array<Shared.TrackObject>;
 }
 
@@ -203,7 +203,7 @@ export interface ArtistListAlbumsParams {
   offset?: number;
 }
 
-export interface ArtistListTopTracksParams {
+export interface ArtistTopTracksParams {
   /**
    * An
    * [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
@@ -223,10 +223,10 @@ export declare namespace Artists {
     type ArtistBulkRetrieveResponse as ArtistBulkRetrieveResponse,
     type ArtistListAlbumsResponse as ArtistListAlbumsResponse,
     type ArtistListRelatedArtistsResponse as ArtistListRelatedArtistsResponse,
-    type ArtistListTopTracksResponse as ArtistListTopTracksResponse,
+    type ArtistTopTracksResponse as ArtistTopTracksResponse,
     type ArtistListAlbumsResponsesCursorURLPage as ArtistListAlbumsResponsesCursorURLPage,
     type ArtistBulkRetrieveParams as ArtistBulkRetrieveParams,
     type ArtistListAlbumsParams as ArtistListAlbumsParams,
-    type ArtistListTopTracksParams as ArtistListTopTracksParams,
+    type ArtistTopTracksParams as ArtistTopTracksParams,
   };
 }
