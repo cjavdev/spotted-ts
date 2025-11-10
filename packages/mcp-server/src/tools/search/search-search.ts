@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export const tool: Tool = {
-  name: 'retrieve_search',
+  name: 'search_search',
   description:
     'Get Spotify catalog information about albums, artists, playlists, tracks, shows, episodes or audiobooks\nthat match a keyword string. Audiobooks are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.\n',
   inputSchema: {
@@ -71,7 +71,7 @@ export const tool: Tool = {
 
 export const handler = async (client: Spotted, args: Record<string, unknown> | undefined) => {
   const body = args as any;
-  return asTextContentResult(await client.search.retrieve(body));
+  return asTextContentResult(await client.search.search(body));
 };
 
 export default { metadata, tool, handler };

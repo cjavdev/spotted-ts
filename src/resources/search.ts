@@ -11,28 +11,28 @@ export class Search extends APIResource {
    * episodes or audiobooks that match a keyword string. Audiobooks are only
    * available within the US, UK, Canada, Ireland, New Zealand and Australia markets.
    */
-  retrieve(query: SearchRetrieveParams, options?: RequestOptions): APIPromise<SearchRetrieveResponse> {
+  search(query: SearchSearchParams, options?: RequestOptions): APIPromise<SearchSearchResponse> {
     return this._client.get('/search', { query, ...options });
   }
 }
 
-export interface SearchRetrieveResponse {
-  albums?: SearchRetrieveResponse.Albums;
+export interface SearchSearchResponse {
+  albums?: SearchSearchResponse.Albums;
 
-  artists?: SearchRetrieveResponse.Artists;
+  artists?: SearchSearchResponse.Artists;
 
-  audiobooks?: SearchRetrieveResponse.Audiobooks;
+  audiobooks?: SearchSearchResponse.Audiobooks;
 
-  episodes?: SearchRetrieveResponse.Episodes;
+  episodes?: SearchSearchResponse.Episodes;
 
   playlists?: Shared.PagingPlaylistObject;
 
-  shows?: SearchRetrieveResponse.Shows;
+  shows?: SearchSearchResponse.Shows;
 
-  tracks?: SearchRetrieveResponse.Tracks;
+  tracks?: SearchSearchResponse.Tracks;
 }
 
-export namespace SearchRetrieveResponse {
+export namespace SearchSearchResponse {
   export interface Albums {
     /**
      * A link to the Web API endpoint returning the full result of the request
@@ -319,7 +319,7 @@ export namespace SearchRetrieveResponse {
   }
 }
 
-export interface SearchRetrieveParams {
+export interface SearchSearchParams {
   /**
    * Your search query.
    *
@@ -379,8 +379,5 @@ export interface SearchRetrieveParams {
 }
 
 export declare namespace Search {
-  export {
-    type SearchRetrieveResponse as SearchRetrieveResponse,
-    type SearchRetrieveParams as SearchRetrieveParams,
-  };
+  export { type SearchSearchResponse as SearchSearchResponse, type SearchSearchParams as SearchSearchParams };
 }

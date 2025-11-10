@@ -105,7 +105,7 @@ const fuse = new Fuse(
     'client.chapters.retrieve',
     'client.tracks.list',
     'client.tracks.retrieve',
-    'client.search.retrieve',
+    'client.search.search',
     'client.playlists.retrieve',
     'client.playlists.update',
     'client.playlists.tracks.add',
