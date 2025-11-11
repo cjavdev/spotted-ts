@@ -15,7 +15,7 @@ import * as qs from './internal/qs';
 import { VERSION } from './version';
 import * as Errors from './core/error';
 import * as Pagination from './core/pagination';
-import { AbstractPage, AlbumsCursorURLPageResponse, CursorURLPageResponse } from './core/pagination';
+import { AbstractPage, CursorURLPageResponse } from './core/pagination';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
@@ -946,9 +946,6 @@ export declare namespace Spotted {
 
   export import CursorURLPage = Pagination.CursorURLPage;
   export { type CursorURLPageResponse as CursorURLPageResponse };
-
-  export import AlbumsCursorURLPage = Pagination.AlbumsCursorURLPage;
-  export { type AlbumsCursorURLPageResponse as AlbumsCursorURLPageResponse };
 
   export {
     Albums as Albums,
