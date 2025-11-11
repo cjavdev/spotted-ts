@@ -321,7 +321,7 @@ Types:
 
 Methods:
 
-- <code title="put /playlists/{playlist_id}/images">client.playlists.images.<a href="./src/resources/playlists/images.ts">update</a>(playlistID, { ...params }) -> Response</code>
+- <code title="put /playlists/{playlist_id}/images">client.playlists.images.<a href="./src/resources/playlists/images.ts">update</a>(playlistID, body) -> Response</code>
 - <code title="get /playlists/{playlist_id}/images">client.playlists.images.<a href="./src/resources/playlists/images.ts">list</a>(playlistID) -> ImageListResponse</code>
 
 # Users
