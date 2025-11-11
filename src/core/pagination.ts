@@ -153,3 +153,54 @@ export class CursorURLPage<Item> extends AbstractPage<Item> implements CursorURL
     };
   }
 }
+
+export interface AlbumsCursorURLPageResponse<Item> {
+  next: string;
+
+  items: Array<Item>;
+}
+
+export class AlbumsCursorURLPage<Item>
+  extends AbstractPage<Item>
+  implements AlbumsCursorURLPageResponse<Item>
+{
+  next: string;
+
+  items: Array<Item>;
+
+  constructor(
+    client: Spotted,
+    response: Response,
+    body: AlbumsCursorURLPageResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.next = body.next || '';
+    this.items = body.items || [];
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.items ?? [];
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const urlString = this.next;
+    if (!urlString) return null;
+
+    const url = new URL(urlString);
+
+    // ensure all of the query params that we used for the last request are also included
+    // in the next request
+    const params = [...Object.entries(this.options.query || {}), ...url.searchParams.entries()];
+    for (const [key, value] of params) {
+      url.searchParams.set(key, value as any);
+    }
+
+    return {
+      ...this.options,
+      path: url.toString(),
+      query: undefined,
+    };
+  }
+}
