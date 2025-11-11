@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { Metadata, asTextContentResult } from 'spotted-ts-mcp/tools/types';
+import { Metadata, asBinaryContentResult } from 'spotted-ts-mcp/tools/types';
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import Spotted from 'spotted-ts';
@@ -38,9 +38,8 @@ export const tool: Tool = {
 };
 
 export const handler = async (client: Spotted, args: Record<string, unknown> | undefined) => {
-  const { playlist_id, body, ...body } = args as any;
-  const response = await client.playlists.images.update(playlist_id, body).asResponse();
-  return asTextContentResult(await response.text());
+  const { playlist_id, ...body } = args as any;
+  return asBinaryContentResult(await client.playlists.images.update(playlist_id, body).asResponse());
 };
 
 export default { metadata, tool, handler };
