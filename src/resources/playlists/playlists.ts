@@ -170,8 +170,6 @@ export namespace PlaylistRetrieveResponse {
      */
     href: string;
 
-    items: Array<Shared.PlaylistTrackObject>;
-
     /**
      * The maximum number of items in the response (as set in the query or by default).
      */
@@ -196,6 +194,8 @@ export namespace PlaylistRetrieveResponse {
      * The total number of items available to return.
      */
     total: number;
+
+    items?: Array<Shared.PlaylistTrackObject>;
   }
 }
 

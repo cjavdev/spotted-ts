@@ -63,8 +63,6 @@ export namespace BrowseGetNewReleasesResponse {
      */
     href: string;
 
-    items: Array<Albums.Item>;
-
     /**
      * The maximum number of items in the response (as set in the query or by default).
      */
@@ -89,6 +87,8 @@ export namespace BrowseGetNewReleasesResponse {
      * The total number of items available to return.
      */
     total: number;
+
+    items?: Array<Albums.Item>;
   }
 
   export namespace Albums {

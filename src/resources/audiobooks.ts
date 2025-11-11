@@ -180,8 +180,6 @@ export namespace AudiobookRetrieveResponse {
      */
     href: string;
 
-    items: Array<AudiobooksAPI.SimplifiedChapterObject>;
-
     /**
      * The maximum number of items in the response (as set in the query or by default).
      */
@@ -206,6 +204,8 @@ export namespace AudiobookRetrieveResponse {
      * The total number of items available to return.
      */
     total: number;
+
+    items?: Array<AudiobooksAPI.SimplifiedChapterObject>;
   }
 }
 
@@ -231,8 +231,6 @@ export namespace AudiobookBulkRetrieveResponse {
        */
       href: string;
 
-      items: Array<AudiobooksAPI.SimplifiedChapterObject>;
-
       /**
        * The maximum number of items in the response (as set in the query or by default).
        */
@@ -257,6 +255,8 @@ export namespace AudiobookBulkRetrieveResponse {
        * The total number of items available to return.
        */
       total: number;
+
+      items?: Array<AudiobooksAPI.SimplifiedChapterObject>;
     }
   }
 }

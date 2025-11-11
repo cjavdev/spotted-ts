@@ -78,8 +78,6 @@ export namespace CategoryListResponse {
      */
     href: string;
 
-    items: Array<Categories.Item>;
-
     /**
      * The maximum number of items in the response (as set in the query or by default).
      */
@@ -104,6 +102,8 @@ export namespace CategoryListResponse {
      * The total number of items available to return.
      */
     total: number;
+
+    items?: Array<Categories.Item>;
   }
 
   export namespace Categories {

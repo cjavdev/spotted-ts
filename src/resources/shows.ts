@@ -65,8 +65,6 @@ export namespace ShowRetrieveResponse {
      */
     href: string;
 
-    items: Array<Shared.SimplifiedEpisodeObject>;
-
     /**
      * The maximum number of items in the response (as set in the query or by default).
      */
@@ -91,6 +89,8 @@ export namespace ShowRetrieveResponse {
      * The total number of items available to return.
      */
     total: number;
+
+    items?: Array<Shared.SimplifiedEpisodeObject>;
   }
 }
 
