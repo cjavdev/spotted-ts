@@ -39,8 +39,6 @@ export namespace SearchQueryResponse {
      */
     href: string;
 
-    items: Array<Albums.Item>;
-
     /**
      * The maximum number of items in the response (as set in the query or by default).
      */
@@ -65,6 +63,8 @@ export namespace SearchQueryResponse {
      * The total number of items available to return.
      */
     total: number;
+
+    items?: Array<Albums.Item>;
   }
 
   export namespace Albums {
@@ -154,8 +154,6 @@ export namespace SearchQueryResponse {
      */
     href: string;
 
-    items: Array<Shared.ArtistObject>;
-
     /**
      * The maximum number of items in the response (as set in the query or by default).
      */
@@ -180,6 +178,8 @@ export namespace SearchQueryResponse {
      * The total number of items available to return.
      */
     total: number;
+
+    items?: Array<Shared.ArtistObject>;
   }
 
   export interface Audiobooks {
@@ -188,8 +188,6 @@ export namespace SearchQueryResponse {
      */
     href: string;
 
-    items: Array<Shared.AudiobookBase>;
-
     /**
      * The maximum number of items in the response (as set in the query or by default).
      */
@@ -214,6 +212,8 @@ export namespace SearchQueryResponse {
      * The total number of items available to return.
      */
     total: number;
+
+    items?: Array<Shared.AudiobookBase>;
   }
 
   export interface Episodes {
@@ -222,8 +222,6 @@ export namespace SearchQueryResponse {
      */
     href: string;
 
-    items: Array<Shared.SimplifiedEpisodeObject>;
-
     /**
      * The maximum number of items in the response (as set in the query or by default).
      */
@@ -248,6 +246,8 @@ export namespace SearchQueryResponse {
      * The total number of items available to return.
      */
     total: number;
+
+    items?: Array<Shared.SimplifiedEpisodeObject>;
   }
 
   export interface Shows {
@@ -256,8 +256,6 @@ export namespace SearchQueryResponse {
      */
     href: string;
 
-    items: Array<Shared.ShowBase>;
-
     /**
      * The maximum number of items in the response (as set in the query or by default).
      */
@@ -282,6 +280,8 @@ export namespace SearchQueryResponse {
      * The total number of items available to return.
      */
     total: number;
+
+    items?: Array<Shared.ShowBase>;
   }
 
   export interface Tracks {
@@ -290,8 +290,6 @@ export namespace SearchQueryResponse {
      */
     href: string;
 
-    items: Array<Shared.TrackObject>;
-
     /**
      * The maximum number of items in the response (as set in the query or by default).
      */
@@ -316,6 +314,8 @@ export namespace SearchQueryResponse {
      * The total number of items available to return.
      */
     total: number;
+
+    items?: Array<Shared.TrackObject>;
   }
 }
 

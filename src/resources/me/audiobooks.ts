@@ -124,8 +124,6 @@ export namespace AudiobookListResponse {
        */
       href: string;
 
-      items: Array<AudiobooksAPI.SimplifiedChapterObject>;
-
       /**
        * The maximum number of items in the response (as set in the query or by default).
        */
@@ -150,6 +148,8 @@ export namespace AudiobookListResponse {
        * The total number of items available to return.
        */
       total: number;
+
+      items?: Array<AudiobooksAPI.SimplifiedChapterObject>;
     }
   }
 }
