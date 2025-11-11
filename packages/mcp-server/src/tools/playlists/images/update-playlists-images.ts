@@ -38,7 +38,7 @@ export const tool: Tool = {
 };
 
 export const handler = async (client: Spotted, args: Record<string, unknown> | undefined) => {
-  const { playlist_id, ...body } = args as any;
+  const { playlist_id, body, ...body } = args as any;
   return asBinaryContentResult(await client.playlists.images.update(playlist_id, body).asResponse());
 };
 

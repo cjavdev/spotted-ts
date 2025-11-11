@@ -9,12 +9,6 @@ const client = new Spotted({
 });
 
 describe('resource images', () => {
-  test('update: required and optional params', async () => {
-    const response = await client.playlists.images.update('3cEYpjA9oz9GiPac4AsH4n', {
-      body: '/9j/2wCEABoZGSccJz4lJT5CLy8vQkc9Ozs9R0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0cBHCcnMyYzPSYmPUc9Mj1HR0dEREdHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR//dAAQAAf/uAA5BZG9iZQBkwAAAAAH/wAARCAABAAEDACIAAREBAhEB/8QASwABAQAAAAAAAAAAAAAAAAAAAAYBAQAAAAAAAAAAAAAAAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAARAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwAAARECEQA/AJgAH//Z',
-    });
-  });
-
   // Prism tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.playlists.images.list('3cEYpjA9oz9GiPac4AsH4n');
