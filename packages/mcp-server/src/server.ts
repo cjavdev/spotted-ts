@@ -34,7 +34,7 @@ export const newMcpServer = () =>
   new McpServer(
     {
       name: 'spotted_ts_api',
-      version: '0.8.0',
+      version: '0.2.1',
     },
     { capabilities: { tools: {}, logging: {} } },
   );
@@ -61,8 +61,8 @@ export function initMcpServer(params: {
     if (implementation && (!mcpOptions.client || mcpOptions.client === 'infer')) {
       mcpOptions.client =
         implementation.name.toLowerCase().includes('claude') ? 'claude'
-        : implementation.name.toLowerCase().includes('cursor') ? 'cursor'
-        : undefined;
+          : implementation.name.toLowerCase().includes('cursor') ? 'cursor'
+            : undefined;
       mcpOptions.capabilities = {
         ...(mcpOptions.client && knownClients[mcpOptions.client]),
         ...mcpOptions.capabilities,
@@ -74,12 +74,12 @@ export function initMcpServer(params: {
 
   const logAtLevel =
     (level: 'debug' | 'info' | 'warning' | 'error') =>
-    (message: string, ...rest: unknown[]) => {
-      void server.sendLoggingMessage({
-        level,
-        data: { message, rest },
-      });
-    };
+      (message: string, ...rest: unknown[]) => {
+        void server.sendLoggingMessage({
+          level,
+          data: { message, rest },
+        });
+      };
   const logger = {
     debug: logAtLevel('debug'),
     info: logAtLevel('info'),

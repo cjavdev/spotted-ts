@@ -1,53 +1,5 @@
 # Changelog
 
-## 0.8.0 (2025-11-20)
-
-Full Changelog: [v0.7.0...v0.8.0](https://github.com/cjavdev/spotted-ts/compare/v0.7.0...v0.8.0)
-
-### Features
-
-* **api:** manual updates ([6b480fd](https://github.com/cjavdev/spotted-ts/commit/6b480fd810f0c2c4420949213748261a752d47e1))
-
-## 0.7.0 (2025-11-20)
-
-Full Changelog: [v0.6.0...v0.7.0](https://github.com/cjavdev/spotted-ts/compare/v0.6.0...v0.7.0)
-
-### Features
-
-* **api:** manual updates ([37d4944](https://github.com/cjavdev/spotted-ts/commit/37d4944af4bcb31d90a2bb32bc8f2a503a6507a5))
-
-## 0.6.0 (2025-11-20)
-
-Full Changelog: [v0.5.0...v0.6.0](https://github.com/cjavdev/spotted-ts/compare/v0.5.0...v0.6.0)
-
-### Features
-
-* **api:** rename public to published for java ([7b2821c](https://github.com/cjavdev/spotted-ts/commit/7b2821c3373508a48b4105080020f299cad4fd27))
-
-## 0.5.0 (2025-11-20)
-
-Full Changelog: [v0.4.0...v0.5.0](https://github.com/cjavdev/spotted-ts/compare/v0.4.0...v0.5.0)
-
-### Features
-
-* **api:** manual updates ([9c6289c](https://github.com/cjavdev/spotted-ts/commit/9c6289cd6d63ffefd49b92426f0b0992e3046e8b))
-
-## 0.4.0 (2025-11-20)
-
-Full Changelog: [v0.3.0...v0.4.0](https://github.com/cjavdev/spotted-ts/compare/v0.3.0...v0.4.0)
-
-### Features
-
-* **api:** manual updates ([252e740](https://github.com/cjavdev/spotted-ts/commit/252e7400f64fe3244aa07b242f99cf526cec9768))
-
-## 0.3.0 (2025-11-19)
-
-Full Changelog: [v0.2.1...v0.3.0](https://github.com/cjavdev/spotted-ts/compare/v0.2.1...v0.3.0)
-
-### Features
-
-* **api:** manual updates ([bf9a541](https://github.com/cjavdev/spotted-ts/commit/bf9a54143a1b2db14b8e16c05027bd0ea2ba8d7a))
-
 ## 0.2.1 (2025-11-18)
 
 Full Changelog: [v0.1.0...v0.2.1](https://github.com/cjavdev/spotted-ts/compare/v0.1.0...v0.2.1)
@@ -55,7 +7,6 @@ Full Changelog: [v0.1.0...v0.2.1](https://github.com/cjavdev/spotted-ts/compare/
 ### Features
 
 * **api:** add mode constants ([d5397d7](https://github.com/cjavdev/spotted-ts/commit/d5397d77e8d4ea90df6f31409f7cb941ffbf5c9b))
-* **api:** manual updates ([736bf9e](https://github.com/cjavdev/spotted-ts/commit/736bf9e8d3c390592d541476e6eda2e3fda45068))
 * **api:** manual updates ([57223b2](https://github.com/cjavdev/spotted-ts/commit/57223b26c5593cf79b6a8f2c18b23bd9b9e9879c))
 * **api:** manual updates ([edb39df](https://github.com/cjavdev/spotted-ts/commit/edb39dfdbbf84cad59c5f8b16f5d35bbbea108fd))
 * **api:** manual updates ([4a66e3d](https://github.com/cjavdev/spotted-ts/commit/4a66e3d07575eca73ba093033a370b037f23f512))
@@ -70,11 +21,9 @@ Full Changelog: [v0.1.0...v0.2.1](https://github.com/cjavdev/spotted-ts/compare/
 * **api:** manual updates ([38dc01e](https://github.com/cjavdev/spotted-ts/commit/38dc01ecc1268c6d4c35f79bfd1d31644fc5bffc))
 * **api:** manual updates ([d7e727b](https://github.com/cjavdev/spotted-ts/commit/d7e727b8c36db75feaba90a5b253664aeef88a4b))
 
-
 ### Bug Fixes
 
 * **mcp:** return tool execution error on jq failure ([d2949ba](https://github.com/cjavdev/spotted-ts/commit/d2949ba11d9816649ae784237f6bc7c096572dd7))
-
 
 ### Chores
 
@@ -101,11 +50,9 @@ Full Changelog: [v0.0.1...v0.1.0](https://github.com/cjavdev/spotted-ts/compare/
 * **api:** manual updates ([3541b08](https://github.com/cjavdev/spotted-ts/commit/3541b084e9dc52171c995e8e1c2cc91066cd52bc))
 * **mcp:** enable optional code execution tool on http mcp servers ([cfdecd6](https://github.com/cjavdev/spotted-ts/commit/cfdecd6e2ed9bab084b115528fcc4224a93c2d0c))
 
-
 ### Bug Fixes
 
 * **mcpb:** pin @anthropic-ai/mcpb version ([dd56c1b](https://github.com/cjavdev/spotted-ts/commit/dd56c1b5336fa87595939b2a2ca38ab192f035fe))
-
 
 ### Chores
 
@@ -120,7 +67,6 @@ Full Changelog: [v0.0.1...v0.1.0](https://github.com/cjavdev/spotted-ts/compare/
 * update SDK settings ([d2044ac](https://github.com/cjavdev/spotted-ts/commit/d2044ac24d979b3e8f409fc5fe8c5c55318a0919))
 * update SDK settings ([99fab32](https://github.com/cjavdev/spotted-ts/commit/99fab320b35ebc86e194d04376a9e227c41439a3))
 * use structured error when code execution tool errors ([0626eeb](https://github.com/cjavdev/spotted-ts/commit/0626eebaa3a40773b5a4d2cc3a06f6e6be0b016f))
-
 
 ### Documentation
 
