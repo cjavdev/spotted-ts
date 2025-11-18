@@ -1,5 +1,38 @@
 # Changelog
 
+## 0.2.1 (2025-11-18)
+
+Full Changelog: [v0.1.0...v0.2.1](https://github.com/cjavdev/spotted-ts/compare/v0.1.0...v0.2.1)
+
+### Features
+
+* **api:** add mode constants ([d5397d7](https://github.com/cjavdev/spotted-ts/commit/d5397d77e8d4ea90df6f31409f7cb941ffbf5c9b))
+* **api:** manual updates ([736bf9e](https://github.com/cjavdev/spotted-ts/commit/736bf9e8d3c390592d541476e6eda2e3fda45068))
+* **api:** manual updates ([57223b2](https://github.com/cjavdev/spotted-ts/commit/57223b26c5593cf79b6a8f2c18b23bd9b9e9879c))
+* **api:** manual updates ([edb39df](https://github.com/cjavdev/spotted-ts/commit/edb39dfdbbf84cad59c5f8b16f5d35bbbea108fd))
+* **api:** manual updates ([4a66e3d](https://github.com/cjavdev/spotted-ts/commit/4a66e3d07575eca73ba093033a370b037f23f512))
+* **api:** manual updates ([7be7d20](https://github.com/cjavdev/spotted-ts/commit/7be7d20f0eea32db29a069a545c90a561da28d46))
+* **api:** manual updates ([11058c3](https://github.com/cjavdev/spotted-ts/commit/11058c3618718c727f14ad8e1c3098dd8ff92158))
+* **api:** manual updates ([b475c9a](https://github.com/cjavdev/spotted-ts/commit/b475c9a2396e1b299e73ed5cbfdcb28d69655ec9))
+* **api:** manual updates ([4acacab](https://github.com/cjavdev/spotted-ts/commit/4acacab8532531ff267bb531dda97cf57c009479))
+* **api:** manual updates ([59bd362](https://github.com/cjavdev/spotted-ts/commit/59bd36288c0700dea4c8d9002b16b8b5ac9629e2))
+* **api:** manual updates ([60575a0](https://github.com/cjavdev/spotted-ts/commit/60575a05854f8189fca754352887e1478f875c58))
+* **api:** manual updates ([509e286](https://github.com/cjavdev/spotted-ts/commit/509e28612d490ec5c5816860f054fd50c77565f8))
+* **api:** manual updates ([14253d0](https://github.com/cjavdev/spotted-ts/commit/14253d0516fe121fd0458884bcc13dfab5e08a1a))
+* **api:** manual updates ([38dc01e](https://github.com/cjavdev/spotted-ts/commit/38dc01ecc1268c6d4c35f79bfd1d31644fc5bffc))
+* **api:** manual updates ([d7e727b](https://github.com/cjavdev/spotted-ts/commit/d7e727b8c36db75feaba90a5b253664aeef88a4b))
+
+
+### Bug Fixes
+
+* **mcp:** return tool execution error on jq failure ([d2949ba](https://github.com/cjavdev/spotted-ts/commit/d2949ba11d9816649ae784237f6bc7c096572dd7))
+
+
+### Chores
+
+* **mcp:** clarify http auth error ([d712c39](https://github.com/cjavdev/spotted-ts/commit/d712c3904a06572caecc2ff5de80dc667510694d))
+* **mcp:** upgrade jq-web ([e0779f2](https://github.com/cjavdev/spotted-ts/commit/e0779f2186faa20509478b79202930b9822f947b))
+
 ## 0.1.0 (2025-11-08)
 
 Full Changelog: [v0.0.1...v0.1.0](https://github.com/cjavdev/spotted-ts/compare/v0.0.1...v0.1.0)
