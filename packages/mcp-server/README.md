@@ -404,7 +404,6 @@ The following tools are available in this MCP server.
 
 ### Resource `playlists.images`:
 
-- `update_playlists_images` (`write`): Replace the image used to represent a specific playlist.
 - `list_playlists_images` (`read`): Get the current image associated with a specific playlist.
 
 ### Resource `users`:
