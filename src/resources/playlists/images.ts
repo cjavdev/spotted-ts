@@ -13,20 +13,28 @@ export class Images extends APIResource {
    *
    * @example
    * ```ts
-   * await client.playlists.images.update(
+   * const image = await client.playlists.images.update(
    *   '3cEYpjA9oz9GiPac4AsH4n',
-   *   {
-   *     body: '/9j/2wCEABoZGSccJz4lJT5CLy8vQkc9Ozs9R0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0cBHCcnMyYzPSYmPUc9Mj1HR0dEREdHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR//dAAQAAf/uAA5BZG9iZQBkwAAAAAH/wAARCAABAAEDACIAAREBAhEB/8QASwABAQAAAAAAAAAAAAAAAAAAAAYBAQAAAAAAAAAAAAAAAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAARAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwAAARECEQA/AJgAH//Z',
-   *   },
+   *   fs.createReadStream('path/to/file'),
    * );
+   *
+   * const content = await image.blob();
+   * console.log(content);
    * ```
    */
-  update(playlistID: string, params: ImageUpdateParams, options?: RequestOptions): APIPromise<void> {
-    const { body } = params;
+  update(
+    playlistID: string,
+    body: string | ArrayBuffer | ArrayBufferView | Blob | DataView,
+    options?: RequestOptions,
+  ): APIPromise<Response> {
     return this._client.put(path`/playlists/${playlistID}/images`, {
       body: body,
       ...options,
-      headers: buildHeaders([{ 'Content-Type': 'image/jpeg', Accept: '*/*' }, options?.headers]),
+      headers: buildHeaders([
+        { 'Content-Type': 'image/jpeg', Accept: 'application/binary' },
+        options?.headers,
+      ]),
+      __binaryResponse: true,
     });
   }
 
@@ -47,13 +55,6 @@ export class Images extends APIResource {
 
 export type ImageListResponse = Array<Shared.ImageObject>;
 
-export interface ImageUpdateParams {
-  /**
-   * Base64 encoded JPEG image data, maximum payload size is 256 KB.
-   */
-  body: string;
-}
-
 export declare namespace Images {
-  export { type ImageListResponse as ImageListResponse, type ImageUpdateParams as ImageUpdateParams };
+  export { type ImageListResponse as ImageListResponse };
 }

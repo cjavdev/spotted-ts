@@ -12,12 +12,15 @@ export class Following extends APIResource {
    *
    * @example
    * ```ts
-   * const followings = await client.me.following.list({
+   * const response = await client.me.following.bulkRetrieve({
    *   type: 'artist',
    * });
    * ```
    */
-  list(query: FollowingListParams, options?: RequestOptions): APIPromise<FollowingListResponse> {
+  bulkRetrieve(
+    query: FollowingBulkRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<FollowingBulkRetrieveResponse> {
     return this._client.get('/me/following', { query, ...options });
   }
 
@@ -75,11 +78,11 @@ export class Following extends APIResource {
   }
 }
 
-export interface FollowingListResponse {
-  artists: FollowingListResponse.Artists;
+export interface FollowingBulkRetrieveResponse {
+  artists: FollowingBulkRetrieveResponse.Artists;
 }
 
-export namespace FollowingListResponse {
+export namespace FollowingBulkRetrieveResponse {
   export interface Artists {
     /**
      * The cursors used to find the next set of items.
@@ -129,7 +132,7 @@ export namespace FollowingListResponse {
 
 export type FollowingCheckResponse = Array<boolean>;
 
-export interface FollowingListParams {
+export interface FollowingBulkRetrieveParams {
   /**
    * The ID type: currently only `artist` is supported.
    */
@@ -189,9 +192,9 @@ export interface FollowingUnfollowParams {
 
 export declare namespace Following {
   export {
-    type FollowingListResponse as FollowingListResponse,
+    type FollowingBulkRetrieveResponse as FollowingBulkRetrieveResponse,
     type FollowingCheckResponse as FollowingCheckResponse,
-    type FollowingListParams as FollowingListParams,
+    type FollowingBulkRetrieveParams as FollowingBulkRetrieveParams,
     type FollowingCheckParams as FollowingCheckParams,
     type FollowingFollowParams as FollowingFollowParams,
     type FollowingUnfollowParams as FollowingUnfollowParams,

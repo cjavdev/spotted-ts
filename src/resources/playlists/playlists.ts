@@ -5,7 +5,7 @@ import * as Shared from '../shared';
 import * as FollowersAPI from './followers';
 import { FollowerCheckParams, FollowerCheckResponse, FollowerFollowParams, Followers } from './followers';
 import * as ImagesAPI from './images';
-import { ImageListResponse, ImageUpdateParams, Images } from './images';
+import { ImageListResponse, Images } from './images';
 import * as TracksAPI from './tracks';
 import {
   TrackAddParams,
@@ -170,8 +170,6 @@ export namespace PlaylistRetrieveResponse {
      */
     href: string;
 
-    items: Array<Shared.PlaylistTrackObject>;
-
     /**
      * The maximum number of items in the response (as set in the query or by default).
      */
@@ -196,6 +194,8 @@ export namespace PlaylistRetrieveResponse {
      * The total number of items available to return.
      */
     total: number;
+
+    items?: Array<Shared.PlaylistTrackObject>;
   }
 }
 
@@ -298,9 +298,5 @@ export declare namespace Playlists {
     type FollowerFollowParams as FollowerFollowParams,
   };
 
-  export {
-    Images as Images,
-    type ImageListResponse as ImageListResponse,
-    type ImageUpdateParams as ImageUpdateParams,
-  };
+  export { Images as Images, type ImageListResponse as ImageListResponse };
 }

@@ -19,7 +19,10 @@ export class Artists extends APIResource {
   /**
    * Get Spotify catalog information for several artists based on their Spotify IDs.
    */
-  list(query: ArtistListParams, options?: RequestOptions): APIPromise<ArtistListResponse> {
+  bulkRetrieve(
+    query: ArtistBulkRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<ArtistBulkRetrieveResponse> {
     return this._client.get('/artists', { query, ...options });
   }
 
@@ -50,18 +53,18 @@ export class Artists extends APIResource {
   /**
    * Get Spotify catalog information about an artist's top tracks by country.
    */
-  listTopTracks(
+  topTracks(
     id: string,
-    query: ArtistListTopTracksParams | null | undefined = {},
+    query: ArtistTopTracksParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<ArtistListTopTracksResponse> {
+  ): APIPromise<ArtistTopTracksResponse> {
     return this._client.get(path`/artists/${id}/top-tracks`, { query, ...options });
   }
 }
 
 export type ArtistListAlbumsResponsesCursorURLPage = CursorURLPage<ArtistListAlbumsResponse>;
 
-export interface ArtistListResponse {
+export interface ArtistBulkRetrieveResponse {
   artists: Array<Shared.ArtistObject>;
 }
 
@@ -153,11 +156,11 @@ export interface ArtistListRelatedArtistsResponse {
   artists: Array<Shared.ArtistObject>;
 }
 
-export interface ArtistListTopTracksResponse {
+export interface ArtistTopTracksResponse {
   tracks: Array<Shared.TrackObject>;
 }
 
-export interface ArtistListParams {
+export interface ArtistBulkRetrieveParams {
   /**
    * A comma-separated list of the
    * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for the artists.
@@ -200,7 +203,7 @@ export interface ArtistListAlbumsParams {
   offset?: number;
 }
 
-export interface ArtistListTopTracksParams {
+export interface ArtistTopTracksParams {
   /**
    * An
    * [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
@@ -217,13 +220,13 @@ export interface ArtistListTopTracksParams {
 
 export declare namespace Artists {
   export {
-    type ArtistListResponse as ArtistListResponse,
+    type ArtistBulkRetrieveResponse as ArtistBulkRetrieveResponse,
     type ArtistListAlbumsResponse as ArtistListAlbumsResponse,
     type ArtistListRelatedArtistsResponse as ArtistListRelatedArtistsResponse,
-    type ArtistListTopTracksResponse as ArtistListTopTracksResponse,
+    type ArtistTopTracksResponse as ArtistTopTracksResponse,
     type ArtistListAlbumsResponsesCursorURLPage as ArtistListAlbumsResponsesCursorURLPage,
-    type ArtistListParams as ArtistListParams,
+    type ArtistBulkRetrieveParams as ArtistBulkRetrieveParams,
     type ArtistListAlbumsParams as ArtistListAlbumsParams,
-    type ArtistListTopTracksParams as ArtistListTopTracksParams,
+    type ArtistTopTracksParams as ArtistTopTracksParams,
   };
 }

@@ -11,6 +11,7 @@ You can run the MCP Server directly via `npx`:
 ```sh
 export SPOTIFY_CLIENT_ID="My Client ID"
 export SPOTIFY_CLIENT_SECRET="My Client Secret"
+export SPOTIFY_ACCESS_TOKEN="My Access Token"
 npx -y spotted-ts-mcp@latest
 ```
 
@@ -29,7 +30,8 @@ For clients with a configuration JSON, it might look something like this:
       "args": ["-y", "spotted-ts-mcp", "--client=claude", "--tools=dynamic"],
       "env": {
         "SPOTIFY_CLIENT_ID": "My Client ID",
-        "SPOTIFY_CLIENT_SECRET": "My Client Secret"
+        "SPOTIFY_CLIENT_SECRET": "My Client Secret",
+        "SPOTIFY_ACCESS_TOKEN": "My Access Token"
       }
     }
   }
@@ -41,14 +43,14 @@ For clients with a configuration JSON, it might look something like this:
 If you use Cursor, you can install the MCP server by using the button below. You will need to set your environment variables
 in Cursor's `mcp.json`, which can be found in Cursor Settings > Tools & MCP > New MCP Server.
 
-[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=spotted-ts-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInNwb3R0ZWQtdHMtbWNwIl0sImVudiI6eyJTUE9USUZZX0NMSUVOVF9JRCI6IlNldCB5b3VyIFNQT1RJRllfQ0xJRU5UX0lEIGhlcmUuIiwiU1BPVElGWV9DTElFTlRfU0VDUkVUIjoiU2V0IHlvdXIgU1BPVElGWV9DTElFTlRfU0VDUkVUIGhlcmUuIn19)
+[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=spotted-ts-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInNwb3R0ZWQtdHMtbWNwIl0sImVudiI6eyJTUE9USUZZX0NMSUVOVF9JRCI6IlNldCB5b3VyIFNQT1RJRllfQ0xJRU5UX0lEIGhlcmUuIiwiU1BPVElGWV9DTElFTlRfU0VDUkVUIjoiU2V0IHlvdXIgU1BPVElGWV9DTElFTlRfU0VDUkVUIGhlcmUuIiwiU1BPVElGWV9BQ0NFU1NfVE9LRU4iOiJTZXQgeW91ciBTUE9USUZZX0FDQ0VTU19UT0tFTiBoZXJlLiJ9fQ)
 
 ### VS Code
 
 If you use MCP, you can install the MCP server by clicking the link below. You will need to set your environment variables
 in VS Code's `mcp.json`, which can be found via Command Palette > MCP: Open User Configuration.
 
-[Open VS Code](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22spotted-ts-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22spotted-ts-mcp%22%5D%2C%22env%22%3A%7B%22SPOTIFY_CLIENT_ID%22%3A%22Set%20your%20SPOTIFY_CLIENT_ID%20here.%22%2C%22SPOTIFY_CLIENT_SECRET%22%3A%22Set%20your%20SPOTIFY_CLIENT_SECRET%20here.%22%7D%7D)
+[Open VS Code](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22spotted-ts-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22spotted-ts-mcp%22%5D%2C%22env%22%3A%7B%22SPOTIFY_CLIENT_ID%22%3A%22Set%20your%20SPOTIFY_CLIENT_ID%20here.%22%2C%22SPOTIFY_CLIENT_SECRET%22%3A%22Set%20your%20SPOTIFY_CLIENT_SECRET%20here.%22%2C%22SPOTIFY_ACCESS_TOKEN%22%3A%22Set%20your%20SPOTIFY_ACCESS_TOKEN%20here.%22%7D%7D)
 
 ### Claude Code
 
@@ -56,7 +58,7 @@ If you use Claude Code, you can install the MCP server by running the command be
 environment variables in Claude Code's `.claude.json`, which can be found in your home directory.
 
 ```
-claude mcp add --transport stdio spotted_ts_api --env SPOTIFY_CLIENT_ID="Your SPOTIFY_CLIENT_ID here." SPOTIFY_CLIENT_SECRET="Your SPOTIFY_CLIENT_SECRET here." -- npx -y spotted-ts-mcp
+claude mcp add --transport stdio spotted_ts_api --env SPOTIFY_CLIENT_ID="Your SPOTIFY_CLIENT_ID here." SPOTIFY_CLIENT_SECRET="Your SPOTIFY_CLIENT_SECRET here." SPOTIFY_ACCESS_TOKEN="Your SPOTIFY_ACCESS_TOKEN here." -- npx -y spotted-ts-mcp
 ```
 
 ## Exposing endpoints to your MCP Client
@@ -168,13 +170,23 @@ over time, you can manually enable or disable certain capabilities:
 
 Launching the client with `--transport=http` launches the server as a remote server using Streamable HTTP transport. The `--port` setting can choose the port it will run on, and the `--socket` setting allows it to run on a Unix socket.
 
+Authorization can be provided via the `Authorization` header using the Bearer scheme.
+
+Additionally, authorization can be provided via the following headers:
+| Header | Equivalent client option | Security scheme |
+| ------------------------ | ------------------------ | --------------- |
+| `x-spotify-access-token` | `accessToken` | bearerAuth |
+
 A configuration JSON for this server might look like this, assuming the server is hosted at `http://localhost:3000`:
 
 ```json
 {
   "mcpServers": {
     "spotted_ts_api": {
-      "url": "http://localhost:3000"
+      "url": "http://localhost:3000",
+      "headers": {
+        "Authorization": "Bearer <auth value>"
+      }
     }
   }
 }
@@ -242,28 +254,28 @@ The following tools are available in this MCP server.
 ### Resource `artists`:
 
 - `retrieve_artists` (`read`): Get Spotify catalog information for a single artist identified by their unique Spotify ID.
-- `list_artists` (`read`): Get Spotify catalog information for several artists based on their Spotify IDs.
+- `bulk_retrieve_artists` (`read`): Get Spotify catalog information for several artists based on their Spotify IDs.
 - `list_albums_artists` (`read`): Get Spotify catalog information about an artist's albums.
 - `list_related_artists_artists` (`read`): Get Spotify catalog information about artists similar to a given artist. Similarity is based on analysis of the Spotify community's listening history.
-- `list_top_tracks_artists` (`read`): Get Spotify catalog information about an artist's top tracks by country.
+- `top_tracks_artists` (`read`): Get Spotify catalog information about an artist's top tracks by country.
 
 ### Resource `shows`:
 
 - `retrieve_shows` (`read`): Get Spotify catalog information for a single show identified by its
   unique Spotify ID.
-- `list_shows` (`read`): Get Spotify catalog information for several shows based on their Spotify IDs.
+- `bulk_retrieve_shows` (`read`): Get Spotify catalog information for several shows based on their Spotify IDs.
 - `list_episodes_shows` (`read`): Get Spotify catalog information about an show’s episodes. Optional parameters can be used to limit the number of episodes returned.
 
 ### Resource `episodes`:
 
 - `retrieve_episodes` (`read`): Get Spotify catalog information for a single episode identified by its
   unique Spotify ID.
-- `list_episodes` (`read`): Get Spotify catalog information for several episodes based on their Spotify IDs.
+- `bulk_retrieve_episodes` (`read`): Get Spotify catalog information for several episodes based on their Spotify IDs.
 
 ### Resource `audiobooks`:
 
 - `retrieve_audiobooks` (`read`): Get Spotify catalog information for a single audiobook. Audiobooks are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.
-- `list_audiobooks` (`read`): Get Spotify catalog information for several audiobooks identified by their Spotify IDs. Audiobooks are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.
+- `bulk_retrieve_audiobooks` (`read`): Get Spotify catalog information for several audiobooks identified by their Spotify IDs. Audiobooks are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.
 - `list_chapters_audiobooks` (`read`): Get Spotify catalog information about an audiobook's chapters. Audiobooks are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.
 
 ### Resource `me`:
@@ -322,7 +334,7 @@ The following tools are available in this MCP server.
 
 ### Resource `me.following`:
 
-- `list_me_following` (`read`): Get the current user's followed artists.
+- `bulk_retrieve_me_following` (`read`): Get the current user's followed artists.
 - `check_me_following` (`read`): Check to see if the current user is following one or more artists or other Spotify users.
 - `follow_me_following` (`write`): Add the current user as a follower of one or more artists or other Spotify users.
 - `unfollow_me_following` (`write`): Remove the current user as a follower of one or more artists or other Spotify users.
@@ -352,17 +364,17 @@ The following tools are available in this MCP server.
 ### Resource `chapters`:
 
 - `retrieve_chapters` (`read`): Get Spotify catalog information for a single audiobook chapter. Chapters are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.
-- `list_chapters` (`read`): Get Spotify catalog information for several audiobook chapters identified by their Spotify IDs. Chapters are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.
+- `bulk_retrieve_chapters` (`read`): Get Spotify catalog information for several audiobook chapters identified by their Spotify IDs. Chapters are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.
 
 ### Resource `tracks`:
 
 - `retrieve_tracks` (`read`): Get Spotify catalog information for a single track identified by its
   unique Spotify ID.
-- `list_tracks` (`read`): Get Spotify catalog information for multiple tracks based on their Spotify IDs.
+- `bulk_retrieve_tracks` (`read`): Get Spotify catalog information for multiple tracks based on their Spotify IDs.
 
 ### Resource `search`:
 
-- `retrieve_search` (`read`): Get Spotify catalog information about albums, artists, playlists, tracks, shows, episodes or audiobooks
+- `query_search` (`read`): Get Spotify catalog information about albums, artists, playlists, tracks, shows, episodes or audiobooks
   that match a keyword string. Audiobooks are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.
 
 ### Resource `playlists`:
@@ -392,7 +404,6 @@ The following tools are available in this MCP server.
 
 ### Resource `playlists.images`:
 
-- `update_playlists_images` (`write`): Replace the image used to represent a specific playlist.
 - `list_playlists_images` (`read`): Get the current image associated with a specific playlist.
 
 ### Resource `users`:
@@ -421,7 +432,7 @@ The following tools are available in this MCP server.
 
 - `retrieve_audio_features` (`read`): Get audio feature information for a single track identified by its unique
   Spotify ID.
-- `list_audio_features` (`read`): Get audio features for multiple tracks based on their Spotify IDs.
+- `bulk_retrieve_audio_features` (`read`): Get audio features for multiple tracks based on their Spotify IDs.
 
 ### Resource `audio_analysis`:
 

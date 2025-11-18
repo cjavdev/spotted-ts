@@ -25,7 +25,10 @@ export class Chapters extends APIResource {
    * their Spotify IDs. Chapters are only available within the US, UK, Canada,
    * Ireland, New Zealand and Australia markets.
    */
-  list(query: ChapterListParams, options?: RequestOptions): APIPromise<ChapterListResponse> {
+  bulkRetrieve(
+    query: ChapterBulkRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<ChapterBulkRetrieveResponse> {
     return this._client.get('/chapters', { query, ...options });
   }
 }
@@ -146,11 +149,11 @@ export interface ChapterRetrieveResponse {
   resume_point?: Shared.ResumePointObject;
 }
 
-export interface ChapterListResponse {
-  chapters: Array<ChapterListResponse.Chapter>;
+export interface ChapterBulkRetrieveResponse {
+  chapters: Array<ChapterBulkRetrieveResponse.Chapter>;
 }
 
-export namespace ChapterListResponse {
+export namespace ChapterBulkRetrieveResponse {
   export interface Chapter {
     /**
      * The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) for the
@@ -283,7 +286,7 @@ export interface ChapterRetrieveParams {
   market?: string;
 }
 
-export interface ChapterListParams {
+export interface ChapterBulkRetrieveParams {
   /**
    * A comma-separated list of the
    * [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example:
@@ -308,8 +311,8 @@ export interface ChapterListParams {
 export declare namespace Chapters {
   export {
     type ChapterRetrieveResponse as ChapterRetrieveResponse,
-    type ChapterListResponse as ChapterListResponse,
+    type ChapterBulkRetrieveResponse as ChapterBulkRetrieveResponse,
     type ChapterRetrieveParams as ChapterRetrieveParams,
-    type ChapterListParams as ChapterListParams,
+    type ChapterBulkRetrieveParams as ChapterBulkRetrieveParams,
   };
 }

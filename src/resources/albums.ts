@@ -167,8 +167,6 @@ export namespace AlbumRetrieveResponse {
      */
     href: string;
 
-    items: Array<Shared.SimplifiedTrackObject>;
-
     /**
      * The maximum number of items in the response (as set in the query or by default).
      */
@@ -193,6 +191,8 @@ export namespace AlbumRetrieveResponse {
      * The total number of items available to return.
      */
     total: number;
+
+    items?: Array<Shared.SimplifiedTrackObject>;
   }
 }
 
@@ -321,8 +321,6 @@ export namespace AlbumBulkRetrieveResponse {
        */
       href: string;
 
-      items: Array<Shared.SimplifiedTrackObject>;
-
       /**
        * The maximum number of items in the response (as set in the query or by default).
        */
@@ -347,6 +345,8 @@ export namespace AlbumBulkRetrieveResponse {
        * The total number of items available to return.
        */
       total: number;
+
+      items?: Array<Shared.SimplifiedTrackObject>;
     }
   }
 }

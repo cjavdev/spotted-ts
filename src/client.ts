@@ -28,27 +28,27 @@ import {
   Albums,
 } from './resources/albums';
 import {
+  ArtistBulkRetrieveParams,
+  ArtistBulkRetrieveResponse,
   ArtistListAlbumsParams,
   ArtistListAlbumsResponse,
   ArtistListAlbumsResponsesCursorURLPage,
-  ArtistListParams,
   ArtistListRelatedArtistsResponse,
-  ArtistListResponse,
-  ArtistListTopTracksParams,
-  ArtistListTopTracksResponse,
+  ArtistTopTracksParams,
+  ArtistTopTracksResponse,
   Artists,
 } from './resources/artists';
 import { AudioAnalysis, AudioAnalysisRetrieveResponse, TimeIntervalObject } from './resources/audio-analysis';
 import {
-  AudioFeatureListParams,
-  AudioFeatureListResponse,
+  AudioFeatureBulkRetrieveParams,
+  AudioFeatureBulkRetrieveResponse,
   AudioFeatureRetrieveResponse,
   AudioFeatures,
 } from './resources/audio-features';
 import {
+  AudiobookBulkRetrieveParams,
+  AudiobookBulkRetrieveResponse,
   AudiobookListChaptersParams,
-  AudiobookListParams,
-  AudiobookListResponse,
   AudiobookRetrieveParams,
   AudiobookRetrieveResponse,
   Audiobooks,
@@ -56,15 +56,15 @@ import {
   SimplifiedChapterObjectsCursorURLPage,
 } from './resources/audiobooks';
 import {
-  ChapterListParams,
-  ChapterListResponse,
+  ChapterBulkRetrieveParams,
+  ChapterBulkRetrieveResponse,
   ChapterRetrieveParams,
   ChapterRetrieveResponse,
   Chapters,
 } from './resources/chapters';
 import {
-  EpisodeListParams,
-  EpisodeListResponse,
+  EpisodeBulkRetrieveParams,
+  EpisodeBulkRetrieveResponse,
   EpisodeRetrieveParams,
   Episodes,
 } from './resources/episodes';
@@ -75,16 +75,21 @@ import {
   RecommendationListAvailableGenreSeedsResponse,
   Recommendations,
 } from './resources/recommendations';
-import { Search, SearchRetrieveParams, SearchRetrieveResponse } from './resources/search';
+import { Search, SearchQueryParams, SearchQueryResponse } from './resources/search';
 import {
+  ShowBulkRetrieveParams,
+  ShowBulkRetrieveResponse,
   ShowListEpisodesParams,
-  ShowListParams,
-  ShowListResponse,
   ShowRetrieveParams,
   ShowRetrieveResponse,
   Shows,
 } from './resources/shows';
-import { TrackListParams, TrackListResponse, TrackRetrieveParams, Tracks } from './resources/tracks';
+import {
+  TrackBulkRetrieveParams,
+  TrackBulkRetrieveResponse,
+  TrackRetrieveParams,
+  Tracks,
+} from './resources/tracks';
 import {
   Browse,
   BrowseGetFeaturedPlaylistsParams,
@@ -118,12 +123,17 @@ export interface ClientOptions {
   /**
    * Defaults to process.env['SPOTIFY_CLIENT_ID'].
    */
-  clientID?: string | undefined;
+  clientID?: string | null | undefined;
 
   /**
    * Defaults to process.env['SPOTIFY_CLIENT_SECRET'].
    */
-  clientSecret?: string | undefined;
+  clientSecret?: string | null | undefined;
+
+  /**
+   * Defaults to process.env['SPOTIFY_ACCESS_TOKEN'].
+   */
+  accessToken?: string | null | undefined;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
@@ -198,8 +208,9 @@ export interface ClientOptions {
  * API Client for interfacing with the Spotted API.
  */
 export class Spotted {
-  clientID: string;
-  clientSecret: string;
+  clientID: string | null;
+  clientSecret: string | null;
+  accessToken: string | null;
 
   baseURL: string;
   maxRetries: number;
@@ -216,8 +227,9 @@ export class Spotted {
   /**
    * API Client for interfacing with the Spotted API.
    *
-   * @param {string | undefined} [opts.clientID=process.env['SPOTIFY_CLIENT_ID'] ?? undefined]
-   * @param {string | undefined} [opts.clientSecret=process.env['SPOTIFY_CLIENT_SECRET'] ?? undefined]
+   * @param {string | null | undefined} [opts.clientID=process.env['SPOTIFY_CLIENT_ID'] ?? null]
+   * @param {string | null | undefined} [opts.clientSecret=process.env['SPOTIFY_CLIENT_SECRET'] ?? null]
+   * @param {string | null | undefined} [opts.accessToken=process.env['SPOTIFY_ACCESS_TOKEN'] ?? null]
    * @param {string} [opts.baseURL=process.env['SPOTTED_BASE_URL'] ?? https://api.spotify.com/v1] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -228,24 +240,15 @@ export class Spotted {
    */
   constructor({
     baseURL = readEnv('SPOTTED_BASE_URL'),
-    clientID = readEnv('SPOTIFY_CLIENT_ID'),
-    clientSecret = readEnv('SPOTIFY_CLIENT_SECRET'),
+    clientID = readEnv('SPOTIFY_CLIENT_ID') ?? null,
+    clientSecret = readEnv('SPOTIFY_CLIENT_SECRET') ?? null,
+    accessToken = readEnv('SPOTIFY_ACCESS_TOKEN') ?? null,
     ...opts
   }: ClientOptions = {}) {
-    if (clientID === undefined) {
-      throw new Errors.SpottedError(
-        "The SPOTIFY_CLIENT_ID environment variable is missing or empty; either provide it, or instantiate the Spotted client with an clientID option, like new Spotted({ clientID: 'My Client ID' }).",
-      );
-    }
-    if (clientSecret === undefined) {
-      throw new Errors.SpottedError(
-        "The SPOTIFY_CLIENT_SECRET environment variable is missing or empty; either provide it, or instantiate the Spotted client with an clientSecret option, like new Spotted({ clientSecret: 'My Client Secret' }).",
-      );
-    }
-
     const options: ClientOptions = {
       clientID,
       clientSecret,
+      accessToken,
       ...opts,
       baseURL: baseURL || `https://api.spotify.com/v1`,
     };
@@ -269,6 +272,7 @@ export class Spotted {
 
     this.clientID = clientID;
     this.clientSecret = clientSecret;
+    this.accessToken = accessToken;
   }
 
   /**
@@ -286,6 +290,7 @@ export class Spotted {
       fetchOptions: this.fetchOptions,
       clientID: this.clientID,
       clientSecret: this.clientSecret,
+      accessToken: this.accessToken,
       ...options,
     });
     client.oauth2_0AuthState = this.oauth2_0AuthState;
@@ -307,6 +312,17 @@ export class Spotted {
     return;
   }
 
+  protected async authHeaders(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
+    return buildHeaders([await this.bearerAuth(opts), await this.oauth2_0Auth(opts)]);
+  }
+
+  protected async bearerAuth(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
+    if (this.accessToken == null) {
+      return undefined;
+    }
+    return buildHeaders([{ Authorization: `Bearer ${this.accessToken}` }]);
+  }
+
   private oauth2_0AuthState:
     | {
         promise: Promise<{
@@ -320,7 +336,7 @@ export class Spotted {
         clientSecret: string;
       }
     | undefined;
-  protected async authHeaders(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
+  protected async oauth2_0Auth(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
     if (!this.clientID || !this.clientSecret) {
       return undefined;
     }
@@ -942,40 +958,40 @@ export declare namespace Spotted {
 
   export {
     Artists as Artists,
-    type ArtistListResponse as ArtistListResponse,
+    type ArtistBulkRetrieveResponse as ArtistBulkRetrieveResponse,
     type ArtistListAlbumsResponse as ArtistListAlbumsResponse,
     type ArtistListRelatedArtistsResponse as ArtistListRelatedArtistsResponse,
-    type ArtistListTopTracksResponse as ArtistListTopTracksResponse,
+    type ArtistTopTracksResponse as ArtistTopTracksResponse,
     type ArtistListAlbumsResponsesCursorURLPage as ArtistListAlbumsResponsesCursorURLPage,
-    type ArtistListParams as ArtistListParams,
+    type ArtistBulkRetrieveParams as ArtistBulkRetrieveParams,
     type ArtistListAlbumsParams as ArtistListAlbumsParams,
-    type ArtistListTopTracksParams as ArtistListTopTracksParams,
+    type ArtistTopTracksParams as ArtistTopTracksParams,
   };
 
   export {
     Shows as Shows,
     type ShowRetrieveResponse as ShowRetrieveResponse,
-    type ShowListResponse as ShowListResponse,
+    type ShowBulkRetrieveResponse as ShowBulkRetrieveResponse,
     type ShowRetrieveParams as ShowRetrieveParams,
-    type ShowListParams as ShowListParams,
+    type ShowBulkRetrieveParams as ShowBulkRetrieveParams,
     type ShowListEpisodesParams as ShowListEpisodesParams,
   };
 
   export {
     Episodes as Episodes,
-    type EpisodeListResponse as EpisodeListResponse,
+    type EpisodeBulkRetrieveResponse as EpisodeBulkRetrieveResponse,
     type EpisodeRetrieveParams as EpisodeRetrieveParams,
-    type EpisodeListParams as EpisodeListParams,
+    type EpisodeBulkRetrieveParams as EpisodeBulkRetrieveParams,
   };
 
   export {
     Audiobooks as Audiobooks,
     type SimplifiedChapterObject as SimplifiedChapterObject,
     type AudiobookRetrieveResponse as AudiobookRetrieveResponse,
-    type AudiobookListResponse as AudiobookListResponse,
+    type AudiobookBulkRetrieveResponse as AudiobookBulkRetrieveResponse,
     type SimplifiedChapterObjectsCursorURLPage as SimplifiedChapterObjectsCursorURLPage,
     type AudiobookRetrieveParams as AudiobookRetrieveParams,
-    type AudiobookListParams as AudiobookListParams,
+    type AudiobookBulkRetrieveParams as AudiobookBulkRetrieveParams,
     type AudiobookListChaptersParams as AudiobookListChaptersParams,
   };
 
@@ -984,22 +1000,22 @@ export declare namespace Spotted {
   export {
     Chapters as Chapters,
     type ChapterRetrieveResponse as ChapterRetrieveResponse,
-    type ChapterListResponse as ChapterListResponse,
+    type ChapterBulkRetrieveResponse as ChapterBulkRetrieveResponse,
     type ChapterRetrieveParams as ChapterRetrieveParams,
-    type ChapterListParams as ChapterListParams,
+    type ChapterBulkRetrieveParams as ChapterBulkRetrieveParams,
   };
 
   export {
     Tracks as Tracks,
-    type TrackListResponse as TrackListResponse,
+    type TrackBulkRetrieveResponse as TrackBulkRetrieveResponse,
     type TrackRetrieveParams as TrackRetrieveParams,
-    type TrackListParams as TrackListParams,
+    type TrackBulkRetrieveParams as TrackBulkRetrieveParams,
   };
 
   export {
     Search as Search,
-    type SearchRetrieveResponse as SearchRetrieveResponse,
-    type SearchRetrieveParams as SearchRetrieveParams,
+    type SearchQueryResponse as SearchQueryResponse,
+    type SearchQueryParams as SearchQueryParams,
   };
 
   export {
@@ -1022,8 +1038,8 @@ export declare namespace Spotted {
   export {
     AudioFeatures as AudioFeatures,
     type AudioFeatureRetrieveResponse as AudioFeatureRetrieveResponse,
-    type AudioFeatureListResponse as AudioFeatureListResponse,
-    type AudioFeatureListParams as AudioFeatureListParams,
+    type AudioFeatureBulkRetrieveResponse as AudioFeatureBulkRetrieveResponse,
+    type AudioFeatureBulkRetrieveParams as AudioFeatureBulkRetrieveParams,
   };
 
   export {

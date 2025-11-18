@@ -11,35 +11,33 @@ export class Search extends APIResource {
    * episodes or audiobooks that match a keyword string. Audiobooks are only
    * available within the US, UK, Canada, Ireland, New Zealand and Australia markets.
    */
-  retrieve(query: SearchRetrieveParams, options?: RequestOptions): APIPromise<SearchRetrieveResponse> {
+  query(query: SearchQueryParams, options?: RequestOptions): APIPromise<SearchQueryResponse> {
     return this._client.get('/search', { query, ...options });
   }
 }
 
-export interface SearchRetrieveResponse {
-  albums?: SearchRetrieveResponse.Albums;
+export interface SearchQueryResponse {
+  albums?: SearchQueryResponse.Albums;
 
-  artists?: SearchRetrieveResponse.Artists;
+  artists?: SearchQueryResponse.Artists;
 
-  audiobooks?: SearchRetrieveResponse.Audiobooks;
+  audiobooks?: SearchQueryResponse.Audiobooks;
 
-  episodes?: SearchRetrieveResponse.Episodes;
+  episodes?: SearchQueryResponse.Episodes;
 
   playlists?: Shared.PagingPlaylistObject;
 
-  shows?: SearchRetrieveResponse.Shows;
+  shows?: SearchQueryResponse.Shows;
 
-  tracks?: SearchRetrieveResponse.Tracks;
+  tracks?: SearchQueryResponse.Tracks;
 }
 
-export namespace SearchRetrieveResponse {
+export namespace SearchQueryResponse {
   export interface Albums {
     /**
      * A link to the Web API endpoint returning the full result of the request
      */
     href: string;
-
-    items: Array<Albums.Item>;
 
     /**
      * The maximum number of items in the response (as set in the query or by default).
@@ -65,6 +63,8 @@ export namespace SearchRetrieveResponse {
      * The total number of items available to return.
      */
     total: number;
+
+    items?: Array<Albums.Item>;
   }
 
   export namespace Albums {
@@ -154,8 +154,6 @@ export namespace SearchRetrieveResponse {
      */
     href: string;
 
-    items: Array<Shared.ArtistObject>;
-
     /**
      * The maximum number of items in the response (as set in the query or by default).
      */
@@ -180,6 +178,8 @@ export namespace SearchRetrieveResponse {
      * The total number of items available to return.
      */
     total: number;
+
+    items?: Array<Shared.ArtistObject>;
   }
 
   export interface Audiobooks {
@@ -188,8 +188,6 @@ export namespace SearchRetrieveResponse {
      */
     href: string;
 
-    items: Array<Shared.AudiobookBase>;
-
     /**
      * The maximum number of items in the response (as set in the query or by default).
      */
@@ -214,6 +212,8 @@ export namespace SearchRetrieveResponse {
      * The total number of items available to return.
      */
     total: number;
+
+    items?: Array<Shared.AudiobookBase>;
   }
 
   export interface Episodes {
@@ -222,8 +222,6 @@ export namespace SearchRetrieveResponse {
      */
     href: string;
 
-    items: Array<Shared.SimplifiedEpisodeObject>;
-
     /**
      * The maximum number of items in the response (as set in the query or by default).
      */
@@ -248,6 +246,8 @@ export namespace SearchRetrieveResponse {
      * The total number of items available to return.
      */
     total: number;
+
+    items?: Array<Shared.SimplifiedEpisodeObject>;
   }
 
   export interface Shows {
@@ -256,8 +256,6 @@ export namespace SearchRetrieveResponse {
      */
     href: string;
 
-    items: Array<Shared.ShowBase>;
-
     /**
      * The maximum number of items in the response (as set in the query or by default).
      */
@@ -282,6 +280,8 @@ export namespace SearchRetrieveResponse {
      * The total number of items available to return.
      */
     total: number;
+
+    items?: Array<Shared.ShowBase>;
   }
 
   export interface Tracks {
@@ -290,8 +290,6 @@ export namespace SearchRetrieveResponse {
      */
     href: string;
 
-    items: Array<Shared.TrackObject>;
-
     /**
      * The maximum number of items in the response (as set in the query or by default).
      */
@@ -316,10 +314,12 @@ export namespace SearchRetrieveResponse {
      * The total number of items available to return.
      */
     total: number;
+
+    items?: Array<Shared.TrackObject>;
   }
 }
 
-export interface SearchRetrieveParams {
+export interface SearchQueryParams {
   /**
    * Your search query.
    *
@@ -379,8 +379,5 @@ export interface SearchRetrieveParams {
 }
 
 export declare namespace Search {
-  export {
-    type SearchRetrieveResponse as SearchRetrieveResponse,
-    type SearchRetrieveParams as SearchRetrieveParams,
-  };
+  export { type SearchQueryResponse as SearchQueryResponse, type SearchQueryParams as SearchQueryParams };
 }

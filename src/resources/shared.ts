@@ -441,8 +441,6 @@ export interface PagingPlaylistObject {
    */
   href: string;
 
-  items: Array<SimplifiedPlaylistObject>;
-
   /**
    * The maximum number of items in the response (as set in the query or by default).
    */
@@ -467,6 +465,8 @@ export interface PagingPlaylistObject {
    * The total number of items available to return.
    */
   total: number;
+
+  items?: Array<SimplifiedPlaylistObject>;
 }
 
 export interface PlaylistTrackObject {
