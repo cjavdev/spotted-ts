@@ -77,7 +77,6 @@ import remove_playlists_tracks from './playlists/tracks/remove-playlists-tracks'
 import check_playlists_followers from './playlists/followers/check-playlists-followers';
 import follow_playlists_followers from './playlists/followers/follow-playlists-followers';
 import unfollow_playlists_followers from './playlists/followers/unfollow-playlists-followers';
-import update_playlists_images from './playlists/images/update-playlists-images';
 import list_playlists_images from './playlists/images/list-playlists-images';
 import retrieve_profile_users from './users/retrieve-profile-users';
 import create_users_playlists from './users/playlists/create-users-playlists';
@@ -173,7 +172,6 @@ addEndpoint(remove_playlists_tracks);
 addEndpoint(check_playlists_followers);
 addEndpoint(follow_playlists_followers);
 addEndpoint(unfollow_playlists_followers);
-addEndpoint(update_playlists_images);
 addEndpoint(list_playlists_images);
 addEndpoint(retrieve_profile_users);
 addEndpoint(create_users_playlists);
