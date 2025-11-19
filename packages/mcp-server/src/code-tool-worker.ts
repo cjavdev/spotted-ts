@@ -116,7 +116,6 @@ const fuse = new Fuse(
     'client.playlists.followers.follow',
     'client.playlists.followers.unfollow',
     'client.playlists.images.list',
-    'client.playlists.images.update',
     'client.users.retrieveProfile',
     'client.users.playlists.create',
     'client.users.playlists.list',
