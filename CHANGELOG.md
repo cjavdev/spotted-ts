@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.0 (2025-11-20)
+
+Full Changelog: [v0.5.0...v0.6.0](https://github.com/cjavdev/spotted-ts/compare/v0.5.0...v0.6.0)
+
+### Features
+
+* **api:** rename public to published for java ([7b2821c](https://github.com/cjavdev/spotted-ts/commit/7b2821c3373508a48b4105080020f299cad4fd27))
+
 ## 0.5.0 (2025-11-20)
 
 Full Changelog: [v0.4.0...v0.5.0](https://github.com/cjavdev/spotted-ts/compare/v0.4.0...v0.5.0)
