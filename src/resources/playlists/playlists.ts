@@ -75,6 +75,14 @@ export interface PlaylistRetrieveResponse {
   id?: string;
 
   /**
+   * The playlist's public/private status (if it is added to the user's profile):
+   * `true` the playlist is public, `false` the playlist is private, `null` the
+   * playlist status is not relevant. For more about public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  '$.components.schemas.*.properties.is_public'?: boolean;
+
+  /**
    * `true` if the owner allows other users to modify the playlist.
    */
   collaborative?: boolean;
@@ -118,14 +126,6 @@ export interface PlaylistRetrieveResponse {
    * The user who owns the playlist
    */
   owner?: PlaylistRetrieveResponse.Owner;
-
-  /**
-   * The playlist's public/private status (if it is added to the user's profile):
-   * `true` the playlist is public, `false` the playlist is private, `null` the
-   * playlist status is not relevant. For more about public/private status, see
-   * [Working with Playlists](/documentation/web-api/concepts/playlists)
-   */
-  public?: boolean;
 
   /**
    * The version identifier for the current playlist. Can be supplied in other
