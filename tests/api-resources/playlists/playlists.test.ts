@@ -56,10 +56,10 @@ describe('resource playlists', () => {
       client.playlists.update(
         '3cEYpjA9oz9GiPac4AsH4n',
         {
+          '$.components.schemas.*.properties.published': true,
           collaborative: true,
           description: 'Updated playlist description',
           name: 'Updated Playlist Name',
-          public: false,
         },
         { path: '/_stainless_unknown_path' },
       ),
