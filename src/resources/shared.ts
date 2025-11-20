@@ -800,7 +800,7 @@ export interface SimplifiedPlaylistObject {
    * playlist status is not relevant. For more about public/private status, see
    * [Working with Playlists](/documentation/web-api/concepts/playlists)
    */
-  '$.components.schemas.*.properties.is_public'?: boolean;
+  '$.components.schemas.*.properties.published'?: boolean;
 
   /**
    * `true` if the owner allows other users to modify the playlist.

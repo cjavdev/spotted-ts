@@ -83,7 +83,7 @@ export interface FollowerFollowParams {
    * public/private status, see
    * [Working with Playlists](/documentation/web-api/concepts/playlists)
    */
-  public?: boolean;
+  '$.components.schemas.*.properties.published'?: boolean;
 
   [k: string]: unknown;
 }
