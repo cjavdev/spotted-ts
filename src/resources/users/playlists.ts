@@ -69,7 +69,7 @@ export interface PlaylistCreateResponse {
    * playlist status is not relevant. For more about public/private status, see
    * [Working with Playlists](/documentation/web-api/concepts/playlists)
    */
-  '$.components.schemas.*.properties.is_public'?: boolean;
+  '$.components.schemas.*.properties.published'?: boolean;
 
   /**
    * `true` if the owner allows other users to modify the playlist.
@@ -197,6 +197,17 @@ export interface PlaylistCreateParams {
   name: string;
 
   /**
+   * Defaults to `true`. The playlist's public/private status (if it should be added
+   * to the user's profile or not): `true` the playlist will be public, `false` the
+   * playlist will be private. To be able to create private playlists, the user must
+   * have granted the `playlist-modify-private`
+   * [scope](/documentation/web-api/concepts/scopes/#list-of-scopes). For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  '$.components.schemas.*.properties.published'?: boolean;
+
+  /**
    * Defaults to `false`. If `true` the playlist will be collaborative. _**Note**: to
    * create a collaborative playlist you must also set `public` to `false`. To create
    * collaborative playlists you must have granted `playlist-modify-private` and
@@ -210,17 +221,6 @@ export interface PlaylistCreateParams {
    * API.
    */
   description?: string;
-
-  /**
-   * Defaults to `true`. The playlist's public/private status (if it should be added
-   * to the user's profile or not): `true` the playlist will be public, `false` the
-   * playlist will be private. To be able to create private playlists, the user must
-   * have granted the `playlist-modify-private`
-   * [scope](/documentation/web-api/concepts/scopes/#list-of-scopes). For more about
-   * public/private status, see
-   * [Working with Playlists](/documentation/web-api/concepts/playlists)
-   */
-  public?: boolean;
 
   [k: string]: unknown;
 }
