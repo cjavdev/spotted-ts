@@ -25,9 +25,9 @@ describe('resource playlists', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.users.playlists.create('smedjan', {
       name: 'New Playlist',
-      '$.components.schemas.*.properties.published': true,
       collaborative: true,
       description: 'New playlist description',
+      public: false,
     });
   });
 
