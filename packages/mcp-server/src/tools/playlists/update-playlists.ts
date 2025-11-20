@@ -26,11 +26,6 @@ export const tool: Tool = {
         title: 'Playlist ID',
         description: 'The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) of the playlist.\n',
       },
-      '$.components.schemas.*.properties.published': {
-        type: 'boolean',
-        description:
-          "The playlist's public/private status (if it should be added to the user's profile or not): `true` the playlist will be public, `false` the playlist will be private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](/documentation/web-api/concepts/playlists)\n",
-      },
       collaborative: {
         type: 'boolean',
         description:
@@ -43,6 +38,11 @@ export const tool: Tool = {
       name: {
         type: 'string',
         description: 'The new name for the playlist, for example `"My New Playlist Title"`\n',
+      },
+      public: {
+        type: 'boolean',
+        description:
+          "The playlist's public/private status (if it should be added to the user's profile or not): `true` the playlist will be public, `false` the playlist will be private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](/documentation/web-api/concepts/playlists)\n",
       },
     },
     required: ['playlist_id'],
