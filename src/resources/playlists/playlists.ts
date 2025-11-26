@@ -264,7 +264,7 @@ export interface PlaylistUpdateParams {
    * public/private status, see
    * [Working with Playlists](/documentation/web-api/concepts/playlists)
    */
-  published?: boolean;
+  public?: boolean;
 
   [k: string]: unknown;
 }
