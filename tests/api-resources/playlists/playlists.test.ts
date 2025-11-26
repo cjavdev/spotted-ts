@@ -59,7 +59,7 @@ describe('resource playlists', () => {
           collaborative: true,
           description: 'Updated playlist description',
           name: 'Updated Playlist Name',
-          published: true,
+          public: false,
         },
         { path: '/_stainless_unknown_path' },
       ),
