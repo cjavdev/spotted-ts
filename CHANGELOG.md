@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0 (2025-11-26)
+
+Full Changelog: [v0.3.0...v0.4.0](https://github.com/cjavdev/spotted-ts/compare/v0.3.0...v0.4.0)
+
+### Features
+
+* **api:** manual updates ([022e96a](https://github.com/cjavdev/spotted-ts/commit/022e96a326f59c13dc1b99f1fea3dff8e6818848))
+
 ## 0.3.0 (2025-11-26)
 
 Full Changelog: [v0.2.1...v0.3.0](https://github.com/cjavdev/spotted-ts/compare/v0.2.1...v0.3.0)
