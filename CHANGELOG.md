@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.0 (2025-11-26)
+
+Full Changelog: [v0.2.1...v0.3.0](https://github.com/cjavdev/spotted-ts/compare/v0.2.1...v0.3.0)
+
+### Features
+
+* **api:** manual updates ([45c91c1](https://github.com/cjavdev/spotted-ts/commit/45c91c1d689dba68834cff2efab5f5c424ecfa91))
+* **mcp:** add detail field to docs search tool ([b696c29](https://github.com/cjavdev/spotted-ts/commit/b696c290aab355821efbd5cab7cc4851bb1a9ba3))
+
 ## 0.2.1 (2025-11-18)
 
 Full Changelog: [v0.1.0...v0.2.1](https://github.com/cjavdev/spotted-ts/compare/v0.1.0...v0.2.1)
