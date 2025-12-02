@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { Metadata, asTextContentResult } from 'spotted-ts-mcp/tools/types';
+import { Metadata, asErrorResult, asTextContentResult } from 'spotted-ts-mcp/tools/types';
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import Spotted from 'spotted-ts';
@@ -28,7 +28,14 @@ export const tool: Tool = {
 };
 
 export const handler = async (client: Spotted, args: Record<string, unknown> | undefined) => {
-  return asTextContentResult(await client.me.player.queue.get());
+  try {
+    return asTextContentResult(await client.me.player.queue.get());
+  } catch (error) {
+    if (error instanceof Spotted.APIError) {
+      return asErrorResult(error.message);
+    }
+    throw error;
+  }
 };
 
 export default { metadata, tool, handler };

@@ -60,7 +60,7 @@ export const handler = async (client: Spotted, args: Record<string, unknown> | u
       await maybeFilter(jq_filter, await client.browse.categories.getPlaylists(category_id, body)),
     );
   } catch (error) {
-    if (isJqError(error)) {
+    if (error instanceof Spotted.APIError || isJqError(error)) {
       return asErrorResult(error.message);
     }
     throw error;

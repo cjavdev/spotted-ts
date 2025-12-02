@@ -47,7 +47,7 @@ export const handler = async (client: Spotted, args: Record<string, unknown> | u
   try {
     return asTextContentResult(await maybeFilter(jq_filter, await client.me.shows.check(body)));
   } catch (error) {
-    if (isJqError(error)) {
+    if (error instanceof Spotted.APIError || isJqError(error)) {
       return asErrorResult(error.message);
     }
     throw error;
