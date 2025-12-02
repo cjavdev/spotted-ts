@@ -46,7 +46,7 @@ export const handler = async (client: Spotted, args: Record<string, unknown> | u
   try {
     return asTextContentResult(await maybeFilter(jq_filter, await client.playlists.images.list(playlist_id)));
   } catch (error) {
-    if (isJqError(error)) {
+    if (error instanceof Spotted.APIError || isJqError(error)) {
       return asErrorResult(error.message);
     }
     throw error;
