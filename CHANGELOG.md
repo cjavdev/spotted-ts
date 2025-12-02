@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.4.1 (2025-12-02)
+
+Full Changelog: [v0.4.0...v0.4.1](https://github.com/cjavdev/spotted-ts/compare/v0.4.0...v0.4.1)
+
+### Bug Fixes
+
+* **mcp:** return tool execution error on api error ([d5e8a31](https://github.com/cjavdev/spotted-ts/commit/d5e8a31bc7a41fd420f78acd4b059db11a151687))
+
+
+### Chores
+
+* **client:** fix logger property type ([d923c67](https://github.com/cjavdev/spotted-ts/commit/d923c679de528e603cafa78fa70b178782fa4def))
+
 ## 0.4.0 (2025-11-26)
 
 Full Changelog: [v0.3.0...v0.4.0](https://github.com/cjavdev/spotted-ts/compare/v0.3.0...v0.4.0)
