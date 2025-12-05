@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.0 (2025-12-05)
+
+Full Changelog: [v0.5.0...v0.6.0](https://github.com/cjavdev/spotted-ts/compare/v0.5.0...v0.6.0)
+
+### Features
+
+* **api:** Update readme titles. ([58d0973](https://github.com/cjavdev/spotted-ts/commit/58d0973596a6ff3468c42316b7152131ebdf7b0a))
+
 ## 0.5.0 (2025-12-05)
 
 Full Changelog: [v0.4.1...v0.5.0](https://github.com/cjavdev/spotted-ts/compare/v0.4.1...v0.5.0)
