@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.5.0 (2025-12-05)
+
+Full Changelog: [v0.4.1...v0.5.0](https://github.com/cjavdev/spotted-ts/compare/v0.4.1...v0.5.0)
+
+### Features
+
+* **mcp:** add typescript check to code execution tool ([a15991f](https://github.com/cjavdev/spotted-ts/commit/a15991f17b277f49ca37345d214e2547fd396de8))
+* **mcp:** return logs on code tool errors ([6d7038b](https://github.com/cjavdev/spotted-ts/commit/6d7038bee2ab8ae2da42e5572210b3207241ca85))
+
+
+### Chores
+
+* **internal:** upgrade eslint ([6bd6c86](https://github.com/cjavdev/spotted-ts/commit/6bd6c86a2f2e36fc3a8ca59885974842ebdb31ec))
+* use latest @modelcontextprotocol/sdk ([38e7c22](https://github.com/cjavdev/spotted-ts/commit/38e7c22639a1c25a2da13060fb10491c447db3be))
+
 ## 0.4.1 (2025-12-02)
 
 Full Changelog: [v0.4.0...v0.4.1](https://github.com/cjavdev/spotted-ts/compare/v0.4.0...v0.4.1)
