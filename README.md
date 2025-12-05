@@ -1,6 +1,6 @@
 # Unofficial Spotify API Library
 
-[![NPM version](<https://img.shields.io/npm/v/spotted-ts.svg?label=npm%20(stable)>)](https://npmjs.org/package/spotted-ts) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/spotted-ts) [![JSR Version](https://jsr.io/badges/spotted-ts)](https://jsr.io/spotted-ts)
+[![NPM version](<https://img.shields.io/npm/v/spotted-ts.svg?label=npm%20(stable)>)](https://npmjs.org/package/spotted-ts) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/spotted-ts) [![JSR Version](https://jsr.io/badges/@cjavdev/spotted-ts)](https://jsr.io/@cjavdev/spotted-ts)
 
 This library provides convenient access to the Spotted REST API from server-side TypeScript or JavaScript.
 
@@ -17,16 +17,16 @@ npm install spotted-ts
 ### Installation from JSR
 
 ```sh
-deno add jsr:spotted-ts
-npx jsr add spotted-ts
+deno add jsr:@cjavdev/spotted-ts
+npx jsr add @cjavdev/spotted-ts
 ```
 
-These commands will make the module importable from the `spotted-ts` scope:
+These commands will make the module importable from the `@cjavdev/spotted-ts` scope:
 
 You can also [import directly from JSR](https://jsr.io/docs/using-packages#importing-with-jsr-specifiers) without an install step if you're using the Deno JavaScript runtime:
 
 ```ts
-import Spotted from 'jsr:spotted-ts';
+import Spotted from 'jsr:@cjavdev/spotted-ts';
 ```
 
 ## Usage
@@ -352,7 +352,7 @@ const client = new Spotted({
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/deno.svg" align="top" width="18" height="21"> **Deno** <sup>[[docs](https://docs.deno.com/api/deno/~/Deno.createHttpClient)]</sup>
 
 ```ts
-import Spotted from 'jsr:spotted-ts';
+import Spotted from 'jsr:@cjavdev/spotted-ts';
 
 const httpClient = Deno.createHttpClient({ proxy: { url: 'http://localhost:8888' } });
 const client = new Spotted({

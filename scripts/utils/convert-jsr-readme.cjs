@@ -134,7 +134,7 @@ function processReadme(config, file) {
 
 const config = {
   npm: 'spotted-ts',
-  jsr: 'spotted-ts',
+  jsr: '@cjavdev/spotted-ts',
 };
 
 processReadme(config, process.argv[2]);
