@@ -1,4 +1,4 @@
-# Spotted TypeScript MCP Server
+# Unofficial Spotify MCP Server
 
 It is generated with [Stainless](https://www.stainless.com/).
 
