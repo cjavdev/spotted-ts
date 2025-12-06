@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.8.0 (2025-12-06)
+
+Full Changelog: [v0.7.1...v0.8.0](https://github.com/cjavdev/spotted-ts/compare/v0.7.1...v0.8.0)
+
+### Features
+
+* **mcp:** handle code mode calls in the Stainless API ([5eb8ef6](https://github.com/cjavdev/spotted-ts/commit/5eb8ef6254839b44e69536b656b41fca03d9d031))
+
+
+### Bug Fixes
+
+* **mcp:** return correct lines on typescript errors ([c67c3a2](https://github.com/cjavdev/spotted-ts/commit/c67c3a2f5e88912ff677c05ac4cf33f427e29b3f))
+
+
+### Chores
+
+* **internal:** codegen related update ([5a47a19](https://github.com/cjavdev/spotted-ts/commit/5a47a192e623290bbfe9aa21dd11bda1a56831f1))
+
 ## 0.7.1 (2025-12-05)
 
 Full Changelog: [v0.7.0...v0.7.1](https://github.com/cjavdev/spotted-ts/compare/v0.7.0...v0.7.1)
