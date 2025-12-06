@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.8.1 (2025-12-06)
+
+Full Changelog: [v0.8.0...v0.8.1](https://github.com/cjavdev/spotted-ts/compare/v0.8.0...v0.8.1)
+
+### Bug Fixes
+
+* **mcp:** correct code tool API endpoint ([089ba2b](https://github.com/cjavdev/spotted-ts/commit/089ba2bb69fd6dbdda2c58abca26ec66331c57a7))
+
+
+### Chores
+
+* **internal:** codegen related update ([47bb429](https://github.com/cjavdev/spotted-ts/commit/47bb4295cb8dd890d3251b3316ac716bfbb74d86))
+
 ## 0.8.0 (2025-12-06)
 
 Full Changelog: [v0.7.1...v0.8.0](https://github.com/cjavdev/spotted-ts/compare/v0.7.1...v0.8.0)
