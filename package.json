@@ -1,6 +1,6 @@
 {
   "name": "spotted-ts",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "The official TypeScript library for the Spotted API",
   "author": "Spotted <wave@cjav.dev>",
   "types": "dist/index.d.ts",
