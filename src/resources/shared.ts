@@ -835,6 +835,14 @@ export interface SimplifiedPlaylistObject {
   owner?: SimplifiedPlaylistObject.Owner;
 
   /**
+   * The playlist's public/private status (if it is added to the user's profile):
+   * `true` the playlist is public, `false` the playlist is private, `null` the
+   * playlist status is not relevant. For more about public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  public?: boolean;
+
+  /**
    * The version identifier for the current playlist. Can be supplied in other
    * requests to target a specific playlist version
    */
