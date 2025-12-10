@@ -114,7 +114,7 @@ export interface PlaylistCreateResponse {
    * playlist status is not relevant. For more about public/private status, see
    * [Working with Playlists](/documentation/web-api/concepts/playlists)
    */
-  public?: boolean;
+  published?: boolean;
 
   /**
    * The version identifier for the current playlist. Can be supplied in other
