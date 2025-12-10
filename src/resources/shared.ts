@@ -840,7 +840,7 @@ export interface SimplifiedPlaylistObject {
    * playlist status is not relevant. For more about public/private status, see
    * [Working with Playlists](/documentation/web-api/concepts/playlists)
    */
-  published?: boolean;
+  public?: boolean;
 
   /**
    * The version identifier for the current playlist. Can be supplied in other
