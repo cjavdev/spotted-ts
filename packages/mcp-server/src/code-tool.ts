@@ -43,6 +43,7 @@ export async function codeTool() {
       },
       body: JSON.stringify({
         project_name: 'spotted',
+        client_opts: {},
         code,
       }),
     });
