@@ -41,6 +41,11 @@ export const tool: Tool = {
           },
         },
       },
+      published: {
+        type: 'boolean',
+        description:
+          "The playlist's public/private status (if it should be added to the user's profile or not): `true` the playlist will be public, `false` the playlist will be private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](/documentation/web-api/concepts/playlists)\n",
+      },
       snapshot_id: {
         type: 'string',
         description:

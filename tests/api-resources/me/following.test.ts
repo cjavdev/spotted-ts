@@ -67,7 +67,7 @@ describe('resource following', () => {
 
   // Prism tests are disabled
   test.skip('follow: required and optional params', async () => {
-    const response = await client.me.following.follow({ ids: ['string'] });
+    const response = await client.me.following.follow({ ids: ['string'], published: true });
   });
 
   // Prism tests are disabled
@@ -86,7 +86,10 @@ describe('resource following', () => {
   test.skip('unfollow: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.me.following.unfollow({ ids: ['string'] }, { path: '/_stainless_unknown_path' }),
+      client.me.following.unfollow(
+        { ids: ['string'], published: true },
+        { path: '/_stainless_unknown_path' },
+      ),
     ).rejects.toThrow(Spotted.NotFoundError);
   });
 });

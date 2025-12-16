@@ -64,7 +64,7 @@ describe('resource episodes', () => {
   test.skip('remove: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.me.episodes.remove({ ids: ['string'] }, { path: '/_stainless_unknown_path' }),
+      client.me.episodes.remove({ ids: ['string'], published: true }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Spotted.NotFoundError);
   });
 
@@ -82,6 +82,6 @@ describe('resource episodes', () => {
 
   // Prism tests are disabled
   test.skip('save: required and optional params', async () => {
-    const response = await client.me.episodes.save({ ids: ['string'] });
+    const response = await client.me.episodes.save({ ids: ['string'], published: true });
   });
 });

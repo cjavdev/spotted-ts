@@ -122,6 +122,15 @@ export interface TrackUpdateParams {
   insert_before?: number;
 
   /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
+
+  /**
    * The amount of items to be reordered. Defaults to 1 if not set.<br/>The range of
    * items to be reordered begins from the _range_start_ position, and includes the
    * _range_length_ subsequent items.<br/>Example:<br/>To move the items at index
@@ -206,6 +215,15 @@ export interface TrackAddParams {
   position?: number;
 
   /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
+
+  /**
    * A JSON array of the
    * [Spotify URIs](/documentation/web-api/concepts/spotify-uris-ids) to add. For
    * example:
@@ -228,6 +246,15 @@ export interface TrackRemoveParams {
    * A maximum of 100 objects can be sent at once.
    */
   tracks: Array<TrackRemoveParams.Track>;
+
+  /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
 
   /**
    * The playlist's snapshot ID against which you want to make the changes. The API
