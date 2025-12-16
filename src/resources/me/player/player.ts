@@ -279,6 +279,15 @@ export interface ContextObject {
   href?: string;
 
   /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
+
+  /**
    * The object type, e.g. "artist", "playlist", "album", "show".
    */
   type?: string;
@@ -320,6 +329,15 @@ export interface DeviceObject {
    * associated with the manufacturer or device model.
    */
   name?: string;
+
+  /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
 
   /**
    * If this device can be used to set the volume.
@@ -371,6 +389,15 @@ export interface PlayerGetCurrentlyPlayingResponse {
   progress_ms?: number;
 
   /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
+
+  /**
    * Unix Millisecond Timestamp when data was fetched
    */
   timestamp?: number;
@@ -391,6 +418,15 @@ export namespace PlayerGetCurrentlyPlayingResponse {
      * Pausing. Optional field.
      */
     pausing?: boolean;
+
+    /**
+     * The playlist's public/private status (if it should be added to the user's
+     * profile or not): `true` the playlist will be public, `false` the playlist will
+     * be private, `null` the playlist status is not relevant. For more about
+     * public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     */
+    published?: boolean;
 
     /**
      * Resuming. Optional field.
@@ -477,6 +513,15 @@ export interface PlayerGetStateResponse {
   progress_ms?: number;
 
   /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
+
+  /**
    * off, track, context
    */
   repeat_state?: string;
@@ -508,6 +553,15 @@ export namespace PlayerGetStateResponse {
      * Pausing. Optional field.
      */
     pausing?: boolean;
+
+    /**
+     * The playlist's public/private status (if it should be added to the user's
+     * profile or not): `true` the playlist will be public, `false` the playlist will
+     * be private, `null` the playlist status is not relevant. For more about
+     * public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     */
+    published?: boolean;
 
     /**
      * Resuming. Optional field.
@@ -561,6 +615,15 @@ export interface PlayerListRecentlyPlayedResponse {
    * The date and time the track was played.
    */
   played_at?: string;
+
+  /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
 
   /**
    * The track the user listened to.

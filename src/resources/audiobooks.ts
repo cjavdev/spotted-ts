@@ -152,6 +152,15 @@ export interface SimplifiedChapterObject {
   available_markets?: Array<string>;
 
   /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
+
+  /**
    * Included in the response when a content restriction is applied.
    */
   restrictions?: Shared.ChapterRestrictionObject;
@@ -206,6 +215,15 @@ export namespace AudiobookRetrieveResponse {
     total: number;
 
     items?: Array<AudiobooksAPI.SimplifiedChapterObject>;
+
+    /**
+     * The playlist's public/private status (if it should be added to the user's
+     * profile or not): `true` the playlist will be public, `false` the playlist will
+     * be private, `null` the playlist status is not relevant. For more about
+     * public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     */
+    published?: boolean;
   }
 }
 
@@ -257,6 +275,15 @@ export namespace AudiobookBulkRetrieveResponse {
       total: number;
 
       items?: Array<AudiobooksAPI.SimplifiedChapterObject>;
+
+      /**
+       * The playlist's public/private status (if it should be added to the user's
+       * profile or not): `true` the playlist will be public, `false` the playlist will
+       * be private, `null` the playlist status is not relevant. For more about
+       * public/private status, see
+       * [Working with Playlists](/documentation/web-api/concepts/playlists)
+       */
+      published?: boolean;
     }
   }
 }

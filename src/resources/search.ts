@@ -65,6 +65,15 @@ export namespace SearchQueryResponse {
     total: number;
 
     items?: Array<Albums.Item>;
+
+    /**
+     * The playlist's public/private status (if it should be added to the user's
+     * profile or not): `true` the playlist will be public, `false` the playlist will
+     * be private, `null` the playlist status is not relevant. For more about
+     * public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     */
+    published?: boolean;
   }
 
   export namespace Albums {
@@ -142,6 +151,15 @@ export namespace SearchQueryResponse {
       uri: string;
 
       /**
+       * The playlist's public/private status (if it should be added to the user's
+       * profile or not): `true` the playlist will be public, `false` the playlist will
+       * be private, `null` the playlist status is not relevant. For more about
+       * public/private status, see
+       * [Working with Playlists](/documentation/web-api/concepts/playlists)
+       */
+      published?: boolean;
+
+      /**
        * Included in the response when a content restriction is applied.
        */
       restrictions?: Shared.AlbumRestrictionObject;
@@ -180,6 +198,15 @@ export namespace SearchQueryResponse {
     total: number;
 
     items?: Array<Shared.ArtistObject>;
+
+    /**
+     * The playlist's public/private status (if it should be added to the user's
+     * profile or not): `true` the playlist will be public, `false` the playlist will
+     * be private, `null` the playlist status is not relevant. For more about
+     * public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     */
+    published?: boolean;
   }
 
   export interface Audiobooks {
@@ -214,6 +241,15 @@ export namespace SearchQueryResponse {
     total: number;
 
     items?: Array<Shared.AudiobookBase>;
+
+    /**
+     * The playlist's public/private status (if it should be added to the user's
+     * profile or not): `true` the playlist will be public, `false` the playlist will
+     * be private, `null` the playlist status is not relevant. For more about
+     * public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     */
+    published?: boolean;
   }
 
   export interface Episodes {
@@ -248,6 +284,15 @@ export namespace SearchQueryResponse {
     total: number;
 
     items?: Array<Shared.SimplifiedEpisodeObject>;
+
+    /**
+     * The playlist's public/private status (if it should be added to the user's
+     * profile or not): `true` the playlist will be public, `false` the playlist will
+     * be private, `null` the playlist status is not relevant. For more about
+     * public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     */
+    published?: boolean;
   }
 
   export interface Shows {
@@ -282,6 +327,15 @@ export namespace SearchQueryResponse {
     total: number;
 
     items?: Array<Shared.ShowBase>;
+
+    /**
+     * The playlist's public/private status (if it should be added to the user's
+     * profile or not): `true` the playlist will be public, `false` the playlist will
+     * be private, `null` the playlist status is not relevant. For more about
+     * public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     */
+    published?: boolean;
   }
 
   export interface Tracks {
@@ -316,6 +370,15 @@ export namespace SearchQueryResponse {
     total: number;
 
     items?: Array<Shared.TrackObject>;
+
+    /**
+     * The playlist's public/private status (if it should be added to the user's
+     * profile or not): `true` the playlist will be public, `false` the playlist will
+     * be private, `null` the playlist status is not relevant. For more about
+     * public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     */
+    published?: boolean;
   }
 }
 
