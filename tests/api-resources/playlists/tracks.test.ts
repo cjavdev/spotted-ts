@@ -27,7 +27,14 @@ describe('resource tracks', () => {
     await expect(
       client.playlists.tracks.update(
         '3cEYpjA9oz9GiPac4AsH4n',
-        { insert_before: 3, range_length: 2, range_start: 1, snapshot_id: 'snapshot_id', uris: ['string'] },
+        {
+          insert_before: 3,
+          published: true,
+          range_length: 2,
+          range_start: 1,
+          snapshot_id: 'snapshot_id',
+          uris: ['string'],
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Spotted.NotFoundError);
@@ -81,7 +88,7 @@ describe('resource tracks', () => {
     await expect(
       client.playlists.tracks.add(
         '3cEYpjA9oz9GiPac4AsH4n',
-        { position: 0, uris: ['string'] },
+        { position: 0, published: true, uris: ['string'] },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Spotted.NotFoundError);
@@ -103,6 +110,7 @@ describe('resource tracks', () => {
   test.skip('remove: required and optional params', async () => {
     const response = await client.playlists.tracks.remove('3cEYpjA9oz9GiPac4AsH4n', {
       tracks: [{ uri: 'uri' }],
+      published: true,
       snapshot_id: 'snapshot_id',
     });
   });

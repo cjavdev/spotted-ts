@@ -241,6 +241,7 @@ describe('resource player', () => {
           context_uri: 'spotify:album:5ht7ItJgpBH7W6vJ5BqpPr',
           offset: { position: 'bar' },
           position_ms: 0,
+          published: true,
           uris: ['string'],
         },
         { path: '/_stainless_unknown_path' },
@@ -282,6 +283,10 @@ describe('resource player', () => {
 
   // Prism tests are disabled
   test.skip('transfer: required and optional params', async () => {
-    const response = await client.me.player.transfer({ device_ids: ['74ASZWbe4lXaubB36ztrGX'], play: true });
+    const response = await client.me.player.transfer({
+      device_ids: ['74ASZWbe4lXaubB36ztrGX'],
+      play: true,
+      published: true,
+    });
   });
 });
