@@ -51,7 +51,7 @@ describe('resource followers', () => {
     await expect(
       client.playlists.followers.follow(
         '3cEYpjA9oz9GiPac4AsH4n',
-        { public: false, published: true },
+        { published: true },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Spotted.NotFoundError);

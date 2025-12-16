@@ -27,7 +27,6 @@ describe('resource playlists', () => {
       name: 'New Playlist',
       collaborative: true,
       description: 'New playlist description',
-      public: false,
       published: true,
     });
   });
