@@ -60,6 +60,7 @@ describe('resource playlists', () => {
           description: 'Updated playlist description',
           name: 'Updated Playlist Name',
           public: false,
+          published: true,
         },
         { path: '/_stainless_unknown_path' },
       ),

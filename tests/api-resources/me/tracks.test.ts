@@ -66,7 +66,7 @@ describe('resource tracks', () => {
   test.skip('remove: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.me.tracks.remove({ ids: ['string'] }, { path: '/_stainless_unknown_path' }),
+      client.me.tracks.remove({ ids: ['string'], published: true }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Spotted.NotFoundError);
   });
 
@@ -86,6 +86,7 @@ describe('resource tracks', () => {
   test.skip('save: required and optional params', async () => {
     const response = await client.me.tracks.save({
       ids: ['string'],
+      published: true,
       timestamped_ids: [{ id: 'id', added_at: '2019-12-27T18:11:19.117Z' }],
     });
   });

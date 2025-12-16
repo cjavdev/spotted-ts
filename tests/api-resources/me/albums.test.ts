@@ -66,7 +66,7 @@ describe('resource albums', () => {
   test.skip('remove: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.me.albums.remove({ ids: ['string'] }, { path: '/_stainless_unknown_path' }),
+      client.me.albums.remove({ ids: ['string'], published: true }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Spotted.NotFoundError);
   });
 
@@ -86,7 +86,7 @@ describe('resource albums', () => {
   test.skip('save: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.me.albums.save({ ids: ['string'] }, { path: '/_stainless_unknown_path' }),
+      client.me.albums.save({ ids: ['string'], published: true }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Spotted.NotFoundError);
   });
 });
