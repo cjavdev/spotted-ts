@@ -30,6 +30,15 @@ export interface TimeIntervalObject {
   duration?: number;
 
   /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
+
+  /**
    * The starting point (in seconds) of the time interval.
    */
   start?: number;
@@ -50,6 +59,15 @@ export interface AudioAnalysisRetrieveResponse {
   beats?: Array<TimeIntervalObject>;
 
   meta?: AudioAnalysisRetrieveResponse.Meta;
+
+  /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
 
   /**
    * Sections are defined by large variations in rhythm or timbre, e.g. chorus,
@@ -158,6 +176,15 @@ export namespace AudioAnalysisRetrieveResponse {
     mode_confidence?: number;
 
     /**
+     * The playlist's public/private status (if it should be added to the user's
+     * profile or not): `true` the playlist will be public, `false` the playlist will
+     * be private, `null` the playlist status is not relevant. For more about
+     * public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     */
+    published?: boolean;
+
+    /**
      * The starting point (in seconds) of the section.
      */
     start?: number;
@@ -244,6 +271,15 @@ export namespace AudioAnalysisRetrieveResponse {
      * respective pitch frequencies. ![pitch vector](/assets/audio/Pitch_vector.png)
      */
     pitches?: Array<number>;
+
+    /**
+     * The playlist's public/private status (if it should be added to the user's
+     * profile or not): `true` the playlist will be public, `false` the playlist will
+     * be private, `null` the playlist status is not relevant. For more about
+     * public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     */
+    published?: boolean;
 
     /**
      * The starting point (in seconds) of the segment.

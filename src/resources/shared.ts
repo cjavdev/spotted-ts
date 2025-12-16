@@ -5,6 +5,15 @@ import { CursorURLPage } from '../core/pagination';
 
 export interface AlbumRestrictionObject {
   /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
+
+  /**
    * The reason for the restriction. Albums may be restricted if the content is not
    * available in a given market, to the user's subscription type, or when the user's
    * account is set to not play explicit content. Additional reasons may be added in
@@ -57,6 +66,15 @@ export interface ArtistObject {
    * popularity of all the artist's tracks.
    */
   popularity?: number;
+
+  /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
 
   /**
    * The object type.
@@ -172,6 +190,15 @@ export interface AudiobookBase {
    * The edition of the audiobook.
    */
   edition?: string;
+
+  /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
 }
 
 export interface AuthorObject {
@@ -179,9 +206,27 @@ export interface AuthorObject {
    * The name of the author.
    */
   name?: string;
+
+  /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
 }
 
 export interface ChapterRestrictionObject {
+  /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
+
   /**
    * The reason for the restriction. Supported values:
    *
@@ -199,6 +244,15 @@ export interface ChapterRestrictionObject {
 }
 
 export interface CopyrightObject {
+  /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
+
   /**
    * The copyright text for this content.
    */
@@ -317,6 +371,15 @@ export interface EpisodeObject {
   language?: string;
 
   /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
+
+  /**
    * Included in the response when a content restriction is applied.
    */
   restrictions?: EpisodeRestrictionObject;
@@ -329,6 +392,15 @@ export interface EpisodeObject {
 }
 
 export interface EpisodeRestrictionObject {
+  /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
+
   /**
    * The reason for the restriction. Supported values:
    *
@@ -356,12 +428,30 @@ export interface ExternalIDObject {
   isrc?: string;
 
   /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
+
+  /**
    * [Universal Product Code](http://en.wikipedia.org/wiki/Universal_Product_Code)
    */
   upc?: string;
 }
 
 export interface ExternalURLObject {
+  /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
+
   /**
    * The [Spotify URL](/documentation/web-api/concepts/spotify-uris-ids) for the
    * object.
@@ -375,6 +465,15 @@ export interface FollowersObject {
    * moment.
    */
   href?: string | null;
+
+  /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
 
   /**
    * The total number of followers.
@@ -397,6 +496,15 @@ export interface ImageObject {
    * The image width in pixels.
    */
   width: number | null;
+
+  /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
 }
 
 export interface LinkedTrackObject {
@@ -417,6 +525,15 @@ export interface LinkedTrackObject {
   href?: string;
 
   /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
+
+  /**
    * The object type: "track".
    */
   type?: string;
@@ -433,6 +550,15 @@ export interface NarratorObject {
    * The name of the Narrator.
    */
   name?: string;
+
+  /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
 }
 
 export interface PagingPlaylistObject {
@@ -467,6 +593,15 @@ export interface PagingPlaylistObject {
   total: number;
 
   items?: Array<SimplifiedPlaylistObject>;
+
+  /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
 }
 
 export interface PlaylistTrackObject {
@@ -489,6 +624,15 @@ export interface PlaylistTrackObject {
   is_local?: boolean;
 
   /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
+
+  /**
    * Information about the track or episode.
    */
   track?: TrackObject | EpisodeObject;
@@ -500,6 +644,15 @@ export interface PlaylistTracksRefObject {
    * be retrieved.
    */
   href?: string;
+
+  /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
 
   /**
    * Number of tracks in the playlist.
@@ -525,6 +678,15 @@ export interface PlaylistUserObject {
   href?: string;
 
   /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
+
+  /**
    * The object type.
    */
   type?: 'user';
@@ -541,6 +703,15 @@ export interface ResumePointObject {
    * Whether or not the episode has been fully played by the user.
    */
   fully_played?: boolean;
+
+  /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
 
   /**
    * The user's most recent position in the episode in milliseconds.
@@ -639,6 +810,15 @@ export interface ShowBase {
    * show.
    */
   uri: string;
+
+  /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
 }
 
 export interface SimplifiedArtistObject {
@@ -662,6 +842,15 @@ export interface SimplifiedArtistObject {
    * The name of the artist.
    */
   name?: string;
+
+  /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
 
   /**
    * The object type.
@@ -776,6 +965,15 @@ export interface SimplifiedEpisodeObject {
   language?: string;
 
   /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
+
+  /**
    * Included in the response when a content restriction is applied.
    */
   restrictions?: EpisodeRestrictionObject;
@@ -835,9 +1033,10 @@ export interface SimplifiedPlaylistObject {
   owner?: SimplifiedPlaylistObject.Owner;
 
   /**
-   * The playlist's public/private status (if it is added to the user's profile):
-   * `true` the playlist is public, `false` the playlist is private, `null` the
-   * playlist status is not relevant. For more about public/private status, see
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
    * [Working with Playlists](/documentation/web-api/concepts/playlists)
    */
   published?: boolean;
@@ -955,6 +1154,15 @@ export interface SimplifiedTrackObject {
    * @deprecated A URL to a 30 second preview (MP3 format) of the track.
    */
   preview_url?: string | null;
+
+  /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
 
   /**
    * Included in the response when a content restriction is applied.
@@ -1081,6 +1289,15 @@ export interface TrackObject {
   preview_url?: string | null;
 
   /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
+
+  /**
    * Included in the response when a content restriction is applied.
    */
   restrictions?: TrackRestrictionObject;
@@ -1182,6 +1399,15 @@ export namespace TrackObject {
     uri: string;
 
     /**
+     * The playlist's public/private status (if it should be added to the user's
+     * profile or not): `true` the playlist will be public, `false` the playlist will
+     * be private, `null` the playlist status is not relevant. For more about
+     * public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     */
+    published?: boolean;
+
+    /**
      * Included in the response when a content restriction is applied.
      */
     restrictions?: Shared.AlbumRestrictionObject;
@@ -1189,6 +1415,15 @@ export namespace TrackObject {
 }
 
 export interface TrackRestrictionObject {
+  /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
+
   /**
    * The reason for the restriction. Supported values:
    *

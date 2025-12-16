@@ -50,6 +50,15 @@ export interface BrowseGetFeaturedPlaylistsResponse {
   message?: string;
 
   playlists?: Shared.PagingPlaylistObject;
+
+  /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
 }
 
 export interface BrowseGetNewReleasesResponse {
@@ -89,6 +98,15 @@ export namespace BrowseGetNewReleasesResponse {
     total: number;
 
     items?: Array<Albums.Item>;
+
+    /**
+     * The playlist's public/private status (if it should be added to the user's
+     * profile or not): `true` the playlist will be public, `false` the playlist will
+     * be private, `null` the playlist status is not relevant. For more about
+     * public/private status, see
+     * [Working with Playlists](/documentation/web-api/concepts/playlists)
+     */
+    published?: boolean;
   }
 
   export namespace Albums {
@@ -164,6 +182,15 @@ export namespace BrowseGetNewReleasesResponse {
        * album.
        */
       uri: string;
+
+      /**
+       * The playlist's public/private status (if it should be added to the user's
+       * profile or not): `true` the playlist will be public, `false` the playlist will
+       * be private, `null` the playlist status is not relevant. For more about
+       * public/private status, see
+       * [Working with Playlists](/documentation/web-api/concepts/playlists)
+       */
+      published?: boolean;
 
       /**
        * Included in the response when a content restriction is applied.

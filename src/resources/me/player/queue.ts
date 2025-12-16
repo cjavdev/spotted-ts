@@ -48,6 +48,15 @@ export interface QueueGetResponse {
   currently_playing?: Shared.TrackObject | Shared.EpisodeObject;
 
   /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
+
+  /**
    * The tracks or episodes in the queue. Can be empty.
    */
   queue?: Array<Shared.TrackObject | Shared.EpisodeObject>;
