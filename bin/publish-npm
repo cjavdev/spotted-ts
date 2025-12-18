@@ -66,7 +66,6 @@ else
 fi
 
 # Publish with the appropriate tag
-# Use npm publish instead of yarn publish for OIDC support
-# Don't use --registry flag to preserve OIDC configuration from setup-node
-# Provenance is automatic with OIDC, but keeping the flag is fine
-npm publish --tag "$TAG" --provenance
+# Use npm publish directly (not yarn npm) for OIDC support
+# Explicitly set registry to avoid yarn's registry.yarnpkg.com default
+npm publish --tag "$TAG" --provenance --registry https://registry.npmjs.org
