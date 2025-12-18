@@ -142,7 +142,10 @@ You can use the `for await … of` syntax to iterate through items across all pa
 async function fetchAllSimplifiedEpisodeObjects(params) {
   const allSimplifiedEpisodeObjects = [];
   // Automatically fetches more pages as needed.
-  for await (const simplifiedEpisodeObject of client.shows.listEpisodes('showid', { limit: 5, offset: 10 })) {
+  for await (const simplifiedEpisodeObject of client.shows.listEpisodes('showid', {
+    limit: 10,
+    offset: 20,
+  })) {
     allSimplifiedEpisodeObjects.push(simplifiedEpisodeObject);
   }
   return allSimplifiedEpisodeObjects;
@@ -152,7 +155,7 @@ async function fetchAllSimplifiedEpisodeObjects(params) {
 Alternatively, you can request a single page at a time:
 
 ```ts
-let page = await client.shows.listEpisodes('showid', { limit: 5, offset: 10 });
+let page = await client.shows.listEpisodes('showid', { limit: 10, offset: 20 });
 for (const simplifiedEpisodeObject of page.items) {
   console.log(simplifiedEpisodeObject);
 }
