@@ -2,7 +2,8 @@
 
 set -eux
 
-npm config set '//registry.npmjs.org/:_authToken' "$NPM_TOKEN"
+# OIDC authentication is handled by setup-node action
+# No need to set auth token manually
 
 yarn build
 cd dist
@@ -58,4 +59,5 @@ else
 fi
 
 # Publish with the appropriate tag
-yarn publish --tag "$TAG"
+# Use npm publish instead of yarn publish for OIDC support
+npm publish --tag "$TAG" --provenance
