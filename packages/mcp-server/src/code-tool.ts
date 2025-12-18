@@ -39,6 +39,7 @@ export async function codeTool() {
           SPOTIFY_CLIENT_ID: readEnv('SPOTIFY_CLIENT_ID'),
           SPOTIFY_CLIENT_SECRET: readEnv('SPOTIFY_CLIENT_SECRET'),
           SPOTIFY_ACCESS_TOKEN: readEnv('SPOTIFY_ACCESS_TOKEN'),
+          SPOTTED_BASE_URL: readEnv('SPOTTED_BASE_URL'),
         }),
       },
       body: JSON.stringify({
