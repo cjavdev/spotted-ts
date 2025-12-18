@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.12.0 (2025-12-18)
+
+Full Changelog: [v0.11.0...v0.12.0](https://github.com/cjavdev/spotted-ts/compare/v0.11.0...v0.12.0)
+
+### Features
+
+* **api:** release to npm again ([76b6f2c](https://github.com/cjavdev/spotted-ts/commit/76b6f2cae10d8e0f4407c5e2a4d257ce5da85314))
+
 ## 0.11.0 (2025-12-18)
 
 Full Changelog: [v0.10.0...v0.11.0](https://github.com/cjavdev/spotted-ts/compare/v0.10.0...v0.11.0)
