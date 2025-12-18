@@ -59,4 +59,5 @@ fi
 
 # Publish with the appropriate tag
 # Use npm publish directly (not yarn npm) for OIDC support
-npm publish --tag "$TAG" --provenance
+# Explicitly set registry to avoid yarn's registry.yarnpkg.com default
+npm publish --tag "$TAG" --provenance --registry https://registry.npmjs.org
