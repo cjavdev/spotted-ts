@@ -368,7 +368,7 @@ Types:
 Methods:
 
 - <code title="get /browse/categories/{category_id}">client.browse.categories.<a href="./src/resources/browse/categories.ts">retrieve</a>(categoryID, { ...params }) -> CategoryRetrieveResponse</code>
-- <code title="get /browse/categories">client.browse.categories.<a href="./src/resources/browse/categories.ts">list</a>({ ...params }) -> CategoryListResponse</code>
+- <code title="get /browse/categories">client.browse.categories.<a href="./src/resources/browse/categories.ts">list</a>({ ...params }) -> CategoryListResponsesCursorURLPage</code>
 - <code title="get /browse/categories/{category_id}/playlists">client.browse.categories.<a href="./src/resources/browse/categories.ts">getPlaylists</a>(categoryID, { ...params }) -> CategoryGetPlaylistsResponse</code>
 
 # AudioFeatures

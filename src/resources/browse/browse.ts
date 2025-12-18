@@ -9,6 +9,7 @@ import {
   CategoryGetPlaylistsResponse,
   CategoryListParams,
   CategoryListResponse,
+  CategoryListResponsesCursorURLPage,
   CategoryRetrieveParams,
   CategoryRetrieveResponse,
 } from './categories';
@@ -253,6 +254,7 @@ export declare namespace Browse {
     type CategoryRetrieveResponse as CategoryRetrieveResponse,
     type CategoryListResponse as CategoryListResponse,
     type CategoryGetPlaylistsResponse as CategoryGetPlaylistsResponse,
+    type CategoryListResponsesCursorURLPage as CategoryListResponsesCursorURLPage,
     type CategoryRetrieveParams as CategoryRetrieveParams,
     type CategoryListParams as CategoryListParams,
     type CategoryGetPlaylistsParams as CategoryGetPlaylistsParams,
