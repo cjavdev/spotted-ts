@@ -3,6 +3,7 @@
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
 import { APIPromise } from '../../core/api-promise';
+import { CursorURLPage, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -26,8 +27,11 @@ export class Categories extends APIResource {
   list(
     query: CategoryListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<CategoryListResponse> {
-    return this._client.get('/browse/categories', { query, ...options });
+  ): PagePromise<CategoryListResponsesCursorURLPage, CategoryListResponse> {
+    return this._client.getAPIList('/browse/categories', CursorURLPage<CategoryListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -43,6 +47,8 @@ export class Categories extends APIResource {
     return this._client.get(path`/browse/categories/${categoryID}/playlists`, { query, ...options });
   }
 }
+
+export type CategoryListResponsesCursorURLPage = CursorURLPage<CategoryListResponse>;
 
 export interface CategoryRetrieveResponse {
   /**
@@ -77,86 +83,35 @@ export interface CategoryRetrieveResponse {
 }
 
 export interface CategoryListResponse {
-  categories: CategoryListResponse.Categories;
-}
+  /**
+   * The [Spotify category ID](/documentation/web-api/concepts/spotify-uris-ids) of
+   * the category.
+   */
+  id: string;
 
-export namespace CategoryListResponse {
-  export interface Categories {
-    /**
-     * A link to the Web API endpoint returning the full result of the request
-     */
-    href: string;
+  /**
+   * A link to the Web API endpoint returning full details of the category.
+   */
+  href: string;
 
-    /**
-     * The maximum number of items in the response (as set in the query or by default).
-     */
-    limit: number;
+  /**
+   * The category icon, in various sizes.
+   */
+  icons: Array<Shared.ImageObject>;
 
-    /**
-     * URL to the next page of items. ( `null` if none)
-     */
-    next: string | null;
+  /**
+   * The name of the category.
+   */
+  name: string;
 
-    /**
-     * The offset of the items returned (as set in the query or by default)
-     */
-    offset: number;
-
-    /**
-     * URL to the previous page of items. ( `null` if none)
-     */
-    previous: string | null;
-
-    /**
-     * The total number of items available to return.
-     */
-    total: number;
-
-    items?: Array<Categories.Item>;
-
-    /**
-     * The playlist's public/private status (if it should be added to the user's
-     * profile or not): `true` the playlist will be public, `false` the playlist will
-     * be private, `null` the playlist status is not relevant. For more about
-     * public/private status, see
-     * [Working with Playlists](/documentation/web-api/concepts/playlists)
-     */
-    published?: boolean;
-  }
-
-  export namespace Categories {
-    export interface Item {
-      /**
-       * The [Spotify category ID](/documentation/web-api/concepts/spotify-uris-ids) of
-       * the category.
-       */
-      id: string;
-
-      /**
-       * A link to the Web API endpoint returning full details of the category.
-       */
-      href: string;
-
-      /**
-       * The category icon, in various sizes.
-       */
-      icons: Array<Shared.ImageObject>;
-
-      /**
-       * The name of the category.
-       */
-      name: string;
-
-      /**
-       * The playlist's public/private status (if it should be added to the user's
-       * profile or not): `true` the playlist will be public, `false` the playlist will
-       * be private, `null` the playlist status is not relevant. For more about
-       * public/private status, see
-       * [Working with Playlists](/documentation/web-api/concepts/playlists)
-       */
-      published?: boolean;
-    }
-  }
+  /**
+   * The playlist's public/private status (if it should be added to the user's
+   * profile or not): `true` the playlist will be public, `false` the playlist will
+   * be private, `null` the playlist status is not relevant. For more about
+   * public/private status, see
+   * [Working with Playlists](/documentation/web-api/concepts/playlists)
+   */
+  published?: boolean;
 }
 
 export interface CategoryGetPlaylistsResponse {
@@ -234,6 +189,7 @@ export declare namespace Categories {
     type CategoryRetrieveResponse as CategoryRetrieveResponse,
     type CategoryListResponse as CategoryListResponse,
     type CategoryGetPlaylistsResponse as CategoryGetPlaylistsResponse,
+    type CategoryListResponsesCursorURLPage as CategoryListResponsesCursorURLPage,
     type CategoryRetrieveParams as CategoryRetrieveParams,
     type CategoryListParams as CategoryListParams,
     type CategoryGetPlaylistsParams as CategoryGetPlaylistsParams,

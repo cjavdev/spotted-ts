@@ -15,4 +15,5 @@ export {
   type CategoryRetrieveParams,
   type CategoryListParams,
   type CategoryGetPlaylistsParams,
+  type CategoryListResponsesCursorURLPage,
 } from './categories';
