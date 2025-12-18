@@ -58,4 +58,5 @@ else
 fi
 
 # Publish with the appropriate tag
-yarn npm publish --tag "$TAG"
+# Use npm publish directly (not yarn npm) for OIDC support
+npm publish --tag "$TAG" --provenance
