@@ -4,6 +4,8 @@ set -eux
 
 # OIDC authentication is handled by setup-node action
 # No need to set auth token manually
+# Explicitly set registry to npmjs.org (not yarnpkg.com)
+npm config set registry https://registry.npmjs.org/
 
 yarn build
 cd dist
@@ -22,7 +24,7 @@ VERSION="$(jq -r -e '.version' ./package.json)"
 #     "detail": "'the_package' is not in this registry..."
 #   }
 # }
-NPM_INFO="$(npm view "$PACKAGE_NAME" version --json 2>/dev/null || true)"
+NPM_INFO="$(npm view "$PACKAGE_NAME" version --json --registry=https://registry.npmjs.org/ 2>/dev/null || true)"
 
 # Check if we got an E404 error
 if echo "$NPM_INFO" | jq -e '.error.code == "E404"' > /dev/null 2>&1; then
@@ -60,4 +62,4 @@ fi
 
 # Publish with the appropriate tag
 # Use npm publish instead of yarn publish for OIDC support
-npm publish --tag "$TAG" --provenance
+npm publish --tag "$TAG" --provenance --registry=https://registry.npmjs.org/
