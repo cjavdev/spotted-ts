@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.11.0 (2025-12-18)
+
+Full Changelog: [v0.10.0...v0.11.0](https://github.com/cjavdev/spotted-ts/compare/v0.10.0...v0.11.0)
+
+### Features
+
+* **api:** manual updates ([5ae4fd5](https://github.com/cjavdev/spotted-ts/commit/5ae4fd5c1826bbcd56bd302f5186f8d70782d394))
+* **api:** manual updates ([d2c63cc](https://github.com/cjavdev/spotted-ts/commit/d2c63cc58e4beb2e5852fee7887e990d8d29f46c))
+* **api:** manual updates ([bb5a654](https://github.com/cjavdev/spotted-ts/commit/bb5a654c435a5afbc0d27c996b27dcc129d55816))
+* **api:** manual updates ([76c1031](https://github.com/cjavdev/spotted-ts/commit/76c1031152658ec6a51eccf389c15b034d6911a6))
+* **api:** manual updates ([c75d209](https://github.com/cjavdev/spotted-ts/commit/c75d20953089e150a4e56bda9ea73961f820d50b))
+
+
+### Bug Fixes
+
+* **mcp:** add client instantiation options to code tool ([7a7db44](https://github.com/cjavdev/spotted-ts/commit/7a7db4465e3b4b7f0a639acb7016f214fde0623e))
+* **mcp:** pass base url to code tool ([395efa3](https://github.com/cjavdev/spotted-ts/commit/395efa3ed685bcf43358357558c0c9cd5fca2b1f))
+
+
+### Chores
+
+* **mcp:** update lockfile ([910e948](https://github.com/cjavdev/spotted-ts/commit/910e9485d1c3b388123c408b589c2f6142df94d6))
+
 ## 0.10.0 (2025-12-10)
 
 Full Changelog: [v0.9.0...v0.10.0](https://github.com/cjavdev/spotted-ts/compare/v0.9.0...v0.10.0)
