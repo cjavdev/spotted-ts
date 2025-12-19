@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.14.0 (2025-12-19)
+
+Full Changelog: [v0.13.0...v0.14.0](https://github.com/cjavdev/spotted-ts/compare/v0.13.0...v0.14.0)
+
+### ⚠ BREAKING CHANGES
+
+* **mcp:** remove deprecated tool schemes
+* **mcp:** **Migration:** To migrate, simply modify the command used to invoke the MCP server. Currently, the only supported tool scheme is code mode. Now, starting the server with just `node /path/to/mcp/server` or `npx package-name` will invoke code tools: changing your command to one of these is likely all you will need to do.
+
+### Features
+
+* **api:** manual updates ([f3e043d](https://github.com/cjavdev/spotted-ts/commit/f3e043d7aa031d80788ce0e88ed61891e99e1011))
+
+
+### Bug Fixes
+
+* **publish-npm:** set npm registry explicitly for publishing ([6e46b49](https://github.com/cjavdev/spotted-ts/commit/6e46b49306efed2e43f8332bd8a39558f9e2c9a5))
+
+
+### Chores
+
+* **mcp:** remove deprecated tool schemes ([e289832](https://github.com/cjavdev/spotted-ts/commit/e289832afd694b242ee97d127841646ce0443f9f))
+
 ## 0.13.0 (2025-12-18)
 
 Full Changelog: [v0.12.0...v0.13.0](https://github.com/cjavdev/spotted-ts/compare/v0.12.0...v0.13.0)
