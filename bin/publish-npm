@@ -2,7 +2,14 @@
 
 set -eux
 
-# npm config set '//registry.npmjs.org/:_authToken' "$NPM_TOKEN"
+# OIDC authentication is handled by setup-node action
+# The setup-node action with registry-url automatically configures OIDC
+# Only set registry if it's not already configured (to avoid overriding OIDC)
+# This ensures we use npmjs.org instead of yarnpkg.com
+CURRENT_REGISTRY="$(npm config get registry 2>/dev/null || echo '')"
+if [[ "$CURRENT_REGISTRY" != "https://registry.npmjs.org/" ]]; then
+  npm config set registry https://registry.npmjs.org/
+fi
 
 yarn build
 cd dist
@@ -21,6 +28,7 @@ VERSION="$(jq -r -e '.version' ./package.json)"
 #     "detail": "'the_package' is not in this registry..."
 #   }
 # }
+# Don't use --registry flag here to preserve OIDC configuration
 NPM_INFO="$(npm view "$PACKAGE_NAME" version --json 2>/dev/null || true)"
 
 # Check if we got an E404 error
