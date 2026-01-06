@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.15.1 (2026-01-06)
+
+Full Changelog: [v0.15.0...v0.15.1](https://github.com/cjavdev/spotted-ts/compare/v0.15.0...v0.15.1)
+
+### Bug Fixes
+
+* **mcp:** correct code tool api output types ([b6c510d](https://github.com/cjavdev/spotted-ts/commit/b6c510dea8e3d89396b0be7fa5c0cf2ce76685e9))
+
+
+### Documentation
+
+* prominently feature MCP server setup in root SDK readmes ([6c3a91d](https://github.com/cjavdev/spotted-ts/commit/6c3a91d524b25c73e579e7cc7a16e20a6b26ed54))
+
 ## 0.15.0 (2026-01-05)
 
 Full Changelog: [v0.14.0...v0.15.0](https://github.com/cjavdev/spotted-ts/compare/v0.14.0...v0.15.0)
