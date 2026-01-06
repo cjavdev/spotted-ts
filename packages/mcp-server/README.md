@@ -58,7 +58,7 @@ If you use Claude Code, you can install the MCP server by running the command be
 environment variables in Claude Code's `.claude.json`, which can be found in your home directory.
 
 ```
-claude mcp add --transport stdio spotted_ts_api --env SPOTIFY_CLIENT_ID="Your SPOTIFY_CLIENT_ID here." SPOTIFY_CLIENT_SECRET="Your SPOTIFY_CLIENT_SECRET here." SPOTIFY_ACCESS_TOKEN="Your SPOTIFY_ACCESS_TOKEN here." -- npx -y spotted-ts-mcp
+claude mcp add spotted_ts_mcp_api --env SPOTIFY_CLIENT_ID="Your SPOTIFY_CLIENT_ID here." SPOTIFY_CLIENT_SECRET="Your SPOTIFY_CLIENT_SECRET here." SPOTIFY_ACCESS_TOKEN="Your SPOTIFY_ACCESS_TOKEN here." -- npx -y spotted-ts-mcp
 ```
 
 ## Code Mode
