@@ -73,7 +73,11 @@ describe('resource albums', () => {
     await expect(
       client.albums.listTracks(
         '4aawyAB9vmqN3uQ7FjRGTy',
-        { limit: 10, market: 'ES', offset: 5 },
+        {
+          limit: 10,
+          market: 'ES',
+          offset: 5,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Spotted.NotFoundError);

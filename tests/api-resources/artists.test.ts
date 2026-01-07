@@ -60,7 +60,12 @@ describe('resource artists', () => {
     await expect(
       client.artists.listAlbums(
         '0TnOYISbd1XYRBk9myaseg',
-        { include_groups: 'single,appears_on', limit: 10, market: 'ES', offset: 5 },
+        {
+          include_groups: 'single,appears_on',
+          limit: 10,
+          market: 'ES',
+          offset: 5,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Spotted.NotFoundError);

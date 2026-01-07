@@ -194,7 +194,9 @@ const response = await client.albums.retrieve('4aawyAB9vmqN3uQ7FjRGTy').asRespon
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: album, response: raw } = await client.albums.retrieve('4aawyAB9vmqN3uQ7FjRGTy').withResponse();
+const { data: album, response: raw } = await client.albums
+  .retrieve('4aawyAB9vmqN3uQ7FjRGTy')
+  .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(album.id);
 ```

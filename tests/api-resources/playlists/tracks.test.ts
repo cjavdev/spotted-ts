@@ -88,7 +88,11 @@ describe('resource tracks', () => {
     await expect(
       client.playlists.tracks.add(
         '3cEYpjA9oz9GiPac4AsH4n',
-        { position: 0, published: true, uris: ['string'] },
+        {
+          position: 0,
+          published: true,
+          uris: ['string'],
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Spotted.NotFoundError);

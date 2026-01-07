@@ -46,7 +46,11 @@ describe('resource categories', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.browse.categories.list(
-        { limit: 10, locale: 'sv_SE', offset: 5 },
+        {
+          limit: 10,
+          locale: 'sv_SE',
+          offset: 5,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Spotted.NotFoundError);
