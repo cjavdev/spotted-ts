@@ -73,7 +73,11 @@ describe('resource audiobooks', () => {
     await expect(
       client.audiobooks.listChapters(
         '7iHfbu1YPACw6oZPAFJtqe',
-        { limit: 10, market: 'ES', offset: 5 },
+        {
+          limit: 10,
+          market: 'ES',
+          offset: 5,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Spotted.NotFoundError);
