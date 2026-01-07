@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.16.1 (2026-01-07)
+
+Full Changelog: [v0.16.0...v0.16.1](https://github.com/cjavdev/spotted-ts/compare/v0.16.0...v0.16.1)
+
+### Bug Fixes
+
+* **mcp:** fix options parsing ([1caa121](https://github.com/cjavdev/spotted-ts/commit/1caa1219dea07c48e6fa457678e08e54af3d84f4))
+
+
+### Chores
+
+* break long lines in snippets into multiline ([1744e7b](https://github.com/cjavdev/spotted-ts/commit/1744e7bdb52576e8ca26309fddb5826909816f94))
+
 ## 0.16.0 (2026-01-06)
 
 Full Changelog: [v0.15.1...v0.16.0](https://github.com/cjavdev/spotted-ts/compare/v0.15.1...v0.16.0)
