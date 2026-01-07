@@ -69,7 +69,11 @@ describe('resource shows', () => {
     await expect(
       client.shows.listEpisodes(
         '38bS44xjbVVZ3No3ByF1dJ',
-        { limit: 10, market: 'ES', offset: 5 },
+        {
+          limit: 10,
+          market: 'ES',
+          offset: 5,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Spotted.NotFoundError);

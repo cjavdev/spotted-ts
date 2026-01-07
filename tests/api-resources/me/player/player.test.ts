@@ -84,7 +84,11 @@ describe('resource player', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.me.player.listRecentlyPlayed(
-        { after: 1484811043508, before: 0, limit: 10 },
+        {
+          after: 1484811043508,
+          before: 0,
+          limit: 10,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Spotted.NotFoundError);

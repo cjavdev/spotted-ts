@@ -26,7 +26,11 @@ describe('resource top', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.me.top.listTopArtists(
-        { limit: 10, offset: 5, time_range: 'medium_term' },
+        {
+          limit: 10,
+          offset: 5,
+          time_range: 'medium_term',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Spotted.NotFoundError);
@@ -49,7 +53,11 @@ describe('resource top', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.me.top.listTopTracks(
-        { limit: 10, offset: 5, time_range: 'medium_term' },
+        {
+          limit: 10,
+          offset: 5,
+          time_range: 'medium_term',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Spotted.NotFoundError);

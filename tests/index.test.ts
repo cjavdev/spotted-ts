@@ -391,7 +391,11 @@ describe('instantiate client', () => {
   });
 
   test('maxRetries option is correctly set', () => {
-    const client = new Spotted({ maxRetries: 4, clientID: 'My Client ID', clientSecret: 'My Client Secret' });
+    const client = new Spotted({
+      maxRetries: 4,
+      clientID: 'My Client ID',
+      clientSecret: 'My Client Secret',
+    });
     expect(client.maxRetries).toEqual(4);
 
     // default
