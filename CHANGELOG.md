@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.16.2 (2026-01-09)
+
+Full Changelog: [v0.16.1...v0.16.2](https://github.com/cjavdev/spotted-ts/compare/v0.16.1...v0.16.2)
+
+### Bug Fixes
+
+* **mcp:** update code tool prompt ([4647d11](https://github.com/cjavdev/spotted-ts/commit/4647d11dd90d9f5a8c9bd98bbdf6fc2685e16429))
+
 ## 0.16.1 (2026-01-07)
 
 Full Changelog: [v0.16.0...v0.16.1](https://github.com/cjavdev/spotted-ts/compare/v0.16.0...v0.16.1)
