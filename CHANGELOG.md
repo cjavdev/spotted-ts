@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.16.4 (2026-01-14)
+
+Full Changelog: [v0.16.3...v0.16.4](https://github.com/cjavdev/spotted-ts/compare/v0.16.3...v0.16.4)
+
+### Chores
+
+* **internal:** codegen related update ([867ed0c](https://github.com/cjavdev/spotted-ts/commit/867ed0c99a0e6f0b2a83e65f78c11b3c5c29ec2b))
+* **internal:** codegen related update ([156c53d](https://github.com/cjavdev/spotted-ts/commit/156c53d8eb38fb88e5b14342ed1307c982b808b6))
+
 ## 0.16.3 (2026-01-12)
 
 Full Changelog: [v0.16.2...v0.16.3](https://github.com/cjavdev/spotted-ts/compare/v0.16.2...v0.16.3)
