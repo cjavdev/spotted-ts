@@ -12,7 +12,7 @@
     "url": "git+https://github.com/cjavdev/spotted-ts.git"
   },
   "homepage": "https://github.com/cjavdev/spotted-ts/tree/main/packages/mcp-server#readme",
-  "documentation": "https://spotted.stldocs.com?docs",
+  "documentation": "https://spotted.cjav.dev",
   "server": {
     "type": "node",
     "entry_point": "index.js",
