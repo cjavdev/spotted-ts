@@ -23,8 +23,7 @@ describe('instantiate client', () => {
     const client = new Spotted({
       baseURL: 'http://localhost:5000/',
       defaultHeaders: { 'X-My-Default-Header': '2' },
-      clientID: 'My Client ID',
-      clientSecret: 'My Client Secret',
+      accessToken: 'My Access Token',
     });
 
     test('they are used in the request', async () => {
@@ -91,8 +90,7 @@ describe('instantiate client', () => {
       const client = new Spotted({
         logger: logger,
         logLevel: 'debug',
-        clientID: 'My Client ID',
-        clientSecret: 'My Client Secret',
+        accessToken: 'My Access Token',
       });
 
       await forceAPIResponseForClient(client);
@@ -100,7 +98,7 @@ describe('instantiate client', () => {
     });
 
     test('default logLevel is warn', async () => {
-      const client = new Spotted({ clientID: 'My Client ID', clientSecret: 'My Client Secret' });
+      const client = new Spotted({ accessToken: 'My Access Token' });
       expect(client.logLevel).toBe('warn');
     });
 
@@ -116,8 +114,7 @@ describe('instantiate client', () => {
       const client = new Spotted({
         logger: logger,
         logLevel: 'info',
-        clientID: 'My Client ID',
-        clientSecret: 'My Client Secret',
+        accessToken: 'My Access Token',
       });
 
       await forceAPIResponseForClient(client);
@@ -134,11 +131,7 @@ describe('instantiate client', () => {
       };
 
       process.env['SPOTTED_LOG'] = 'debug';
-      const client = new Spotted({
-        logger: logger,
-        clientID: 'My Client ID',
-        clientSecret: 'My Client Secret',
-      });
+      const client = new Spotted({ logger: logger, accessToken: 'My Access Token' });
       expect(client.logLevel).toBe('debug');
 
       await forceAPIResponseForClient(client);
@@ -155,11 +148,7 @@ describe('instantiate client', () => {
       };
 
       process.env['SPOTTED_LOG'] = 'not a log level';
-      const client = new Spotted({
-        logger: logger,
-        clientID: 'My Client ID',
-        clientSecret: 'My Client Secret',
-      });
+      const client = new Spotted({ logger: logger, accessToken: 'My Access Token' });
       expect(client.logLevel).toBe('warn');
       expect(warnMock).toHaveBeenCalledWith(
         'process.env[\'SPOTTED_LOG\'] was set to "not a log level", expected one of ["off","error","warn","info","debug"]',
@@ -179,8 +168,7 @@ describe('instantiate client', () => {
       const client = new Spotted({
         logger: logger,
         logLevel: 'off',
-        clientID: 'My Client ID',
-        clientSecret: 'My Client Secret',
+        accessToken: 'My Access Token',
       });
 
       await forceAPIResponseForClient(client);
@@ -200,8 +188,7 @@ describe('instantiate client', () => {
       const client = new Spotted({
         logger: logger,
         logLevel: 'debug',
-        clientID: 'My Client ID',
-        clientSecret: 'My Client Secret',
+        accessToken: 'My Access Token',
       });
       expect(client.logLevel).toBe('debug');
       expect(warnMock).not.toHaveBeenCalled();
@@ -213,8 +200,7 @@ describe('instantiate client', () => {
       const client = new Spotted({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo' },
-        clientID: 'My Client ID',
-        clientSecret: 'My Client Secret',
+        accessToken: 'My Access Token',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/foo?apiVersion=foo');
     });
@@ -223,8 +209,7 @@ describe('instantiate client', () => {
       const client = new Spotted({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo', hello: 'world' },
-        clientID: 'My Client ID',
-        clientSecret: 'My Client Secret',
+        accessToken: 'My Access Token',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/foo?apiVersion=foo&hello=world');
     });
@@ -233,8 +218,7 @@ describe('instantiate client', () => {
       const client = new Spotted({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { hello: 'world' },
-        clientID: 'My Client ID',
-        clientSecret: 'My Client Secret',
+        accessToken: 'My Access Token',
       });
       expect(client.buildURL('/foo', { hello: undefined })).toEqual('http://localhost:5000/foo');
     });
@@ -243,8 +227,7 @@ describe('instantiate client', () => {
   test('custom fetch', async () => {
     const client = new Spotted({
       baseURL: 'http://localhost:5000/',
-      clientID: 'My Client ID',
-      clientSecret: 'My Client Secret',
+      accessToken: 'My Access Token',
       fetch: (url) => {
         return Promise.resolve(
           new Response(JSON.stringify({ url, custom: true }), {
@@ -262,8 +245,7 @@ describe('instantiate client', () => {
     // make sure the global fetch type is assignable to our Fetch type
     const client = new Spotted({
       baseURL: 'http://localhost:5000/',
-      clientID: 'My Client ID',
-      clientSecret: 'My Client Secret',
+      accessToken: 'My Access Token',
       fetch: defaultFetch,
     });
   });
@@ -271,8 +253,7 @@ describe('instantiate client', () => {
   test('custom signal', async () => {
     const client = new Spotted({
       baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-      clientID: 'My Client ID',
-      clientSecret: 'My Client Secret',
+      accessToken: 'My Access Token',
       fetch: (...args) => {
         return new Promise((resolve, reject) =>
           setTimeout(
@@ -304,8 +285,7 @@ describe('instantiate client', () => {
 
     const client = new Spotted({
       baseURL: 'http://localhost:5000/',
-      clientID: 'My Client ID',
-      clientSecret: 'My Client Secret',
+      accessToken: 'My Access Token',
       fetch: testFetch,
     });
 
@@ -317,8 +297,7 @@ describe('instantiate client', () => {
     test('trailing slash', () => {
       const client = new Spotted({
         baseURL: 'http://localhost:5000/custom/path/',
-        clientID: 'My Client ID',
-        clientSecret: 'My Client Secret',
+        accessToken: 'My Access Token',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
@@ -326,8 +305,7 @@ describe('instantiate client', () => {
     test('no trailing slash', () => {
       const client = new Spotted({
         baseURL: 'http://localhost:5000/custom/path',
-        clientID: 'My Client ID',
-        clientSecret: 'My Client Secret',
+        accessToken: 'My Access Token',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
@@ -337,45 +315,37 @@ describe('instantiate client', () => {
     });
 
     test('explicit option', () => {
-      const client = new Spotted({
-        baseURL: 'https://example.com',
-        clientID: 'My Client ID',
-        clientSecret: 'My Client Secret',
-      });
+      const client = new Spotted({ baseURL: 'https://example.com', accessToken: 'My Access Token' });
       expect(client.baseURL).toEqual('https://example.com');
     });
 
     test('env variable', () => {
       process.env['SPOTTED_BASE_URL'] = 'https://example.com/from_env';
-      const client = new Spotted({ clientID: 'My Client ID', clientSecret: 'My Client Secret' });
+      const client = new Spotted({ accessToken: 'My Access Token' });
       expect(client.baseURL).toEqual('https://example.com/from_env');
     });
 
     test('empty env variable', () => {
       process.env['SPOTTED_BASE_URL'] = ''; // empty
-      const client = new Spotted({ clientID: 'My Client ID', clientSecret: 'My Client Secret' });
+      const client = new Spotted({ accessToken: 'My Access Token' });
       expect(client.baseURL).toEqual('https://api.spotify.com/v1');
     });
 
     test('blank env variable', () => {
       process.env['SPOTTED_BASE_URL'] = '  '; // blank
-      const client = new Spotted({ clientID: 'My Client ID', clientSecret: 'My Client Secret' });
+      const client = new Spotted({ accessToken: 'My Access Token' });
       expect(client.baseURL).toEqual('https://api.spotify.com/v1');
     });
 
     test('in request options', () => {
-      const client = new Spotted({ clientID: 'My Client ID', clientSecret: 'My Client Secret' });
+      const client = new Spotted({ accessToken: 'My Access Token' });
       expect(client.buildURL('/foo', null, 'http://localhost:5000/option')).toEqual(
         'http://localhost:5000/option/foo',
       );
     });
 
     test('in request options overridden by client options', () => {
-      const client = new Spotted({
-        clientID: 'My Client ID',
-        clientSecret: 'My Client Secret',
-        baseURL: 'http://localhost:5000/client',
-      });
+      const client = new Spotted({ accessToken: 'My Access Token', baseURL: 'http://localhost:5000/client' });
       expect(client.buildURL('/foo', null, 'http://localhost:5000/option')).toEqual(
         'http://localhost:5000/client/foo',
       );
@@ -383,7 +353,7 @@ describe('instantiate client', () => {
 
     test('in request options overridden by env variable', () => {
       process.env['SPOTTED_BASE_URL'] = 'http://localhost:5000/env';
-      const client = new Spotted({ clientID: 'My Client ID', clientSecret: 'My Client Secret' });
+      const client = new Spotted({ accessToken: 'My Access Token' });
       expect(client.buildURL('/foo', null, 'http://localhost:5000/option')).toEqual(
         'http://localhost:5000/env/foo',
       );
@@ -391,15 +361,11 @@ describe('instantiate client', () => {
   });
 
   test('maxRetries option is correctly set', () => {
-    const client = new Spotted({
-      maxRetries: 4,
-      clientID: 'My Client ID',
-      clientSecret: 'My Client Secret',
-    });
+    const client = new Spotted({ maxRetries: 4, accessToken: 'My Access Token' });
     expect(client.maxRetries).toEqual(4);
 
     // default
-    const client2 = new Spotted({ clientID: 'My Client ID', clientSecret: 'My Client Secret' });
+    const client2 = new Spotted({ accessToken: 'My Access Token' });
     expect(client2.maxRetries).toEqual(2);
   });
 
@@ -408,8 +374,7 @@ describe('instantiate client', () => {
       const client = new Spotted({
         baseURL: 'http://localhost:5000/',
         maxRetries: 3,
-        clientID: 'My Client ID',
-        clientSecret: 'My Client Secret',
+        accessToken: 'My Access Token',
       });
 
       const newClient = client.withOptions({
@@ -435,8 +400,7 @@ describe('instantiate client', () => {
         baseURL: 'http://localhost:5000/',
         defaultHeaders: { 'X-Test-Header': 'test-value' },
         defaultQuery: { 'test-param': 'test-value' },
-        clientID: 'My Client ID',
-        clientSecret: 'My Client Secret',
+        accessToken: 'My Access Token',
       });
 
       const newClient = client.withOptions({
@@ -454,8 +418,7 @@ describe('instantiate client', () => {
       const client = new Spotted({
         baseURL: 'http://localhost:5000/',
         timeout: 1000,
-        clientID: 'My Client ID',
-        clientSecret: 'My Client Secret',
+        accessToken: 'My Access Token',
       });
 
       // Modify the client properties directly after creation
@@ -484,25 +447,21 @@ describe('instantiate client', () => {
 
   test('with environment variable arguments', () => {
     // set options via env var
-    process.env['SPOTIFY_CLIENT_ID'] = 'My Client ID';
-    process.env['SPOTIFY_CLIENT_SECRET'] = 'My Client Secret';
+    process.env['SPOTIFY_ACCESS_TOKEN'] = 'My Access Token';
     const client = new Spotted();
-    expect(client.clientID).toBe('My Client ID');
-    expect(client.clientSecret).toBe('My Client Secret');
+    expect(client.accessToken).toBe('My Access Token');
   });
 
   test('with overridden environment variable arguments', () => {
     // set options via env var
-    process.env['SPOTIFY_CLIENT_ID'] = 'another My Client ID';
-    process.env['SPOTIFY_CLIENT_SECRET'] = 'another My Client Secret';
-    const client = new Spotted({ clientID: 'My Client ID', clientSecret: 'My Client Secret' });
-    expect(client.clientID).toBe('My Client ID');
-    expect(client.clientSecret).toBe('My Client Secret');
+    process.env['SPOTIFY_ACCESS_TOKEN'] = 'another My Access Token';
+    const client = new Spotted({ accessToken: 'My Access Token' });
+    expect(client.accessToken).toBe('My Access Token');
   });
 });
 
 describe('request building', () => {
-  const client = new Spotted({ clientID: 'My Client ID', clientSecret: 'My Client Secret' });
+  const client = new Spotted({ accessToken: 'My Access Token' });
 
   describe('custom headers', () => {
     test('handles undefined', async () => {
@@ -521,7 +480,7 @@ describe('request building', () => {
 });
 
 describe('default encoder', () => {
-  const client = new Spotted({ clientID: 'My Client ID', clientSecret: 'My Client Secret' });
+  const client = new Spotted({ accessToken: 'My Access Token' });
 
   class Serializable {
     toJSON() {
@@ -607,8 +566,7 @@ describe('retries', () => {
     };
 
     const client = new Spotted({
-      clientID: 'My Client ID',
-      clientSecret: 'My Client Secret',
+      accessToken: 'My Access Token',
       timeout: 10,
       fetch: testFetch,
     });
@@ -642,8 +600,7 @@ describe('retries', () => {
     };
 
     const client = new Spotted({
-      clientID: 'My Client ID',
-      clientSecret: 'My Client Secret',
+      accessToken: 'My Access Token',
       fetch: testFetch,
       maxRetries: 4,
     });
@@ -671,8 +628,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
     const client = new Spotted({
-      clientID: 'My Client ID',
-      clientSecret: 'My Client Secret',
+      accessToken: 'My Access Token',
       fetch: testFetch,
       maxRetries: 4,
     });
@@ -705,8 +661,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
     const client = new Spotted({
-      clientID: 'My Client ID',
-      clientSecret: 'My Client Secret',
+      accessToken: 'My Access Token',
       fetch: testFetch,
       maxRetries: 4,
       defaultHeaders: { 'X-Stainless-Retry-Count': null },
@@ -739,8 +694,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
     const client = new Spotted({
-      clientID: 'My Client ID',
-      clientSecret: 'My Client Secret',
+      accessToken: 'My Access Token',
       fetch: testFetch,
       maxRetries: 4,
     });
@@ -773,11 +727,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Spotted({
-      clientID: 'My Client ID',
-      clientSecret: 'My Client Secret',
-      fetch: testFetch,
-    });
+    const client = new Spotted({ accessToken: 'My Access Token', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -807,11 +757,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Spotted({
-      clientID: 'My Client ID',
-      clientSecret: 'My Client Secret',
-      fetch: testFetch,
-    });
+    const client = new Spotted({ accessToken: 'My Access Token', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
