@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.17.0 (2026-01-15)
+
+Full Changelog: [v0.16.4...v0.17.0](https://github.com/cjavdev/spotted-ts/compare/v0.16.4...v0.17.0)
+
+### Features
+
+* **api:** manual updates ([1610def](https://github.com/cjavdev/spotted-ts/commit/1610defbe9d9185704c9c4958d9619224d824073))
+* **api:** manual updates ([8000bff](https://github.com/cjavdev/spotted-ts/commit/8000bff3ef738918eb09ee4b9cd85d11ad036cae))
+* **api:** turn off oauth ([ccdb333](https://github.com/cjavdev/spotted-ts/commit/ccdb33368994ef0fc76b17a934b54d126a199b7a))
+
+
+### Chores
+
+* **internal:** configure MCP Server hosting ([6ffaaca](https://github.com/cjavdev/spotted-ts/commit/6ffaaca715be2380f89269460d3cd746de88cc25))
+* remove custom code ([eac0015](https://github.com/cjavdev/spotted-ts/commit/eac0015fe029cda8a07b68858429fb22a360b3cb))
+
 ## 0.16.4 (2026-01-14)
 
 Full Changelog: [v0.16.3...v0.16.4](https://github.com/cjavdev/spotted-ts/compare/v0.16.3...v0.16.4)
