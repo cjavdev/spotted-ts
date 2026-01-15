@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.17.2 (2026-01-15)
+
+Full Changelog: [v0.17.1...v0.17.2](https://github.com/cjavdev/spotted-ts/compare/v0.17.1...v0.17.2)
+
+### Chores
+
+* **internal:** upgrade babel, qs, js-yaml ([0d9da9f](https://github.com/cjavdev/spotted-ts/commit/0d9da9f4fc521bafccacd5f38c418b0ebf41451d))
+* **mcp:** add intent param to execute tool ([4143c6c](https://github.com/cjavdev/spotted-ts/commit/4143c6cd568ae0d818f04f6333b0609e9d501e3e))
+* **mcp:** pass intent param to execute handler ([62022f2](https://github.com/cjavdev/spotted-ts/commit/62022f299044f4023df5c24cce3c68a72939cad1))
+* **mcp:** upgrade dependencies ([996134e](https://github.com/cjavdev/spotted-ts/commit/996134e0d9ce714d11d267d8000ebbe9b0fbb9e1))
+
 ## 0.17.1 (2026-01-15)
 
 Full Changelog: [v0.17.0...v0.17.1](https://github.com/cjavdev/spotted-ts/compare/v0.17.0...v0.17.1)
