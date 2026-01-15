@@ -2,7 +2,7 @@
 
 [![NPM version](<https://img.shields.io/npm/v/spotted-ts.svg?label=npm%20(stable)>)](https://npmjs.org/package/spotted-ts) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/spotted-ts) [![JSR Version](https://jsr.io/badges/@cjavdev/spotted-ts)](https://jsr.io/@cjavdev/spotted-ts)
 
-This library provides convenient access to the Spotify Web API from server-side TypeScript or JavaScript.
+This library provides convenient access to the Spotted REST API from server-side TypeScript or JavaScript.
 
 The REST API documentation can be found on [spotted.stldocs.com](https://spotted.stldocs.com?docs). The full API of this library can be found in [api.md](api.md).
 

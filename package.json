@@ -1,7 +1,7 @@
 {
   "name": "spotted-ts",
   "version": "0.16.4",
-  "description": "The unofficial TypeScript library for the Spotify API",
+  "description": "The official TypeScript library for the Spotted API",
   "author": "Spotted <wave@cjav.dev>",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
