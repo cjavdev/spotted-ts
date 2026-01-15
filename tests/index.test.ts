@@ -20,27 +20,11 @@ describe('instantiate client', () => {
   });
 
   describe('defaultHeaders', () => {
-    const mockFetch = async (url: string | URL | Request): Promise<Response> => {
-      const urlString = url.toString();
-      if (urlString.includes('accounts.spotify.com/api/token')) {
-        return new Response(
-          JSON.stringify({
-            access_token: 'test_token_123',
-            token_type: 'Bearer',
-            expires_in: 3600,
-          }),
-          { status: 200, headers: { 'Content-Type': 'application/json' } },
-        );
-      }
-      return new Response(JSON.stringify({}), { headers: { 'Content-Type': 'application/json' } });
-    };
-
     const client = new Spotted({
       baseURL: 'http://localhost:5000/',
       defaultHeaders: { 'X-My-Default-Header': '2' },
       clientID: 'My Client ID',
       clientSecret: 'My Client Secret',
-      fetch: mockFetch,
     });
 
     test('they are used in the request', async () => {
@@ -289,22 +273,11 @@ describe('instantiate client', () => {
       baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
       clientID: 'My Client ID',
       clientSecret: 'My Client Secret',
-      fetch: async (url: string | URL | Request, ...args) => {
-        const urlString = url.toString();
-        if (urlString.includes('accounts.spotify.com/api/token')) {
-          return new Response(
-            JSON.stringify({
-              access_token: 'test_token_123',
-              token_type: 'Bearer',
-              expires_in: 3600,
-            }),
-            { status: 200, headers: { 'Content-Type': 'application/json' } },
-          );
-        }
+      fetch: (...args) => {
         return new Promise((resolve, reject) =>
           setTimeout(
             () =>
-              defaultFetch(url, ...args)
+              defaultFetch(...args)
                 .then(resolve)
                 .catch(reject),
             300,
@@ -325,17 +298,6 @@ describe('instantiate client', () => {
   test('normalized method', async () => {
     let capturedRequest: RequestInit | undefined;
     const testFetch = async (url: string | URL | Request, init: RequestInit = {}): Promise<Response> => {
-      const urlString = url.toString();
-      if (urlString.includes('accounts.spotify.com/api/token')) {
-        return new Response(
-          JSON.stringify({
-            access_token: 'test_token_123',
-            token_type: 'Bearer',
-            expires_in: 3600,
-          }),
-          { status: 200, headers: { 'Content-Type': 'application/json' } },
-        );
-      }
       capturedRequest = init;
       return new Response(JSON.stringify({}), { headers: { 'Content-Type': 'application/json' } });
     };
@@ -469,28 +431,12 @@ describe('instantiate client', () => {
     });
 
     test('inherits options from the parent client', async () => {
-      const mockFetch = async (url: string | URL | Request): Promise<Response> => {
-        const urlString = url.toString();
-        if (urlString.includes('accounts.spotify.com/api/token')) {
-          return new Response(
-            JSON.stringify({
-              access_token: 'test_token_123',
-              token_type: 'Bearer',
-              expires_in: 3600,
-            }),
-            { status: 200, headers: { 'Content-Type': 'application/json' } },
-          );
-        }
-        return new Response(JSON.stringify({}), { headers: { 'Content-Type': 'application/json' } });
-      };
-
       const client = new Spotted({
         baseURL: 'http://localhost:5000/',
         defaultHeaders: { 'X-Test-Header': 'test-value' },
         defaultQuery: { 'test-param': 'test-value' },
         clientID: 'My Client ID',
         clientSecret: 'My Client Secret',
-        fetch: mockFetch,
       });
 
       const newClient = client.withOptions({
@@ -556,26 +502,7 @@ describe('instantiate client', () => {
 });
 
 describe('request building', () => {
-  const mockFetch = async (url: string | URL | Request): Promise<Response> => {
-    const urlString = url.toString();
-    if (urlString.includes('accounts.spotify.com/api/token')) {
-      return new Response(
-        JSON.stringify({
-          access_token: 'test_token_123',
-          token_type: 'Bearer',
-          expires_in: 3600,
-        }),
-        { status: 200, headers: { 'Content-Type': 'application/json' } },
-      );
-    }
-    return new Response(JSON.stringify({}), { headers: { 'Content-Type': 'application/json' } });
-  };
-
-  const client = new Spotted({
-    clientID: 'My Client ID',
-    clientSecret: 'My Client Secret',
-    fetch: mockFetch,
-  });
+  const client = new Spotted({ clientID: 'My Client ID', clientSecret: 'My Client Secret' });
 
   describe('custom headers', () => {
     test('handles undefined', async () => {
@@ -594,26 +521,7 @@ describe('request building', () => {
 });
 
 describe('default encoder', () => {
-  const mockFetch = async (url: string | URL | Request): Promise<Response> => {
-    const urlString = url.toString();
-    if (urlString.includes('accounts.spotify.com/api/token')) {
-      return new Response(
-        JSON.stringify({
-          access_token: 'test_token_123',
-          token_type: 'Bearer',
-          expires_in: 3600,
-        }),
-        { status: 200, headers: { 'Content-Type': 'application/json' } },
-      );
-    }
-    return new Response(JSON.stringify({}), { headers: { 'Content-Type': 'application/json' } });
-  };
-
-  const client = new Spotted({
-    clientID: 'My Client ID',
-    clientSecret: 'My Client Secret',
-    fetch: mockFetch,
-  });
+  const client = new Spotted({ clientID: 'My Client ID', clientSecret: 'My Client Secret' });
 
   class Serializable {
     toJSON() {
@@ -690,17 +598,6 @@ describe('retries', () => {
       url: string | URL | Request,
       { signal }: RequestInit = {},
     ): Promise<Response> => {
-      const urlString = url.toString();
-      if (urlString.includes('accounts.spotify.com/api/token')) {
-        return new Response(
-          JSON.stringify({
-            access_token: 'test_token_123',
-            token_type: 'Bearer',
-            expires_in: 3600,
-          }),
-          { status: 200, headers: { 'Content-Type': 'application/json' } },
-        );
-      }
       if (count++ === 0) {
         return new Promise(
           (resolve, reject) => signal?.addEventListener('abort', () => reject(new Error('timed out'))),
@@ -731,17 +628,6 @@ describe('retries', () => {
     let count = 0;
     let capturedRequest: RequestInit | undefined;
     const testFetch = async (url: string | URL | Request, init: RequestInit = {}): Promise<Response> => {
-      const urlString = url.toString();
-      if (urlString.includes('accounts.spotify.com/api/token')) {
-        return new Response(
-          JSON.stringify({
-            access_token: 'test_token_123',
-            token_type: 'Bearer',
-            expires_in: 3600,
-          }),
-          { status: 200, headers: { 'Content-Type': 'application/json' } },
-        );
-      }
       count++;
       if (count <= 2) {
         return new Response(undefined, {
@@ -772,17 +658,6 @@ describe('retries', () => {
     let count = 0;
     let capturedRequest: RequestInit | undefined;
     const testFetch = async (url: string | URL | Request, init: RequestInit = {}): Promise<Response> => {
-      const urlString = url.toString();
-      if (urlString.includes('accounts.spotify.com/api/token')) {
-        return new Response(
-          JSON.stringify({
-            access_token: 'test_token_123',
-            token_type: 'Bearer',
-            expires_in: 3600,
-          }),
-          { status: 200, headers: { 'Content-Type': 'application/json' } },
-        );
-      }
       count++;
       if (count <= 2) {
         return new Response(undefined, {
@@ -817,17 +692,6 @@ describe('retries', () => {
     let count = 0;
     let capturedRequest: RequestInit | undefined;
     const testFetch = async (url: string | URL | Request, init: RequestInit = {}): Promise<Response> => {
-      const urlString = url.toString();
-      if (urlString.includes('accounts.spotify.com/api/token')) {
-        return new Response(
-          JSON.stringify({
-            access_token: 'test_token_123',
-            token_type: 'Bearer',
-            expires_in: 3600,
-          }),
-          { status: 200, headers: { 'Content-Type': 'application/json' } },
-        );
-      }
       count++;
       if (count <= 2) {
         return new Response(undefined, {
@@ -862,17 +726,6 @@ describe('retries', () => {
     let count = 0;
     let capturedRequest: RequestInit | undefined;
     const testFetch = async (url: string | URL | Request, init: RequestInit = {}): Promise<Response> => {
-      const urlString = url.toString();
-      if (urlString.includes('accounts.spotify.com/api/token')) {
-        return new Response(
-          JSON.stringify({
-            access_token: 'test_token_123',
-            token_type: 'Bearer',
-            expires_in: 3600,
-          }),
-          { status: 200, headers: { 'Content-Type': 'application/json' } },
-        );
-      }
       count++;
       if (count <= 2) {
         return new Response(undefined, {
@@ -909,17 +762,6 @@ describe('retries', () => {
       url: string | URL | Request,
       { signal }: RequestInit = {},
     ): Promise<Response> => {
-      const urlString = url.toString();
-      if (urlString.includes('accounts.spotify.com/api/token')) {
-        return new Response(
-          JSON.stringify({
-            access_token: 'test_token_123',
-            token_type: 'Bearer',
-            expires_in: 3600,
-          }),
-          { status: 200, headers: { 'Content-Type': 'application/json' } },
-        );
-      }
       if (count++ === 0) {
         return new Response(undefined, {
           status: 429,
@@ -954,17 +796,6 @@ describe('retries', () => {
       url: string | URL | Request,
       { signal }: RequestInit = {},
     ): Promise<Response> => {
-      const urlString = url.toString();
-      if (urlString.includes('accounts.spotify.com/api/token')) {
-        return new Response(
-          JSON.stringify({
-            access_token: 'test_token_123',
-            token_type: 'Bearer',
-            expires_in: 3600,
-          }),
-          { status: 200, headers: { 'Content-Type': 'application/json' } },
-        );
-      }
       if (count++ === 0) {
         return new Response(undefined, {
           status: 429,
