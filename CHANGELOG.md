@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.17.1 (2026-01-15)
+
+Full Changelog: [v0.17.0...v0.17.1](https://github.com/cjavdev/spotted-ts/compare/v0.17.0...v0.17.1)
+
+### Chores
+
+* remove custom code ([b1197e1](https://github.com/cjavdev/spotted-ts/commit/b1197e118b583129c27f72add0764bccb633aaf1))
+
 ## 0.17.0 (2026-01-15)
 
 Full Changelog: [v0.16.4...v0.17.0](https://github.com/cjavdev/spotted-ts/compare/v0.16.4...v0.17.0)
