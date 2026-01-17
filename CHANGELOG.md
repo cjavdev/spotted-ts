@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.17.3 (2026-01-17)
+
+Full Changelog: [v0.17.2...v0.17.3](https://github.com/cjavdev/spotted-ts/compare/v0.17.2...v0.17.3)
+
+### Chores
+
+* **internal:** update `actions/checkout` version ([fb6da0f](https://github.com/cjavdev/spotted-ts/commit/fb6da0f9312b2f624251f22c34c1d87dd3de7638))
+
 ## 0.17.2 (2026-01-15)
 
 Full Changelog: [v0.17.1...v0.17.2](https://github.com/cjavdev/spotted-ts/compare/v0.17.1...v0.17.2)
