@@ -21,7 +21,7 @@ export const newMcpServer = () =>
   new McpServer(
     {
       name: 'spotted_ts_api',
-      version: '0.17.2',
+      version: '0.17.3',
     },
     { capabilities: { tools: {}, logging: {} } },
   );
