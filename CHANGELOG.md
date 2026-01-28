@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.17.4 (2026-01-28)
+
+Full Changelog: [v0.17.3...v0.17.4](https://github.com/cjavdev/spotted-ts/compare/v0.17.3...v0.17.4)
+
+### Bug Fixes
+
+* **mcp:** allow falling back for required env variables ([a0acf48](https://github.com/cjavdev/spotted-ts/commit/a0acf487592cddbe44efdf61aa7b19d3b088c4a3))
+
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([6d30f73](https://github.com/cjavdev/spotted-ts/commit/6d30f739d66dc9292373af8787c74349da9e34c7))
+* **internal:** codegen related update ([5ba61ed](https://github.com/cjavdev/spotted-ts/commit/5ba61ed4965e19740281f2f80357288dfda13c58))
+* **internal:** update lock file ([59ce718](https://github.com/cjavdev/spotted-ts/commit/59ce71808a6f2e1fc75377eee12919c2c049f357))
+
 ## 0.17.3 (2026-01-17)
 
 Full Changelog: [v0.17.2...v0.17.3](https://github.com/cjavdev/spotted-ts/compare/v0.17.2...v0.17.3)
