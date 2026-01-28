@@ -2,7 +2,7 @@
 
 import { McpTool, Metadata, ToolCallResult, asErrorResult, asTextContentResult } from './types';
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
-import { readEnv, readEnvOrError } from './server';
+import { readEnv, requireValue } from './server';
 import { WorkerInput, WorkerOutput } from './code-tool-types';
 import { Spotted } from 'spotted-ts';
 
@@ -71,7 +71,10 @@ export function codeTool(): McpTool {
         ...(stainlessAPIKey && { Authorization: stainlessAPIKey }),
         'Content-Type': 'application/json',
         client_envs: JSON.stringify({
-          SPOTIFY_ACCESS_TOKEN: readEnvOrError('SPOTIFY_ACCESS_TOKEN') ?? client.accessToken ?? undefined,
+          SPOTIFY_ACCESS_TOKEN: requireValue(
+            readEnv('SPOTIFY_ACCESS_TOKEN') ?? client.accessToken,
+            'set SPOTIFY_ACCESS_TOKEN environment variable or provide accessToken client option',
+          ),
           SPOTTED_BASE_URL: readEnv('SPOTTED_BASE_URL') ?? client.baseURL ?? undefined,
         }),
       },
