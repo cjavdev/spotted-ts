@@ -4,6 +4,7 @@ import { McpTool, Metadata, ToolCallResult, asErrorResult, asTextContentResult }
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import { readEnv, readEnvOrError } from './server';
 import { WorkerInput, WorkerOutput } from './code-tool-types';
+import { Spotted } from 'spotted-ts';
 
 const prompt = `Runs JavaScript code to interact with the Spotted API.
 
@@ -54,7 +55,7 @@ export function codeTool(): McpTool {
       required: ['code'],
     },
   };
-  const handler = async (_: unknown, args: any): Promise<ToolCallResult> => {
+  const handler = async (client: Spotted, args: any): Promise<ToolCallResult> => {
     const code = args.code as string;
     const intent = args.intent as string | undefined;
 
@@ -70,8 +71,8 @@ export function codeTool(): McpTool {
         ...(stainlessAPIKey && { Authorization: stainlessAPIKey }),
         'Content-Type': 'application/json',
         client_envs: JSON.stringify({
-          SPOTIFY_ACCESS_TOKEN: readEnvOrError('SPOTIFY_ACCESS_TOKEN'),
-          SPOTTED_BASE_URL: readEnv('SPOTTED_BASE_URL'),
+          SPOTIFY_ACCESS_TOKEN: readEnvOrError('SPOTIFY_ACCESS_TOKEN') ?? client.accessToken ?? undefined,
+          SPOTTED_BASE_URL: readEnv('SPOTTED_BASE_URL') ?? client.baseURL ?? undefined,
         }),
       },
       body: JSON.stringify({
