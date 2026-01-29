@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.17.5 (2026-01-29)
+
+Full Changelog: [v0.17.4...v0.17.5](https://github.com/cjavdev/spotted-ts/compare/v0.17.4...v0.17.5)
+
+### Bug Fixes
+
+* **docs:** fix mcp installation instructions for remote servers ([3b17492](https://github.com/cjavdev/spotted-ts/commit/3b17492ae7e3609b90a06c993bbdd6c3af601777))
+
 ## 0.17.4 (2026-01-28)
 
 Full Changelog: [v0.17.3...v0.17.4](https://github.com/cjavdev/spotted-ts/compare/v0.17.3...v0.17.4)
