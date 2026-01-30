@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.17.6 (2026-01-29)
+
+Full Changelog: [v0.17.5...v0.17.6](https://github.com/cjavdev/spotted-ts/compare/v0.17.5...v0.17.6)
+
+### Chores
+
+* **mcp:** up tsconfig lib version to es2022 ([9356873](https://github.com/cjavdev/spotted-ts/commit/93568736fcd87ae4835c334b590573ff02a6e6ca))
+
 ## 0.17.5 (2026-01-29)
 
 Full Changelog: [v0.17.4...v0.17.5](https://github.com/cjavdev/spotted-ts/compare/v0.17.4...v0.17.5)
