@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.17.7 (2026-02-03)
+
+Full Changelog: [v0.17.6...v0.17.7](https://github.com/cjavdev/spotted-ts/compare/v0.17.6...v0.17.7)
+
+### Bug Fixes
+
+* **client:** avoid memory leak with abort signals ([8227150](https://github.com/cjavdev/spotted-ts/commit/8227150b501efd3cf42be66069339104648b8794))
+
+
+### Chores
+
+* update SDK settings ([65d04af](https://github.com/cjavdev/spotted-ts/commit/65d04af8b9dd884a14ab25c8993f06bfbaf992c5))
+
 ## 0.17.6 (2026-01-29)
 
 Full Changelog: [v0.17.5...v0.17.6](https://github.com/cjavdev/spotted-ts/compare/v0.17.5...v0.17.6)
