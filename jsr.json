@@ -1,6 +1,6 @@
 {
   "name": "@cjavdev/spotted-ts",
-  "version": "0.17.6",
+  "version": "0.17.7",
   "exports": "./index.ts",
   "publish": {
     "exclude": [
