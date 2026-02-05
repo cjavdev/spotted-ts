@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.18.0 (2026-02-05)
+
+Full Changelog: [v0.17.7...v0.18.0](https://github.com/cjavdev/spotted-ts/compare/v0.17.7...v0.18.0)
+
+### Features
+
+* **mcp:** add initial server instructions ([07226c0](https://github.com/cjavdev/spotted-ts/commit/07226c036c6967095684ab643589c02692a800dd))
+
+
+### Chores
+
+* **client:** do not parse responses with empty content-length ([dd4ae3c](https://github.com/cjavdev/spotted-ts/commit/dd4ae3ca6f389751be0c7faa84e28e03dc6b4d22))
+* **client:** restructure abort controller binding ([a6395d8](https://github.com/cjavdev/spotted-ts/commit/a6395d8a02cbf2853c6a01df7dc6eda002d70454))
+* **internal:** refactor flag parsing for MCP servers and add debug flag ([fe33ba1](https://github.com/cjavdev/spotted-ts/commit/fe33ba190f7869df4cfb5d4037c2de50b3848246))
+* **internal:** support oauth authorization code flow for MCP servers ([7a7405b](https://github.com/cjavdev/spotted-ts/commit/7a7405bb1b347b92b982e33243705bd6c0838128))
+
 ## 0.17.7 (2026-02-03)
 
 Full Changelog: [v0.17.6...v0.17.7](https://github.com/cjavdev/spotted-ts/compare/v0.17.6...v0.17.7)
