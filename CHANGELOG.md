@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.18.1 (2026-02-06)
+
+Full Changelog: [v0.18.0...v0.18.1](https://github.com/cjavdev/spotted-ts/compare/v0.18.0...v0.18.1)
+
+### Bug Fixes
+
+* **client:** avoid removing abort listener too early ([165b23f](https://github.com/cjavdev/spotted-ts/commit/165b23f176c547d0c060d3fb145c0b8ab66ade58))
+
+
+### Chores
+
+* **internal:** fix pagination internals not accepting option promises ([934fc0d](https://github.com/cjavdev/spotted-ts/commit/934fc0d6b52b3bc5c09de31c173db68420a8cff7))
+
 ## 0.18.0 (2026-02-05)
 
 Full Changelog: [v0.17.7...v0.18.0](https://github.com/cjavdev/spotted-ts/compare/v0.17.7...v0.18.0)
