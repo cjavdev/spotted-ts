@@ -57,7 +57,7 @@ export const newMcpServer = async () =>
   new McpServer(
     {
       name: 'spotted_ts_api',
-      version: '0.18.0',
+      version: '0.18.1',
     },
     {
       instructions: await getInstructions(),
