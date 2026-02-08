@@ -14,12 +14,7 @@ export class Users extends APIResource {
   /**
    * Get public profile information about a Spotify user.
    *
-   * @example
-   * ```ts
-   * const response = await client.users.retrieveProfile(
-   *   'smedjan',
-   * );
-   * ```
+   * @deprecated
    */
   retrieveProfile(userID: string, options?: RequestOptions): APIPromise<UserRetrieveProfileResponse> {
     return this._client.get(path`/users/${userID}`, options);
@@ -44,7 +39,7 @@ export interface UserRetrieveProfileResponse {
   external_urls?: Shared.ExternalURLObject;
 
   /**
-   * Information about the followers of this user.
+   * @deprecated Information about the followers of this user.
    */
   followers?: Shared.FollowersObject;
 

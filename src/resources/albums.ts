@@ -23,6 +23,8 @@ export class Albums extends APIResource {
   /**
    * Get Spotify catalog information for multiple albums identified by their Spotify
    * IDs.
+   *
+   * @deprecated
    */
   bulkRetrieve(
     query: AlbumBulkRetrieveParams,
@@ -60,7 +62,7 @@ export interface AlbumRetrieveResponse {
   album_type: 'album' | 'single' | 'compilation';
 
   /**
-   * The markets in which the album is available:
+   * @deprecated The markets in which the album is available:
    * [ISO 3166-1 alpha-2 country codes](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
    * _**NOTE**: an album is considered available in a market when at least 1 of its
    * tracks is available in that market._
@@ -126,7 +128,7 @@ export interface AlbumRetrieveResponse {
   copyrights?: Array<Shared.CopyrightObject>;
 
   /**
-   * Known external IDs for the album.
+   * @deprecated Known external IDs for the album.
    */
   external_ids?: Shared.ExternalIDObject;
 
@@ -136,13 +138,13 @@ export interface AlbumRetrieveResponse {
   genres?: Array<string>;
 
   /**
-   * The label associated with the album.
+   * @deprecated The label associated with the album.
    */
   label?: string;
 
   /**
-   * The popularity of the album. The value will be between 0 and 100, with 100 being
-   * the most popular.
+   * @deprecated The popularity of the album. The value will be between 0 and 100,
+   * with 100 being the most popular.
    */
   popularity?: number;
 
@@ -232,7 +234,7 @@ export namespace AlbumBulkRetrieveResponse {
     album_type: 'album' | 'single' | 'compilation';
 
     /**
-     * The markets in which the album is available:
+     * @deprecated The markets in which the album is available:
      * [ISO 3166-1 alpha-2 country codes](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
      * _**NOTE**: an album is considered available in a market when at least 1 of its
      * tracks is available in that market._
@@ -298,7 +300,7 @@ export namespace AlbumBulkRetrieveResponse {
     copyrights?: Array<Shared.CopyrightObject>;
 
     /**
-     * Known external IDs for the album.
+     * @deprecated Known external IDs for the album.
      */
     external_ids?: Shared.ExternalIDObject;
 
@@ -308,13 +310,13 @@ export namespace AlbumBulkRetrieveResponse {
     genres?: Array<string>;
 
     /**
-     * The label associated with the album.
+     * @deprecated The label associated with the album.
      */
     label?: string;
 
     /**
-     * The popularity of the album. The value will be between 0 and 100, with 100 being
-     * the most popular.
+     * @deprecated The popularity of the album. The value will be between 0 and 100,
+     * with 100 being the most popular.
      */
     popularity?: number;
 
