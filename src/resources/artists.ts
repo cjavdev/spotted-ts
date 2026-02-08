@@ -18,6 +18,8 @@ export class Artists extends APIResource {
 
   /**
    * Get Spotify catalog information for several artists based on their Spotify IDs.
+   *
+   * @deprecated
    */
   bulkRetrieve(
     query: ArtistBulkRetrieveParams,
@@ -28,6 +30,8 @@ export class Artists extends APIResource {
 
   /**
    * Get Spotify catalog information about an artist's albums.
+   *
+   * @deprecated
    */
   listAlbums(
     id: string,
@@ -52,6 +56,8 @@ export class Artists extends APIResource {
 
   /**
    * Get Spotify catalog information about an artist's top tracks by country.
+   *
+   * @deprecated
    */
   topTracks(
     id: string,
@@ -92,7 +98,7 @@ export interface ArtistListAlbumsResponse {
   artists: Array<Shared.SimplifiedArtistObject>;
 
   /**
-   * The markets in which the album is available:
+   * @deprecated The markets in which the album is available:
    * [ISO 3166-1 alpha-2 country codes](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
    * _**NOTE**: an album is considered available in a market when at least 1 of its
    * tracks is available in that market._
@@ -188,7 +194,7 @@ export interface ArtistListAlbumsParams {
   include_groups?: string;
 
   /**
-   * The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+   * The maximum number of items to return. Default: 5. Minimum: 1. Maximum: 10.
    */
   limit?: number;
 

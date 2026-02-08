@@ -24,6 +24,8 @@ export class Chapters extends APIResource {
    * Get Spotify catalog information for several audiobook chapters identified by
    * their Spotify IDs. Chapters are only available within the US, UK, Canada,
    * Ireland, New Zealand and Australia markets.
+   *
+   * @deprecated
    */
   bulkRetrieve(
     query: ChapterBulkRetrieveParams,
@@ -132,7 +134,8 @@ export interface ChapterRetrieveResponse {
   uri: string;
 
   /**
-   * A list of the countries in which the chapter can be played, identified by their
+   * @deprecated A list of the countries in which the chapter can be played,
+   * identified by their
    * [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code.
    */
   available_markets?: Array<string>;
@@ -262,7 +265,8 @@ export namespace ChapterBulkRetrieveResponse {
     uri: string;
 
     /**
-     * A list of the countries in which the chapter can be played, identified by their
+     * @deprecated A list of the countries in which the chapter can be played,
+     * identified by their
      * [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code.
      */
     available_markets?: Array<string>;

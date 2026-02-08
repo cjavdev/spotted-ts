@@ -21,6 +21,8 @@ export class Tracks extends APIResource {
 
   /**
    * Get Spotify catalog information for multiple tracks based on their Spotify IDs.
+   *
+   * @deprecated
    */
   bulkRetrieve(
     query: TrackBulkRetrieveParams,

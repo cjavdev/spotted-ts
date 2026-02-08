@@ -135,7 +135,8 @@ export interface PlaylistRetrieveResponse {
   snapshot_id?: string;
 
   /**
-   * The tracks of the playlist.
+   * The tracks of the playlist. _**Note**: This field is only available for
+   * playlists owned by the current user._
    */
   tracks?: PlaylistRetrieveResponse.Tracks;
 
@@ -163,7 +164,8 @@ export namespace PlaylistRetrieveResponse {
   }
 
   /**
-   * The tracks of the playlist.
+   * The tracks of the playlist. _**Note**: This field is only available for
+   * playlists owned by the current user._
    */
   export interface Tracks {
     /**

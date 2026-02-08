@@ -35,13 +35,13 @@ export interface ArtistObject {
   external_urls?: ExternalURLObject;
 
   /**
-   * Information about the followers of the artist.
+   * @deprecated Information about the followers of the artist.
    */
   followers?: FollowersObject;
 
   /**
-   * A list of the genres the artist is associated with. If not yet classified, the
-   * array is empty.
+   * @deprecated A list of the genres the artist is associated with. If not yet
+   * classified, the array is empty.
    */
   genres?: Array<string>;
 
@@ -61,8 +61,8 @@ export interface ArtistObject {
   name?: string;
 
   /**
-   * The popularity of the artist. The value will be between 0 and 100, with 100
-   * being the most popular. The artist's popularity is calculated from the
+   * @deprecated The popularity of the artist. The value will be between 0 and 100,
+   * with 100 being the most popular. The artist's popularity is calculated from the
    * popularity of all the artist's tracks.
    */
   popularity?: number;
@@ -101,9 +101,9 @@ export interface AudiobookBase {
   authors: Array<AuthorObject>;
 
   /**
-   * A list of the countries in which the audiobook can be played, identified by
-   * their [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-   * code.
+   * @deprecated A list of the countries in which the audiobook can be played,
+   * identified by their
+   * [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code.
    */
   available_markets: Array<string>;
 
@@ -166,7 +166,7 @@ export interface AudiobookBase {
   narrators: Array<NarratorObject>;
 
   /**
-   * The publisher of the audiobook.
+   * @deprecated The publisher of the audiobook.
    */
   publisher: string;
 
@@ -726,8 +726,9 @@ export interface ShowBase {
   id: string;
 
   /**
-   * A list of the countries in which the show can be played, identified by their
-   * [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code.
+   * @deprecated A list of the countries in which the show can be played, identified
+   * by their [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
+   * code.
    */
   available_markets: Array<string>;
 
@@ -791,7 +792,7 @@ export interface ShowBase {
   name: string;
 
   /**
-   * The publisher of the show.
+   * @deprecated The publisher of the show.
    */
   publisher: string;
 
@@ -1093,8 +1094,9 @@ export interface SimplifiedTrackObject {
   artists?: Array<SimplifiedArtistObject>;
 
   /**
-   * A list of the countries in which the track can be played, identified by their
-   * [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code.
+   * @deprecated A list of the countries in which the track can be played, identified
+   * by their [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
+   * code.
    */
   available_markets?: Array<string>;
 
@@ -1137,7 +1139,7 @@ export interface SimplifiedTrackObject {
   is_playable?: boolean;
 
   /**
-   * Part of the response when
+   * @deprecated Part of the response when
    * [Track Relinking](/documentation/web-api/concepts/track-relinking/) is applied
    * and is only part of the response if the track linking, in fact, exists. The
    * requested track has been replaced with a different track. The track in the
@@ -1207,8 +1209,9 @@ export interface TrackObject {
   artists?: Array<SimplifiedArtistObject>;
 
   /**
-   * A list of the countries in which the track can be played, identified by their
-   * [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code.
+   * @deprecated A list of the countries in which the track can be played, identified
+   * by their [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
+   * code.
    */
   available_markets?: Array<string>;
 
@@ -1229,7 +1232,7 @@ export interface TrackObject {
   explicit?: boolean;
 
   /**
-   * Known external IDs for the track.
+   * @deprecated Known external IDs for the track.
    */
   external_ids?: ExternalIDObject;
 
@@ -1256,7 +1259,7 @@ export interface TrackObject {
   is_playable?: boolean;
 
   /**
-   * Part of the response when
+   * @deprecated Part of the response when
    * [Track Relinking](/documentation/web-api/concepts/track-relinking) is applied,
    * and the requested track has been replaced with different track. The track in the
    * `linked_from` object contains information about the originally requested track.
@@ -1269,16 +1272,16 @@ export interface TrackObject {
   name?: string;
 
   /**
-   * The popularity of the track. The value will be between 0 and 100, with 100 being
-   * the most popular.<br/>The popularity of a track is a value between 0 and 100,
-   * with 100 being the most popular. The popularity is calculated by algorithm and
-   * is based, in the most part, on the total number of plays the track has had and
-   * how recent those plays are.<br/>Generally speaking, songs that are being played
-   * a lot now will have a higher popularity than songs that were played a lot in the
-   * past. Duplicate tracks (e.g. the same track from a single and an album) are
-   * rated independently. Artist and album popularity is derived mathematically from
-   * track popularity. _**Note**: the popularity value may lag actual popularity by a
-   * few days: the value is not updated in real time._
+   * @deprecated The popularity of the track. The value will be between 0 and 100,
+   * with 100 being the most popular.<br/>The popularity of a track is a value
+   * between 0 and 100, with 100 being the most popular. The popularity is calculated
+   * by algorithm and is based, in the most part, on the total number of plays the
+   * track has had and how recent those plays are.<br/>Generally speaking, songs that
+   * are being played a lot now will have a higher popularity than songs that were
+   * played a lot in the past. Duplicate tracks (e.g. the same track from a single
+   * and an album) are rated independently. Artist and album popularity is derived
+   * mathematically from track popularity. _**Note**: the popularity value may lag
+   * actual popularity by a few days: the value is not updated in real time._
    */
   popularity?: number;
 
@@ -1344,7 +1347,7 @@ export namespace TrackObject {
     artists: Array<Shared.SimplifiedArtistObject>;
 
     /**
-     * The markets in which the album is available:
+     * @deprecated The markets in which the album is available:
      * [ISO 3166-1 alpha-2 country codes](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
      * _**NOTE**: an album is considered available in a market when at least 1 of its
      * tracks is available in that market._

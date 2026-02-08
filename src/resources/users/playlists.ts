@@ -10,17 +10,14 @@ import { path } from '../../internal/utils/path';
 
 export class Playlists extends APIResource {
   /**
+   * **Deprecated**: Use
+   * [Create Playlist](/documentation/web-api/reference/create-playlist) instead.
+   *
    * Create a playlist for a Spotify user. (The playlist will be empty until you
    * [add tracks](/documentation/web-api/reference/add-tracks-to-playlist).) Each
    * user is generally limited to a maximum of 11000 playlists.
    *
-   * @example
-   * ```ts
-   * const playlist = await client.users.playlists.create(
-   *   'smedjan',
-   *   { name: 'New Playlist' },
-   * );
-   * ```
+   * @deprecated
    */
   create(
     userID: string,
@@ -33,15 +30,7 @@ export class Playlists extends APIResource {
   /**
    * Get a list of the playlists owned or followed by a Spotify user.
    *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const simplifiedPlaylistObject of client.users.playlists.list(
-   *   'smedjan',
-   * )) {
-   *   // ...
-   * }
-   * ```
+   * @deprecated
    */
   list(
     userID: string,
@@ -124,7 +113,8 @@ export interface PlaylistCreateResponse {
   snapshot_id?: string;
 
   /**
-   * The tracks of the playlist.
+   * The tracks of the playlist. _**Note**: This field is only available for
+   * playlists owned by the current user._
    */
   tracks?: PlaylistCreateResponse.Tracks;
 
@@ -152,7 +142,8 @@ export namespace PlaylistCreateResponse {
   }
 
   /**
-   * The tracks of the playlist.
+   * The tracks of the playlist. _**Note**: This field is only available for
+   * playlists owned by the current user._
    */
   export interface Tracks {
     /**

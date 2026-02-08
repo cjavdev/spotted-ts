@@ -96,7 +96,7 @@ export namespace SearchQueryResponse {
       artists: Array<Shared.SimplifiedArtistObject>;
 
       /**
-       * The markets in which the album is available:
+       * @deprecated The markets in which the album is available:
        * [ISO 3166-1 alpha-2 country codes](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
        * _**NOTE**: an album is considered available in a market when at least 1 of its
        * tracks is available in that market._

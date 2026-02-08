@@ -21,6 +21,8 @@ export class Episodes extends APIResource {
 
   /**
    * Get Spotify catalog information for several episodes based on their Spotify IDs.
+   *
+   * @deprecated
    */
   bulkRetrieve(
     query: EpisodeBulkRetrieveParams,
