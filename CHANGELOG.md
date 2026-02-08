@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.19.0 (2026-02-08)
+
+Full Changelog: [v0.18.1...v0.19.0](https://github.com/cjavdev/spotted-ts/compare/v0.18.1...v0.19.0)
+
+### Features
+
+* **api:** api update ([d2fdf9e](https://github.com/cjavdev/spotted-ts/commit/d2fdf9ee996ac0cbefaa08b9c6a3f3c010559117))
+
+
+### Chores
+
+* **internal:** add health check to MCP server when running in HTTP mode ([8c72cee](https://github.com/cjavdev/spotted-ts/commit/8c72cee038f2b2866e456385d0646f1d9a903966))
+
 ## 0.18.1 (2026-02-06)
 
 Full Changelog: [v0.18.0...v0.18.1](https://github.com/cjavdev/spotted-ts/compare/v0.18.0...v0.18.1)
