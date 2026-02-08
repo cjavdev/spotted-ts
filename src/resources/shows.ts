@@ -23,6 +23,8 @@ export class Shows extends APIResource {
 
   /**
    * Get Spotify catalog information for several shows based on their Spotify IDs.
+   *
+   * @deprecated
    */
   bulkRetrieve(
     query: ShowBulkRetrieveParams,

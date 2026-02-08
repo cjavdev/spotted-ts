@@ -11,6 +11,8 @@ export class Categories extends APIResource {
   /**
    * Get a single category used to tag items in Spotify (on, for example, the Spotify
    * player’s “Browse” tab).
+   *
+   * @deprecated
    */
   retrieve(
     categoryID: string,
@@ -23,6 +25,8 @@ export class Categories extends APIResource {
   /**
    * Get a list of categories used to tag items in Spotify (on, for example, the
    * Spotify player’s “Browse” tab).
+   *
+   * @deprecated
    */
   list(
     query: CategoryListParams | null | undefined = {},

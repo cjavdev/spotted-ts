@@ -38,6 +38,9 @@ export class Tracks extends APIResource {
   /**
    * Get full details of the items of a playlist owned by a Spotify user.
    *
+   * **Note**: This endpoint is only accessible for playlists owned by the current
+   * user.
+   *
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
