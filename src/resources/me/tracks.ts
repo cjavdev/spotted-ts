@@ -45,10 +45,7 @@ export class Tracks extends APIResource {
   /**
    * Remove one or more tracks from the current user's 'Your Music' library.
    *
-   * @example
-   * ```ts
-   * await client.me.tracks.remove();
-   * ```
+   * @deprecated
    */
   remove(body: TrackRemoveParams | null | undefined = {}, options?: RequestOptions): APIPromise<void> {
     return this._client.delete('/me/tracks', {
@@ -61,10 +58,7 @@ export class Tracks extends APIResource {
   /**
    * Save one or more tracks to the current user's 'Your Music' library.
    *
-   * @example
-   * ```ts
-   * await client.me.tracks.save({ ids: ['string'] });
-   * ```
+   * @deprecated
    */
   save(body: TrackSaveParams, options?: RequestOptions): APIPromise<void> {
     return this._client.put('/me/tracks', {

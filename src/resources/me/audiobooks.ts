@@ -49,12 +49,7 @@ export class Audiobooks extends APIResource {
   /**
    * Remove one or more audiobooks from the Spotify user's library.
    *
-   * @example
-   * ```ts
-   * await client.me.audiobooks.remove({
-   *   ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe',
-   * });
-   * ```
+   * @deprecated
    */
   remove(params: AudiobookRemoveParams, options?: RequestOptions): APIPromise<void> {
     const { ids } = params;
@@ -68,12 +63,7 @@ export class Audiobooks extends APIResource {
   /**
    * Save one or more audiobooks to the current Spotify user's library.
    *
-   * @example
-   * ```ts
-   * await client.me.audiobooks.save({
-   *   ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe',
-   * });
-   * ```
+   * @deprecated
    */
   save(params: AudiobookSaveParams, options?: RequestOptions): APIPromise<void> {
     const { ids } = params;
