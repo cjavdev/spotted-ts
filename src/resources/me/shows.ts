@@ -45,10 +45,7 @@ export class Shows extends APIResource {
   /**
    * Delete one or more shows from current Spotify user's library.
    *
-   * @example
-   * ```ts
-   * await client.me.shows.remove();
-   * ```
+   * @deprecated
    */
   remove(body: ShowRemoveParams | null | undefined = {}, options?: RequestOptions): APIPromise<void> {
     return this._client.delete('/me/shows', {
@@ -61,10 +58,7 @@ export class Shows extends APIResource {
   /**
    * Save one or more shows to current Spotify user's library.
    *
-   * @example
-   * ```ts
-   * await client.me.shows.save();
-   * ```
+   * @deprecated
    */
   save(body: ShowSaveParams | null | undefined = {}, options?: RequestOptions): APIPromise<void> {
     return this._client.put('/me/shows', {

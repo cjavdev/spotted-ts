@@ -53,10 +53,7 @@ export class Episodes extends APIResource {
    * feedback that you have, or issues that you discover, in our
    * [developer community forum](https://community.spotify.com/t5/Spotify-for-Developers/bd-p/Spotify_Developer).
    *
-   * @example
-   * ```ts
-   * await client.me.episodes.remove();
-   * ```
+   * @deprecated
    */
   remove(body: EpisodeRemoveParams | null | undefined = {}, options?: RequestOptions): APIPromise<void> {
     return this._client.delete('/me/episodes', {
@@ -72,10 +69,7 @@ export class Episodes extends APIResource {
    * you have, or issues that you discover, in our
    * [developer community forum](https://community.spotify.com/t5/Spotify-for-Developers/bd-p/Spotify_Developer).
    *
-   * @example
-   * ```ts
-   * await client.me.episodes.save({ ids: ['string'] });
-   * ```
+   * @deprecated
    */
   save(body: EpisodeSaveParams, options?: RequestOptions): APIPromise<void> {
     return this._client.put('/me/episodes', {

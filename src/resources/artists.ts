@@ -30,8 +30,6 @@ export class Artists extends APIResource {
 
   /**
    * Get Spotify catalog information about an artist's albums.
-   *
-   * @deprecated
    */
   listAlbums(
     id: string,
