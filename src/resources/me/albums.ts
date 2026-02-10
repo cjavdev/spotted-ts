@@ -45,10 +45,7 @@ export class Albums extends APIResource {
   /**
    * Remove one or more albums from the current user's 'Your Music' library.
    *
-   * @example
-   * ```ts
-   * await client.me.albums.remove();
-   * ```
+   * @deprecated
    */
   remove(body: AlbumRemoveParams | null | undefined = {}, options?: RequestOptions): APIPromise<void> {
     return this._client.delete('/me/albums', {
@@ -61,10 +58,7 @@ export class Albums extends APIResource {
   /**
    * Save one or more albums to the current user's 'Your Music' library.
    *
-   * @example
-   * ```ts
-   * await client.me.albums.save();
-   * ```
+   * @deprecated
    */
   save(body: AlbumSaveParams | null | undefined = {}, options?: RequestOptions): APIPromise<void> {
     return this._client.put('/me/albums', {
