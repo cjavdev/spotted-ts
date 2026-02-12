@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.21.0 (2026-02-12)
+
+Full Changelog: [v0.20.0...v0.21.0](https://github.com/cjavdev/spotted-ts/compare/v0.20.0...v0.21.0)
+
+### Features
+
+* **api:** api update ([d8b3d9f](https://github.com/cjavdev/spotted-ts/commit/d8b3d9f7499ea4853de40dbdd9efe51244c85d41))
+
+
+### Chores
+
+* **internal:** allow basic filtering of methods allowed for MCP code mode ([9876205](https://github.com/cjavdev/spotted-ts/commit/9876205501a7a205097eb764720507f662aece65))
+* **internal:** always generate MCP server dockerfiles and upgrade associated dependencies ([0abb6b8](https://github.com/cjavdev/spotted-ts/commit/0abb6b8e7f95762abdeb09eea0208d8bc3ca1a20))
+
 ## 0.20.0 (2026-02-10)
 
 Full Changelog: [v0.19.0...v0.20.0](https://github.com/cjavdev/spotted-ts/compare/v0.19.0...v0.20.0)
