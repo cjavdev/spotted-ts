@@ -624,6 +624,11 @@ export interface PlaylistTrackObject {
   is_local?: boolean;
 
   /**
+   * Information about the track or episode.
+   */
+  item?: TrackObject | EpisodeObject;
+
+  /**
    * The playlist's public/private status (if it should be added to the user's
    * profile or not): `true` the playlist will be public, `false` the playlist will
    * be private, `null` the playlist status is not relevant. For more about
@@ -633,7 +638,8 @@ export interface PlaylistTrackObject {
   published?: boolean;
 
   /**
-   * Information about the track or episode.
+   * @deprecated **Deprecated:** Use `item` instead. Information about the track or
+   * episode.
    */
   track?: TrackObject | EpisodeObject;
 }
@@ -1024,6 +1030,14 @@ export interface SimplifiedPlaylistObject {
   images?: Array<ImageObject>;
 
   /**
+   * A collection containing a link ( `href` ) to the Web API endpoint where full
+   * details of the playlist's items can be retrieved, along with the `total` number
+   * of items in the playlist. Note, a track object may be `null`. This can happen if
+   * a track is no longer available.
+   */
+  items?: PlaylistTracksRefObject;
+
+  /**
    * The name of the playlist.
    */
   name?: string;
@@ -1049,10 +1063,10 @@ export interface SimplifiedPlaylistObject {
   snapshot_id?: string;
 
   /**
-   * A collection containing a link ( `href` ) to the Web API endpoint where full
-   * details of the playlist's tracks can be retrieved, along with the `total` number
-   * of tracks in the playlist. Note, a track object may be `null`. This can happen
-   * if a track is no longer available.
+   * @deprecated **Deprecated:** Use `items` instead. A collection containing a link
+   * ( `href` ) to the Web API endpoint where full details of the playlist's tracks
+   * can be retrieved, along with the `total` number of tracks in the playlist. Note,
+   * a track object may be `null`. This can happen if a track is no longer available.
    */
   tracks?: PlaylistTracksRefObject;
 

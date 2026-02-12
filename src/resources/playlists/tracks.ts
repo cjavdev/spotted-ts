@@ -10,6 +10,10 @@ import { path } from '../../internal/utils/path';
 
 export class Tracks extends APIResource {
   /**
+   * **Deprecated:** Use
+   * [Update Playlist Items](/documentation/web-api/reference/reorder-or-replace-playlists-items)
+   * instead.
+   *
    * Either reorder or replace items in a playlist depending on the request's
    * parameters. To reorder items, include `range_start`, `insert_before`,
    * `range_length` and `snapshot_id` in the request's body. To replace items,
@@ -20,12 +24,7 @@ export class Tracks extends APIResource {
    * have different parameters. These operations can't be applied together in a
    * single request.
    *
-   * @example
-   * ```ts
-   * const track = await client.playlists.tracks.update(
-   *   '3cEYpjA9oz9GiPac4AsH4n',
-   * );
-   * ```
+   * @deprecated
    */
   update(
     playlistID: string,
@@ -36,20 +35,13 @@ export class Tracks extends APIResource {
   }
 
   /**
+   * **Deprecated:** Use
+   * [Get Playlist Items](/documentation/web-api/reference/get-playlists-items)
+   * instead.
+   *
    * Get full details of the items of a playlist owned by a Spotify user.
    *
-   * **Note**: This endpoint is only accessible for playlists owned by the current
-   * user.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const playlistTrackObject of client.playlists.tracks.list(
-   *   '3cEYpjA9oz9GiPac4AsH4n',
-   * )) {
-   *   // ...
-   * }
-   * ```
+   * @deprecated
    */
   list(
     playlistID: string,
@@ -64,14 +56,13 @@ export class Tracks extends APIResource {
   }
 
   /**
+   * **Deprecated:** Use
+   * [Add Items to Playlist](/documentation/web-api/reference/add-items-to-playlist)
+   * instead.
+   *
    * Add one or more items to a user's playlist.
    *
-   * @example
-   * ```ts
-   * const response = await client.playlists.tracks.add(
-   *   '3cEYpjA9oz9GiPac4AsH4n',
-   * );
-   * ```
+   * @deprecated
    */
   add(
     playlistID: string,
@@ -82,15 +73,13 @@ export class Tracks extends APIResource {
   }
 
   /**
+   * **Deprecated:** Use
+   * [Remove Playlist Items](/documentation/web-api/reference/remove-items-playlist)
+   * instead.
+   *
    * Remove one or more items from a user's playlist.
    *
-   * @example
-   * ```ts
-   * const track = await client.playlists.tracks.remove(
-   *   '3cEYpjA9oz9GiPac4AsH4n',
-   *   { tracks: [{}] },
-   * );
-   * ```
+   * @deprecated
    */
   remove(
     playlistID: string,

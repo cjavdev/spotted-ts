@@ -10,12 +10,11 @@ export class Followers extends APIResource {
   /**
    * Check to see if the current user is following a specified playlist.
    *
-   * @example
-   * ```ts
-   * const response = await client.playlists.followers.check(
-   *   '3cEYpjA9oz9GiPac4AsH4n',
-   * );
-   * ```
+   * **Note:** This endpoint is deprecated. Use
+   * [Check User's Saved Items](/documentation/web-api/reference/check-library-contains)
+   * instead.
+   *
+   * @deprecated
    */
   check(
     playlistID: string,
@@ -28,12 +27,11 @@ export class Followers extends APIResource {
   /**
    * Add the current user as a follower of a playlist.
    *
-   * @example
-   * ```ts
-   * await client.playlists.followers.follow(
-   *   '3cEYpjA9oz9GiPac4AsH4n',
-   * );
-   * ```
+   * **Note:** This endpoint is deprecated. Use
+   * [Save Items to Library](/documentation/web-api/reference/save-library-items)
+   * instead.
+   *
+   * @deprecated
    */
   follow(
     playlistID: string,
@@ -50,12 +48,11 @@ export class Followers extends APIResource {
   /**
    * Remove the current user as a follower of a playlist.
    *
-   * @example
-   * ```ts
-   * await client.playlists.followers.unfollow(
-   *   '3cEYpjA9oz9GiPac4AsH4n',
-   * );
-   * ```
+   * **Note:** This endpoint is deprecated. Use
+   * [Remove Items from Library](/documentation/web-api/reference/remove-library-items)
+   * instead.
+   *
+   * @deprecated
    */
   unfollow(playlistID: string, options?: RequestOptions): APIPromise<void> {
     return this._client.delete(path`/playlists/${playlistID}/followers`, {

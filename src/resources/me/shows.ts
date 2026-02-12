@@ -31,12 +31,11 @@ export class Shows extends APIResource {
    * Check if one or more shows is already saved in the current Spotify user's
    * library.
    *
-   * @example
-   * ```ts
-   * const response = await client.me.shows.check({
-   *   ids: '5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ',
-   * });
-   * ```
+   * **Note:** This endpoint is deprecated. Use
+   * [Check User's Saved Items](/documentation/web-api/reference/check-library-contains)
+   * instead.
+   *
+   * @deprecated
    */
   check(query: ShowCheckParams, options?: RequestOptions): APIPromise<ShowCheckResponse> {
     return this._client.get('/me/shows/contains', { query, ...options });
@@ -44,6 +43,10 @@ export class Shows extends APIResource {
 
   /**
    * Delete one or more shows from current Spotify user's library.
+   *
+   * **Note:** This endpoint is deprecated. Use
+   * [Remove Items from Library](/documentation/web-api/reference/remove-library-items)
+   * instead.
    *
    * @deprecated
    */
@@ -57,6 +60,10 @@ export class Shows extends APIResource {
 
   /**
    * Save one or more shows to current Spotify user's library.
+   *
+   * **Note:** This endpoint is deprecated. Use
+   * [Save Items to Library](/documentation/web-api/reference/save-library-items)
+   * instead.
    *
    * @deprecated
    */
