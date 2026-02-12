@@ -28,13 +28,11 @@ export class Following extends APIResource {
    * Check to see if the current user is following one or more artists or other
    * Spotify users.
    *
-   * @example
-   * ```ts
-   * const response = await client.me.following.check({
-   *   ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6',
-   *   type: 'artist',
-   * });
-   * ```
+   * **Note:** This endpoint is deprecated. Use
+   * [Check User's Saved Items](/documentation/web-api/reference/check-library-contains)
+   * instead.
+   *
+   * @deprecated
    */
   check(query: FollowingCheckParams, options?: RequestOptions): APIPromise<FollowingCheckResponse> {
     return this._client.get('/me/following/contains', { query, ...options });
@@ -44,10 +42,11 @@ export class Following extends APIResource {
    * Add the current user as a follower of one or more artists or other Spotify
    * users.
    *
-   * @example
-   * ```ts
-   * await client.me.following.follow({ ids: ['string'] });
-   * ```
+   * **Note:** This endpoint is deprecated. Use
+   * [Save Items to Library](/documentation/web-api/reference/save-library-items)
+   * instead.
+   *
+   * @deprecated
    */
   follow(body: FollowingFollowParams, options?: RequestOptions): APIPromise<void> {
     return this._client.put('/me/following', {
@@ -61,10 +60,11 @@ export class Following extends APIResource {
    * Remove the current user as a follower of one or more artists or other Spotify
    * users.
    *
-   * @example
-   * ```ts
-   * await client.me.following.unfollow();
-   * ```
+   * **Note:** This endpoint is deprecated. Use
+   * [Remove Items from Library](/documentation/web-api/reference/remove-library-items)
+   * instead.
+   *
+   * @deprecated
    */
   unfollow(
     body: FollowingUnfollowParams | null | undefined = {},

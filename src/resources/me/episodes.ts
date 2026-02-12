@@ -9,10 +9,7 @@ import { RequestOptions } from '../../internal/request-options';
 
 export class Episodes extends APIResource {
   /**
-   * Get a list of the episodes saved in the current Spotify user's library.<br/>
-   * This API endpoint is in **beta** and could change without warning. Please share
-   * any feedback that you have, or issues that you discover, in our
-   * [developer community forum](https://community.spotify.com/t5/Spotify-for-Developers/bd-p/Spotify_Developer).
+   * Get a list of the episodes saved in the current Spotify user's library.
    *
    * @example
    * ```ts
@@ -31,27 +28,24 @@ export class Episodes extends APIResource {
 
   /**
    * Check if one or more episodes is already saved in the current Spotify user's
-   * 'Your Episodes' library.<br/> This API endpoint is in **beta** and could change
-   * without warning. Please share any feedback that you have, or issues that you
-   * discover, in our
-   * [developer community forum](https://community.spotify.com/t5/Spotify-for-Developers/bd-p/Spotify_Developer)..
+   * 'Your Episodes' library.
    *
-   * @example
-   * ```ts
-   * const response = await client.me.episodes.check({
-   *   ids: '77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf',
-   * });
-   * ```
+   * **Note:** This endpoint is deprecated. Use
+   * [Check User's Saved Items](/documentation/web-api/reference/check-library-contains)
+   * instead.
+   *
+   * @deprecated
    */
   check(query: EpisodeCheckParams, options?: RequestOptions): APIPromise<EpisodeCheckResponse> {
     return this._client.get('/me/episodes/contains', { query, ...options });
   }
 
   /**
-   * Remove one or more episodes from the current user's library.<br/> This API
-   * endpoint is in **beta** and could change without warning. Please share any
-   * feedback that you have, or issues that you discover, in our
-   * [developer community forum](https://community.spotify.com/t5/Spotify-for-Developers/bd-p/Spotify_Developer).
+   * Remove one or more episodes from the current user's library.
+   *
+   * **Note:** This endpoint is deprecated. Use
+   * [Remove Items from Library](/documentation/web-api/reference/remove-library-items)
+   * instead.
    *
    * @deprecated
    */
@@ -64,10 +58,11 @@ export class Episodes extends APIResource {
   }
 
   /**
-   * Save one or more episodes to the current user's library.<br/> This API endpoint
-   * is in **beta** and could change without warning. Please share any feedback that
-   * you have, or issues that you discover, in our
-   * [developer community forum](https://community.spotify.com/t5/Spotify-for-Developers/bd-p/Spotify_Developer).
+   * Save one or more episodes to the current user's library.
+   *
+   * **Note:** This endpoint is deprecated. Use
+   * [Save Items to Library](/documentation/web-api/reference/save-library-items)
+   * instead.
    *
    * @deprecated
    */
