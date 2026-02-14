@@ -80,7 +80,8 @@ export interface ArtistListAlbumsResponse {
   id: string;
 
   /**
-   * This field describes the relationship between the artist and the album.
+   * @deprecated This field describes the relationship between the artist and the
+   * album.
    */
   album_group: 'album' | 'single' | 'compilation' | 'appears_on';
 
