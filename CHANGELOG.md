@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.22.0 (2026-02-14)
+
+Full Changelog: [v0.21.0...v0.22.0](https://github.com/cjavdev/spotted-ts/compare/v0.21.0...v0.22.0)
+
+### Features
+
+* **api:** api update ([9241a8c](https://github.com/cjavdev/spotted-ts/commit/9241a8c3f0572bbe7d02774b05a29e03e6a61a7a))
+
+
+### Chores
+
+* **internal:** avoid type checking errors with ts-reset ([7dc964a](https://github.com/cjavdev/spotted-ts/commit/7dc964a5e37628c2ed41153590f66b2808d6a70a))
+
 ## 0.21.0 (2026-02-12)
 
 Full Changelog: [v0.20.0...v0.21.0](https://github.com/cjavdev/spotted-ts/compare/v0.20.0...v0.21.0)
