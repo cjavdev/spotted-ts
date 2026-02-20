@@ -8,7 +8,7 @@ const client = new Spotted({
 });
 
 describe('resource chapters', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.chapters.retrieve('0D5wENdkdwbqlrHoaJ9g29');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource chapters', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -32,7 +32,7 @@ describe('resource chapters', () => {
     ).rejects.toThrow(Spotted.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('bulkRetrieve: only required params', async () => {
     const responsePromise = client.chapters.bulkRetrieve({
       ids: '0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29',
@@ -46,7 +46,7 @@ describe('resource chapters', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('bulkRetrieve: required and optional params', async () => {
     const response = await client.chapters.bulkRetrieve({
       ids: '0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29',

@@ -8,7 +8,7 @@ const client = new Spotted({
 });
 
 describe('resource top', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listTopArtists', async () => {
     const responsePromise = client.me.top.listTopArtists();
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource top', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listTopArtists: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -35,7 +35,7 @@ describe('resource top', () => {
     ).rejects.toThrow(Spotted.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listTopTracks', async () => {
     const responsePromise = client.me.top.listTopTracks();
     const rawResponse = await responsePromise.asResponse();
@@ -47,7 +47,7 @@ describe('resource top', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listTopTracks: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(

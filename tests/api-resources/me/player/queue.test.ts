@@ -8,7 +8,7 @@ const client = new Spotted({
 });
 
 describe('resource queue', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('add: only required params', async () => {
     const responsePromise = client.me.player.queue.add({ uri: 'spotify:track:4iV5W9uYEdYUVa79Axb7Rh' });
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource queue', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('add: required and optional params', async () => {
     const response = await client.me.player.queue.add({
       uri: 'spotify:track:4iV5W9uYEdYUVa79Axb7Rh',
@@ -28,7 +28,7 @@ describe('resource queue', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('get', async () => {
     const responsePromise = client.me.player.queue.get();
     const rawResponse = await responsePromise.asResponse();
