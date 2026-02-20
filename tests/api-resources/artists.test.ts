@@ -8,7 +8,7 @@ const client = new Spotted({
 });
 
 describe('resource artists', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.artists.retrieve('0TnOYISbd1XYRBk9myaseg');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource artists', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('bulkRetrieve: only required params', async () => {
     const responsePromise = client.artists.bulkRetrieve({
       ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6',
@@ -34,14 +34,14 @@ describe('resource artists', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('bulkRetrieve: required and optional params', async () => {
     const response = await client.artists.bulkRetrieve({
       ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listAlbums', async () => {
     const responsePromise = client.artists.listAlbums('0TnOYISbd1XYRBk9myaseg');
     const rawResponse = await responsePromise.asResponse();
@@ -53,7 +53,7 @@ describe('resource artists', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listAlbums: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -70,7 +70,7 @@ describe('resource artists', () => {
     ).rejects.toThrow(Spotted.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listRelatedArtists', async () => {
     const responsePromise = client.artists.listRelatedArtists('0TnOYISbd1XYRBk9myaseg');
     const rawResponse = await responsePromise.asResponse();
@@ -82,7 +82,7 @@ describe('resource artists', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('topTracks', async () => {
     const responsePromise = client.artists.topTracks('0TnOYISbd1XYRBk9myaseg');
     const rawResponse = await responsePromise.asResponse();
@@ -94,7 +94,7 @@ describe('resource artists', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('topTracks: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
