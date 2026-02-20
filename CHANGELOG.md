@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.22.1 (2026-02-20)
+
+Full Changelog: [v0.22.0...v0.22.1](https://github.com/cjavdev/spotted-ts/compare/v0.22.0...v0.22.1)
+
+### Bug Fixes
+
+* **mcp:** initialize SDK lazily to avoid failing the connection on init errors ([b604ad0](https://github.com/cjavdev/spotted-ts/commit/b604ad0fa7f96cfda6330f0afee5763e9f51d0e1))
+
+
+### Chores
+
+* **internal/client:** fix form-urlencoded requests ([818ad80](https://github.com/cjavdev/spotted-ts/commit/818ad80736f50ea28b5a51b5464d44b80276fe9d))
+* **internal:** allow setting x-stainless-api-key header on mcp server requests ([e296ddf](https://github.com/cjavdev/spotted-ts/commit/e296ddf3287d38bd79f75d1e494d76b8b44a6375))
+* **internal:** cache fetch instruction calls in MCP server ([3aa9991](https://github.com/cjavdev/spotted-ts/commit/3aa99915b010959d1b300c1410cce7189fcd5586))
+* **internal:** improve layout of generated MCP server files ([d2ddbc1](https://github.com/cjavdev/spotted-ts/commit/d2ddbc1faaf192762cbd36ad5a96b9ac3d160d41))
+* **mcp:** forward STAINLESS_API_KEY to docs search endpoint ([3e6b66f](https://github.com/cjavdev/spotted-ts/commit/3e6b66f4b5a8d4d153b7962891fb11d9812d3528))
+
 ## 0.22.0 (2026-02-14)
 
 Full Changelog: [v0.21.0...v0.22.0](https://github.com/cjavdev/spotted-ts/compare/v0.21.0...v0.22.0)
