@@ -8,7 +8,7 @@ const client = new Spotted({
 });
 
 describe('resource browse', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getFeaturedPlaylists', async () => {
     const responsePromise = client.browse.getFeaturedPlaylists();
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource browse', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getFeaturedPlaylists: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -35,7 +35,7 @@ describe('resource browse', () => {
     ).rejects.toThrow(Spotted.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getNewReleases', async () => {
     const responsePromise = client.browse.getNewReleases();
     const rawResponse = await responsePromise.asResponse();
@@ -47,7 +47,7 @@ describe('resource browse', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getNewReleases: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(

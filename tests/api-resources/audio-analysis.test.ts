@@ -8,7 +8,7 @@ const client = new Spotted({
 });
 
 describe('resource audioAnalysis', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.audioAnalysis.retrieve('11dFghVXANMlKmJXsNCbNl');
     const rawResponse = await responsePromise.asResponse();

@@ -8,7 +8,7 @@ const client = new Spotted({
 });
 
 describe('resource episodes', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.me.episodes.list();
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource episodes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -35,7 +35,7 @@ describe('resource episodes', () => {
     ).rejects.toThrow(Spotted.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('check: only required params', async () => {
     const responsePromise = client.me.episodes.check({
       ids: '77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf',
@@ -49,12 +49,12 @@ describe('resource episodes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('check: required and optional params', async () => {
     const response = await client.me.episodes.check({ ids: '77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('remove', async () => {
     const responsePromise = client.me.episodes.remove();
     const rawResponse = await responsePromise.asResponse();
@@ -66,7 +66,7 @@ describe('resource episodes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('remove: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -74,7 +74,7 @@ describe('resource episodes', () => {
     ).rejects.toThrow(Spotted.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('save: only required params', async () => {
     const responsePromise = client.me.episodes.save({ ids: ['string'] });
     const rawResponse = await responsePromise.asResponse();
@@ -86,7 +86,7 @@ describe('resource episodes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('save: required and optional params', async () => {
     const response = await client.me.episodes.save({ ids: ['string'], published: true });
   });

@@ -8,7 +8,7 @@ const client = new Spotted({
 });
 
 describe('resource markets', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.markets.list();
     const rawResponse = await responsePromise.asResponse();

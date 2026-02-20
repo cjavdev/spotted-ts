@@ -8,7 +8,7 @@ const client = new Spotted({
 });
 
 describe('resource categories', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.browse.categories.retrieve('dinner');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource categories', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -28,7 +28,7 @@ describe('resource categories', () => {
     ).rejects.toThrow(Spotted.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.browse.categories.list();
     const rawResponse = await responsePromise.asResponse();
@@ -40,7 +40,7 @@ describe('resource categories', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -55,7 +55,7 @@ describe('resource categories', () => {
     ).rejects.toThrow(Spotted.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getPlaylists', async () => {
     const responsePromise = client.browse.categories.getPlaylists('dinner');
     const rawResponse = await responsePromise.asResponse();
@@ -67,7 +67,7 @@ describe('resource categories', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getPlaylists: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
