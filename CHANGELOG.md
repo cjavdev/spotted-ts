@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.22.2 (2026-02-24)
+
+Full Changelog: [v0.22.1...v0.22.2](https://github.com/cjavdev/spotted-ts/compare/v0.22.1...v0.22.2)
+
+### Bug Fixes
+
+* **docs/contributing:** correct pnpm link command ([67a5ad2](https://github.com/cjavdev/spotted-ts/commit/67a5ad21cf019a7ca537c6515930bf88bcbdf2e9))
+
+
+### Chores
+
+* **internal:** remove mock server code ([66d1215](https://github.com/cjavdev/spotted-ts/commit/66d1215a6b5970d693383af862c61ab805eb6b10))
+* **mcp:** correctly update version in sync with sdk ([af742e2](https://github.com/cjavdev/spotted-ts/commit/af742e2d3ef723a8c663967cb7231c167904118e))
+* update mock server docs ([9025f22](https://github.com/cjavdev/spotted-ts/commit/9025f22a92fd442557f35a962009e83a19113ce8))
+
 ## 0.22.1 (2026-02-20)
 
 Full Changelog: [v0.22.0...v0.22.1](https://github.com/cjavdev/spotted-ts/compare/v0.22.0...v0.22.1)
