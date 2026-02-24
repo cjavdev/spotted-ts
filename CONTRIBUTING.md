@@ -60,7 +60,7 @@ $ yarn link spotted-ts
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global spotted-ts
+$ pnpm link --global spotted-ts
 ```
 
 ## Running tests
