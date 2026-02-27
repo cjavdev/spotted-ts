@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.23.1 (2026-02-27)
+
+Full Changelog: [v0.23.0...v0.23.1](https://github.com/cjavdev/spotted-ts/compare/v0.23.0...v0.23.1)
+
+### Bug Fixes
+
+* **mcp:** update prompt ([115fb92](https://github.com/cjavdev/spotted-ts/commit/115fb92019ac8111fa9fb51e49673db99980eaca))
+
 ## 0.23.0 (2026-02-27)
 
 Full Changelog: [v0.22.2...v0.23.0](https://github.com/cjavdev/spotted-ts/compare/v0.22.2...v0.23.0)
