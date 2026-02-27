@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.23.0 (2026-02-27)
+
+Full Changelog: [v0.22.2...v0.23.0](https://github.com/cjavdev/spotted-ts/compare/v0.22.2...v0.23.0)
+
+### Features
+
+* **mcp:** add an option to disable code tool ([90244fb](https://github.com/cjavdev/spotted-ts/commit/90244fbe0cb461111ffeacf435a22ba99ac91418))
+
+
+### Chores
+
+* **internal:** fix MCP Dockerfiles so they can be built without buildkit ([f35ff9c](https://github.com/cjavdev/spotted-ts/commit/f35ff9c91fefda25aba6da4b94c65d189ca10544))
+* **internal:** fix MCP Dockerfiles so they can be built without buildkit ([356cb3b](https://github.com/cjavdev/spotted-ts/commit/356cb3b69b758e61a79b90e9ffd8af7fca7a4953))
+* **internal:** make MCP code execution location configurable via a flag ([8e807dd](https://github.com/cjavdev/spotted-ts/commit/8e807dd1c0860f8e507db16107fc46f4f91da66f))
+* **internal:** move stringifyQuery implementation to internal function ([b4317de](https://github.com/cjavdev/spotted-ts/commit/b4317de3b2b4d7d98e3dba8425d8fec5c6f48f81))
+* **internal:** upgrade @modelcontextprotocol/sdk and hono ([7795f4e](https://github.com/cjavdev/spotted-ts/commit/7795f4e2bc07ad8225c7b2af65fca3a2c98ad34d))
+
 ## 0.22.2 (2026-02-24)
 
 Full Changelog: [v0.22.1...v0.22.2](https://github.com/cjavdev/spotted-ts/compare/v0.22.1...v0.22.2)
