@@ -1246,7 +1246,7 @@ export interface TrackObject {
   explicit?: boolean;
 
   /**
-   * @deprecated Known external IDs for the track.
+   * Known external IDs for the track.
    */
   external_ids?: ExternalIDObject;
 

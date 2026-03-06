@@ -186,7 +186,7 @@ export namespace AlbumListResponse {
     copyrights?: Array<Shared.CopyrightObject>;
 
     /**
-     * @deprecated Known external IDs for the album.
+     * Known external IDs for the album.
      */
     external_ids?: Shared.ExternalIDObject;
 
