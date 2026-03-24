@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.23.2 (2026-03-24)
+
+Full Changelog: [v0.23.1...v0.23.2](https://github.com/cjavdev/spotted-ts/compare/v0.23.1...v0.23.2)
+
+### Features
+
+* **api:** api update ([0830f9d](https://github.com/cjavdev/spotted-ts/commit/0830f9d2916ccc31765cd427e1e227c8af2e4996))
+
+
+### Bug Fixes
+
+* **client:** preserve URL params already embedded in path ([afdc1a3](https://github.com/cjavdev/spotted-ts/commit/afdc1a3d4ec824839d8ffa2e87f5fc8fa2393e16))
+
+
+### Chores
+
+* **ci:** skip uploading artifacts on stainless-internal branches ([8445b4a](https://github.com/cjavdev/spotted-ts/commit/8445b4a6c21ca6caaab51e9657a791351a3c2b39))
+* **internal:** bump @modelcontextprotocol/sdk, @hono/node-server, and minimatch ([752e382](https://github.com/cjavdev/spotted-ts/commit/752e382316d2a8ea4b42fbd9658f4b65216d6da6))
+* **internal:** codegen related update ([214eb4b](https://github.com/cjavdev/spotted-ts/commit/214eb4b3cfc5639dad88dc2bb9db576575022e18))
+* **internal:** codegen related update ([6928bf5](https://github.com/cjavdev/spotted-ts/commit/6928bf51047b142133f0b02b77abf8c48a0db6f5))
+* **internal:** fix MCP server TS errors that occur with required client options ([8f8f4e6](https://github.com/cjavdev/spotted-ts/commit/8f8f4e65d0229102dd7a6af171df0e5f513e51a2))
+* **internal:** make generated MCP servers compatible with Cloudflare worker environments ([4cb5f01](https://github.com/cjavdev/spotted-ts/commit/4cb5f013432d522bfd34b8b66385943130b9c953))
+* **internal:** support x-stainless-mcp-client-envs header in MCP servers ([9a5859b](https://github.com/cjavdev/spotted-ts/commit/9a5859b6d0f18541196402d94e5b6bc4f849dc03))
+* **internal:** support x-stainless-mcp-client-permissions headers in MCP servers ([8336c42](https://github.com/cjavdev/spotted-ts/commit/8336c4226852191a990a82000b9c2a03a066060d))
+* **internal:** tweak CI branches ([0e60a90](https://github.com/cjavdev/spotted-ts/commit/0e60a9017b6b578d7508426e27c965bcaace239a))
+* **internal:** update dependencies to address dependabot vulnerabilities ([b50251b](https://github.com/cjavdev/spotted-ts/commit/b50251b5a26caa5d3878872c485d24ca894d10ff))
+* **internal:** update gitignore ([0e1ed92](https://github.com/cjavdev/spotted-ts/commit/0e1ed928c94e6c24a89984ea1c37c13a008a6977))
+* **internal:** use x-stainless-mcp-client-envs header for MCP remote code tool calls ([2354dd6](https://github.com/cjavdev/spotted-ts/commit/2354dd6c723fac1341b55f09a080b56cab857c3a))
+* **mcp-server:** improve instructions ([5678c7a](https://github.com/cjavdev/spotted-ts/commit/5678c7a88ab2f8ed64924a9a23be6cf934afddac))
+* **mcp-server:** return access instructions for 404 without API key ([f6d0e1c](https://github.com/cjavdev/spotted-ts/commit/f6d0e1c24440ef20cdcf9a22288becb6e0514a8b))
+
 ## 0.23.1 (2026-02-27)
 
 Full Changelog: [v0.23.0...v0.23.1](https://github.com/cjavdev/spotted-ts/compare/v0.23.0...v0.23.1)
