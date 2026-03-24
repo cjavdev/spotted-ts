@@ -20,7 +20,7 @@ export const newMcpServer = async (stainlessApiKey: string | undefined) =>
   new McpServer(
     {
       name: 'spotted_ts_api',
-      version: '0.23.1',
+      version: '0.23.2',
     },
     {
       instructions: await getInstructions(stainlessApiKey),
