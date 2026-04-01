@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.23.3 (2026-04-01)
+
+Full Changelog: [v0.23.2...v0.23.3](https://github.com/cjavdev/spotted-ts/compare/v0.23.2...v0.23.3)
+
+### Bug Fixes
+
+* **internal:** gitignore generated `oidc` dir ([520039a](https://github.com/cjavdev/spotted-ts/commit/520039ad73a58d11848136a516ac06857c8f7e0e))
+
+
+### Chores
+
+* **ci:** escape input path in publish-npm workflow ([a0cf42b](https://github.com/cjavdev/spotted-ts/commit/a0cf42b833949aadc979b4bb6bf5e1d064562e7a))
+* **ci:** skip lint on metadata-only changes ([de5a5b3](https://github.com/cjavdev/spotted-ts/commit/de5a5b3a8f992544158506e747d4a1e72df6d819))
+* **internal:** codegen related update ([205d01d](https://github.com/cjavdev/spotted-ts/commit/205d01df35c111fd2166ea552318332a5aa4ba79))
+* **internal:** improve local docs search for MCP servers ([969c099](https://github.com/cjavdev/spotted-ts/commit/969c0991530a5b22a742cc700ef4fbd5f0df9bec))
+* **internal:** improve local docs search for MCP servers ([ac6167b](https://github.com/cjavdev/spotted-ts/commit/ac6167b924873f6ea924290a76e3f94b909b3c28))
+* **internal:** support custom-instructions-path flag in MCP servers ([4711e58](https://github.com/cjavdev/spotted-ts/commit/4711e58afb334eb19c30ed2605499a73fbf7ae79))
+* **internal:** support local docs search in MCP servers ([ded8dcc](https://github.com/cjavdev/spotted-ts/commit/ded8dccdc0b8135799317b9a2bbc516132d910ab))
+* **mcp-server:** add support for session id, forward client info ([daddf9e](https://github.com/cjavdev/spotted-ts/commit/daddf9ee16e04345ba8362bb96ba4848979b3a94))
+* **tests:** bump steady to v0.20.1 ([2c2ae09](https://github.com/cjavdev/spotted-ts/commit/2c2ae098dee1e0a5f02c72a1a356b41e9a105ee6))
+
 ## 0.23.2 (2026-03-24)
 
 Full Changelog: [v0.23.1...v0.23.2](https://github.com/cjavdev/spotted-ts/compare/v0.23.1...v0.23.2)
