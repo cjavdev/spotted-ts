@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.23.4 (2026-04-10)
+
+Full Changelog: [v0.23.3...v0.23.4](https://github.com/cjavdev/spotted-ts/compare/v0.23.3...v0.23.4)
+
+### Chores
+
+* **internal:** codegen related update ([62736e5](https://github.com/cjavdev/spotted-ts/commit/62736e56f9c9b7d4f615cc87fc8a8d00e4cf1a52))
+* **internal:** codegen related update ([9def9f1](https://github.com/cjavdev/spotted-ts/commit/9def9f1f6cd9503935cde31ccdd7e319cbc43f4a))
+* **internal:** fix MCP docker image builds in yarn projects ([7417688](https://github.com/cjavdev/spotted-ts/commit/7417688f84d88d439c6c706ed9adad5fe801c721))
+* **internal:** fix MCP server import ordering ([ef07a91](https://github.com/cjavdev/spotted-ts/commit/ef07a91b0bc0a8dc0b2fd84729f6efc171510fcb))
+* **internal:** show error causes in MCP servers when running in local mode ([e3cbfee](https://github.com/cjavdev/spotted-ts/commit/e3cbfee73f14c19b64bb6bd7a5f4cb851e4c9f11))
+* **internal:** support type annotations when running MCP in local execution mode ([3bec4db](https://github.com/cjavdev/spotted-ts/commit/3bec4dba2d6e72cbb3c2758a6ceb24cf1f6fdbbf))
+* **internal:** use link instead of file in MCP server package.json files ([ed06df0](https://github.com/cjavdev/spotted-ts/commit/ed06df0df462dd86aab1597eb00029b56f9803dd))
+* **mcp-server:** increase local docs search result count from 5 to 10 ([8a4cb42](https://github.com/cjavdev/spotted-ts/commit/8a4cb422ad9220bc5e458c390a2941b99fb1ee5c))
+* **mcp-server:** log client info ([4b72baa](https://github.com/cjavdev/spotted-ts/commit/4b72baab17ed4c45fa623afd00a76f797d7f76f4))
+
 ## 0.23.3 (2026-04-01)
 
 Full Changelog: [v0.23.2...v0.23.3](https://github.com/cjavdev/spotted-ts/compare/v0.23.2...v0.23.3)
