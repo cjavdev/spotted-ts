@@ -69,6 +69,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted albums retrieve \\\n  --access-token 'My Access Token' \\\n  --id 4aawyAB9vmqN3uQ7FjRGTy",
       },
+      csharp: {
+        method: 'Albums.Retrieve',
+        example:
+          'AlbumRetrieveParams parameters = new() { ID = "4aawyAB9vmqN3uQ7FjRGTy" };\n\nvar album = await client.Albums.Retrieve(parameters);\n\nConsole.WriteLine(album);',
+      },
       go: {
         method: 'client.Albums.Get',
         example:
@@ -87,6 +92,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'albums().retrieve',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.albums.AlbumRetrieveParams\nimport dev.cjav.spotted.models.albums.AlbumRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val album: AlbumRetrieveResponse = client.albums().retrieve("4aawyAB9vmqN3uQ7FjRGTy")\n}',
+      },
+      php: {
+        method: 'albums->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$album = $client->albums->retrieve('4aawyAB9vmqN3uQ7FjRGTy', market: 'ES');\n\nvar_dump($album);",
       },
       python: {
         method: 'albums.retrieve',
@@ -124,6 +134,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted albums bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc",
       },
+      csharp: {
+        method: 'Albums.BulkRetrieve',
+        example:
+          'AlbumBulkRetrieveParams parameters = new()\n{\n    Ids = "382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc"\n};\n\nvar response = await client.Albums.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Albums.BulkGet',
         example:
@@ -142,6 +157,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'albums().bulkRetrieve',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.albums.AlbumBulkRetrieveParams\nimport dev.cjav.spotted.models.albums.AlbumBulkRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: AlbumBulkRetrieveParams = AlbumBulkRetrieveParams.builder()\n        .ids("382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc")\n        .build()\n    val response: AlbumBulkRetrieveResponse = client.albums().bulkRetrieve(params)\n}',
+      },
+      php: {
+        method: 'albums->bulkRetrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->albums->bulkRetrieve(\n  ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc',\n  market: 'ES',\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'albums.bulk_retrieve',
@@ -180,6 +200,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted albums list-tracks \\\n  --access-token 'My Access Token' \\\n  --id 4aawyAB9vmqN3uQ7FjRGTy",
       },
+      csharp: {
+        method: 'Albums.ListTracks',
+        example:
+          'AlbumListTracksParams parameters = new() { ID = "4aawyAB9vmqN3uQ7FjRGTy" };\n\nvar page = await client.Albums.ListTracks(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
       go: {
         method: 'client.Albums.ListTracks',
         example:
@@ -198,6 +223,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'albums().listTracks',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.albums.AlbumListTracksPage\nimport dev.cjav.spotted.models.albums.AlbumListTracksParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: AlbumListTracksPage = client.albums().listTracks("4aawyAB9vmqN3uQ7FjRGTy")\n}',
+      },
+      php: {
+        method: 'albums->listTracks',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->albums->listTracks(\n  '4aawyAB9vmqN3uQ7FjRGTy', limit: 10, market: 'ES', offset: 5\n);\n\nvar_dump($page);",
       },
       python: {
         method: 'albums.list_tracks',
@@ -236,6 +266,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted artists retrieve \\\n  --access-token 'My Access Token' \\\n  --id 0TnOYISbd1XYRBk9myaseg",
       },
+      csharp: {
+        method: 'Artists.Retrieve',
+        example:
+          'ArtistRetrieveParams parameters = new() { ID = "0TnOYISbd1XYRBk9myaseg" };\n\nvar artistObject = await client.Artists.Retrieve(parameters);\n\nConsole.WriteLine(artistObject);',
+      },
       go: {
         method: 'client.Artists.Get',
         example:
@@ -254,6 +289,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'artists().retrieve',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.ArtistObject\nimport dev.cjav.spotted.models.artists.ArtistRetrieveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val artistObject: ArtistObject = client.artists().retrieve("0TnOYISbd1XYRBk9myaseg")\n}',
+      },
+      php: {
+        method: 'artists->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$artistObject = $client->artists->retrieve('0TnOYISbd1XYRBk9myaseg');\n\nvar_dump($artistObject);",
       },
       python: {
         method: 'artists.retrieve',
@@ -291,6 +331,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted artists bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6",
       },
+      csharp: {
+        method: 'Artists.BulkRetrieve',
+        example:
+          'ArtistBulkRetrieveParams parameters = new()\n{\n    Ids = "2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6"\n};\n\nvar response = await client.Artists.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Artists.BulkGet',
         example:
@@ -309,6 +354,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'artists().bulkRetrieve',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.artists.ArtistBulkRetrieveParams\nimport dev.cjav.spotted.models.artists.ArtistBulkRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: ArtistBulkRetrieveParams = ArtistBulkRetrieveParams.builder()\n        .ids("2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6")\n        .build()\n    val response: ArtistBulkRetrieveResponse = client.artists().bulkRetrieve(params)\n}',
+      },
+      php: {
+        method: 'artists->bulkRetrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->artists->bulkRetrieve(\n  ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6'\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'artists.bulk_retrieve',
@@ -352,6 +402,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted artists list-albums \\\n  --access-token 'My Access Token' \\\n  --id 0TnOYISbd1XYRBk9myaseg",
       },
+      csharp: {
+        method: 'Artists.ListAlbums',
+        example:
+          'ArtistListAlbumsParams parameters = new() { ID = "0TnOYISbd1XYRBk9myaseg" };\n\nvar page = await client.Artists.ListAlbums(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
       go: {
         method: 'client.Artists.ListAlbums',
         example:
@@ -370,6 +425,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'artists().listAlbums',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.artists.ArtistListAlbumsPage\nimport dev.cjav.spotted.models.artists.ArtistListAlbumsParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: ArtistListAlbumsPage = client.artists().listAlbums("0TnOYISbd1XYRBk9myaseg")\n}',
+      },
+      php: {
+        method: 'artists->listAlbums',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->artists->listAlbums(\n  '0TnOYISbd1XYRBk9myaseg',\n  includeGroups: 'single,appears_on',\n  limit: 5,\n  market: 'ES',\n  offset: 5,\n);\n\nvar_dump($page);",
       },
       python: {
         method: 'artists.list_albums',
@@ -407,6 +467,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted artists top-tracks \\\n  --access-token 'My Access Token' \\\n  --id 0TnOYISbd1XYRBk9myaseg",
       },
+      csharp: {
+        method: 'Artists.TopTracks',
+        example:
+          'ArtistTopTracksParams parameters = new() { ID = "0TnOYISbd1XYRBk9myaseg" };\n\nvar response = await client.Artists.TopTracks(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Artists.TopTracks',
         example:
@@ -425,6 +490,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'artists().topTracks',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.artists.ArtistTopTracksParams\nimport dev.cjav.spotted.models.artists.ArtistTopTracksResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: ArtistTopTracksResponse = client.artists().topTracks("0TnOYISbd1XYRBk9myaseg")\n}',
+      },
+      php: {
+        method: 'artists->topTracks',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->artists->topTracks('0TnOYISbd1XYRBk9myaseg', market: 'ES');\n\nvar_dump($response);",
       },
       python: {
         method: 'artists.top_tracks',
@@ -463,6 +533,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted artists list-related-artists \\\n  --access-token 'My Access Token' \\\n  --id 0TnOYISbd1XYRBk9myaseg",
       },
+      csharp: {
+        method: 'Artists.ListRelatedArtists',
+        example:
+          'ArtistListRelatedArtistsParams parameters = new()\n{\n    ID = "0TnOYISbd1XYRBk9myaseg"\n};\n\nvar response = await client.Artists.ListRelatedArtists(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Artists.ListRelatedArtists',
         example:
@@ -481,6 +556,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'artists().listRelatedArtists',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.artists.ArtistListRelatedArtistsParams\nimport dev.cjav.spotted.models.artists.ArtistListRelatedArtistsResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: ArtistListRelatedArtistsResponse = client.artists().listRelatedArtists("0TnOYISbd1XYRBk9myaseg")\n}',
+      },
+      php: {
+        method: 'artists->listRelatedArtists',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->artists->listRelatedArtists('0TnOYISbd1XYRBk9myaseg');\n\nvar_dump($response);",
       },
       python: {
         method: 'artists.list_related_artists',
@@ -518,6 +598,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted shows retrieve \\\n  --access-token 'My Access Token' \\\n  --id 38bS44xjbVVZ3No3ByF1dJ",
       },
+      csharp: {
+        method: 'Shows.Retrieve',
+        example:
+          'ShowRetrieveParams parameters = new() { ID = "38bS44xjbVVZ3No3ByF1dJ" };\n\nvar show = await client.Shows.Retrieve(parameters);\n\nConsole.WriteLine(show);',
+      },
       go: {
         method: 'client.Shows.Get',
         example:
@@ -536,6 +621,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'shows().retrieve',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.shows.ShowRetrieveParams\nimport dev.cjav.spotted.models.shows.ShowRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val show: ShowRetrieveResponse = client.shows().retrieve("38bS44xjbVVZ3No3ByF1dJ")\n}',
+      },
+      php: {
+        method: 'shows->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$show = $client->shows->retrieve('38bS44xjbVVZ3No3ByF1dJ', market: 'ES');\n\nvar_dump($show);",
       },
       python: {
         method: 'shows.retrieve',
@@ -573,6 +663,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted shows bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ",
       },
+      csharp: {
+        method: 'Shows.BulkRetrieve',
+        example:
+          'ShowBulkRetrieveParams parameters = new()\n{\n    Ids = "5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ"\n};\n\nvar response = await client.Shows.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Shows.BulkGet',
         example:
@@ -591,6 +686,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'shows().bulkRetrieve',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.shows.ShowBulkRetrieveParams\nimport dev.cjav.spotted.models.shows.ShowBulkRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: ShowBulkRetrieveParams = ShowBulkRetrieveParams.builder()\n        .ids("5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ")\n        .build()\n    val response: ShowBulkRetrieveResponse = client.shows().bulkRetrieve(params)\n}',
+      },
+      php: {
+        method: 'shows->bulkRetrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->shows->bulkRetrieve(\n  ids: '5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ', market: 'ES'\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'shows.bulk_retrieve',
@@ -629,6 +729,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted shows list-episodes \\\n  --access-token 'My Access Token' \\\n  --id 38bS44xjbVVZ3No3ByF1dJ",
       },
+      csharp: {
+        method: 'Shows.ListEpisodes',
+        example:
+          'ShowListEpisodesParams parameters = new() { ID = "38bS44xjbVVZ3No3ByF1dJ" };\n\nvar page = await client.Shows.ListEpisodes(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
       go: {
         method: 'client.Shows.ListEpisodes',
         example:
@@ -647,6 +752,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'shows().listEpisodes',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.shows.ShowListEpisodesPage\nimport dev.cjav.spotted.models.shows.ShowListEpisodesParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: ShowListEpisodesPage = client.shows().listEpisodes("38bS44xjbVVZ3No3ByF1dJ")\n}',
+      },
+      php: {
+        method: 'shows->listEpisodes',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->shows->listEpisodes(\n  '38bS44xjbVVZ3No3ByF1dJ', limit: 10, market: 'ES', offset: 5\n);\n\nvar_dump($page);",
       },
       python: {
         method: 'shows.list_episodes',
@@ -685,6 +795,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted episodes retrieve \\\n  --access-token 'My Access Token' \\\n  --id 512ojhOuo1ktJprKbVcKyQ",
       },
+      csharp: {
+        method: 'Episodes.Retrieve',
+        example:
+          'EpisodeRetrieveParams parameters = new() { ID = "512ojhOuo1ktJprKbVcKyQ" };\n\nvar episodeObject = await client.Episodes.Retrieve(parameters);\n\nConsole.WriteLine(episodeObject);',
+      },
       go: {
         method: 'client.Episodes.Get',
         example:
@@ -703,6 +818,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'episodes().retrieve',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.EpisodeObject\nimport dev.cjav.spotted.models.episodes.EpisodeRetrieveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val episodeObject: EpisodeObject = client.episodes().retrieve("512ojhOuo1ktJprKbVcKyQ")\n}',
+      },
+      php: {
+        method: 'episodes->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$episodeObject = $client->episodes->retrieve(\n  '512ojhOuo1ktJprKbVcKyQ', market: 'ES'\n);\n\nvar_dump($episodeObject);",
       },
       python: {
         method: 'episodes.retrieve',
@@ -740,6 +860,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted episodes bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf",
       },
+      csharp: {
+        method: 'Episodes.BulkRetrieve',
+        example:
+          'EpisodeBulkRetrieveParams parameters = new()\n{\n    Ids = "77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf"\n};\n\nvar response = await client.Episodes.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Episodes.BulkGet',
         example:
@@ -758,6 +883,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'episodes().bulkRetrieve',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.episodes.EpisodeBulkRetrieveParams\nimport dev.cjav.spotted.models.episodes.EpisodeBulkRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: EpisodeBulkRetrieveParams = EpisodeBulkRetrieveParams.builder()\n        .ids("77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf")\n        .build()\n    val response: EpisodeBulkRetrieveResponse = client.episodes().bulkRetrieve(params)\n}',
+      },
+      php: {
+        method: 'episodes->bulkRetrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->episodes->bulkRetrieve(\n  ids: '77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf', market: 'ES'\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'episodes.bulk_retrieve',
@@ -796,6 +926,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted audiobooks retrieve \\\n  --access-token 'My Access Token' \\\n  --id 7iHfbu1YPACw6oZPAFJtqe",
       },
+      csharp: {
+        method: 'Audiobooks.Retrieve',
+        example:
+          'AudiobookRetrieveParams parameters = new() { ID = "7iHfbu1YPACw6oZPAFJtqe" };\n\nvar audiobook = await client.Audiobooks.Retrieve(parameters);\n\nConsole.WriteLine(audiobook);',
+      },
       go: {
         method: 'client.Audiobooks.Get',
         example:
@@ -814,6 +949,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'audiobooks().retrieve',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.audiobooks.AudiobookRetrieveParams\nimport dev.cjav.spotted.models.audiobooks.AudiobookRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val audiobook: AudiobookRetrieveResponse = client.audiobooks().retrieve("7iHfbu1YPACw6oZPAFJtqe")\n}',
+      },
+      php: {
+        method: 'audiobooks->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$audiobook = $client->audiobooks->retrieve(\n  '7iHfbu1YPACw6oZPAFJtqe', market: 'ES'\n);\n\nvar_dump($audiobook);",
       },
       python: {
         method: 'audiobooks.retrieve',
@@ -852,6 +992,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted audiobooks bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",
       },
+      csharp: {
+        method: 'Audiobooks.BulkRetrieve',
+        example:
+          'AudiobookBulkRetrieveParams parameters = new()\n{\n    Ids = "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe"\n};\n\nvar response = await client.Audiobooks.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Audiobooks.BulkGet',
         example:
@@ -870,6 +1015,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'audiobooks().bulkRetrieve',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.audiobooks.AudiobookBulkRetrieveParams\nimport dev.cjav.spotted.models.audiobooks.AudiobookBulkRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: AudiobookBulkRetrieveParams = AudiobookBulkRetrieveParams.builder()\n        .ids("18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe")\n        .build()\n    val response: AudiobookBulkRetrieveResponse = client.audiobooks().bulkRetrieve(params)\n}',
+      },
+      php: {
+        method: 'audiobooks->bulkRetrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->audiobooks->bulkRetrieve(\n  ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe',\n  market: 'ES',\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'audiobooks.bulk_retrieve',
@@ -908,6 +1058,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted audiobooks list-chapters \\\n  --access-token 'My Access Token' \\\n  --id 7iHfbu1YPACw6oZPAFJtqe",
       },
+      csharp: {
+        method: 'Audiobooks.ListChapters',
+        example:
+          'AudiobookListChaptersParams parameters = new()\n{\n    ID = "7iHfbu1YPACw6oZPAFJtqe"\n};\n\nvar page = await client.Audiobooks.ListChapters(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
       go: {
         method: 'client.Audiobooks.ListChapters',
         example:
@@ -926,6 +1081,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'audiobooks().listChapters',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.audiobooks.AudiobookListChaptersPage\nimport dev.cjav.spotted.models.audiobooks.AudiobookListChaptersParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: AudiobookListChaptersPage = client.audiobooks().listChapters("7iHfbu1YPACw6oZPAFJtqe")\n}',
+      },
+      php: {
+        method: 'audiobooks->listChapters',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->audiobooks->listChapters(\n  '7iHfbu1YPACw6oZPAFJtqe', limit: 10, market: 'ES', offset: 5\n);\n\nvar_dump($page);",
       },
       python: {
         method: 'audiobooks.list_chapters',
@@ -962,6 +1122,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me retrieve',
         example: "spotted me retrieve \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Retrieve',
+        example:
+          'MeRetrieveParams parameters = new();\n\nvar me = await client.Me.Retrieve(parameters);\n\nConsole.WriteLine(me);',
+      },
       go: {
         method: 'client.Me.Get',
         example:
@@ -980,6 +1145,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().retrieve',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.MeRetrieveParams\nimport dev.cjav.spotted.models.me.MeRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val me: MeRetrieveResponse = client.me().retrieve()\n}',
+      },
+      php: {
+        method: 'me->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$me = $client->me->retrieve();\n\nvar_dump($me);",
       },
       python: {
         method: 'me.retrieve',
@@ -1016,6 +1186,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'audiobooks list',
         example: "spotted me:audiobooks list \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Audiobooks.List',
+        example:
+          'AudiobookListParams parameters = new();\n\nvar page = await client.Me.Audiobooks.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
       go: {
         method: 'client.Me.Audiobooks.List',
         example:
@@ -1034,6 +1209,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().audiobooks().list',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.audiobooks.AudiobookListPage\nimport dev.cjav.spotted.models.me.audiobooks.AudiobookListParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: AudiobookListPage = client.me().audiobooks().list()\n}',
+      },
+      php: {
+        method: 'me->audiobooks->list',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->audiobooks->list(limit: 10, offset: 5);\n\nvar_dump($page);",
       },
       python: {
         method: 'me.audiobooks.list',
@@ -1070,6 +1250,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted me:audiobooks save \\\n  --access-token 'My Access Token' \\\n  --ids 18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",
       },
+      csharp: {
+        method: 'Me.Audiobooks.Save',
+        example:
+          'AudiobookSaveParams parameters = new()\n{\n    Ids = "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe"\n};\n\nawait client.Me.Audiobooks.Save(parameters);',
+      },
       go: {
         method: 'client.Me.Audiobooks.Save',
         example:
@@ -1088,6 +1273,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().audiobooks().save',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.audiobooks.AudiobookSaveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: AudiobookSaveParams = AudiobookSaveParams.builder()\n        .ids("18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe")\n        .build()\n    client.me().audiobooks().save(params)\n}',
+      },
+      php: {
+        method: 'me->audiobooks->save',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->audiobooks->save(\n  ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe'\n);\n\nvar_dump($result);",
       },
       python: {
         method: 'me.audiobooks.save',
@@ -1124,6 +1314,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted me:audiobooks remove \\\n  --access-token 'My Access Token' \\\n  --ids 18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",
       },
+      csharp: {
+        method: 'Me.Audiobooks.Remove',
+        example:
+          'AudiobookRemoveParams parameters = new()\n{\n    Ids = "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe"\n};\n\nawait client.Me.Audiobooks.Remove(parameters);',
+      },
       go: {
         method: 'client.Me.Audiobooks.Remove',
         example:
@@ -1142,6 +1337,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().audiobooks().remove',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.audiobooks.AudiobookRemoveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: AudiobookRemoveParams = AudiobookRemoveParams.builder()\n        .ids("18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe")\n        .build()\n    client.me().audiobooks().remove(params)\n}',
+      },
+      php: {
+        method: 'me->audiobooks->remove',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->audiobooks->remove(\n  ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe'\n);\n\nvar_dump($result);",
       },
       python: {
         method: 'me.audiobooks.remove',
@@ -1179,6 +1379,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted me:audiobooks check \\\n  --access-token 'My Access Token' \\\n  --ids 18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",
       },
+      csharp: {
+        method: 'Me.Audiobooks.Check',
+        example:
+          'AudiobookCheckParams parameters = new()\n{\n    Ids = "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe"\n};\n\nvar response = await client.Me.Audiobooks.Check(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Me.Audiobooks.Check',
         example:
@@ -1197,6 +1402,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().audiobooks().check',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.audiobooks.AudiobookCheckParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: AudiobookCheckParams = AudiobookCheckParams.builder()\n        .ids("18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe")\n        .build()\n    val response: List<Boolean> = client.me().audiobooks().check(params)\n}',
+      },
+      php: {
+        method: 'me->audiobooks->check',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->audiobooks->check(\n  ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe'\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'me.audiobooks.check',
@@ -1233,6 +1443,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'playlists list',
         example: "spotted me:playlists list \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Playlists.List',
+        example:
+          'PlaylistListParams parameters = new();\n\nvar page = await client.Me.Playlists.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
       go: {
         method: 'client.Me.Playlists.List',
         example:
@@ -1251,6 +1466,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().playlists().list',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.playlists.PlaylistListPage\nimport dev.cjav.spotted.models.me.playlists.PlaylistListParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: PlaylistListPage = client.me().playlists().list()\n}',
+      },
+      php: {
+        method: 'me->playlists->list',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->playlists->list(limit: 10, offset: 5);\n\nvar_dump($page);",
       },
       python: {
         method: 'me.playlists.list',
@@ -1287,6 +1507,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'top list_top_tracks',
         example: "spotted me:top list-top-tracks \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Top.ListTopTracks',
+        example:
+          'TopListTopTracksParams parameters = new();\n\nvar page = await client.Me.Top.ListTopTracks(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
       go: {
         method: 'client.Me.Top.ListTopTracks',
         example:
@@ -1305,6 +1530,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().top().listTopTracks',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.top.TopListTopTracksPage\nimport dev.cjav.spotted.models.me.top.TopListTopTracksParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: TopListTopTracksPage = client.me().top().listTopTracks()\n}',
+      },
+      php: {
+        method: 'me->top->listTopTracks',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->top->listTopTracks(\n  limit: 10, offset: 5, timeRange: 'medium_term'\n);\n\nvar_dump($page);",
       },
       python: {
         method: 'me.top.list_top_tracks',
@@ -1341,6 +1571,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'top list_top_artists',
         example: "spotted me:top list-top-artists \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Top.ListTopArtists',
+        example:
+          'TopListTopArtistsParams parameters = new();\n\nvar page = await client.Me.Top.ListTopArtists(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
       go: {
         method: 'client.Me.Top.ListTopArtists',
         example:
@@ -1359,6 +1594,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().top().listTopArtists',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.top.TopListTopArtistsPage\nimport dev.cjav.spotted.models.me.top.TopListTopArtistsParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: TopListTopArtistsPage = client.me().top().listTopArtists()\n}',
+      },
+      php: {
+        method: 'me->top->listTopArtists',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->top->listTopArtists(\n  limit: 10, offset: 5, timeRange: 'medium_term'\n);\n\nvar_dump($page);",
       },
       python: {
         method: 'me.top.list_top_artists',
@@ -1395,6 +1635,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'albums list',
         example: "spotted me:albums list \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Albums.List',
+        example:
+          'AlbumListParams parameters = new();\n\nvar page = await client.Me.Albums.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
       go: {
         method: 'client.Me.Albums.List',
         example:
@@ -1413,6 +1658,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().albums().list',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.albums.AlbumListPage\nimport dev.cjav.spotted.models.me.albums.AlbumListParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: AlbumListPage = client.me().albums().list()\n}',
+      },
+      php: {
+        method: 'me->albums->list',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->albums->list(limit: 10, market: 'ES', offset: 5);\n\nvar_dump($page);",
       },
       python: {
         method: 'me.albums.list',
@@ -1448,6 +1698,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'albums save',
         example: "spotted me:albums save \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Albums.Save',
+        example: 'AlbumSaveParams parameters = new();\n\nawait client.Me.Albums.Save(parameters);',
+      },
       go: {
         method: 'client.Me.Albums.Save',
         example:
@@ -1466,6 +1720,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().albums().save',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.albums.AlbumSaveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.me().albums().save()\n}',
+      },
+      php: {
+        method: 'me->albums->save',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->albums->save(ids: ['string'], published: true);\n\nvar_dump($result);",
       },
       python: {
         method: 'me.albums.save',
@@ -1501,6 +1760,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'albums remove',
         example: "spotted me:albums remove \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Albums.Remove',
+        example: 'AlbumRemoveParams parameters = new();\n\nawait client.Me.Albums.Remove(parameters);',
+      },
       go: {
         method: 'client.Me.Albums.Remove',
         example:
@@ -1519,6 +1782,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().albums().remove',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.albums.AlbumRemoveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.me().albums().remove()\n}',
+      },
+      php: {
+        method: 'me->albums->remove',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->albums->remove(ids: ['string'], published: true);\n\nvar_dump($result);",
       },
       python: {
         method: 'me.albums.remove',
@@ -1556,6 +1824,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted me:albums check \\\n  --access-token 'My Access Token' \\\n  --ids 382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc",
       },
+      csharp: {
+        method: 'Me.Albums.Check',
+        example:
+          'AlbumCheckParams parameters = new()\n{\n    Ids = "382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc"\n};\n\nvar response = await client.Me.Albums.Check(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Me.Albums.Check',
         example:
@@ -1574,6 +1847,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().albums().check',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.albums.AlbumCheckParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: AlbumCheckParams = AlbumCheckParams.builder()\n        .ids("382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc")\n        .build()\n    val response: List<Boolean> = client.me().albums().check(params)\n}',
+      },
+      php: {
+        method: 'me->albums->check',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->albums->check(\n  ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc'\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'me.albums.check',
@@ -1610,6 +1888,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'tracks list',
         example: "spotted me:tracks list \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Tracks.List',
+        example:
+          'TrackListParams parameters = new();\n\nvar page = await client.Me.Tracks.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
       go: {
         method: 'client.Me.Tracks.List',
         example:
@@ -1628,6 +1911,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().tracks().list',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.tracks.TrackListPage\nimport dev.cjav.spotted.models.me.tracks.TrackListParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: TrackListPage = client.me().tracks().list()\n}',
+      },
+      php: {
+        method: 'me->tracks->list',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->tracks->list(limit: 10, market: 'ES', offset: 5);\n\nvar_dump($page);",
       },
       python: {
         method: 'me.tracks.list',
@@ -1667,6 +1955,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'tracks save',
         example: "spotted me:tracks save \\\n  --access-token 'My Access Token' \\\n  --id string",
       },
+      csharp: {
+        method: 'Me.Tracks.Save',
+        example:
+          'TrackSaveParams parameters = new()\n{\n    Ids =\n    [\n        "string"\n    ],\n};\n\nawait client.Me.Tracks.Save(parameters);',
+      },
       go: {
         method: 'client.Me.Tracks.Save',
         example:
@@ -1685,6 +1978,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().tracks().save',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.tracks.TrackSaveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: TrackSaveParams = TrackSaveParams.builder()\n        .addId("string")\n        .build()\n    client.me().tracks().save(params)\n}',
+      },
+      php: {
+        method: 'me->tracks->save',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->tracks->save(\n  ids: ['string'],\n  published: true,\n  timestampedIDs: [\n    [\n      'id' => 'id',\n      'addedAt' => new \\DateTimeImmutable('2019-12-27T18:11:19.117Z'),\n    ],\n  ],\n);\n\nvar_dump($result);",
       },
       python: {
         method: 'me.tracks.save',
@@ -1720,6 +2018,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'tracks remove',
         example: "spotted me:tracks remove \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Tracks.Remove',
+        example: 'TrackRemoveParams parameters = new();\n\nawait client.Me.Tracks.Remove(parameters);',
+      },
       go: {
         method: 'client.Me.Tracks.Remove',
         example:
@@ -1738,6 +2040,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().tracks().remove',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.tracks.TrackRemoveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.me().tracks().remove()\n}',
+      },
+      php: {
+        method: 'me->tracks->remove',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->tracks->remove(ids: ['string'], published: true);\n\nvar_dump($result);",
       },
       python: {
         method: 'me.tracks.remove',
@@ -1775,6 +2082,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted me:tracks check \\\n  --access-token 'My Access Token' \\\n  --ids 7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B",
       },
+      csharp: {
+        method: 'Me.Tracks.Check',
+        example:
+          'TrackCheckParams parameters = new()\n{\n    Ids = "7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B"\n};\n\nvar response = await client.Me.Tracks.Check(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Me.Tracks.Check',
         example:
@@ -1793,6 +2105,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().tracks().check',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.tracks.TrackCheckParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: TrackCheckParams = TrackCheckParams.builder()\n        .ids("7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B")\n        .build()\n    val response: List<Boolean> = client.me().tracks().check(params)\n}',
+      },
+      php: {
+        method: 'me->tracks->check',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->tracks->check(\n  ids: '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B'\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'me.tracks.check',
@@ -1829,6 +2146,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'episodes list',
         example: "spotted me:episodes list \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Episodes.List',
+        example:
+          'EpisodeListParams parameters = new();\n\nvar page = await client.Me.Episodes.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
       go: {
         method: 'client.Me.Episodes.List',
         example:
@@ -1847,6 +2169,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().episodes().list',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.episodes.EpisodeListPage\nimport dev.cjav.spotted.models.me.episodes.EpisodeListParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: EpisodeListPage = client.me().episodes().list()\n}',
+      },
+      php: {
+        method: 'me->episodes->list',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->episodes->list(limit: 10, market: 'ES', offset: 5);\n\nvar_dump($page);",
       },
       python: {
         method: 'me.episodes.list',
@@ -1882,6 +2209,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'episodes save',
         example: "spotted me:episodes save \\\n  --access-token 'My Access Token' \\\n  --id string",
       },
+      csharp: {
+        method: 'Me.Episodes.Save',
+        example:
+          'EpisodeSaveParams parameters = new()\n{\n    Ids =\n    [\n        "string"\n    ],\n};\n\nawait client.Me.Episodes.Save(parameters);',
+      },
       go: {
         method: 'client.Me.Episodes.Save',
         example:
@@ -1900,6 +2232,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().episodes().save',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.episodes.EpisodeSaveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: EpisodeSaveParams = EpisodeSaveParams.builder()\n        .addId("string")\n        .build()\n    client.me().episodes().save(params)\n}',
+      },
+      php: {
+        method: 'me->episodes->save',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->episodes->save(ids: ['string'], published: true);\n\nvar_dump($result);",
       },
       python: {
         method: 'me.episodes.save',
@@ -1935,6 +2272,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'episodes remove',
         example: "spotted me:episodes remove \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Episodes.Remove',
+        example: 'EpisodeRemoveParams parameters = new();\n\nawait client.Me.Episodes.Remove(parameters);',
+      },
       go: {
         method: 'client.Me.Episodes.Remove',
         example:
@@ -1953,6 +2294,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().episodes().remove',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.episodes.EpisodeRemoveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.me().episodes().remove()\n}',
+      },
+      php: {
+        method: 'me->episodes->remove',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->episodes->remove(ids: ['string'], published: true);\n\nvar_dump($result);",
       },
       python: {
         method: 'me.episodes.remove',
@@ -1990,6 +2336,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted me:episodes check \\\n  --access-token 'My Access Token' \\\n  --ids 77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf",
       },
+      csharp: {
+        method: 'Me.Episodes.Check',
+        example:
+          'EpisodeCheckParams parameters = new()\n{\n    Ids = "77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf"\n};\n\nvar response = await client.Me.Episodes.Check(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Me.Episodes.Check',
         example:
@@ -2008,6 +2359,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().episodes().check',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.episodes.EpisodeCheckParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: EpisodeCheckParams = EpisodeCheckParams.builder()\n        .ids("77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf")\n        .build()\n    val response: List<Boolean> = client.me().episodes().check(params)\n}',
+      },
+      php: {
+        method: 'me->episodes->check',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->episodes->check(\n  ids: '77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf'\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'me.episodes.check',
@@ -2045,6 +2401,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'shows list',
         example: "spotted me:shows list \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Shows.List',
+        example:
+          'ShowListParams parameters = new();\n\nvar page = await client.Me.Shows.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
       go: {
         method: 'client.Me.Shows.List',
         example:
@@ -2063,6 +2424,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().shows().list',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.shows.ShowListPage\nimport dev.cjav.spotted.models.me.shows.ShowListParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: ShowListPage = client.me().shows().list()\n}',
+      },
+      php: {
+        method: 'me->shows->list',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->shows->list(limit: 10, offset: 5);\n\nvar_dump($page);",
       },
       python: {
         method: 'me.shows.list',
@@ -2098,6 +2464,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'shows save',
         example: "spotted me:shows save \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Shows.Save',
+        example: 'ShowSaveParams parameters = new();\n\nawait client.Me.Shows.Save(parameters);',
+      },
       go: {
         method: 'client.Me.Shows.Save',
         example:
@@ -2116,6 +2486,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().shows().save',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.shows.ShowSaveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.me().shows().save()\n}',
+      },
+      php: {
+        method: 'me->shows->save',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->shows->save(ids: ['string'], published: true);\n\nvar_dump($result);",
       },
       python: {
         method: 'me.shows.save',
@@ -2151,6 +2526,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'shows remove',
         example: "spotted me:shows remove \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Shows.Remove',
+        example: 'ShowRemoveParams parameters = new();\n\nawait client.Me.Shows.Remove(parameters);',
+      },
       go: {
         method: 'client.Me.Shows.Remove',
         example:
@@ -2169,6 +2548,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().shows().remove',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.shows.ShowRemoveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.me().shows().remove()\n}',
+      },
+      php: {
+        method: 'me->shows->remove',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->shows->remove(ids: ['string'], published: true);\n\nvar_dump($result);",
       },
       python: {
         method: 'me.shows.remove',
@@ -2206,6 +2590,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted me:shows check \\\n  --access-token 'My Access Token' \\\n  --ids 5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ",
       },
+      csharp: {
+        method: 'Me.Shows.Check',
+        example:
+          'ShowCheckParams parameters = new()\n{\n    Ids = "5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ"\n};\n\nvar response = await client.Me.Shows.Check(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Me.Shows.Check',
         example:
@@ -2224,6 +2613,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().shows().check',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.shows.ShowCheckParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: ShowCheckParams = ShowCheckParams.builder()\n        .ids("5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ")\n        .build()\n    val response: List<Boolean> = client.me().shows().check(params)\n}',
+      },
+      php: {
+        method: 'me->shows->check',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->shows->check(\n  ids: '5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ'\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'me.shows.check',
@@ -2261,6 +2655,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted me:following bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --type artist",
       },
+      csharp: {
+        method: 'Me.Following.BulkRetrieve',
+        example:
+          'FollowingBulkRetrieveParams parameters = new()\n{\n    Type = JsonSerializer.SerializeToElement("artist")\n};\n\nvar response = await client.Me.Following.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Me.Following.BulkGet',
         example:
@@ -2279,6 +2678,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().following().bulkRetrieve',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.following.FollowingBulkRetrieveParams\nimport dev.cjav.spotted.models.me.following.FollowingBulkRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: FollowingBulkRetrieveParams = FollowingBulkRetrieveParams.builder()\n        .type(FollowingBulkRetrieveParams.Type.ARTIST)\n        .build()\n    val response: FollowingBulkRetrieveResponse = client.me().following().bulkRetrieve(params)\n}',
+      },
+      php: {
+        method: 'me->following->bulkRetrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->following->bulkRetrieve(\n  type: 'artist', after: '0I2XqVXqHScXjHhk6AYYRe', limit: 10\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'me.following.bulk_retrieve',
@@ -2314,6 +2718,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'following follow',
         example: "spotted me:following follow \\\n  --access-token 'My Access Token' \\\n  --id string",
       },
+      csharp: {
+        method: 'Me.Following.Follow',
+        example:
+          'FollowingFollowParams parameters = new()\n{\n    Ids =\n    [\n        "string"\n    ],\n};\n\nawait client.Me.Following.Follow(parameters);',
+      },
       go: {
         method: 'client.Me.Following.Follow',
         example:
@@ -2332,6 +2741,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().following().follow',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.following.FollowingFollowParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: FollowingFollowParams = FollowingFollowParams.builder()\n        .addId("string")\n        .build()\n    client.me().following().follow(params)\n}',
+      },
+      php: {
+        method: 'me->following->follow',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->following->follow(ids: ['string'], published: true);\n\nvar_dump($result);",
       },
       python: {
         method: 'me.following.follow',
@@ -2367,6 +2781,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'following unfollow',
         example: "spotted me:following unfollow \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Following.Unfollow',
+        example:
+          'FollowingUnfollowParams parameters = new();\n\nawait client.Me.Following.Unfollow(parameters);',
+      },
       go: {
         method: 'client.Me.Following.Unfollow',
         example:
@@ -2385,6 +2804,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().following().unfollow',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.following.FollowingUnfollowParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.me().following().unfollow()\n}',
+      },
+      php: {
+        method: 'me->following->unfollow',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->following->unfollow(ids: ['string'], published: true);\n\nvar_dump($result);",
       },
       python: {
         method: 'me.following.unfollow',
@@ -2422,6 +2846,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted me:following check \\\n  --access-token 'My Access Token' \\\n  --ids 2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6 \\\n  --type artist",
       },
+      csharp: {
+        method: 'Me.Following.Check',
+        example:
+          'FollowingCheckParams parameters = new()\n{\n    Ids = "2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6",\n    Type = Type.Artist,\n};\n\nvar response = await client.Me.Following.Check(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Me.Following.Check',
         example:
@@ -2440,6 +2869,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().following().check',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.following.FollowingCheckParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: FollowingCheckParams = FollowingCheckParams.builder()\n        .ids("2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6")\n        .type(FollowingCheckParams.Type.ARTIST)\n        .build()\n    val response: List<Boolean> = client.me().following().check(params)\n}',
+      },
+      php: {
+        method: 'me->following->check',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->following->check(\n  ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6',\n  type: 'artist',\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'me.following.check',
@@ -2477,6 +2911,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'player get_state',
         example: "spotted me:player get-state \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Player.GetState',
+        example:
+          'PlayerGetStateParams parameters = new();\n\nvar response = await client.Me.Player.GetState(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Me.Player.GetState',
         example:
@@ -2495,6 +2934,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().player().getState',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerGetStateParams\nimport dev.cjav.spotted.models.me.player.PlayerGetStateResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: PlayerGetStateResponse = client.me().player().getState()\n}',
+      },
+      php: {
+        method: 'me->player->getState',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->player->getState(\n  additionalTypes: 'additional_types', market: 'ES'\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'me.player.get_state',
@@ -2531,6 +2975,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted me:player transfer \\\n  --access-token 'My Access Token' \\\n  --device-id 74ASZWbe4lXaubB36ztrGX",
       },
+      csharp: {
+        method: 'Me.Player.Transfer',
+        example:
+          'PlayerTransferParams parameters = new()\n{\n    DeviceIds =\n    [\n        "74ASZWbe4lXaubB36ztrGX"\n    ],\n};\n\nawait client.Me.Player.Transfer(parameters);',
+      },
       go: {
         method: 'client.Me.Player.Transfer',
         example:
@@ -2549,6 +2998,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().player().transfer',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerTransferParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: PlayerTransferParams = PlayerTransferParams.builder()\n        .addDeviceId("74ASZWbe4lXaubB36ztrGX")\n        .build()\n    client.me().player().transfer(params)\n}',
+      },
+      php: {
+        method: 'me->player->transfer',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->transfer(\n  deviceIDs: ['74ASZWbe4lXaubB36ztrGX'], play: true, published: true\n);\n\nvar_dump($result);",
       },
       python: {
         method: 'me.player.transfer',
@@ -2585,6 +3039,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'player get_devices',
         example: "spotted me:player get-devices \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Player.GetDevices',
+        example:
+          'PlayerGetDevicesParams parameters = new();\n\nvar response = await client.Me.Player.GetDevices(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Me.Player.GetDevices',
         example:
@@ -2603,6 +3062,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().player().getDevices',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerGetDevicesParams\nimport dev.cjav.spotted.models.me.player.PlayerGetDevicesResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: PlayerGetDevicesResponse = client.me().player().getDevices()\n}',
+      },
+      php: {
+        method: 'me->player->getDevices',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->player->getDevices();\n\nvar_dump($response);",
       },
       python: {
         method: 'me.player.get_devices',
@@ -2639,6 +3103,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'player get_currently_playing',
         example: "spotted me:player get-currently-playing \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Player.GetCurrentlyPlaying',
+        example:
+          'PlayerGetCurrentlyPlayingParams parameters = new();\n\nvar response = await client.Me.Player.GetCurrentlyPlaying(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Me.Player.GetCurrentlyPlaying',
         example:
@@ -2657,6 +3126,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().player().getCurrentlyPlaying',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerGetCurrentlyPlayingParams\nimport dev.cjav.spotted.models.me.player.PlayerGetCurrentlyPlayingResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: PlayerGetCurrentlyPlayingResponse = client.me().player().getCurrentlyPlaying()\n}',
+      },
+      php: {
+        method: 'me->player->getCurrentlyPlaying',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->player->getCurrentlyPlaying(\n  additionalTypes: 'additional_types', market: 'ES'\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'me.player.get_currently_playing',
@@ -2699,6 +3173,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'player start_playback',
         example: "spotted me:player start-playback \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Player.StartPlayback',
+        example:
+          'PlayerStartPlaybackParams parameters = new();\n\nawait client.Me.Player.StartPlayback(parameters);',
+      },
       go: {
         method: 'client.Me.Player.StartPlayback',
         example:
@@ -2717,6 +3196,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().player().startPlayback',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerStartPlaybackParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.me().player().startPlayback()\n}',
+      },
+      php: {
+        method: 'me->player->startPlayback',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->startPlayback(\n  deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8',\n  contextUri: 'spotify:album:5ht7ItJgpBH7W6vJ5BqpPr',\n  offset: ['position' => 'bar'],\n  positionMs: 0,\n  published: true,\n  uris: ['string'],\n);\n\nvar_dump($result);",
       },
       python: {
         method: 'me.player.start_playback',
@@ -2752,6 +3236,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'player pause_playback',
         example: "spotted me:player pause-playback \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Player.PausePlayback',
+        example:
+          'PlayerPausePlaybackParams parameters = new();\n\nawait client.Me.Player.PausePlayback(parameters);',
+      },
       go: {
         method: 'client.Me.Player.PausePlayback',
         example:
@@ -2770,6 +3259,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().player().pausePlayback',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerPausePlaybackParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.me().player().pausePlayback()\n}',
+      },
+      php: {
+        method: 'me->player->pausePlayback',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->pausePlayback(\n  deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8'\n);\n\nvar_dump($result);",
       },
       python: {
         method: 'me.player.pause_playback',
@@ -2805,6 +3299,10 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'player skip_next',
         example: "spotted me:player skip-next \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Player.SkipNext',
+        example: 'PlayerSkipNextParams parameters = new();\n\nawait client.Me.Player.SkipNext(parameters);',
+      },
       go: {
         method: 'client.Me.Player.SkipNext',
         example:
@@ -2823,6 +3321,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().player().skipNext',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerSkipNextParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.me().player().skipNext()\n}',
+      },
+      php: {
+        method: 'me->player->skipNext',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->skipNext(\n  deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8'\n);\n\nvar_dump($result);",
       },
       python: {
         method: 'me.player.skip_next',
@@ -2858,6 +3361,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'player skip_previous',
         example: "spotted me:player skip-previous \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Player.SkipPrevious',
+        example:
+          'PlayerSkipPreviousParams parameters = new();\n\nawait client.Me.Player.SkipPrevious(parameters);',
+      },
       go: {
         method: 'client.Me.Player.SkipPrevious',
         example:
@@ -2876,6 +3384,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().player().skipPrevious',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerSkipPreviousParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.me().player().skipPrevious()\n}',
+      },
+      php: {
+        method: 'me->player->skipPrevious',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->skipPrevious(\n  deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8'\n);\n\nvar_dump($result);",
       },
       python: {
         method: 'me.player.skip_previous',
@@ -2912,6 +3425,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted me:player seek-to-position \\\n  --access-token 'My Access Token' \\\n  --position-ms 25000",
       },
+      csharp: {
+        method: 'Me.Player.SeekToPosition',
+        example:
+          'PlayerSeekToPositionParams parameters = new() { PositionMs = 25000 };\n\nawait client.Me.Player.SeekToPosition(parameters);',
+      },
       go: {
         method: 'client.Me.Player.SeekToPosition',
         example:
@@ -2930,6 +3448,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().player().seekToPosition',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerSeekToPositionParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: PlayerSeekToPositionParams = PlayerSeekToPositionParams.builder()\n        .positionMs(25000L)\n        .build()\n    client.me().player().seekToPosition(params)\n}',
+      },
+      php: {
+        method: 'me->player->seekToPosition',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->seekToPosition(\n  positionMs: 25000, deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8'\n);\n\nvar_dump($result);",
       },
       python: {
         method: 'me.player.seek_to_position',
@@ -2966,6 +3489,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted me:player set-repeat-mode \\\n  --access-token 'My Access Token' \\\n  --state context",
       },
+      csharp: {
+        method: 'Me.Player.SetRepeatMode',
+        example:
+          'PlayerSetRepeatModeParams parameters = new() { State = "context" };\n\nawait client.Me.Player.SetRepeatMode(parameters);',
+      },
       go: {
         method: 'client.Me.Player.SetRepeatMode',
         example:
@@ -2984,6 +3512,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().player().setRepeatMode',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerSetRepeatModeParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: PlayerSetRepeatModeParams = PlayerSetRepeatModeParams.builder()\n        .state("context")\n        .build()\n    client.me().player().setRepeatMode(params)\n}',
+      },
+      php: {
+        method: 'me->player->setRepeatMode',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->setRepeatMode(\n  state: 'context', deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8'\n);\n\nvar_dump($result);",
       },
       python: {
         method: 'me.player.set_repeat_mode',
@@ -3020,6 +3553,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted me:player set-volume \\\n  --access-token 'My Access Token' \\\n  --volume-percent 50",
       },
+      csharp: {
+        method: 'Me.Player.SetVolume',
+        example:
+          'PlayerSetVolumeParams parameters = new() { VolumePercent = 50 };\n\nawait client.Me.Player.SetVolume(parameters);',
+      },
       go: {
         method: 'client.Me.Player.SetVolume',
         example:
@@ -3038,6 +3576,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().player().setVolume',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerSetVolumeParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: PlayerSetVolumeParams = PlayerSetVolumeParams.builder()\n        .volumePercent(50L)\n        .build()\n    client.me().player().setVolume(params)\n}',
+      },
+      php: {
+        method: 'me->player->setVolume',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->setVolume(\n  volumePercent: 50, deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8'\n);\n\nvar_dump($result);",
       },
       python: {
         method: 'me.player.set_volume',
@@ -3073,6 +3616,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'player toggle_shuffle',
         example: "spotted me:player toggle-shuffle \\\n  --access-token 'My Access Token' \\\n  --state",
       },
+      csharp: {
+        method: 'Me.Player.ToggleShuffle',
+        example:
+          'PlayerToggleShuffleParams parameters = new() { State = true };\n\nawait client.Me.Player.ToggleShuffle(parameters);',
+      },
       go: {
         method: 'client.Me.Player.ToggleShuffle',
         example:
@@ -3091,6 +3639,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().player().toggleShuffle',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerToggleShuffleParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: PlayerToggleShuffleParams = PlayerToggleShuffleParams.builder()\n        .state(true)\n        .build()\n    client.me().player().toggleShuffle(params)\n}',
+      },
+      php: {
+        method: 'me->player->toggleShuffle',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->toggleShuffle(\n  state: true, deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8'\n);\n\nvar_dump($result);",
       },
       python: {
         method: 'me.player.toggle_shuffle',
@@ -3128,6 +3681,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'player list_recently_played',
         example: "spotted me:player list-recently-played \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Player.ListRecentlyPlayed',
+        example:
+          'PlayerListRecentlyPlayedParams parameters = new();\n\nvar page = await client.Me.Player.ListRecentlyPlayed(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
       go: {
         method: 'client.Me.Player.ListRecentlyPlayed',
         example:
@@ -3146,6 +3704,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().player().listRecentlyPlayed',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerListRecentlyPlayedPage\nimport dev.cjav.spotted.models.me.player.PlayerListRecentlyPlayedParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: PlayerListRecentlyPlayedPage = client.me().player().listRecentlyPlayed()\n}',
+      },
+      php: {
+        method: 'me->player->listRecentlyPlayed',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->player->listRecentlyPlayed(\n  after: 1484811043508, before: 0, limit: 10\n);\n\nvar_dump($page);",
       },
       python: {
         method: 'me.player.list_recently_played',
@@ -3180,6 +3743,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'queue get',
         example: "spotted me:player:queue get \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Me.Player.Queue.Get',
+        example:
+          'QueueGetParams parameters = new();\n\nvar queue = await client.Me.Player.Queue.Get(parameters);\n\nConsole.WriteLine(queue);',
+      },
       go: {
         method: 'client.Me.Player.Queue.Get',
         example:
@@ -3198,6 +3766,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().player().queue().get',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.queue.QueueGetParams\nimport dev.cjav.spotted.models.me.player.queue.QueueGetResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val queue: QueueGetResponse = client.me().player().queue().get()\n}',
+      },
+      php: {
+        method: 'me->player->queue->get',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$queue = $client->me->player->queue->get();\n\nvar_dump($queue);",
       },
       python: {
         method: 'me.player.queue.get',
@@ -3234,6 +3807,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted me:player:queue add \\\n  --access-token 'My Access Token' \\\n  --uri spotify:track:4iV5W9uYEdYUVa79Axb7Rh",
       },
+      csharp: {
+        method: 'Me.Player.Queue.Add',
+        example:
+          'QueueAddParams parameters = new()\n{\n    Uri = "spotify:track:4iV5W9uYEdYUVa79Axb7Rh"\n};\n\nawait client.Me.Player.Queue.Add(parameters);',
+      },
       go: {
         method: 'client.Me.Player.Queue.Add',
         example:
@@ -3252,6 +3830,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'me().player().queue().add',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.queue.QueueAddParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: QueueAddParams = QueueAddParams.builder()\n        .uri("spotify:track:4iV5W9uYEdYUVa79Axb7Rh")\n        .build()\n    client.me().player().queue().add(params)\n}',
+      },
+      php: {
+        method: 'me->player->queue->add',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->queue->add(\n  uri: 'spotify:track:4iV5W9uYEdYUVa79Axb7Rh',\n  deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8',\n);\n\nvar_dump($result);",
       },
       python: {
         method: 'me.player.queue.add',
@@ -3290,6 +3873,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted chapters retrieve \\\n  --access-token 'My Access Token' \\\n  --id 0D5wENdkdwbqlrHoaJ9g29",
       },
+      csharp: {
+        method: 'Chapters.Retrieve',
+        example:
+          'ChapterRetrieveParams parameters = new() { ID = "0D5wENdkdwbqlrHoaJ9g29" };\n\nvar chapter = await client.Chapters.Retrieve(parameters);\n\nConsole.WriteLine(chapter);',
+      },
       go: {
         method: 'client.Chapters.Get',
         example:
@@ -3308,6 +3896,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'chapters().retrieve',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.chapters.ChapterRetrieveParams\nimport dev.cjav.spotted.models.chapters.ChapterRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val chapter: ChapterRetrieveResponse = client.chapters().retrieve("0D5wENdkdwbqlrHoaJ9g29")\n}',
+      },
+      php: {
+        method: 'chapters->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$chapter = $client->chapters->retrieve('0D5wENdkdwbqlrHoaJ9g29', market: 'ES');\n\nvar_dump($chapter);",
       },
       python: {
         method: 'chapters.retrieve',
@@ -3346,6 +3939,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted chapters bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29",
       },
+      csharp: {
+        method: 'Chapters.BulkRetrieve',
+        example:
+          'ChapterBulkRetrieveParams parameters = new()\n{\n    Ids = "0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29"\n};\n\nvar response = await client.Chapters.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Chapters.BulkGet',
         example:
@@ -3364,6 +3962,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'chapters().bulkRetrieve',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.chapters.ChapterBulkRetrieveParams\nimport dev.cjav.spotted.models.chapters.ChapterBulkRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: ChapterBulkRetrieveParams = ChapterBulkRetrieveParams.builder()\n        .ids("0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29")\n        .build()\n    val response: ChapterBulkRetrieveResponse = client.chapters().bulkRetrieve(params)\n}',
+      },
+      php: {
+        method: 'chapters->bulkRetrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->chapters->bulkRetrieve(\n  ids: '0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29',\n  market: 'ES',\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'chapters.bulk_retrieve',
@@ -3401,6 +4004,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted tracks retrieve \\\n  --access-token 'My Access Token' \\\n  --id 11dFghVXANMlKmJXsNCbNl",
       },
+      csharp: {
+        method: 'Tracks.Retrieve',
+        example:
+          'TrackRetrieveParams parameters = new() { ID = "11dFghVXANMlKmJXsNCbNl" };\n\nvar trackObject = await client.Tracks.Retrieve(parameters);\n\nConsole.WriteLine(trackObject);',
+      },
       go: {
         method: 'client.Tracks.Get',
         example:
@@ -3419,6 +4027,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'tracks().retrieve',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.TrackObject\nimport dev.cjav.spotted.models.tracks.TrackRetrieveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val trackObject: TrackObject = client.tracks().retrieve("11dFghVXANMlKmJXsNCbNl")\n}',
+      },
+      php: {
+        method: 'tracks->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$trackObject = $client->tracks->retrieve(\n  '11dFghVXANMlKmJXsNCbNl', market: 'ES'\n);\n\nvar_dump($trackObject);",
       },
       python: {
         method: 'tracks.retrieve',
@@ -3456,6 +4069,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted tracks bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B",
       },
+      csharp: {
+        method: 'Tracks.BulkRetrieve',
+        example:
+          'TrackBulkRetrieveParams parameters = new()\n{\n    Ids = "7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B"\n};\n\nvar response = await client.Tracks.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Tracks.BulkGet',
         example:
@@ -3474,6 +4092,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'tracks().bulkRetrieve',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.tracks.TrackBulkRetrieveParams\nimport dev.cjav.spotted.models.tracks.TrackBulkRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: TrackBulkRetrieveParams = TrackBulkRetrieveParams.builder()\n        .ids("7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B")\n        .build()\n    val response: TrackBulkRetrieveResponse = client.tracks().bulkRetrieve(params)\n}',
+      },
+      php: {
+        method: 'tracks->bulkRetrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->tracks->bulkRetrieve(\n  ids: '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B',\n  market: 'ES',\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'tracks.bulk_retrieve',
@@ -3519,6 +4142,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted search query \\\n  --access-token 'My Access Token' \\\n  --q 'remaster%20track:Doxy%20artist:Miles%20Davis' \\\n  --type album",
       },
+      csharp: {
+        method: 'Search.Query',
+        example:
+          'SearchQueryParams parameters = new()\n{\n    Q = "remaster%20track:Doxy%20artist:Miles%20Davis",\n    Type =\n    [\n        Type.Album\n    ],\n};\n\nvar response = await client.Search.Query(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Search.Query',
         example:
@@ -3537,6 +4165,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'search().query',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.search.SearchQueryParams\nimport dev.cjav.spotted.models.search.SearchQueryResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: SearchQueryParams = SearchQueryParams.builder()\n        .q("remaster%20track:Doxy%20artist:Miles%20Davis")\n        .addType(SearchQueryParams.Type.ALBUM)\n        .build()\n    val response: SearchQueryResponse = client.search().query(params)\n}',
+      },
+      php: {
+        method: 'search->query',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->search->query(\n  q: 'remaster%20track:Doxy%20artist:Miles%20Davis',\n  type: ['album'],\n  includeExternal: 'audio',\n  limit: 10,\n  market: 'ES',\n  offset: 5,\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'search.query',
@@ -3574,6 +4207,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted playlists retrieve \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
       },
+      csharp: {
+        method: 'Playlists.Retrieve',
+        example:
+          'PlaylistRetrieveParams parameters = new()\n{\n    PlaylistID = "3cEYpjA9oz9GiPac4AsH4n"\n};\n\nvar playlist = await client.Playlists.Retrieve(parameters);\n\nConsole.WriteLine(playlist);',
+      },
       go: {
         method: 'client.Playlists.Get',
         example:
@@ -3592,6 +4230,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'playlists().retrieve',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.playlists.PlaylistRetrieveParams\nimport dev.cjav.spotted.models.playlists.PlaylistRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val playlist: PlaylistRetrieveResponse = client.playlists().retrieve("3cEYpjA9oz9GiPac4AsH4n")\n}',
+      },
+      php: {
+        method: 'playlists->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$playlist = $client->playlists->retrieve(\n  '3cEYpjA9oz9GiPac4AsH4n',\n  additionalTypes: 'additional_types',\n  fields: 'items(added_by.id,track(name,href,album(name,href)))',\n  market: 'ES',\n);\n\nvar_dump($playlist);",
       },
       python: {
         method: 'playlists.retrieve',
@@ -3634,6 +4277,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted playlists update \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
       },
+      csharp: {
+        method: 'Playlists.Update',
+        example:
+          'PlaylistUpdateParams parameters = new()\n{\n    PlaylistID = "3cEYpjA9oz9GiPac4AsH4n"\n};\n\nawait client.Playlists.Update(parameters);',
+      },
       go: {
         method: 'client.Playlists.Update',
         example:
@@ -3652,6 +4300,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'playlists().update',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.playlists.PlaylistUpdateParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.playlists().update("3cEYpjA9oz9GiPac4AsH4n")\n}',
+      },
+      php: {
+        method: 'playlists->update',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->playlists->update(\n  '3cEYpjA9oz9GiPac4AsH4n',\n  collaborative: true,\n  description: 'Updated playlist description',\n  name: 'Updated Playlist Name',\n  published: true,\n);\n\nvar_dump($result);",
       },
       python: {
         method: 'playlists.update',
@@ -3697,6 +4350,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted playlists:tracks list \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
       },
+      csharp: {
+        method: 'Playlists.Tracks.List',
+        example:
+          'TrackListParams parameters = new() { PlaylistID = "3cEYpjA9oz9GiPac4AsH4n" };\n\nvar page = await client.Playlists.Tracks.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
       go: {
         method: 'client.Playlists.Tracks.List',
         example:
@@ -3715,6 +4373,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'playlists().tracks().list',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.playlists.tracks.TrackListPage\nimport dev.cjav.spotted.models.playlists.tracks.TrackListParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: TrackListPage = client.playlists().tracks().list("3cEYpjA9oz9GiPac4AsH4n")\n}',
+      },
+      php: {
+        method: 'playlists->tracks->list',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->playlists->tracks->list(\n  '3cEYpjA9oz9GiPac4AsH4n',\n  additionalTypes: 'additional_types',\n  fields: 'items(added_by.id,track(name,href,album(name,href)))',\n  limit: 10,\n  market: 'ES',\n  offset: 5,\n);\n\nvar_dump($page);",
       },
       python: {
         method: 'playlists.tracks.list',
@@ -3752,6 +4415,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted playlists:tracks add \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
       },
+      csharp: {
+        method: 'Playlists.Tracks.Add',
+        example:
+          'TrackAddParams parameters = new() { PlaylistID = "3cEYpjA9oz9GiPac4AsH4n" };\n\nvar response = await client.Playlists.Tracks.Add(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Playlists.Tracks.Add',
         example:
@@ -3770,6 +4438,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'playlists().tracks().add',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.playlists.tracks.TrackAddParams\nimport dev.cjav.spotted.models.playlists.tracks.TrackAddResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: TrackAddResponse = client.playlists().tracks().add("3cEYpjA9oz9GiPac4AsH4n")\n}',
+      },
+      php: {
+        method: 'playlists->tracks->add',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->playlists->tracks->add(\n  '3cEYpjA9oz9GiPac4AsH4n', position: 0, published: true, uris: ['string']\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'playlists.tracks.add',
@@ -3815,6 +4488,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted playlists:tracks update \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
       },
+      csharp: {
+        method: 'Playlists.Tracks.Update',
+        example:
+          'TrackUpdateParams parameters = new() { PlaylistID = "3cEYpjA9oz9GiPac4AsH4n" };\n\nvar track = await client.Playlists.Tracks.Update(parameters);\n\nConsole.WriteLine(track);',
+      },
       go: {
         method: 'client.Playlists.Tracks.Update',
         example:
@@ -3833,6 +4511,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'playlists().tracks().update',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.playlists.tracks.TrackUpdateParams\nimport dev.cjav.spotted.models.playlists.tracks.TrackUpdateResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val track: TrackUpdateResponse = client.playlists().tracks().update("3cEYpjA9oz9GiPac4AsH4n")\n}',
+      },
+      php: {
+        method: 'playlists->tracks->update',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$track = $client->playlists->tracks->update(\n  '3cEYpjA9oz9GiPac4AsH4n',\n  insertBefore: 3,\n  published: true,\n  rangeLength: 2,\n  rangeStart: 1,\n  snapshotID: 'snapshot_id',\n  uris: ['string'],\n);\n\nvar_dump($track);",
       },
       python: {
         method: 'playlists.tracks.update',
@@ -3875,6 +4558,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted playlists:tracks remove \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n \\\n  --track '{}'",
       },
+      csharp: {
+        method: 'Playlists.Tracks.Remove',
+        example:
+          'TrackRemoveParams parameters = new()\n{\n    PlaylistID = "3cEYpjA9oz9GiPac4AsH4n",\n    Tracks =\n    [\n        new() { Uri = "uri" }\n    ],\n};\n\nvar track = await client.Playlists.Tracks.Remove(parameters);\n\nConsole.WriteLine(track);',
+      },
       go: {
         method: 'client.Playlists.Tracks.Remove',
         example:
@@ -3893,6 +4581,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'playlists().tracks().remove',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.playlists.tracks.TrackRemoveParams\nimport dev.cjav.spotted.models.playlists.tracks.TrackRemoveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: TrackRemoveParams = TrackRemoveParams.builder()\n        .playlistId("3cEYpjA9oz9GiPac4AsH4n")\n        .addTrack(TrackRemoveParams.Track.builder().build())\n        .build()\n    val track: TrackRemoveResponse = client.playlists().tracks().remove(params)\n}',
+      },
+      php: {
+        method: 'playlists->tracks->remove',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$track = $client->playlists->tracks->remove(\n  '3cEYpjA9oz9GiPac4AsH4n',\n  tracks: [['uri' => 'uri']],\n  published: true,\n  snapshotID: 'snapshot_id',\n);\n\nvar_dump($track);",
       },
       python: {
         method: 'playlists.tracks.remove',
@@ -3929,6 +4622,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted playlists:followers follow \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
       },
+      csharp: {
+        method: 'Playlists.Followers.Follow',
+        example:
+          'FollowerFollowParams parameters = new()\n{\n    PlaylistID = "3cEYpjA9oz9GiPac4AsH4n"\n};\n\nawait client.Playlists.Followers.Follow(parameters);',
+      },
       go: {
         method: 'client.Playlists.Followers.Follow',
         example:
@@ -3947,6 +4645,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'playlists().followers().follow',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.playlists.followers.FollowerFollowParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.playlists().followers().follow("3cEYpjA9oz9GiPac4AsH4n")\n}',
+      },
+      php: {
+        method: 'playlists->followers->follow',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->playlists->followers->follow(\n  '3cEYpjA9oz9GiPac4AsH4n', published: true\n);\n\nvar_dump($result);",
       },
       python: {
         method: 'playlists.followers.follow',
@@ -3983,6 +4686,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted playlists:followers unfollow \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
       },
+      csharp: {
+        method: 'Playlists.Followers.Unfollow',
+        example:
+          'FollowerUnfollowParams parameters = new()\n{\n    PlaylistID = "3cEYpjA9oz9GiPac4AsH4n"\n};\n\nawait client.Playlists.Followers.Unfollow(parameters);',
+      },
       go: {
         method: 'client.Playlists.Followers.Unfollow',
         example:
@@ -4001,6 +4709,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'playlists().followers().unfollow',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.playlists.followers.FollowerUnfollowParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.playlists().followers().unfollow("3cEYpjA9oz9GiPac4AsH4n")\n}',
+      },
+      php: {
+        method: 'playlists->followers->unfollow',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->playlists->followers->unfollow('3cEYpjA9oz9GiPac4AsH4n');\n\nvar_dump($result);",
       },
       python: {
         method: 'playlists.followers.unfollow',
@@ -4038,6 +4751,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted playlists:followers check \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
       },
+      csharp: {
+        method: 'Playlists.Followers.Check',
+        example:
+          'FollowerCheckParams parameters = new()\n{\n    PlaylistID = "3cEYpjA9oz9GiPac4AsH4n"\n};\n\nvar response = await client.Playlists.Followers.Check(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Playlists.Followers.Check',
         example:
@@ -4056,6 +4774,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'playlists().followers().check',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.playlists.followers.FollowerCheckParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: List<Boolean> = client.playlists().followers().check("3cEYpjA9oz9GiPac4AsH4n")\n}',
+      },
+      php: {
+        method: 'playlists->followers->check',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->playlists->followers->check(\n  '3cEYpjA9oz9GiPac4AsH4n', ids: 'jmperezperez'\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'playlists.followers.check',
@@ -4092,6 +4815,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted playlists:images list \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
       },
+      csharp: {
+        method: 'Playlists.Images.List',
+        example:
+          'ImageListParams parameters = new() { PlaylistID = "3cEYpjA9oz9GiPac4AsH4n" };\n\nvar imageObjects = await client.Playlists.Images.List(parameters);\n\nConsole.WriteLine(imageObjects);',
+      },
       go: {
         method: 'client.Playlists.Images.List',
         example:
@@ -4110,6 +4838,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'playlists().images().list',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.ImageObject\nimport dev.cjav.spotted.models.playlists.images.ImageListParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val imageObjects: List<ImageObject> = client.playlists().images().list("3cEYpjA9oz9GiPac4AsH4n")\n}',
+      },
+      php: {
+        method: 'playlists->images->list',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$imageObjects = $client->playlists->images->list('3cEYpjA9oz9GiPac4AsH4n');\n\nvar_dump($imageObjects);",
       },
       python: {
         method: 'playlists.images.list',
@@ -4146,6 +4879,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted playlists:images update \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n \\\n  --body 'Example data'",
       },
+      csharp: {
+        method: 'Playlists.Images.Update',
+        example:
+          'ImageUpdateParams parameters = new()\n{\n    PlaylistID = "3cEYpjA9oz9GiPac4AsH4n",\n    Body = Encoding.UTF8.GetBytes("Example data"),\n};\n\nvar image = await client.Playlists.Images.Update(parameters);\n\nConsole.WriteLine(image);',
+      },
       go: {
         method: 'client.Playlists.Images.Update',
         example:
@@ -4164,6 +4902,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'playlists().images().update',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.core.http.HttpResponse\nimport dev.cjav.spotted.models.playlists.images.ImageUpdateParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val image: HttpResponse = client.playlists().images().update(\n      "3cEYpjA9oz9GiPac4AsH4n", "Example data"\n    )\n}',
+      },
+      php: {
+        method: 'playlists->images->update',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$image = $client->playlists->images->update('3cEYpjA9oz9GiPac4AsH4n', 'file');\n\nvar_dump($image);",
       },
       python: {
         method: 'playlists.images.update',
@@ -4201,6 +4944,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted users retrieve-profile \\\n  --access-token 'My Access Token' \\\n  --user-id smedjan",
       },
+      csharp: {
+        method: 'Users.RetrieveProfile',
+        example:
+          'UserRetrieveProfileParams parameters = new() { UserID = "smedjan" };\n\nvar response = await client.Users.RetrieveProfile(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Users.GetProfile',
         example:
@@ -4219,6 +4967,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'users().retrieveProfile',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.users.UserRetrieveProfileParams\nimport dev.cjav.spotted.models.users.UserRetrieveProfileResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: UserRetrieveProfileResponse = client.users().retrieveProfile("smedjan")\n}',
+      },
+      php: {
+        method: 'users->retrieveProfile',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->users->retrieveProfile('smedjan');\n\nvar_dump($response);",
       },
       python: {
         method: 'users.retrieve_profile',
@@ -4256,6 +5009,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted users:playlists list \\\n  --access-token 'My Access Token' \\\n  --user-id smedjan",
       },
+      csharp: {
+        method: 'Users.Playlists.List',
+        example:
+          'PlaylistListParams parameters = new() { UserID = "smedjan" };\n\nvar page = await client.Users.Playlists.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
       go: {
         method: 'client.Users.Playlists.List',
         example:
@@ -4274,6 +5032,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'users().playlists().list',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.users.playlists.PlaylistListPage\nimport dev.cjav.spotted.models.users.playlists.PlaylistListParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: PlaylistListPage = client.users().playlists().list("smedjan")\n}',
+      },
+      php: {
+        method: 'users->playlists->list',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->users->playlists->list('smedjan', limit: 10, offset: 5);\n\nvar_dump($page);",
       },
       python: {
         method: 'users.playlists.list',
@@ -4318,6 +5081,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted users:playlists create \\\n  --access-token 'My Access Token' \\\n  --user-id smedjan \\\n  --name 'New Playlist'",
       },
+      csharp: {
+        method: 'Users.Playlists.Create',
+        example:
+          'PlaylistCreateParams parameters = new()\n{\n    UserID = "smedjan",\n    Name = "New Playlist",\n};\n\nvar playlist = await client.Users.Playlists.Create(parameters);\n\nConsole.WriteLine(playlist);',
+      },
       go: {
         method: 'client.Users.Playlists.New',
         example:
@@ -4336,6 +5104,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'users().playlists().create',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.users.playlists.PlaylistCreateParams\nimport dev.cjav.spotted.models.users.playlists.PlaylistCreateResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: PlaylistCreateParams = PlaylistCreateParams.builder()\n        .userId("smedjan")\n        .name("New Playlist")\n        .build()\n    val playlist: PlaylistCreateResponse = client.users().playlists().create(params)\n}',
+      },
+      php: {
+        method: 'users->playlists->create',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$playlist = $client->users->playlists->create(\n  'smedjan',\n  name: 'New Playlist',\n  collaborative: true,\n  description: 'New playlist description',\n  published: true,\n);\n\nvar_dump($playlist);",
       },
       python: {
         method: 'users.playlists.create',
@@ -4373,6 +5146,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'browse get_featured_playlists',
         example: "spotted browse get-featured-playlists \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Browse.GetFeaturedPlaylists',
+        example:
+          'BrowseGetFeaturedPlaylistsParams parameters = new();\n\nvar response = await client.Browse.GetFeaturedPlaylists(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Browse.GetFeaturedPlaylists',
         example:
@@ -4391,6 +5169,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'browse().getFeaturedPlaylists',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.browse.BrowseGetFeaturedPlaylistsParams\nimport dev.cjav.spotted.models.browse.BrowseGetFeaturedPlaylistsResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: BrowseGetFeaturedPlaylistsResponse = client.browse().getFeaturedPlaylists()\n}',
+      },
+      php: {
+        method: 'browse->getFeaturedPlaylists',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->browse->getFeaturedPlaylists(\n  limit: 10, locale: 'sv_SE', offset: 5\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'browse.get_featured_playlists',
@@ -4428,6 +5211,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'browse get_new_releases',
         example: "spotted browse get-new-releases \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Browse.GetNewReleases',
+        example:
+          'BrowseGetNewReleasesParams parameters = new();\n\nvar response = await client.Browse.GetNewReleases(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Browse.GetNewReleases',
         example:
@@ -4446,6 +5234,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'browse().getNewReleases',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.browse.BrowseGetNewReleasesParams\nimport dev.cjav.spotted.models.browse.BrowseGetNewReleasesResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: BrowseGetNewReleasesResponse = client.browse().getNewReleases()\n}',
+      },
+      php: {
+        method: 'browse->getNewReleases',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->browse->getNewReleases(limit: 10, offset: 5);\n\nvar_dump($response);",
       },
       python: {
         method: 'browse.get_new_releases',
@@ -4483,6 +5276,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'categories list',
         example: "spotted browse:categories list \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Browse.Categories.List',
+        example:
+          'CategoryListParams parameters = new();\n\nvar page = await client.Browse.Categories.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
       go: {
         method: 'client.Browse.Categories.List',
         example:
@@ -4501,6 +5299,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'browse().categories().list',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.browse.categories.CategoryListPage\nimport dev.cjav.spotted.models.browse.categories.CategoryListParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: CategoryListPage = client.browse().categories().list()\n}',
+      },
+      php: {
+        method: 'browse->categories->list',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->browse->categories->list(\n  limit: 10, locale: 'sv_SE', offset: 5\n);\n\nvar_dump($page);",
       },
       python: {
         method: 'browse.categories.list',
@@ -4539,6 +5342,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted browse:categories retrieve \\\n  --access-token 'My Access Token' \\\n  --category-id dinner",
       },
+      csharp: {
+        method: 'Browse.Categories.Retrieve',
+        example:
+          'CategoryRetrieveParams parameters = new() { CategoryID = "dinner" };\n\nvar category = await client.Browse.Categories.Retrieve(parameters);\n\nConsole.WriteLine(category);',
+      },
       go: {
         method: 'client.Browse.Categories.Get',
         example:
@@ -4557,6 +5365,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'browse().categories().retrieve',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.browse.categories.CategoryRetrieveParams\nimport dev.cjav.spotted.models.browse.categories.CategoryRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val category: CategoryRetrieveResponse = client.browse().categories().retrieve("dinner")\n}',
+      },
+      php: {
+        method: 'browse->categories->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$category = $client->browse->categories->retrieve('dinner', locale: 'sv_SE');\n\nvar_dump($category);",
       },
       python: {
         method: 'browse.categories.retrieve',
@@ -4594,6 +5407,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted browse:categories get-playlists \\\n  --access-token 'My Access Token' \\\n  --category-id dinner",
       },
+      csharp: {
+        method: 'Browse.Categories.GetPlaylists',
+        example:
+          'CategoryGetPlaylistsParams parameters = new() { CategoryID = "dinner" };\n\nvar response = await client.Browse.Categories.GetPlaylists(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Browse.Categories.GetPlaylists',
         example:
@@ -4612,6 +5430,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'browse().categories().getPlaylists',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.browse.categories.CategoryGetPlaylistsParams\nimport dev.cjav.spotted.models.browse.categories.CategoryGetPlaylistsResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: CategoryGetPlaylistsResponse = client.browse().categories().getPlaylists("dinner")\n}',
+      },
+      php: {
+        method: 'browse->categories->getPlaylists',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->browse->categories->getPlaylists(\n  'dinner', limit: 10, offset: 5\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'browse.categories.get_playlists',
@@ -4649,6 +5472,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted audio-features bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B",
       },
+      csharp: {
+        method: 'AudioFeatures.BulkRetrieve',
+        example:
+          'AudioFeatureBulkRetrieveParams parameters = new()\n{\n    Ids = "7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B"\n};\n\nvar response = await client.AudioFeatures.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.AudioFeatures.BulkGet',
         example:
@@ -4667,6 +5495,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'audioFeatures().bulkRetrieve',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.audiofeatures.AudioFeatureBulkRetrieveParams\nimport dev.cjav.spotted.models.audiofeatures.AudioFeatureBulkRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: AudioFeatureBulkRetrieveParams = AudioFeatureBulkRetrieveParams.builder()\n        .ids("7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B")\n        .build()\n    val response: AudioFeatureBulkRetrieveResponse = client.audioFeatures().bulkRetrieve(params)\n}',
+      },
+      php: {
+        method: 'audioFeatures->bulkRetrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->audioFeatures->bulkRetrieve(\n  ids: '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B'\n);\n\nvar_dump($response);",
       },
       python: {
         method: 'audio_features.bulk_retrieve',
@@ -4704,6 +5537,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted audio-features retrieve \\\n  --access-token 'My Access Token' \\\n  --id 11dFghVXANMlKmJXsNCbNl",
       },
+      csharp: {
+        method: 'AudioFeatures.Retrieve',
+        example:
+          'AudioFeatureRetrieveParams parameters = new() { ID = "11dFghVXANMlKmJXsNCbNl" };\n\nvar audioFeature = await client.AudioFeatures.Retrieve(parameters);\n\nConsole.WriteLine(audioFeature);',
+      },
       go: {
         method: 'client.AudioFeatures.Get',
         example:
@@ -4722,6 +5560,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'audioFeatures().retrieve',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.audiofeatures.AudioFeatureRetrieveParams\nimport dev.cjav.spotted.models.audiofeatures.AudioFeatureRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val audioFeature: AudioFeatureRetrieveResponse = client.audioFeatures().retrieve("11dFghVXANMlKmJXsNCbNl")\n}',
+      },
+      php: {
+        method: 'audioFeatures->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$audioFeature = $client->audioFeatures->retrieve('11dFghVXANMlKmJXsNCbNl');\n\nvar_dump($audioFeature);",
       },
       python: {
         method: 'audio_features.retrieve',
@@ -4760,6 +5603,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "spotted audio-analysis retrieve \\\n  --access-token 'My Access Token' \\\n  --id 11dFghVXANMlKmJXsNCbNl",
       },
+      csharp: {
+        method: 'AudioAnalysis.Retrieve',
+        example:
+          'AudioAnalysisRetrieveParams parameters = new()\n{\n    ID = "11dFghVXANMlKmJXsNCbNl"\n};\n\nvar audioAnalysis = await client.AudioAnalysis.Retrieve(parameters);\n\nConsole.WriteLine(audioAnalysis);',
+      },
       go: {
         method: 'client.AudioAnalysis.Get',
         example:
@@ -4778,6 +5626,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'audioAnalysis().retrieve',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.audioanalysis.AudioAnalysisRetrieveParams\nimport dev.cjav.spotted.models.audioanalysis.AudioAnalysisRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val audioAnalysis: AudioAnalysisRetrieveResponse = client.audioAnalysis().retrieve("11dFghVXANMlKmJXsNCbNl")\n}',
+      },
+      php: {
+        method: 'audioAnalysis->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$audioAnalysis = $client->audioAnalysis->retrieve('11dFghVXANMlKmJXsNCbNl');\n\nvar_dump($audioAnalysis);",
       },
       python: {
         method: 'audio_analysis.retrieve',
@@ -4863,6 +5716,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'recommendations get',
         example: "spotted recommendations get \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Recommendations.Get',
+        example:
+          'RecommendationGetParams parameters = new();\n\nvar recommendation = await client.Recommendations.Get(parameters);\n\nConsole.WriteLine(recommendation);',
+      },
       go: {
         method: 'client.Recommendations.Get',
         example:
@@ -4881,6 +5739,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'recommendations().get',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.recommendations.RecommendationGetParams\nimport dev.cjav.spotted.models.recommendations.RecommendationGetResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val recommendation: RecommendationGetResponse = client.recommendations().get()\n}',
+      },
+      php: {
+        method: 'recommendations->get',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$recommendation = $client->recommendations->get(\n  limit: 10,\n  market: 'ES',\n  maxAcousticness: 0,\n  maxDanceability: 0,\n  maxDurationMs: 0,\n  maxEnergy: 0,\n  maxInstrumentalness: 0,\n  maxKey: 0,\n  maxLiveness: 0,\n  maxLoudness: 0,\n  maxMode: 0,\n  maxPopularity: 0,\n  maxSpeechiness: 0,\n  maxTempo: 0,\n  maxTimeSignature: 0,\n  maxValence: 0,\n  minAcousticness: 0,\n  minDanceability: 0,\n  minDurationMs: 0,\n  minEnergy: 0,\n  minInstrumentalness: 0,\n  minKey: 0,\n  minLiveness: 0,\n  minLoudness: 0,\n  minMode: 0,\n  minPopularity: 0,\n  minSpeechiness: 0,\n  minTempo: 0,\n  minTimeSignature: 11,\n  minValence: 0,\n  seedArtists: '4NHQUGzhtTLFvgF5SZesLK',\n  seedGenres: 'classical,country',\n  seedTracks: '0c6xIDDpzE81m2q797ordA',\n  targetAcousticness: 0,\n  targetDanceability: 0,\n  targetDurationMs: 0,\n  targetEnergy: 0,\n  targetInstrumentalness: 0,\n  targetKey: 0,\n  targetLiveness: 0,\n  targetLoudness: 0,\n  targetMode: 0,\n  targetPopularity: 0,\n  targetSpeechiness: 0,\n  targetTempo: 0,\n  targetTimeSignature: 0,\n  targetValence: 0,\n);\n\nvar_dump($recommendation);",
       },
       python: {
         method: 'recommendations.get',
@@ -4916,6 +5779,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'recommendations list_available_genre_seeds',
         example: "spotted recommendations list-available-genre-seeds \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Recommendations.ListAvailableGenreSeeds',
+        example:
+          'RecommendationListAvailableGenreSeedsParams parameters = new();\n\nvar response = await client.Recommendations.ListAvailableGenreSeeds(parameters);\n\nConsole.WriteLine(response);',
+      },
       go: {
         method: 'client.Recommendations.ListAvailableGenreSeeds',
         example:
@@ -4934,6 +5802,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'recommendations().listAvailableGenreSeeds',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.recommendations.RecommendationListAvailableGenreSeedsParams\nimport dev.cjav.spotted.models.recommendations.RecommendationListAvailableGenreSeedsResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: RecommendationListAvailableGenreSeedsResponse = client.recommendations().listAvailableGenreSeeds()\n}',
+      },
+      php: {
+        method: 'recommendations->listAvailableGenreSeeds',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->recommendations->listAvailableGenreSeeds();\n\nvar_dump($response);",
       },
       python: {
         method: 'recommendations.list_available_genre_seeds',
@@ -4968,6 +5841,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'markets list',
         example: "spotted markets list \\\n  --access-token 'My Access Token'",
       },
+      csharp: {
+        method: 'Markets.List',
+        example:
+          'MarketListParams parameters = new();\n\nvar markets = await client.Markets.List(parameters);\n\nConsole.WriteLine(markets);',
+      },
       go: {
         method: 'client.Markets.List',
         example:
@@ -4986,6 +5864,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'markets().list',
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.markets.MarketListParams\nimport dev.cjav.spotted.models.markets.MarketListResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val markets: MarketListResponse = client.markets().list()\n}',
+      },
+      php: {
+        method: 'markets->list',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$markets = $client->markets->list();\n\nvar_dump($markets);",
       },
       python: {
         method: 'markets.list',
@@ -5043,9 +5926,19 @@ const EMBEDDED_READMES: { language: string; content: string }[] = [
       '# Unofficial Spotify API Library\n\n<!-- x-release-please-start-version -->\n[![Maven Central](https://img.shields.io/maven-central/v/dev.cjav.spotted/spotted-kotlin)](https://central.sonatype.com/artifact/dev.cjav.spotted/spotted-kotlin/0.0.1)\n[![javadoc](https://javadoc.io/badge2/dev.cjav.spotted/spotted-kotlin/0.0.1/javadoc.svg)](https://javadoc.io/doc/dev.cjav.spotted/spotted-kotlin/0.0.1)\n<!-- x-release-please-end -->\n\nThe Unofficial Spotify SDK provides convenient access to the [Spotted REST API](https://spotted.cjav.dev)   from applications written in Kotlin.\n\nThe Spotted Kotlin SDK is similar to the Spotted Java SDK but with minor differences that       make it more ergonomic for use in Kotlin, such as nullable values instead of `Optional`,       `Sequence` instead of `Stream`, and suspend functions instead of `CompletableFuture`.\n\nIt is generated with [Stainless](https://www.stainless.com/).\n\n## MCP Server\n\nUse the Spotted MCP Server to enable AI assistants to interact with this API, allowing them to explore endpoints, make test requests, and use documentation to help integrate this SDK into your application.\n\n[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=spotted-ts-mcp&config=eyJuYW1lIjoic3BvdHRlZC10cy1tY3AiLCJ0cmFuc3BvcnQiOiJodHRwIiwidXJsIjoiaHR0cHM6Ly9zcG90dGVkLnN0bG1jcC5jb20iLCJoZWFkZXJzIjp7Ingtc3BvdGlmeS1hY2Nlc3MtdG9rZW4iOiJNeSBBY2Nlc3MgVG9rZW4ifX0)\n[![Install in VS Code](https://img.shields.io/badge/_-Add_to_VS_Code-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHBhdGggZmlsbD0iI0VFRSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzAuMjM1IDM5Ljg4NGEyLjQ5MSAyLjQ5MSAwIDAgMS0xLjc4MS0uNzNMMTIuNyAyNC43OGwtMy40NiAyLjYyNC0zLjQwNiAyLjU4MmExLjY2NSAxLjY2NSAwIDAgMS0xLjA4Mi4zMzggMS42NjQgMS42NjQgMCAwIDEtMS4wNDYtLjQzMWwtMi4yLTJhMS42NjYgMS42NjYgMCAwIDEgMC0yLjQ2M0w3LjQ1OCAyMCA0LjY3IDE3LjQ1MyAxLjUwNyAxNC41N2ExLjY2NSAxLjY2NSAwIDAgMSAwLTIuNDYzbDIuMi0yYTEuNjY1IDEuNjY1IDAgMCAxIDIuMTMtLjA5N2w2Ljg2MyA1LjIwOUwyOC40NTIuODQ0YTIuNDg4IDIuNDg4IDAgMCAxIDEuODQxLS43MjljLjM1MS4wMDkuNjk5LjA5MSAxLjAxOS4yNDVsOC4yMzYgMy45NjFhMi41IDIuNSAwIDAgMSAxLjQxNSAyLjI1M3YuMDk5LS4wNDVWMzMuMzd2LS4wNDUuMDk1YTIuNTAxIDIuNTAxIDAgMCAxLTEuNDE2IDIuMjU3bC04LjIzNSAzLjk2MWEyLjQ5MiAyLjQ5MiAwIDAgMS0xLjA3Ny4yNDZabS43MTYtMjguOTQ3LTExLjk0OCA5LjA2MiAxMS45NTIgOS4wNjUtLjAwNC0xOC4xMjdaIi8+PC9zdmc+)](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22spotted-ts-mcp%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fspotted.stlmcp.com%22%2C%22headers%22%3A%7B%22x-spotify-access-token%22%3A%22My%20Access%20Token%22%7D%7D)\n\n> Note: You may need to set environment variables in your MCP client.\n\n<!-- x-release-please-start-version -->\n\nThe REST API documentation can be found on [spotted.cjav.dev](https://spotted.cjav.dev). KDocs are available on [javadoc.io](https://javadoc.io/doc/dev.cjav.spotted/spotted-kotlin/0.0.1).\n\n<!-- x-release-please-end -->\n\n## Installation\n\n<!-- x-release-please-start-version -->\n\n### Gradle\n\n~~~kotlin\nimplementation("dev.cjav.spotted:spotted-kotlin:0.0.1")\n~~~\n\n### Maven\n\n~~~xml\n<dependency>\n  <groupId>dev.cjav.spotted</groupId>\n  <artifactId>spotted-kotlin</artifactId>\n  <version>0.0.1</version>\n</dependency>\n~~~\n\n<!-- x-release-please-end -->\n\n## Requirements\n\nThis library requires Java 8 or later.\n\n## Usage\n\n```kotlin\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.albums.AlbumRetrieveParams\nimport dev.cjav.spotted.models.albums.AlbumRetrieveResponse\n\n// Configures using the `spotted.spotifyAccessToken` and `spotted.baseUrl` system properties\n// Or configures using the `SPOTIFY_ACCESS_TOKEN` and `SPOTTED_BASE_URL` environment variables\nval client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\nval album: AlbumRetrieveResponse = client.albums().retrieve("4aawyAB9vmqN3uQ7FjRGTy")\n```\n\n## Client configuration\n\nConfigure the client using system properties or environment variables:\n\n```kotlin\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\n\n// Configures using the `spotted.spotifyAccessToken` and `spotted.baseUrl` system properties\n// Or configures using the `SPOTIFY_ACCESS_TOKEN` and `SPOTTED_BASE_URL` environment variables\nval client: SpottedClient = SpottedOkHttpClient.fromEnv()\n```\n\nOr manually:\n\n```kotlin\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\n\nval client: SpottedClient = SpottedOkHttpClient.builder()\n    .accessToken("My Access Token")\n    .build()\n```\n\nOr using a combination of the two approaches:\n\n```kotlin\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\n\nval client: SpottedClient = SpottedOkHttpClient.builder()\n    // Configures using the `spotted.spotifyAccessToken` and `spotted.baseUrl` system properties\n    // Or configures using the `SPOTIFY_ACCESS_TOKEN` and `SPOTTED_BASE_URL` environment variables\n    .fromEnv()\n    .accessToken("My Access Token")\n    .build()\n```\n\nSee this table for the available options:\n\n| Setter        | System property              | Environment variable   | Required | Default value                  |\n| ------------- | ---------------------------- | ---------------------- | -------- | ------------------------------ |\n| `accessToken` | `spotted.spotifyAccessToken` | `SPOTIFY_ACCESS_TOKEN` | true     | -                              |\n| `baseUrl`     | `spotted.baseUrl`            | `SPOTTED_BASE_URL`     | true     | `"https://api.spotify.com/v1"` |\n\nSystem properties take precedence over environment variables.\n\n> [!TIP]\n> Don\'t create more than one client in the same application. Each client has a connection pool and\n> thread pools, which are more efficient to share between requests.\n\n### Modifying configuration\n\nTo temporarily use a modified client configuration, while reusing the same connection and thread       pools, call `withOptions()` on any client or service:\n\n```kotlin\nimport dev.cjav.spotted.client.SpottedClient\n\nval clientWithOptions: SpottedClient = client.withOptions {\n    it.baseUrl("https://example.com")\n    it.maxRetries(42)\n}\n```\n\nThe `withOptions()` method does not affect the original client or service.\n\n## Requests and responses\n\nTo send a request to the Spotted API, build an instance of some `Params` class and pass it to the     corresponding client method. When the response is received, it will be deserialized into an instance of     a Kotlin class.\n\nFor example, `client.albums().retrieve(...)` should be called with an instance of `AlbumRetrieveParams`, and it     will return an instance of `AlbumRetrieveResponse`.\n\n## Immutability\n\nEach class in the SDK has an associated   [builder](https://blogs.oracle.com/javamagazine/post/exploring-joshua-blochs-builder-design-pattern-in-java)   or factory method for constructing it.\n\nEach class is [immutable](https://docs.oracle.com/javase/tutorial/essential/concurrency/immutable.html)   once constructed. If the class has an associated builder, then it has a `toBuilder()` method, which can   be used to convert it back to a builder for making a modified copy.\n\nBecause each class is immutable, builder modification will _never_ affect already built class instances.\n\n## Asynchronous execution\n\nThe default client is synchronous. To switch to asynchronous execution, call the `async()` method:\n\n```kotlin\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.albums.AlbumRetrieveParams\nimport dev.cjav.spotted.models.albums.AlbumRetrieveResponse\n\n// Configures using the `spotted.spotifyAccessToken` and `spotted.baseUrl` system properties\n// Or configures using the `SPOTIFY_ACCESS_TOKEN` and `SPOTTED_BASE_URL` environment variables\nval client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\nval album: AlbumRetrieveResponse = client.async().albums().retrieve("4aawyAB9vmqN3uQ7FjRGTy")\n```\n\nOr create an asynchronous client from the beginning:\n\n```kotlin\nimport dev.cjav.spotted.client.SpottedClientAsync\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClientAsync\nimport dev.cjav.spotted.models.albums.AlbumRetrieveParams\nimport dev.cjav.spotted.models.albums.AlbumRetrieveResponse\n\n// Configures using the `spotted.spotifyAccessToken` and `spotted.baseUrl` system properties\n// Or configures using the `SPOTIFY_ACCESS_TOKEN` and `SPOTTED_BASE_URL` environment variables\nval client: SpottedClientAsync = SpottedOkHttpClientAsync.fromEnv()\n\nval album: AlbumRetrieveResponse = client.albums().retrieve("4aawyAB9vmqN3uQ7FjRGTy")\n```\n\nThe asynchronous client supports the same options as the synchronous one, except most methods are [suspending](https://kotlinlang.org/docs/coroutines-guide.html).\n\n\n\n\n\n## Binary responses\n\nThe SDK defines methods that return binary responses, which are used for API responses that shouldn\'t     necessarily be parsed, like non-JSON data.\n\nThese methods return [`HttpResponse`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/core/http/HttpResponse.kt):\n\n```kotlin\nimport dev.cjav.spotted.core.http.HttpResponse\nimport dev.cjav.spotted.models.playlists.images.ImageUpdateParams\n\nval image: HttpResponse = client.playlists().images().update(\n  "3cEYpjA9oz9GiPac4AsH4n", "Example data"\n)\n```\n\nTo save the response content to a file, use the     [`Files.copy(...)`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html#copy-java.io.InputStream-java.nio.file.Path-java.nio.file.CopyOption...-)     method:\n\n```kotlin\nimport java.nio.file.Files\nimport java.nio.file.Paths\nimport java.nio.file.StandardCopyOption\n\nclient.playlists().images().update(params).use {\n    Files.copy(\n        it.body(),\n        Paths.get(path),\n        StandardCopyOption.REPLACE_EXISTING\n    )\n}\n```\n\nOr transfer the response content to any     [`OutputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html):\n\n```kotlin\nimport java.nio.file.Files\nimport java.nio.file.Paths\n\nclient.playlists().images().update(params).use {\n    it.body().transferTo(Files.newOutputStream(Paths.get(path)))\n}\n```\n\n## Raw responses\n\nThe SDK defines methods that deserialize responses into instances of Kotlin classes.       However, these methods don\'t provide access to the response headers, status code, or the raw response       body.\n\nTo access this data, prefix any HTTP method call on a client or service with `withRawResponse()`:\n\n```kotlin\nimport dev.cjav.spotted.core.http.Headers\nimport dev.cjav.spotted.core.http.HttpResponseFor\nimport dev.cjav.spotted.models.albums.AlbumRetrieveParams\nimport dev.cjav.spotted.models.albums.AlbumRetrieveResponse\n\nval album: HttpResponseFor<AlbumRetrieveResponse> = client.albums().withRawResponse().retrieve("4aawyAB9vmqN3uQ7FjRGTy")\n\nval statusCode: Int = album.statusCode()\nval headers: Headers = album.headers()\n```\n\nYou can still deserialize the response into an instance of a Kotlin class if needed:\n\n```kotlin\nimport dev.cjav.spotted.models.albums.AlbumRetrieveResponse\n\nval parsedAlbum: AlbumRetrieveResponse = album.parse()\n```\n\n## Error handling\n\nThe SDK throws custom unchecked exception types:\n\n- [`SpottedServiceException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/SpottedServiceException.kt): Base class for HTTP errors. See this table for which exception       subclass is thrown for each HTTP status code:\n\n  | Status | Exception                                          |\n  | ------ | -------------------------------------------------- |\n  | 400    | [`BadRequestException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/BadRequestException.kt)           |\n  | 401    | [`UnauthorizedException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/UnauthorizedException.kt)         |\n  | 403    | [`PermissionDeniedException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/PermissionDeniedException.kt)     |\n  | 404    | [`NotFoundException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/NotFoundException.kt)             |\n  | 422    | [`UnprocessableEntityException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/UnprocessableEntityException.kt)  |\n  | 429    | [`RateLimitException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/RateLimitException.kt)            |\n  | 5xx    | [`InternalServerException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/InternalServerException.kt)       |\n  | others | [`UnexpectedStatusCodeException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/UnexpectedStatusCodeException.kt) |\n\n- [`SpottedIoException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/SpottedIoException.kt): I/O networking errors.\n\n- [`SpottedRetryableException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/SpottedRetryableException.kt): Generic error indicating a failure that could be retried by the client.\n\n- [`SpottedInvalidDataException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/SpottedInvalidDataException.kt): Failure to interpret successfully parsed data. For example,       when accessing a property that\'s supposed to be required, but the API unexpectedly omitted it from the       response.\n\n- [`SpottedException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/SpottedException.kt): Base class for all exceptions. Most errors will result in one of the       previously mentioned ones, but completely generic errors may be thrown using the base class.\n\n## Pagination\n\nThe SDK defines methods that return a paginated lists of results. It provides convenient ways to access     the results either one page at a time or item-by-item across all pages.\n\n### Auto-pagination\n\nTo iterate through all results across all pages, use the `autoPager()` method, which automatically     fetches more pages as needed.\n\nWhen using the synchronous client, the method returns a [`Sequence`](https://kotlinlang.org/docs/sequences.html)\n\n```kotlin\nimport dev.cjav.spotted.models.shows.ShowListEpisodesPage\n\nval page: ShowListEpisodesPage = client.shows().listEpisodes()\npage.autoPager()\n    .take(50)\n    .forEach { show -> println(show) }\n```\n\nWhen using the asynchronous client, the method returns a [`Flow`](https://kotlinlang.org/docs/flow.html):\n\n```kotlin\nimport dev.cjav.spotted.models.shows.ShowListEpisodesPageAsync\n\nval page: ShowListEpisodesPageAsync = client.async().shows().listEpisodes()\npage.autoPager()\n    .take(50)\n    .forEach { show -> println(show) }\n```\n\n### Manual pagination\n\nTo access individual page items and manually request the next page, use the `items()`,\n`hasNextPage()`, and `nextPage()` methods:\n\n```kotlin\nimport dev.cjav.spotted.models.SimplifiedEpisodeObject\nimport dev.cjav.spotted.models.shows.ShowListEpisodesPage\n\nval page: ShowListEpisodesPage = client.shows().listEpisodes()\nwhile (true) {\n    for (show in page.items()) {\n        println(show)\n    }\n\n    if (!page.hasNextPage()) {\n        break\n    }\n\n    page = page.nextPage()\n}\n```\n\n## Logging\n\nThe SDK uses the standard   [OkHttp logging interceptor](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor).\n\nEnable logging by setting the `SPOTTED_LOG` environment variable to   `info`:\n\n```sh\nexport SPOTTED_LOG=info\n```\n\nOr to `debug` for more verbose logging:\n\n```sh\nexport SPOTTED_LOG=debug\n```\n\n## ProGuard and R8\n\nAlthough the SDK uses reflection, it is still usable with     [ProGuard](https://github.com/Guardsquare/proguard) and     [R8](https://developer.android.com/topic/performance/app-optimization/enable-app-optimization) because     `spotted-kotlin-core` is published with a     [configuration file](spotted-kotlin-core/src/main/resources/META-INF/proguard/spotted-kotlin-core.pro) containing     [keep rules](https://www.guardsquare.com/manual/configuration/usage).\n\nProGuard and R8 should automatically detect and use the published rules, but you can also manually copy     the keep rules if necessary.\n\n\n\n\n\n## Jackson\n\nThe SDK depends on [Jackson](https://github.com/FasterXML/jackson) for JSON     serialization/deserialization. It is compatible with version 2.13.4 or higher,     but depends on version 2.18.2 by default.\n\nThe SDK throws an exception if it detects an incompatible Jackson version at runtime (e.g. if the     default version was overridden in your Maven or Gradle config).\n\nIf the SDK threw an exception, but you\'re _certain_ the version is compatible, then disable the version     check using the `checkJacksonVersionCompatibility` on [`SpottedOkHttpClient`](spotted-kotlin-client-okhttp/src/main/kotlin/dev/cjav/spotted/client/okhttp/SpottedOkHttpClient.kt) or     [`SpottedOkHttpClientAsync`](spotted-kotlin-client-okhttp/src/main/kotlin/dev/cjav/spotted/client/okhttp/SpottedOkHttpClientAsync.kt).\n\n> [!CAUTION]\n> We make no guarantee that the SDK works correctly when the Jackson version check is disabled.\n\nAlso note that there are bugs in older Jackson versions that can affect the SDK. We don\'t work around all     Jackson bugs ([example](https://github.com/FasterXML/jackson-databind/issues/3240)) and expect users to     upgrade Jackson for those instead.\n\n## Network options\n\n### Retries\n\nThe SDK automatically retries 2 times by default, with a short exponential backoff between requests.\n\nOnly the following error types are retried:\n- Connection errors (for example, due to a network connectivity problem)\n- 408 Request Timeout\n- 409 Conflict\n- 429 Rate Limit\n- 5xx Internal\n\nThe API may also explicitly instruct the SDK to retry or not retry a request.\n\nTo set a custom number of retries, configure the client using the `maxRetries` method:\n\n```kotlin\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\n\nval client: SpottedClient = SpottedOkHttpClient.builder()\n    .fromEnv()\n    .maxRetries(4)\n    .build()\n```\n\n### Timeouts\n\nRequests time out after 1 minute by default.\n\nTo set a custom timeout, configure the method call using the `timeout` method:\n\n```kotlin\nimport dev.cjav.spotted.models.albums.AlbumRetrieveResponse\n\nval album: AlbumRetrieveResponse = client.albums().retrieve(RequestOptions.builder().timeout(Duration.ofSeconds(30)).build())\n```\n\nOr configure the default for all method calls at the client level:\n\n```kotlin\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport java.time.Duration\n\nval client: SpottedClient = SpottedOkHttpClient.builder()\n    .fromEnv()\n    .timeout(Duration.ofSeconds(30))\n    .build()\n```\n\n### Proxies\n\nTo route requests through a proxy, configure the client using the `proxy` method:\n\n```kotlin\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport java.net.InetSocketAddress\nimport java.net.Proxy\n\nval client: SpottedClient = SpottedOkHttpClient.builder()\n    .fromEnv()\n    .proxy(Proxy(\n      Proxy.Type.HTTP, InetSocketAddress(\n        "https://example.com", 8080\n      )\n    ))\n    .build()\n```\n\n### Connection pooling\n\nTo customize the underlying OkHttp connection pool, configure the client using the   `maxIdleConnections` and `keepAliveDuration` methods:\n\n```kotlin\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport java.time.Duration\n\nval client: SpottedClient = SpottedOkHttpClient.builder()\n    .fromEnv()\n    // If `maxIdleConnections` is set, then `keepAliveDuration` must be set, and vice versa.\n    .maxIdleConnections(10)\n    .keepAliveDuration(Duration.ofMinutes(2))\n    .build()\n```\n\nIf both options are unset, OkHttp\'s default connection pool settings are used.\n\n### HTTPS\n\n> [!NOTE]\n> Most applications should not call these methods, and instead use the system defaults. The defaults include\n> special optimizations that can be lost if the implementations are modified.\n\nTo configure how HTTPS connections are secured, configure the client using the `sslSocketFactory`,   `trustManager`, and `hostnameVerifier` methods:\n\n```kotlin\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\n\nval client: SpottedClient = SpottedOkHttpClient.builder()\n    .fromEnv()\n    // If `sslSocketFactory` is set, then `trustManager` must be set, and vice versa.\n    .sslSocketFactory(yourSSLSocketFactory)\n    .trustManager(yourTrustManager)\n    .hostnameVerifier(yourHostnameVerifier)\n    .build()\n```\n\n\n\n### Custom HTTP client\n\nThe SDK consists of three artifacts:\n- `spotted-kotlin-core`\n  - Contains core SDK logic\n  - Does not depend on [OkHttp](https://square.github.io/okhttp)\n  - Exposes [`SpottedClient`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/client/SpottedClient.kt), [`SpottedClientAsync`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/client/SpottedClientAsync.kt),             [`SpottedClientImpl`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/client/SpottedClientImpl.kt), and [`SpottedClientAsyncImpl`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/client/SpottedClientAsyncImpl.kt), all of which can             work with any HTTP client\n- `spotted-kotlin-client-okhttp`\n  - Depends on [OkHttp](https://square.github.io/okhttp)\n  - Exposes [`SpottedOkHttpClient`](spotted-kotlin-client-okhttp/src/main/kotlin/dev/cjav/spotted/client/okhttp/SpottedOkHttpClient.kt) and [`SpottedOkHttpClientAsync`](spotted-kotlin-client-okhttp/src/main/kotlin/dev/cjav/spotted/client/okhttp/SpottedOkHttpClientAsync.kt), which             provide a way to construct [`SpottedClientImpl`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/client/SpottedClientImpl.kt) and             [`SpottedClientAsyncImpl`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/client/SpottedClientAsyncImpl.kt), respectively, using OkHttp\n- `spotted-kotlin`\n  - Depends on and exposes the APIs of both `spotted-kotlin-core` and `spotted-kotlin-client-okhttp`\n  - Does not have its own logic\n\nThis structure allows replacing the SDK\'s default HTTP client without pulling in unnecessary dependencies.\n\n#### Customized [`OkHttpClient`](https://square.github.io/okhttp/3.x/okhttp/okhttp3/OkHttpClient.html)\n\n> [!TIP]\n> Try the available [network options](#network-options) before replacing the default client.\n\nTo use a customized `OkHttpClient`:\n\n1. Replace your [`spotted-kotlin` dependency](#installation) with `spotted-kotlin-core`\n2. Copy `spotted-kotlin-client-okhttp`\'s [`OkHttpClient`](spotted-kotlin-client-okhttp/src/main/kotlin/dev/cjav/spotted/client/okhttp/OkHttpClient.kt) class into your code and        customize it\n3. Construct [`SpottedClientImpl`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/client/SpottedClientImpl.kt) or [`SpottedClientAsyncImpl`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/client/SpottedClientAsyncImpl.kt), similarly to        [`SpottedOkHttpClient`](spotted-kotlin-client-okhttp/src/main/kotlin/dev/cjav/spotted/client/okhttp/SpottedOkHttpClient.kt) or [`SpottedOkHttpClientAsync`](spotted-kotlin-client-okhttp/src/main/kotlin/dev/cjav/spotted/client/okhttp/SpottedOkHttpClientAsync.kt), using your        customized client\n\n### Completely custom HTTP client\n\nTo use a completely custom HTTP client:\n\n1. Replace your [`spotted-kotlin` dependency](#installation) with `spotted-kotlin-core`\n2. Write a class that implements the [`HttpClient`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/core/http/HttpClient.kt) interface\n3. Construct [`SpottedClientImpl`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/client/SpottedClientImpl.kt) or [`SpottedClientAsyncImpl`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/client/SpottedClientAsyncImpl.kt), similarly to        [`SpottedOkHttpClient`](spotted-kotlin-client-okhttp/src/main/kotlin/dev/cjav/spotted/client/okhttp/SpottedOkHttpClient.kt) or [`SpottedOkHttpClientAsync`](spotted-kotlin-client-okhttp/src/main/kotlin/dev/cjav/spotted/client/okhttp/SpottedOkHttpClientAsync.kt), using your new        client class\n\n## Undocumented API functionality\n\nThe SDK is typed for convenient usage of the documented API. However, it also supports working with undocumented or not yet supported parts of the API.\n\n### Parameters\n\nTo set undocumented parameters, call the `putAdditionalHeader`, `putAdditionalQueryParam`, or       `putAdditionalBodyProperty` methods on any `Params` class:\n\n```kotlin\nimport dev.cjav.spotted.core.JsonValue\nimport dev.cjav.spotted.models.albums.AlbumRetrieveParams\n\nval params: AlbumRetrieveParams = AlbumRetrieveParams.builder()\n    .putAdditionalHeader("Secret-Header", "42")\n    .putAdditionalQueryParam("secret_query_param", "42")\n    .putAdditionalBodyProperty("secretProperty", JsonValue.from("42"))\n    .build()\n```\n\nThese can be accessed on the built object later using the `_additionalHeaders()`,       `_additionalQueryParams()`, and `_additionalBodyProperties()` methods.\n\nTo set a documented parameter or property to an undocumented or not yet supported _value_, pass a       [`JsonValue`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/core/Values.kt) object to its setter:\n\n```kotlin\nimport dev.cjav.spotted.models.albums.AlbumRetrieveParams\n\nval params: AlbumRetrieveParams = AlbumRetrieveParams.builder().build()\n```\n\nThe most straightforward way to create a [`JsonValue`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/core/Values.kt) is using its       `from(...)` method:\n\n```kotlin\nimport dev.cjav.spotted.core.JsonValue\n\n// Create primitive JSON values\nval nullValue: JsonValue = JsonValue.from(null)\nval booleanValue: JsonValue = JsonValue.from(true)\nval numberValue: JsonValue = JsonValue.from(42)\nval stringValue: JsonValue = JsonValue.from("Hello World!")\n\n// Create a JSON array value equivalent to `["Hello", "World"]`\nval arrayValue: JsonValue = JsonValue.from(listOf(\n  "Hello", "World"\n))\n\n// Create a JSON object value equivalent to `{ "a": 1, "b": 2 }`\nval objectValue: JsonValue = JsonValue.from(mapOf(\n  "a" to 1, "b" to 2\n))\n\n// Create an arbitrarily nested JSON equivalent to:\n// {\n//   "a": [1, 2],\n//   "b": [3, 4]\n// }\nval complexValue: JsonValue = JsonValue.from(mapOf(\n  "a" to listOf(\n    1, 2\n  ), "b" to listOf(\n    3, 4\n  )\n))\n```\n\nNormally a `Builder` class\'s `build` method will throw         [`IllegalStateException`](https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html)         if any required parameter or property is unset.\n\nTo forcibly omit a required parameter or property, pass [`JsonMissing`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/core/Values.kt):\n\n```kotlin\nimport dev.cjav.spotted.core.JsonMissing\nimport dev.cjav.spotted.models.albums.AlbumRetrieveParams\n\nval params: AlbumRetrieveParams = AlbumRetrieveParams.builder()\n    .id(JsonMissing.of())\n    .build()\n```\n\n### Response properties\n\nTo access undocumented response properties, call the `_additionalProperties()` method:\n\n```kotlin\nimport dev.cjav.spotted.core.JsonBoolean\nimport dev.cjav.spotted.core.JsonNull\nimport dev.cjav.spotted.core.JsonNumber\nimport dev.cjav.spotted.core.JsonValue\n\nval additionalProperties: Map<String, JsonValue> = client.albums().retrieve(params)._additionalProperties()\nval secretPropertyValue: JsonValue = additionalProperties.get("secretProperty")\n\nval result = when (secretPropertyValue) {\n    is JsonNull -> "It\'s null!"\n    is JsonBoolean -> "It\'s a boolean!"\n    is JsonNumber -> "It\'s a number!"\n    // Other types include `JsonMissing`, `JsonString`, `JsonArray`, and `JsonObject`\n    else -> "It\'s something else!"\n}\n```\n\nTo access a property\'s raw JSON value, which may be undocumented, call its `_` prefixed method:\n\n```kotlin\nimport dev.cjav.spotted.core.JsonField\n\nval field: JsonField<Any> = client.albums().retrieve(params)._field()\n\nif (field.isMissing()) {\n  // The property is absent from the JSON response\n} else if (field.isNull()) {\n  // The property was set to literal null\n} else {\n  // Check if value was provided as a string\n  // Other methods include `asNumber()`, `asBoolean()`, etc.\n  val jsonString: String? = field.asString();\n\n  // Try to deserialize into a custom type\n  val myObject: MyClass = field.asUnknown()!!.convert(MyClass::class.java)\n}\n```\n\n### Response validation\n\nIn rare cases, the API may return a response that doesn\'t match the expected type. For example, the SDK     may expect a property to contain a `String`, but the API could return something else.\n\nBy default, the SDK will not throw an exception in this case. It will throw     [`SpottedInvalidDataException`](spotted-kotlin-core/src/main/kotlin/dev/cjav/spotted/errors/SpottedInvalidDataException.kt) only if you directly access the property.\n\nIf you would prefer to check that the response is completely well-typed upfront, then either call     `validate()`:\n\n```kotlin\nimport dev.cjav.spotted.models.albums.AlbumRetrieveResponse\n\nval album: AlbumRetrieveResponse = client.albums().retrieve(params).validate()\n```\n\nOr configure the method call to validate the response using the `responseValidation` method:\n\n```kotlin\nimport dev.cjav.spotted.models.albums.AlbumRetrieveResponse\n\nval album: AlbumRetrieveResponse = client.albums().retrieve(RequestOptions.builder().responseValidation(true).build())\n```\n\nOr configure the default for all method calls at the client level:\n\n```kotlin\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\n\nval client: SpottedClient = SpottedOkHttpClient.builder()\n    .fromEnv()\n    .responseValidation(true)\n    .build()\n```\n\n## FAQ\n\n### Why don\'t you use plain `enum` classes?\n\nKotlin `enum` classes are not trivially   [forwards compatible](https://www.stainless.com/blog/making-java-enums-forwards-compatible). Using them in   the SDK could cause runtime exceptions if the API is updated to respond with a new enum value.\n\n### Why do you represent fields using `JsonField<T>` instead of just plain `T`?\n\nUsing `JsonField<T>` enables a few features:\n\n- Allowing usage of [undocumented API functionality](#undocumented-api-functionality)\n- Lazily [validating the API response against the expected shape](#response-validation)\n- Representing absent vs explicitly null values\n\n### Why don\'t you use [`data` classes](https://kotlinlang.org/docs/data-classes.html)?\n\nIt is not [backwards compatible to add new fields to a data class](https://kotlinlang.org/docs/api-guidelines-backward-compatibility.html#avoid-using-data-classes-in-your-api)   and we don\'t want to introduce a breaking change every time we add a field to a class.\n\n### Why don\'t you use checked exceptions?\n\nChecked exceptions are widely considered a mistake in the Java programming language. In fact, they were   omitted from Kotlin for this reason.\n\nChecked exceptions:\n\n- Are verbose to handle\n- Encourage error handling at the wrong level of abstraction, where nothing can be done about the error\n- Are tedious to propagate due to the [function coloring problem](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function)\n- Don\'t play well with lambdas (also due to the function coloring problem)\n\n## Semantic versioning\n\nThis package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:\n\n1. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals.)_\n2. Changes that we do not expect to impact the vast majority of users in practice.\n\nWe take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.\n\nWe are keen for your feedback; please open an [issue](https://www.github.com/cjavdev/spotted-kotlin/issues) with questions, bugs, or suggestions.\n',
   },
   {
+    language: 'csharp',
+    content:
+      '# Unofficial Spotify API Library\n\nThe Unofficial Spotify SDK provides convenient access to the [Spotted REST API](https://spotted.cjav.dev) from applications written in   C#.\n\n## Installation\n\nInstall the package from [NuGet](https://www.nuget.org/packages/Spotted):\n\n```bash\ndotnet add package Spotted\n```\n\n## Requirements\n\nThis library requires .NET Standard 2.0 or later.\n\n## Usage\n\nSee the [`examples`](examples) directory for complete and runnable examples.\n\n```csharp\nSpottedClient client = new();\n\nAlbumRetrieveParams parameters = new() { ID = "4aawyAB9vmqN3uQ7FjRGTy" };\n\nvar album = await client.Albums.Retrieve(parameters);\n\nConsole.WriteLine(album);\n```',
+  },
+  {
     language: 'cli',
     content:
       "# Spotted CLI\n\nThe official CLI for the [Spotted REST API](https://spotted.cjav.dev).\n\nIt is generated with [Stainless](https://www.stainless.com/).\n\n<!-- x-release-please-start-version -->\n\n## Installation\n\n### Installing with Homebrew\n\n~~~sh\nbrew install cjavdev/spotted-cli/spotted\n~~~\n\n### Installing with Go\n\nTo test or install the CLI locally, you need [Go](https://go.dev/doc/install) version 1.22 or later installed.\n\n~~~sh\ngo install 'github.com/cjavdev/spotted-cli/cmd/spotted@latest'\n~~~\n\nOnce you have run `go install`, the binary is placed in your Go bin directory:\n\n- **Default location**: `$HOME/go/bin` (or `$GOPATH/bin` if GOPATH is set)\n- **Check your path**: Run `go env GOPATH` to see the base directory\n\nIf commands aren't found after installation, add the Go bin directory to your PATH:\n\n~~~sh\n# Add to your shell profile (.zshrc, .bashrc, etc.)\nexport PATH=\"$PATH:$(go env GOPATH)/bin\"\n~~~\n\n<!-- x-release-please-end -->\n\n### Running Locally\n\nAfter cloning the git repository for this project, you can use the\n`scripts/run` script to run the tool locally:\n\n~~~sh\n./scripts/run args...\n~~~\n\n## Usage\n\nThe CLI follows a resource-based command structure:\n\n~~~sh\nspotted [resource] <command> [flags...]\n~~~\n\n~~~sh\nspotted albums retrieve \\\n  --access-token 'My Access Token' \\\n  --id 4aawyAB9vmqN3uQ7FjRGTy\n~~~\n\nFor details about specific commands, use the `--help` flag.\n\n### Environment variables\n\n| Environment variable   | Required |\n| ---------------------- | -------- |\n| `SPOTIFY_ACCESS_TOKEN` | yes      |\n\n### Global flags\n\n- `--access-token` (can also be set with `SPOTIFY_ACCESS_TOKEN` env var)\n- `--help` - Show command line usage\n- `--debug` - Enable debug logging (includes HTTP request/response details)\n- `--version`, `-v` - Show the CLI version\n- `--base-url` - Use a custom API backend URL\n- `--format` - Change the output format (`auto`, `explore`, `json`, `jsonl`, `pretty`, `raw`, `yaml`)\n- `--format-error` - Change the output format for errors (`auto`, `explore`, `json`, `jsonl`, `pretty`, `raw`, `yaml`)\n- `--transform` - Transform the data output using [GJSON syntax](https://github.com/tidwall/gjson/blob/master/SYNTAX.md)\n- `--transform-error` - Transform the error output using [GJSON syntax](https://github.com/tidwall/gjson/blob/master/SYNTAX.md)\n\n### Passing files as arguments\n\nTo pass files to your API, you can use the `@myfile.ext` syntax:\n\n~~~bash\nspotted <command> --arg @abe.jpg\n~~~\n\nFiles can also be passed inside JSON or YAML blobs:\n\n~~~bash\nspotted <command> --arg '{image: \"@abe.jpg\"}'\n# Equivalent:\nspotted <command> <<YAML\narg:\n  image: \"@abe.jpg\"\nYAML\n~~~\n\nIf you need to pass a string literal that begins with an `@` sign, you can\nescape the `@` sign to avoid accidentally passing a file.\n\n~~~bash\nspotted <command> --username '\\@abe'\n~~~\n\n#### Explicit encoding\n\nFor JSON endpoints, the CLI tool does filetype sniffing to determine whether the\nfile contents should be sent as a string literal (for plain text files) or as a\nbase64-encoded string literal (for binary files). If you need to explicitly send\nthe file as either plain text or base64-encoded data, you can use\n`@file://myfile.txt` (for string encoding) or `@data://myfile.dat` (for\nbase64-encoding). Note that absolute paths will begin with `@file://` or\n`@data://`, followed by a third `/` (for example, `@file:///tmp/file.txt`).\n\n~~~bash\nspotted <command> --arg @data://file.txt\n~~~\n",
+  },
+  {
+    language: 'php',
+    content:
+      "# Unofficial Spotify API Library\n\nThe Unofficial Spotify library provides convenient access to the Spotted REST API from any PHP 8.1.0+ application.\n\n## Installation\n\n<!-- x-release-please-start-version -->\n```\ncomposer require \"cjavdev/spotted 0.0.1\"\n```\n<!-- x-release-please-end -->\n\n## Usage\n\n```php\n<?php\n\n$client = new Client(\n  accessToken: getenv('SPOTIFY_ACCESS_TOKEN') ?: 'My Access Token'\n);\n\n$album = $client->albums->retrieve('4aawyAB9vmqN3uQ7FjRGTy');\n\nvar_dump($album->id);\n```",
   },
 ];
 
