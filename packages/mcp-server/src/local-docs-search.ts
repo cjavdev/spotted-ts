@@ -4906,7 +4906,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       php: {
         method: 'playlists->images->update',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$image = $client->playlists->images->update('3cEYpjA9oz9GiPac4AsH4n', 'file');\n\nvar_dump($image);",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$image = $client->playlists->images->update(\n  '3cEYpjA9oz9GiPac4AsH4n',\n  FileParam::fromString('Example data', filename: uniqid('file-upload-', true)),\n);\n\nvar_dump($image);",
       },
       python: {
         method: 'playlists.images.update',
