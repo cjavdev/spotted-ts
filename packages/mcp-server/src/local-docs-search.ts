@@ -64,24 +64,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.albums.retrieve(id: string, market?: string): { id: string; album_type: 'album' | 'single' | 'compilation'; available_markets: string[]; external_urls: external_url_object; href: string; images: image_object[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; artists?: simplified_artist_object[]; copyrights?: copyright_object[]; external_ids?: external_id_object; genres?: string[]; label?: string; popularity?: number; published?: boolean; restrictions?: album_restriction_object; tracks?: object; }`\n\n**get** `/albums/{id}`\n\nGet Spotify catalog information for a single album.\n\n\n### Parameters\n\n- `id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) of the album.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n### Returns\n\n- `{ id: string; album_type: 'album' | 'single' | 'compilation'; available_markets: string[]; external_urls: { published?: boolean; spotify?: string; }; href: string; images: { height: number; url: string; width: number; published?: boolean; }[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; artists?: { id?: string; external_urls?: external_url_object; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]; copyrights?: { published?: boolean; text?: string; type?: string; }[]; external_ids?: { ean?: string; isrc?: string; published?: boolean; upc?: string; }; genres?: string[]; label?: string; popularity?: number; published?: boolean; restrictions?: { published?: boolean; reason?: 'market' | 'product' | 'explicit'; }; tracks?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: object[]; published?: boolean; }; }`\n\n  - `id: string`\n  - `album_type: 'album' | 'single' | 'compilation'`\n  - `available_markets: string[]`\n  - `external_urls: { published?: boolean; spotify?: string; }`\n  - `href: string`\n  - `images: { height: number; url: string; width: number; published?: boolean; }[]`\n  - `name: string`\n  - `release_date: string`\n  - `release_date_precision: 'year' | 'month' | 'day'`\n  - `total_tracks: number`\n  - `type: 'album'`\n  - `uri: string`\n  - `artists?: { id?: string; external_urls?: { published?: boolean; spotify?: string; }; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]`\n  - `copyrights?: { published?: boolean; text?: string; type?: string; }[]`\n  - `external_ids?: { ean?: string; isrc?: string; published?: boolean; upc?: string; }`\n  - `genres?: string[]`\n  - `label?: string`\n  - `popularity?: number`\n  - `published?: boolean`\n  - `restrictions?: { published?: boolean; reason?: 'market' | 'product' | 'explicit'; }`\n  - `tracks?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: { id?: string; artists?: object[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_urls?: object; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: object; name?: string; preview_url?: string; published?: boolean; restrictions?: object; track_number?: number; type?: string; uri?: string; }[]; published?: boolean; }`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst album = await client.albums.retrieve('4aawyAB9vmqN3uQ7FjRGTy');\n\nconsole.log(album);\n```",
     perLanguage: {
-      cli: {
-        method: 'albums retrieve',
+      typescript: {
+        method: 'client.albums.retrieve',
         example:
-          "spotted albums retrieve \\\n  --access-token 'My Access Token' \\\n  --id 4aawyAB9vmqN3uQ7FjRGTy",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst album = await client.albums.retrieve('4aawyAB9vmqN3uQ7FjRGTy');\n\nconsole.log(album.id);",
       },
-      csharp: {
-        method: 'Albums.Retrieve',
+      python: {
+        method: 'albums.retrieve',
         example:
-          'AlbumRetrieveParams parameters = new() { ID = "4aawyAB9vmqN3uQ7FjRGTy" };\n\nvar album = await client.Albums.Retrieve(parameters);\n\nConsole.WriteLine(album);',
-      },
-      go: {
-        method: 'client.Albums.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\talbum, err := client.Albums.Get(\n\t\tcontext.TODO(),\n\t\t"4aawyAB9vmqN3uQ7FjRGTy",\n\t\tspotted.AlbumGetParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", album.ID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/albums/$ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nalbum = client.albums.retrieve(\n    id="4aawyAB9vmqN3uQ7FjRGTy",\n)\nprint(album.id)',
       },
       java: {
         method: 'albums().retrieve',
@@ -93,25 +84,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.albums.AlbumRetrieveParams\nimport dev.cjav.spotted.models.albums.AlbumRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val album: AlbumRetrieveResponse = client.albums().retrieve("4aawyAB9vmqN3uQ7FjRGTy")\n}',
       },
-      php: {
-        method: 'albums->retrieve',
+      go: {
+        method: 'client.Albums.Get',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$album = $client->albums->retrieve('4aawyAB9vmqN3uQ7FjRGTy', market: 'ES');\n\nvar_dump($album);",
-      },
-      python: {
-        method: 'albums.retrieve',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nalbum = client.albums.retrieve(\n    id="4aawyAB9vmqN3uQ7FjRGTy",\n)\nprint(album.id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\talbum, err := client.Albums.Get(\n\t\tcontext.TODO(),\n\t\t"4aawyAB9vmqN3uQ7FjRGTy",\n\t\tspotted.AlbumGetParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", album.ID)\n}\n',
       },
       ruby: {
         method: 'albums.retrieve',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nalbum = spotted.albums.retrieve("4aawyAB9vmqN3uQ7FjRGTy")\n\nputs(album)',
       },
-      typescript: {
-        method: 'client.albums.retrieve',
+      cli: {
+        method: 'albums retrieve',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst album = await client.albums.retrieve('4aawyAB9vmqN3uQ7FjRGTy');\n\nconsole.log(album.id);",
+          "spotted albums retrieve \\\n  --access-token 'My Access Token' \\\n  --id 4aawyAB9vmqN3uQ7FjRGTy",
+      },
+      php: {
+        method: 'albums->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$album = $client->albums->retrieve('4aawyAB9vmqN3uQ7FjRGTy', market: 'ES');\n\nvar_dump($album);",
+      },
+      csharp: {
+        method: 'Albums.Retrieve',
+        example:
+          'AlbumRetrieveParams parameters = new() { ID = "4aawyAB9vmqN3uQ7FjRGTy" };\n\nvar album = await client.Albums.Retrieve(parameters);\n\nConsole.WriteLine(album);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/albums/$ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -129,24 +129,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## bulk_retrieve\n\n`client.albums.bulkRetrieve(ids: string, market?: string): { albums: object[]; }`\n\n**get** `/albums`\n\nGet Spotify catalog information for multiple albums identified by their Spotify IDs.\n\n\n### Parameters\n\n- `ids: string`\n  A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for the albums. Maximum: 20 IDs.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n### Returns\n\n- `{ albums: { id: string; album_type: 'album' | 'single' | 'compilation'; available_markets: string[]; external_urls: object; href: string; images: object[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; artists?: object[]; copyrights?: object[]; external_ids?: object; genres?: string[]; label?: string; popularity?: number; published?: boolean; restrictions?: object; tracks?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: simplified_track_object[]; published?: boolean; }; }[]; }`\n\n  - `albums: { id: string; album_type: 'album' | 'single' | 'compilation'; available_markets: string[]; external_urls: { published?: boolean; spotify?: string; }; href: string; images: { height: number; url: string; width: number; published?: boolean; }[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; artists?: { id?: string; external_urls?: object; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]; copyrights?: { published?: boolean; text?: string; type?: string; }[]; external_ids?: { ean?: string; isrc?: string; published?: boolean; upc?: string; }; genres?: string[]; label?: string; popularity?: number; published?: boolean; restrictions?: { published?: boolean; reason?: 'market' | 'product' | 'explicit'; }; tracks?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: { id?: string; artists?: simplified_artist_object[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_urls?: external_url_object; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: linked_track_object; name?: string; preview_url?: string; published?: boolean; restrictions?: track_restriction_object; track_number?: number; type?: string; uri?: string; }[]; published?: boolean; }; }[]`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.albums.bulkRetrieve({ ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc' });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'albums bulk_retrieve',
+      typescript: {
+        method: 'client.albums.bulkRetrieve',
         example:
-          "spotted albums bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.albums.bulkRetrieve({\n  ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc',\n});\n\nconsole.log(response.albums);",
       },
-      csharp: {
-        method: 'Albums.BulkRetrieve',
+      python: {
+        method: 'albums.bulk_retrieve',
         example:
-          'AlbumBulkRetrieveParams parameters = new()\n{\n    Ids = "382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc"\n};\n\nvar response = await client.Albums.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
-      },
-      go: {
-        method: 'client.Albums.BulkGet',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Albums.BulkGet(context.TODO(), spotted.AlbumBulkGetParams{\n\t\tIDs: "382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Albums)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/albums \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.albums.bulk_retrieve(\n    ids="382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc",\n)\nprint(response.albums)',
       },
       java: {
         method: 'albums().bulkRetrieve',
@@ -158,25 +149,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.albums.AlbumBulkRetrieveParams\nimport dev.cjav.spotted.models.albums.AlbumBulkRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: AlbumBulkRetrieveParams = AlbumBulkRetrieveParams.builder()\n        .ids("382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc")\n        .build()\n    val response: AlbumBulkRetrieveResponse = client.albums().bulkRetrieve(params)\n}',
       },
-      php: {
-        method: 'albums->bulkRetrieve',
+      go: {
+        method: 'client.Albums.BulkGet',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->albums->bulkRetrieve(\n  ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc',\n  market: 'ES',\n);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'albums.bulk_retrieve',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.albums.bulk_retrieve(\n    ids="382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc",\n)\nprint(response.albums)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Albums.BulkGet(context.TODO(), spotted.AlbumBulkGetParams{\n\t\tIDs: "382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Albums)\n}\n',
       },
       ruby: {
         method: 'albums.bulk_retrieve',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.albums.bulk_retrieve(ids: "382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc")\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.albums.bulkRetrieve',
+      cli: {
+        method: 'albums bulk_retrieve',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.albums.bulkRetrieve({\n  ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc',\n});\n\nconsole.log(response.albums);",
+          "spotted albums bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc",
+      },
+      php: {
+        method: 'albums->bulkRetrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->albums->bulkRetrieve(\n  ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc',\n  market: 'ES',\n);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Albums.BulkRetrieve',
+        example:
+          'AlbumBulkRetrieveParams parameters = new()\n{\n    Ids = "382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc"\n};\n\nvar response = await client.Albums.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/albums \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -195,24 +195,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list_tracks\n\n`client.albums.listTracks(id: string, limit?: number, market?: string, offset?: number): { id?: string; artists?: simplified_artist_object[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_urls?: external_url_object; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: linked_track_object; name?: string; preview_url?: string; published?: boolean; restrictions?: track_restriction_object; track_number?: number; type?: string; uri?: string; }`\n\n**get** `/albums/{id}/tracks`\n\nGet Spotify catalog information about an album’s tracks.\nOptional parameters can be used to limit the number of tracks returned.\n\n\n### Parameters\n\n- `id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) of the album.\n\n\n- `limit?: number`\n  The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n- `offset?: number`\n  The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.\n\n\n### Returns\n\n- `{ id?: string; artists?: { id?: string; external_urls?: external_url_object; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_urls?: { published?: boolean; spotify?: string; }; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: { id?: string; external_urls?: external_url_object; href?: string; published?: boolean; type?: string; uri?: string; }; name?: string; preview_url?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; track_number?: number; type?: string; uri?: string; }`\n\n  - `id?: string`\n  - `artists?: { id?: string; external_urls?: { published?: boolean; spotify?: string; }; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]`\n  - `available_markets?: string[]`\n  - `disc_number?: number`\n  - `duration_ms?: number`\n  - `explicit?: boolean`\n  - `external_urls?: { published?: boolean; spotify?: string; }`\n  - `href?: string`\n  - `is_local?: boolean`\n  - `is_playable?: boolean`\n  - `linked_from?: { id?: string; external_urls?: { published?: boolean; spotify?: string; }; href?: string; published?: boolean; type?: string; uri?: string; }`\n  - `name?: string`\n  - `preview_url?: string`\n  - `published?: boolean`\n  - `restrictions?: { published?: boolean; reason?: string; }`\n  - `track_number?: number`\n  - `type?: string`\n  - `uri?: string`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\n// Automatically fetches more pages as needed.\nfor await (const simplifiedTrackObject of client.albums.listTracks('4aawyAB9vmqN3uQ7FjRGTy')) {\n  console.log(simplifiedTrackObject);\n}\n```",
     perLanguage: {
-      cli: {
-        method: 'albums list_tracks',
+      typescript: {
+        method: 'client.albums.listTracks',
         example:
-          "spotted albums list-tracks \\\n  --access-token 'My Access Token' \\\n  --id 4aawyAB9vmqN3uQ7FjRGTy",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const simplifiedTrackObject of client.albums.listTracks('4aawyAB9vmqN3uQ7FjRGTy')) {\n  console.log(simplifiedTrackObject.id);\n}",
       },
-      csharp: {
-        method: 'Albums.ListTracks',
+      python: {
+        method: 'albums.list_tracks',
         example:
-          'AlbumListTracksParams parameters = new() { ID = "4aawyAB9vmqN3uQ7FjRGTy" };\n\nvar page = await client.Albums.ListTracks(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
-      },
-      go: {
-        method: 'client.Albums.ListTracks',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Albums.ListTracks(\n\t\tcontext.TODO(),\n\t\t"4aawyAB9vmqN3uQ7FjRGTy",\n\t\tspotted.AlbumListTracksParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/albums/$ID/tracks \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.albums.list_tracks(\n    id="4aawyAB9vmqN3uQ7FjRGTy",\n)\npage = page.items[0]\nprint(page.id)',
       },
       java: {
         method: 'albums().listTracks',
@@ -224,25 +215,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.albums.AlbumListTracksPage\nimport dev.cjav.spotted.models.albums.AlbumListTracksParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: AlbumListTracksPage = client.albums().listTracks("4aawyAB9vmqN3uQ7FjRGTy")\n}',
       },
-      php: {
-        method: 'albums->listTracks',
+      go: {
+        method: 'client.Albums.ListTracks',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->albums->listTracks(\n  '4aawyAB9vmqN3uQ7FjRGTy', limit: 10, market: 'ES', offset: 5\n);\n\nvar_dump($page);",
-      },
-      python: {
-        method: 'albums.list_tracks',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.albums.list_tracks(\n    id="4aawyAB9vmqN3uQ7FjRGTy",\n)\npage = page.items[0]\nprint(page.id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Albums.ListTracks(\n\t\tcontext.TODO(),\n\t\t"4aawyAB9vmqN3uQ7FjRGTy",\n\t\tspotted.AlbumListTracksParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
       },
       ruby: {
         method: 'albums.list_tracks',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\npage = spotted.albums.list_tracks("4aawyAB9vmqN3uQ7FjRGTy")\n\nputs(page)',
       },
-      typescript: {
-        method: 'client.albums.listTracks',
+      cli: {
+        method: 'albums list_tracks',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const simplifiedTrackObject of client.albums.listTracks('4aawyAB9vmqN3uQ7FjRGTy')) {\n  console.log(simplifiedTrackObject.id);\n}",
+          "spotted albums list-tracks \\\n  --access-token 'My Access Token' \\\n  --id 4aawyAB9vmqN3uQ7FjRGTy",
+      },
+      php: {
+        method: 'albums->listTracks',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->albums->listTracks(\n  '4aawyAB9vmqN3uQ7FjRGTy', limit: 10, market: 'ES', offset: 5\n);\n\nvar_dump($page);",
+      },
+      csharp: {
+        method: 'Albums.ListTracks',
+        example:
+          'AlbumListTracksParams parameters = new() { ID = "4aawyAB9vmqN3uQ7FjRGTy" };\n\nvar page = await client.Albums.ListTracks(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/albums/$ID/tracks \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -261,24 +261,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.artists.retrieve(id: string): { id?: string; external_urls?: external_url_object; followers?: followers_object; genres?: string[]; href?: string; images?: image_object[]; name?: string; popularity?: number; published?: boolean; type?: 'artist'; uri?: string; }`\n\n**get** `/artists/{id}`\n\nGet Spotify catalog information for a single artist identified by their unique Spotify ID.\n\n\n### Parameters\n\n- `id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) of the artist.\n\n\n### Returns\n\n- `{ id?: string; external_urls?: { published?: boolean; spotify?: string; }; followers?: { href?: string; published?: boolean; total?: number; }; genres?: string[]; href?: string; images?: { height: number; url: string; width: number; published?: boolean; }[]; name?: string; popularity?: number; published?: boolean; type?: 'artist'; uri?: string; }`\n\n  - `id?: string`\n  - `external_urls?: { published?: boolean; spotify?: string; }`\n  - `followers?: { href?: string; published?: boolean; total?: number; }`\n  - `genres?: string[]`\n  - `href?: string`\n  - `images?: { height: number; url: string; width: number; published?: boolean; }[]`\n  - `name?: string`\n  - `popularity?: number`\n  - `published?: boolean`\n  - `type?: 'artist'`\n  - `uri?: string`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst artistObject = await client.artists.retrieve('0TnOYISbd1XYRBk9myaseg');\n\nconsole.log(artistObject);\n```",
     perLanguage: {
-      cli: {
-        method: 'artists retrieve',
+      typescript: {
+        method: 'client.artists.retrieve',
         example:
-          "spotted artists retrieve \\\n  --access-token 'My Access Token' \\\n  --id 0TnOYISbd1XYRBk9myaseg",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst artistObject = await client.artists.retrieve('0TnOYISbd1XYRBk9myaseg');\n\nconsole.log(artistObject.id);",
       },
-      csharp: {
-        method: 'Artists.Retrieve',
+      python: {
+        method: 'artists.retrieve',
         example:
-          'ArtistRetrieveParams parameters = new() { ID = "0TnOYISbd1XYRBk9myaseg" };\n\nvar artistObject = await client.Artists.Retrieve(parameters);\n\nConsole.WriteLine(artistObject);',
-      },
-      go: {
-        method: 'client.Artists.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tartistObject, err := client.Artists.Get(context.TODO(), "0TnOYISbd1XYRBk9myaseg")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", artistObject.ID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/artists/$ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nartist_object = client.artists.retrieve(\n    "0TnOYISbd1XYRBk9myaseg",\n)\nprint(artist_object.id)',
       },
       java: {
         method: 'artists().retrieve',
@@ -290,25 +281,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.ArtistObject\nimport dev.cjav.spotted.models.artists.ArtistRetrieveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val artistObject: ArtistObject = client.artists().retrieve("0TnOYISbd1XYRBk9myaseg")\n}',
       },
-      php: {
-        method: 'artists->retrieve',
+      go: {
+        method: 'client.Artists.Get',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$artistObject = $client->artists->retrieve('0TnOYISbd1XYRBk9myaseg');\n\nvar_dump($artistObject);",
-      },
-      python: {
-        method: 'artists.retrieve',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nartist_object = client.artists.retrieve(\n    "0TnOYISbd1XYRBk9myaseg",\n)\nprint(artist_object.id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tartistObject, err := client.Artists.Get(context.TODO(), "0TnOYISbd1XYRBk9myaseg")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", artistObject.ID)\n}\n',
       },
       ruby: {
         method: 'artists.retrieve',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nartist_object = spotted.artists.retrieve("0TnOYISbd1XYRBk9myaseg")\n\nputs(artist_object)',
       },
-      typescript: {
-        method: 'client.artists.retrieve',
+      cli: {
+        method: 'artists retrieve',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst artistObject = await client.artists.retrieve('0TnOYISbd1XYRBk9myaseg');\n\nconsole.log(artistObject.id);",
+          "spotted artists retrieve \\\n  --access-token 'My Access Token' \\\n  --id 0TnOYISbd1XYRBk9myaseg",
+      },
+      php: {
+        method: 'artists->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$artistObject = $client->artists->retrieve('0TnOYISbd1XYRBk9myaseg');\n\nvar_dump($artistObject);",
+      },
+      csharp: {
+        method: 'Artists.Retrieve',
+        example:
+          'ArtistRetrieveParams parameters = new() { ID = "0TnOYISbd1XYRBk9myaseg" };\n\nvar artistObject = await client.Artists.Retrieve(parameters);\n\nConsole.WriteLine(artistObject);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/artists/$ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -326,24 +326,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## bulk_retrieve\n\n`client.artists.bulkRetrieve(ids: string): { artists: artist_object[]; }`\n\n**get** `/artists`\n\nGet Spotify catalog information for several artists based on their Spotify IDs.\n\n\n### Parameters\n\n- `ids: string`\n  A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for the artists. Maximum: 50 IDs.\n\n\n### Returns\n\n- `{ artists: { id?: string; external_urls?: external_url_object; followers?: followers_object; genres?: string[]; href?: string; images?: image_object[]; name?: string; popularity?: number; published?: boolean; type?: 'artist'; uri?: string; }[]; }`\n\n  - `artists: { id?: string; external_urls?: { published?: boolean; spotify?: string; }; followers?: { href?: string; published?: boolean; total?: number; }; genres?: string[]; href?: string; images?: { height: number; url: string; width: number; published?: boolean; }[]; name?: string; popularity?: number; published?: boolean; type?: 'artist'; uri?: string; }[]`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.artists.bulkRetrieve({ ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6' });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'artists bulk_retrieve',
+      typescript: {
+        method: 'client.artists.bulkRetrieve',
         example:
-          "spotted artists bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.artists.bulkRetrieve({\n  ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6',\n});\n\nconsole.log(response.artists);",
       },
-      csharp: {
-        method: 'Artists.BulkRetrieve',
+      python: {
+        method: 'artists.bulk_retrieve',
         example:
-          'ArtistBulkRetrieveParams parameters = new()\n{\n    Ids = "2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6"\n};\n\nvar response = await client.Artists.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
-      },
-      go: {
-        method: 'client.Artists.BulkGet',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Artists.BulkGet(context.TODO(), spotted.ArtistBulkGetParams{\n\t\tIDs: "2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Artists)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/artists \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.artists.bulk_retrieve(\n    ids="2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6",\n)\nprint(response.artists)',
       },
       java: {
         method: 'artists().bulkRetrieve',
@@ -355,25 +346,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.artists.ArtistBulkRetrieveParams\nimport dev.cjav.spotted.models.artists.ArtistBulkRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: ArtistBulkRetrieveParams = ArtistBulkRetrieveParams.builder()\n        .ids("2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6")\n        .build()\n    val response: ArtistBulkRetrieveResponse = client.artists().bulkRetrieve(params)\n}',
       },
-      php: {
-        method: 'artists->bulkRetrieve',
+      go: {
+        method: 'client.Artists.BulkGet',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->artists->bulkRetrieve(\n  ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6'\n);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'artists.bulk_retrieve',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.artists.bulk_retrieve(\n    ids="2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6",\n)\nprint(response.artists)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Artists.BulkGet(context.TODO(), spotted.ArtistBulkGetParams{\n\t\tIDs: "2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Artists)\n}\n',
       },
       ruby: {
         method: 'artists.bulk_retrieve',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.artists.bulk_retrieve(ids: "2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6")\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.artists.bulkRetrieve',
+      cli: {
+        method: 'artists bulk_retrieve',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.artists.bulkRetrieve({\n  ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6',\n});\n\nconsole.log(response.artists);",
+          "spotted artists bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6",
+      },
+      php: {
+        method: 'artists->bulkRetrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->artists->bulkRetrieve(\n  ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6'\n);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Artists.BulkRetrieve',
+        example:
+          'ArtistBulkRetrieveParams parameters = new()\n{\n    Ids = "2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6"\n};\n\nvar response = await client.Artists.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/artists \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -397,24 +397,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list_albums\n\n`client.artists.listAlbums(id: string, include_groups?: string, limit?: number, market?: string, offset?: number): { id: string; album_group: 'album' | 'single' | 'compilation' | 'appears_on'; album_type: 'album' | 'single' | 'compilation'; artists: simplified_artist_object[]; available_markets: string[]; external_urls: external_url_object; href: string; images: image_object[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; published?: boolean; restrictions?: album_restriction_object; }`\n\n**get** `/artists/{id}/albums`\n\nGet Spotify catalog information about an artist's albums.\n\n\n### Parameters\n\n- `id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) of the artist.\n\n\n- `include_groups?: string`\n  A comma-separated list of keywords that will be used to filter the response. If not supplied, all album types will be returned. <br/>\nValid values are:<br/>- `album`<br/>- `single`<br/>- `appears_on`<br/>- `compilation`<br/>For example: `include_groups=album,single`.\n\n\n- `limit?: number`\n  The maximum number of items to return. Default: 5. Minimum: 1. Maximum: 10.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n- `offset?: number`\n  The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.\n\n\n### Returns\n\n- `{ id: string; album_group: 'album' | 'single' | 'compilation' | 'appears_on'; album_type: 'album' | 'single' | 'compilation'; artists: { id?: string; external_urls?: external_url_object; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]; available_markets: string[]; external_urls: { published?: boolean; spotify?: string; }; href: string; images: { height: number; url: string; width: number; published?: boolean; }[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; published?: boolean; restrictions?: { published?: boolean; reason?: 'market' | 'product' | 'explicit'; }; }`\n\n  - `id: string`\n  - `album_group: 'album' | 'single' | 'compilation' | 'appears_on'`\n  - `album_type: 'album' | 'single' | 'compilation'`\n  - `artists: { id?: string; external_urls?: { published?: boolean; spotify?: string; }; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]`\n  - `available_markets: string[]`\n  - `external_urls: { published?: boolean; spotify?: string; }`\n  - `href: string`\n  - `images: { height: number; url: string; width: number; published?: boolean; }[]`\n  - `name: string`\n  - `release_date: string`\n  - `release_date_precision: 'year' | 'month' | 'day'`\n  - `total_tracks: number`\n  - `type: 'album'`\n  - `uri: string`\n  - `published?: boolean`\n  - `restrictions?: { published?: boolean; reason?: 'market' | 'product' | 'explicit'; }`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\n// Automatically fetches more pages as needed.\nfor await (const artistListAlbumsResponse of client.artists.listAlbums('0TnOYISbd1XYRBk9myaseg')) {\n  console.log(artistListAlbumsResponse);\n}\n```",
     perLanguage: {
-      cli: {
-        method: 'artists list_albums',
+      typescript: {
+        method: 'client.artists.listAlbums',
         example:
-          "spotted artists list-albums \\\n  --access-token 'My Access Token' \\\n  --id 0TnOYISbd1XYRBk9myaseg",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const artistListAlbumsResponse of client.artists.listAlbums('0TnOYISbd1XYRBk9myaseg')) {\n  console.log(artistListAlbumsResponse.id);\n}",
       },
-      csharp: {
-        method: 'Artists.ListAlbums',
+      python: {
+        method: 'artists.list_albums',
         example:
-          'ArtistListAlbumsParams parameters = new() { ID = "0TnOYISbd1XYRBk9myaseg" };\n\nvar page = await client.Artists.ListAlbums(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
-      },
-      go: {
-        method: 'client.Artists.ListAlbums',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Artists.ListAlbums(\n\t\tcontext.TODO(),\n\t\t"0TnOYISbd1XYRBk9myaseg",\n\t\tspotted.ArtistListAlbumsParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/artists/$ID/albums \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.artists.list_albums(\n    id="0TnOYISbd1XYRBk9myaseg",\n)\npage = page.items[0]\nprint(page.id)',
       },
       java: {
         method: 'artists().listAlbums',
@@ -426,25 +417,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.artists.ArtistListAlbumsPage\nimport dev.cjav.spotted.models.artists.ArtistListAlbumsParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: ArtistListAlbumsPage = client.artists().listAlbums("0TnOYISbd1XYRBk9myaseg")\n}',
       },
-      php: {
-        method: 'artists->listAlbums',
+      go: {
+        method: 'client.Artists.ListAlbums',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->artists->listAlbums(\n  '0TnOYISbd1XYRBk9myaseg',\n  includeGroups: 'single,appears_on',\n  limit: 5,\n  market: 'ES',\n  offset: 5,\n);\n\nvar_dump($page);",
-      },
-      python: {
-        method: 'artists.list_albums',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.artists.list_albums(\n    id="0TnOYISbd1XYRBk9myaseg",\n)\npage = page.items[0]\nprint(page.id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Artists.ListAlbums(\n\t\tcontext.TODO(),\n\t\t"0TnOYISbd1XYRBk9myaseg",\n\t\tspotted.ArtistListAlbumsParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
       },
       ruby: {
         method: 'artists.list_albums',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\npage = spotted.artists.list_albums("0TnOYISbd1XYRBk9myaseg")\n\nputs(page)',
       },
-      typescript: {
-        method: 'client.artists.listAlbums',
+      cli: {
+        method: 'artists list_albums',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const artistListAlbumsResponse of client.artists.listAlbums('0TnOYISbd1XYRBk9myaseg')) {\n  console.log(artistListAlbumsResponse.id);\n}",
+          "spotted artists list-albums \\\n  --access-token 'My Access Token' \\\n  --id 0TnOYISbd1XYRBk9myaseg",
+      },
+      php: {
+        method: 'artists->listAlbums',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->artists->listAlbums(\n  '0TnOYISbd1XYRBk9myaseg',\n  includeGroups: 'single,appears_on',\n  limit: 5,\n  market: 'ES',\n  offset: 5,\n);\n\nvar_dump($page);",
+      },
+      csharp: {
+        method: 'Artists.ListAlbums',
+        example:
+          'ArtistListAlbumsParams parameters = new() { ID = "0TnOYISbd1XYRBk9myaseg" };\n\nvar page = await client.Artists.ListAlbums(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/artists/$ID/albums \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -462,24 +462,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## top_tracks\n\n`client.artists.topTracks(id: string, market?: string): { tracks: track_object[]; }`\n\n**get** `/artists/{id}/top-tracks`\n\nGet Spotify catalog information about an artist's top tracks by country.\n\n\n### Parameters\n\n- `id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) of the artist.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n### Returns\n\n- `{ tracks: { id?: string; album?: object; artists?: simplified_artist_object[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: external_id_object; external_urls?: external_url_object; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: linked_track_object; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: track_restriction_object; track_number?: number; type?: 'track'; uri?: string; }[]; }`\n\n  - `tracks: { id?: string; album?: { id: string; album_type: 'album' | 'single' | 'compilation'; artists: object[]; available_markets: string[]; external_urls: object; href: string; images: object[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; published?: boolean; restrictions?: object; }; artists?: { id?: string; external_urls?: external_url_object; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: { ean?: string; isrc?: string; published?: boolean; upc?: string; }; external_urls?: { published?: boolean; spotify?: string; }; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: { id?: string; external_urls?: external_url_object; href?: string; published?: boolean; type?: string; uri?: string; }; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; track_number?: number; type?: 'track'; uri?: string; }[]`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.artists.topTracks('0TnOYISbd1XYRBk9myaseg');\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'artists top_tracks',
+      typescript: {
+        method: 'client.artists.topTracks',
         example:
-          "spotted artists top-tracks \\\n  --access-token 'My Access Token' \\\n  --id 0TnOYISbd1XYRBk9myaseg",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.artists.topTracks('0TnOYISbd1XYRBk9myaseg');\n\nconsole.log(response.tracks);",
       },
-      csharp: {
-        method: 'Artists.TopTracks',
+      python: {
+        method: 'artists.top_tracks',
         example:
-          'ArtistTopTracksParams parameters = new() { ID = "0TnOYISbd1XYRBk9myaseg" };\n\nvar response = await client.Artists.TopTracks(parameters);\n\nConsole.WriteLine(response);',
-      },
-      go: {
-        method: 'client.Artists.TopTracks',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Artists.TopTracks(\n\t\tcontext.TODO(),\n\t\t"0TnOYISbd1XYRBk9myaseg",\n\t\tspotted.ArtistTopTracksParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Tracks)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/artists/$ID/top-tracks \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.artists.top_tracks(\n    id="0TnOYISbd1XYRBk9myaseg",\n)\nprint(response.tracks)',
       },
       java: {
         method: 'artists().topTracks',
@@ -491,25 +482,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.artists.ArtistTopTracksParams\nimport dev.cjav.spotted.models.artists.ArtistTopTracksResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: ArtistTopTracksResponse = client.artists().topTracks("0TnOYISbd1XYRBk9myaseg")\n}',
       },
-      php: {
-        method: 'artists->topTracks',
+      go: {
+        method: 'client.Artists.TopTracks',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->artists->topTracks('0TnOYISbd1XYRBk9myaseg', market: 'ES');\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'artists.top_tracks',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.artists.top_tracks(\n    id="0TnOYISbd1XYRBk9myaseg",\n)\nprint(response.tracks)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Artists.TopTracks(\n\t\tcontext.TODO(),\n\t\t"0TnOYISbd1XYRBk9myaseg",\n\t\tspotted.ArtistTopTracksParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Tracks)\n}\n',
       },
       ruby: {
         method: 'artists.top_tracks',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.artists.top_tracks("0TnOYISbd1XYRBk9myaseg")\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.artists.topTracks',
+      cli: {
+        method: 'artists top_tracks',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.artists.topTracks('0TnOYISbd1XYRBk9myaseg');\n\nconsole.log(response.tracks);",
+          "spotted artists top-tracks \\\n  --access-token 'My Access Token' \\\n  --id 0TnOYISbd1XYRBk9myaseg",
+      },
+      php: {
+        method: 'artists->topTracks',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->artists->topTracks('0TnOYISbd1XYRBk9myaseg', market: 'ES');\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Artists.TopTracks',
+        example:
+          'ArtistTopTracksParams parameters = new() { ID = "0TnOYISbd1XYRBk9myaseg" };\n\nvar response = await client.Artists.TopTracks(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/artists/$ID/top-tracks \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -528,24 +528,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list_related_artists\n\n`client.artists.listRelatedArtists(id: string): { artists: artist_object[]; }`\n\n**get** `/artists/{id}/related-artists`\n\nGet Spotify catalog information about artists similar to a given artist. Similarity is based on analysis of the Spotify community's listening history.\n\n\n### Parameters\n\n- `id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) of the artist.\n\n\n### Returns\n\n- `{ artists: { id?: string; external_urls?: external_url_object; followers?: followers_object; genres?: string[]; href?: string; images?: image_object[]; name?: string; popularity?: number; published?: boolean; type?: 'artist'; uri?: string; }[]; }`\n\n  - `artists: { id?: string; external_urls?: { published?: boolean; spotify?: string; }; followers?: { href?: string; published?: boolean; total?: number; }; genres?: string[]; href?: string; images?: { height: number; url: string; width: number; published?: boolean; }[]; name?: string; popularity?: number; published?: boolean; type?: 'artist'; uri?: string; }[]`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.artists.listRelatedArtists('0TnOYISbd1XYRBk9myaseg');\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'artists list_related_artists',
+      typescript: {
+        method: 'client.artists.listRelatedArtists',
         example:
-          "spotted artists list-related-artists \\\n  --access-token 'My Access Token' \\\n  --id 0TnOYISbd1XYRBk9myaseg",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.artists.listRelatedArtists('0TnOYISbd1XYRBk9myaseg');\n\nconsole.log(response.artists);",
       },
-      csharp: {
-        method: 'Artists.ListRelatedArtists',
+      python: {
+        method: 'artists.list_related_artists',
         example:
-          'ArtistListRelatedArtistsParams parameters = new()\n{\n    ID = "0TnOYISbd1XYRBk9myaseg"\n};\n\nvar response = await client.Artists.ListRelatedArtists(parameters);\n\nConsole.WriteLine(response);',
-      },
-      go: {
-        method: 'client.Artists.ListRelatedArtists',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Artists.ListRelatedArtists(context.TODO(), "0TnOYISbd1XYRBk9myaseg")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Artists)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/artists/$ID/related-artists \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.artists.list_related_artists(\n    "0TnOYISbd1XYRBk9myaseg",\n)\nprint(response.artists)',
       },
       java: {
         method: 'artists().listRelatedArtists',
@@ -557,25 +548,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.artists.ArtistListRelatedArtistsParams\nimport dev.cjav.spotted.models.artists.ArtistListRelatedArtistsResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: ArtistListRelatedArtistsResponse = client.artists().listRelatedArtists("0TnOYISbd1XYRBk9myaseg")\n}',
       },
-      php: {
-        method: 'artists->listRelatedArtists',
+      go: {
+        method: 'client.Artists.ListRelatedArtists',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->artists->listRelatedArtists('0TnOYISbd1XYRBk9myaseg');\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'artists.list_related_artists',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.artists.list_related_artists(\n    "0TnOYISbd1XYRBk9myaseg",\n)\nprint(response.artists)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Artists.ListRelatedArtists(context.TODO(), "0TnOYISbd1XYRBk9myaseg")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Artists)\n}\n',
       },
       ruby: {
         method: 'artists.list_related_artists',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.artists.list_related_artists("0TnOYISbd1XYRBk9myaseg")\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.artists.listRelatedArtists',
+      cli: {
+        method: 'artists list_related_artists',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.artists.listRelatedArtists('0TnOYISbd1XYRBk9myaseg');\n\nconsole.log(response.artists);",
+          "spotted artists list-related-artists \\\n  --access-token 'My Access Token' \\\n  --id 0TnOYISbd1XYRBk9myaseg",
+      },
+      php: {
+        method: 'artists->listRelatedArtists',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->artists->listRelatedArtists('0TnOYISbd1XYRBk9myaseg');\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Artists.ListRelatedArtists',
+        example:
+          'ArtistListRelatedArtistsParams parameters = new()\n{\n    ID = "0TnOYISbd1XYRBk9myaseg"\n};\n\nvar response = await client.Artists.ListRelatedArtists(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/artists/$ID/related-artists \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -593,24 +593,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.shows.retrieve(id: string, market?: string): object`\n\n**get** `/shows/{id}`\n\nGet Spotify catalog information for a single show identified by its\nunique Spotify ID.\n\n\n### Parameters\n\n- `id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids)\nfor the show.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n### Returns\n\n- `{ id: string; available_markets: string[]; copyrights: object[]; description: string; explicit: boolean; external_urls: object; href: string; html_description: string; images: object[]; is_externally_hosted: boolean; languages: string[]; media_type: string; name: string; publisher: string; total_episodes: number; type: 'show'; uri: string; published?: boolean; }`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst show = await client.shows.retrieve('38bS44xjbVVZ3No3ByF1dJ');\n\nconsole.log(show);\n```",
     perLanguage: {
-      cli: {
-        method: 'shows retrieve',
+      typescript: {
+        method: 'client.shows.retrieve',
         example:
-          "spotted shows retrieve \\\n  --access-token 'My Access Token' \\\n  --id 38bS44xjbVVZ3No3ByF1dJ",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst show = await client.shows.retrieve('38bS44xjbVVZ3No3ByF1dJ');\n\nconsole.log(show);",
       },
-      csharp: {
-        method: 'Shows.Retrieve',
+      python: {
+        method: 'shows.retrieve',
         example:
-          'ShowRetrieveParams parameters = new() { ID = "38bS44xjbVVZ3No3ByF1dJ" };\n\nvar show = await client.Shows.Retrieve(parameters);\n\nConsole.WriteLine(show);',
-      },
-      go: {
-        method: 'client.Shows.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tshow, err := client.Shows.Get(\n\t\tcontext.TODO(),\n\t\t"38bS44xjbVVZ3No3ByF1dJ",\n\t\tspotted.ShowGetParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", show)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/shows/$ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nshow = client.shows.retrieve(\n    id="38bS44xjbVVZ3No3ByF1dJ",\n)\nprint(show)',
       },
       java: {
         method: 'shows().retrieve',
@@ -622,25 +613,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.shows.ShowRetrieveParams\nimport dev.cjav.spotted.models.shows.ShowRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val show: ShowRetrieveResponse = client.shows().retrieve("38bS44xjbVVZ3No3ByF1dJ")\n}',
       },
-      php: {
-        method: 'shows->retrieve',
+      go: {
+        method: 'client.Shows.Get',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$show = $client->shows->retrieve('38bS44xjbVVZ3No3ByF1dJ', market: 'ES');\n\nvar_dump($show);",
-      },
-      python: {
-        method: 'shows.retrieve',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nshow = client.shows.retrieve(\n    id="38bS44xjbVVZ3No3ByF1dJ",\n)\nprint(show)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tshow, err := client.Shows.Get(\n\t\tcontext.TODO(),\n\t\t"38bS44xjbVVZ3No3ByF1dJ",\n\t\tspotted.ShowGetParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", show)\n}\n',
       },
       ruby: {
         method: 'shows.retrieve',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nshow = spotted.shows.retrieve("38bS44xjbVVZ3No3ByF1dJ")\n\nputs(show)',
       },
-      typescript: {
-        method: 'client.shows.retrieve',
+      cli: {
+        method: 'shows retrieve',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst show = await client.shows.retrieve('38bS44xjbVVZ3No3ByF1dJ');\n\nconsole.log(show);",
+          "spotted shows retrieve \\\n  --access-token 'My Access Token' \\\n  --id 38bS44xjbVVZ3No3ByF1dJ",
+      },
+      php: {
+        method: 'shows->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$show = $client->shows->retrieve('38bS44xjbVVZ3No3ByF1dJ', market: 'ES');\n\nvar_dump($show);",
+      },
+      csharp: {
+        method: 'Shows.Retrieve',
+        example:
+          'ShowRetrieveParams parameters = new() { ID = "38bS44xjbVVZ3No3ByF1dJ" };\n\nvar show = await client.Shows.Retrieve(parameters);\n\nConsole.WriteLine(show);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/shows/$ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -658,24 +658,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## bulk_retrieve\n\n`client.shows.bulkRetrieve(ids: string, market?: string): { shows: show_base[]; }`\n\n**get** `/shows`\n\nGet Spotify catalog information for several shows based on their Spotify IDs.\n\n\n### Parameters\n\n- `ids: string`\n  A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for the shows. Maximum: 50 IDs.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n### Returns\n\n- `{ shows: { id: string; available_markets: string[]; copyrights: copyright_object[]; description: string; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; is_externally_hosted: boolean; languages: string[]; media_type: string; name: string; publisher: string; total_episodes: number; type: 'show'; uri: string; published?: boolean; }[]; }`\n\n  - `shows: { id: string; available_markets: string[]; copyrights: { published?: boolean; text?: string; type?: string; }[]; description: string; explicit: boolean; external_urls: { published?: boolean; spotify?: string; }; href: string; html_description: string; images: { height: number; url: string; width: number; published?: boolean; }[]; is_externally_hosted: boolean; languages: string[]; media_type: string; name: string; publisher: string; total_episodes: number; type: 'show'; uri: string; published?: boolean; }[]`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.shows.bulkRetrieve({ ids: '5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ' });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'shows bulk_retrieve',
+      typescript: {
+        method: 'client.shows.bulkRetrieve',
         example:
-          "spotted shows bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.shows.bulkRetrieve({\n  ids: '5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ',\n});\n\nconsole.log(response.shows);",
       },
-      csharp: {
-        method: 'Shows.BulkRetrieve',
+      python: {
+        method: 'shows.bulk_retrieve',
         example:
-          'ShowBulkRetrieveParams parameters = new()\n{\n    Ids = "5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ"\n};\n\nvar response = await client.Shows.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
-      },
-      go: {
-        method: 'client.Shows.BulkGet',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Shows.BulkGet(context.TODO(), spotted.ShowBulkGetParams{\n\t\tIDs: "5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Shows)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/shows \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.shows.bulk_retrieve(\n    ids="5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ",\n)\nprint(response.shows)',
       },
       java: {
         method: 'shows().bulkRetrieve',
@@ -687,25 +678,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.shows.ShowBulkRetrieveParams\nimport dev.cjav.spotted.models.shows.ShowBulkRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: ShowBulkRetrieveParams = ShowBulkRetrieveParams.builder()\n        .ids("5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ")\n        .build()\n    val response: ShowBulkRetrieveResponse = client.shows().bulkRetrieve(params)\n}',
       },
-      php: {
-        method: 'shows->bulkRetrieve',
+      go: {
+        method: 'client.Shows.BulkGet',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->shows->bulkRetrieve(\n  ids: '5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ', market: 'ES'\n);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'shows.bulk_retrieve',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.shows.bulk_retrieve(\n    ids="5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ",\n)\nprint(response.shows)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Shows.BulkGet(context.TODO(), spotted.ShowBulkGetParams{\n\t\tIDs: "5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Shows)\n}\n',
       },
       ruby: {
         method: 'shows.bulk_retrieve',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.shows.bulk_retrieve(ids: "5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ")\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.shows.bulkRetrieve',
+      cli: {
+        method: 'shows bulk_retrieve',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.shows.bulkRetrieve({\n  ids: '5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ',\n});\n\nconsole.log(response.shows);",
+          "spotted shows bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ",
+      },
+      php: {
+        method: 'shows->bulkRetrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->shows->bulkRetrieve(\n  ids: '5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ', market: 'ES'\n);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Shows.BulkRetrieve',
+        example:
+          'ShowBulkRetrieveParams parameters = new()\n{\n    Ids = "5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ"\n};\n\nvar response = await client.Shows.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/shows \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -724,24 +724,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list_episodes\n\n`client.shows.listEpisodes(id: string, limit?: number, market?: string, offset?: number): { id: string; audio_preview_url: string; description: string; duration_ms: number; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; is_externally_hosted: boolean; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; type: 'episode'; uri: string; language?: string; published?: boolean; restrictions?: episode_restriction_object; resume_point?: resume_point_object; }`\n\n**get** `/shows/{id}/episodes`\n\nGet Spotify catalog information about an show’s episodes. Optional parameters can be used to limit the number of episodes returned.\n\n\n### Parameters\n\n- `id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids)\nfor the show.\n\n\n- `limit?: number`\n  The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n- `offset?: number`\n  The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.\n\n\n### Returns\n\n- `{ id: string; audio_preview_url: string; description: string; duration_ms: number; explicit: boolean; external_urls: { published?: boolean; spotify?: string; }; href: string; html_description: string; images: { height: number; url: string; width: number; published?: boolean; }[]; is_externally_hosted: boolean; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; type: 'episode'; uri: string; language?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; resume_point?: { fully_played?: boolean; published?: boolean; resume_position_ms?: number; }; }`\n\n  - `id: string`\n  - `audio_preview_url: string`\n  - `description: string`\n  - `duration_ms: number`\n  - `explicit: boolean`\n  - `external_urls: { published?: boolean; spotify?: string; }`\n  - `href: string`\n  - `html_description: string`\n  - `images: { height: number; url: string; width: number; published?: boolean; }[]`\n  - `is_externally_hosted: boolean`\n  - `is_playable: boolean`\n  - `languages: string[]`\n  - `name: string`\n  - `release_date: string`\n  - `release_date_precision: 'year' | 'month' | 'day'`\n  - `type: 'episode'`\n  - `uri: string`\n  - `language?: string`\n  - `published?: boolean`\n  - `restrictions?: { published?: boolean; reason?: string; }`\n  - `resume_point?: { fully_played?: boolean; published?: boolean; resume_position_ms?: number; }`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\n// Automatically fetches more pages as needed.\nfor await (const simplifiedEpisodeObject of client.shows.listEpisodes('38bS44xjbVVZ3No3ByF1dJ')) {\n  console.log(simplifiedEpisodeObject);\n}\n```",
     perLanguage: {
-      cli: {
-        method: 'shows list_episodes',
+      typescript: {
+        method: 'client.shows.listEpisodes',
         example:
-          "spotted shows list-episodes \\\n  --access-token 'My Access Token' \\\n  --id 38bS44xjbVVZ3No3ByF1dJ",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const simplifiedEpisodeObject of client.shows.listEpisodes('38bS44xjbVVZ3No3ByF1dJ')) {\n  console.log(simplifiedEpisodeObject.id);\n}",
       },
-      csharp: {
-        method: 'Shows.ListEpisodes',
+      python: {
+        method: 'shows.list_episodes',
         example:
-          'ShowListEpisodesParams parameters = new() { ID = "38bS44xjbVVZ3No3ByF1dJ" };\n\nvar page = await client.Shows.ListEpisodes(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
-      },
-      go: {
-        method: 'client.Shows.ListEpisodes',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Shows.ListEpisodes(\n\t\tcontext.TODO(),\n\t\t"38bS44xjbVVZ3No3ByF1dJ",\n\t\tspotted.ShowListEpisodesParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/shows/$ID/episodes \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.shows.list_episodes(\n    id="38bS44xjbVVZ3No3ByF1dJ",\n)\npage = page.items[0]\nprint(page.id)',
       },
       java: {
         method: 'shows().listEpisodes',
@@ -753,25 +744,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.shows.ShowListEpisodesPage\nimport dev.cjav.spotted.models.shows.ShowListEpisodesParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: ShowListEpisodesPage = client.shows().listEpisodes("38bS44xjbVVZ3No3ByF1dJ")\n}',
       },
-      php: {
-        method: 'shows->listEpisodes',
+      go: {
+        method: 'client.Shows.ListEpisodes',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->shows->listEpisodes(\n  '38bS44xjbVVZ3No3ByF1dJ', limit: 10, market: 'ES', offset: 5\n);\n\nvar_dump($page);",
-      },
-      python: {
-        method: 'shows.list_episodes',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.shows.list_episodes(\n    id="38bS44xjbVVZ3No3ByF1dJ",\n)\npage = page.items[0]\nprint(page.id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Shows.ListEpisodes(\n\t\tcontext.TODO(),\n\t\t"38bS44xjbVVZ3No3ByF1dJ",\n\t\tspotted.ShowListEpisodesParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
       },
       ruby: {
         method: 'shows.list_episodes',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\npage = spotted.shows.list_episodes("38bS44xjbVVZ3No3ByF1dJ")\n\nputs(page)',
       },
-      typescript: {
-        method: 'client.shows.listEpisodes',
+      cli: {
+        method: 'shows list_episodes',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const simplifiedEpisodeObject of client.shows.listEpisodes('38bS44xjbVVZ3No3ByF1dJ')) {\n  console.log(simplifiedEpisodeObject.id);\n}",
+          "spotted shows list-episodes \\\n  --access-token 'My Access Token' \\\n  --id 38bS44xjbVVZ3No3ByF1dJ",
+      },
+      php: {
+        method: 'shows->listEpisodes',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->shows->listEpisodes(\n  '38bS44xjbVVZ3No3ByF1dJ', limit: 10, market: 'ES', offset: 5\n);\n\nvar_dump($page);",
+      },
+      csharp: {
+        method: 'Shows.ListEpisodes',
+        example:
+          'ShowListEpisodesParams parameters = new() { ID = "38bS44xjbVVZ3No3ByF1dJ" };\n\nvar page = await client.Shows.ListEpisodes(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/shows/$ID/episodes \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -790,24 +790,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.episodes.retrieve(id: string, market?: string): { id: string; audio_preview_url: string; description: string; duration_ms: number; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; is_externally_hosted: boolean; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; show: show_base; type: 'episode'; uri: string; language?: string; published?: boolean; restrictions?: episode_restriction_object; resume_point?: resume_point_object; }`\n\n**get** `/episodes/{id}`\n\nGet Spotify catalog information for a single episode identified by its\nunique Spotify ID.\n\n\n### Parameters\n\n- `id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) for the episode.\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n### Returns\n\n- `{ id: string; audio_preview_url: string; description: string; duration_ms: number; explicit: boolean; external_urls: { published?: boolean; spotify?: string; }; href: string; html_description: string; images: { height: number; url: string; width: number; published?: boolean; }[]; is_externally_hosted: boolean; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; show: { id: string; available_markets: string[]; copyrights: copyright_object[]; description: string; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; is_externally_hosted: boolean; languages: string[]; media_type: string; name: string; publisher: string; total_episodes: number; type: 'show'; uri: string; published?: boolean; }; type: 'episode'; uri: string; language?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; resume_point?: { fully_played?: boolean; published?: boolean; resume_position_ms?: number; }; }`\n\n  - `id: string`\n  - `audio_preview_url: string`\n  - `description: string`\n  - `duration_ms: number`\n  - `explicit: boolean`\n  - `external_urls: { published?: boolean; spotify?: string; }`\n  - `href: string`\n  - `html_description: string`\n  - `images: { height: number; url: string; width: number; published?: boolean; }[]`\n  - `is_externally_hosted: boolean`\n  - `is_playable: boolean`\n  - `languages: string[]`\n  - `name: string`\n  - `release_date: string`\n  - `release_date_precision: 'year' | 'month' | 'day'`\n  - `show: { id: string; available_markets: string[]; copyrights: { published?: boolean; text?: string; type?: string; }[]; description: string; explicit: boolean; external_urls: { published?: boolean; spotify?: string; }; href: string; html_description: string; images: { height: number; url: string; width: number; published?: boolean; }[]; is_externally_hosted: boolean; languages: string[]; media_type: string; name: string; publisher: string; total_episodes: number; type: 'show'; uri: string; published?: boolean; }`\n  - `type: 'episode'`\n  - `uri: string`\n  - `language?: string`\n  - `published?: boolean`\n  - `restrictions?: { published?: boolean; reason?: string; }`\n  - `resume_point?: { fully_played?: boolean; published?: boolean; resume_position_ms?: number; }`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst episodeObject = await client.episodes.retrieve('512ojhOuo1ktJprKbVcKyQ');\n\nconsole.log(episodeObject);\n```",
     perLanguage: {
-      cli: {
-        method: 'episodes retrieve',
+      typescript: {
+        method: 'client.episodes.retrieve',
         example:
-          "spotted episodes retrieve \\\n  --access-token 'My Access Token' \\\n  --id 512ojhOuo1ktJprKbVcKyQ",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst episodeObject = await client.episodes.retrieve('512ojhOuo1ktJprKbVcKyQ');\n\nconsole.log(episodeObject.id);",
       },
-      csharp: {
-        method: 'Episodes.Retrieve',
+      python: {
+        method: 'episodes.retrieve',
         example:
-          'EpisodeRetrieveParams parameters = new() { ID = "512ojhOuo1ktJprKbVcKyQ" };\n\nvar episodeObject = await client.Episodes.Retrieve(parameters);\n\nConsole.WriteLine(episodeObject);',
-      },
-      go: {
-        method: 'client.Episodes.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tepisodeObject, err := client.Episodes.Get(\n\t\tcontext.TODO(),\n\t\t"512ojhOuo1ktJprKbVcKyQ",\n\t\tspotted.EpisodeGetParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", episodeObject.ID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/episodes/$ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nepisode_object = client.episodes.retrieve(\n    id="512ojhOuo1ktJprKbVcKyQ",\n)\nprint(episode_object.id)',
       },
       java: {
         method: 'episodes().retrieve',
@@ -819,25 +810,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.EpisodeObject\nimport dev.cjav.spotted.models.episodes.EpisodeRetrieveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val episodeObject: EpisodeObject = client.episodes().retrieve("512ojhOuo1ktJprKbVcKyQ")\n}',
       },
-      php: {
-        method: 'episodes->retrieve',
+      go: {
+        method: 'client.Episodes.Get',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$episodeObject = $client->episodes->retrieve(\n  '512ojhOuo1ktJprKbVcKyQ', market: 'ES'\n);\n\nvar_dump($episodeObject);",
-      },
-      python: {
-        method: 'episodes.retrieve',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nepisode_object = client.episodes.retrieve(\n    id="512ojhOuo1ktJprKbVcKyQ",\n)\nprint(episode_object.id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tepisodeObject, err := client.Episodes.Get(\n\t\tcontext.TODO(),\n\t\t"512ojhOuo1ktJprKbVcKyQ",\n\t\tspotted.EpisodeGetParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", episodeObject.ID)\n}\n',
       },
       ruby: {
         method: 'episodes.retrieve',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nepisode_object = spotted.episodes.retrieve("512ojhOuo1ktJprKbVcKyQ")\n\nputs(episode_object)',
       },
-      typescript: {
-        method: 'client.episodes.retrieve',
+      cli: {
+        method: 'episodes retrieve',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst episodeObject = await client.episodes.retrieve('512ojhOuo1ktJprKbVcKyQ');\n\nconsole.log(episodeObject.id);",
+          "spotted episodes retrieve \\\n  --access-token 'My Access Token' \\\n  --id 512ojhOuo1ktJprKbVcKyQ",
+      },
+      php: {
+        method: 'episodes->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$episodeObject = $client->episodes->retrieve(\n  '512ojhOuo1ktJprKbVcKyQ', market: 'ES'\n);\n\nvar_dump($episodeObject);",
+      },
+      csharp: {
+        method: 'Episodes.Retrieve',
+        example:
+          'EpisodeRetrieveParams parameters = new() { ID = "512ojhOuo1ktJprKbVcKyQ" };\n\nvar episodeObject = await client.Episodes.Retrieve(parameters);\n\nConsole.WriteLine(episodeObject);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/episodes/$ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -855,24 +855,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## bulk_retrieve\n\n`client.episodes.bulkRetrieve(ids: string, market?: string): { episodes: episode_object[]; }`\n\n**get** `/episodes`\n\nGet Spotify catalog information for several episodes based on their Spotify IDs.\n\n\n### Parameters\n\n- `ids: string`\n  A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for the episodes. Maximum: 50 IDs.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n### Returns\n\n- `{ episodes: { id: string; audio_preview_url: string; description: string; duration_ms: number; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; is_externally_hosted: boolean; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; show: show_base; type: 'episode'; uri: string; language?: string; published?: boolean; restrictions?: episode_restriction_object; resume_point?: resume_point_object; }[]; }`\n\n  - `episodes: { id: string; audio_preview_url: string; description: string; duration_ms: number; explicit: boolean; external_urls: { published?: boolean; spotify?: string; }; href: string; html_description: string; images: { height: number; url: string; width: number; published?: boolean; }[]; is_externally_hosted: boolean; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; show: { id: string; available_markets: string[]; copyrights: copyright_object[]; description: string; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; is_externally_hosted: boolean; languages: string[]; media_type: string; name: string; publisher: string; total_episodes: number; type: 'show'; uri: string; published?: boolean; }; type: 'episode'; uri: string; language?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; resume_point?: { fully_played?: boolean; published?: boolean; resume_position_ms?: number; }; }[]`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.episodes.bulkRetrieve({ ids: '77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf' });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'episodes bulk_retrieve',
+      typescript: {
+        method: 'client.episodes.bulkRetrieve',
         example:
-          "spotted episodes bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.episodes.bulkRetrieve({\n  ids: '77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf',\n});\n\nconsole.log(response.episodes);",
       },
-      csharp: {
-        method: 'Episodes.BulkRetrieve',
+      python: {
+        method: 'episodes.bulk_retrieve',
         example:
-          'EpisodeBulkRetrieveParams parameters = new()\n{\n    Ids = "77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf"\n};\n\nvar response = await client.Episodes.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
-      },
-      go: {
-        method: 'client.Episodes.BulkGet',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Episodes.BulkGet(context.TODO(), spotted.EpisodeBulkGetParams{\n\t\tIDs: "77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Episodes)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/episodes \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.episodes.bulk_retrieve(\n    ids="77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf",\n)\nprint(response.episodes)',
       },
       java: {
         method: 'episodes().bulkRetrieve',
@@ -884,25 +875,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.episodes.EpisodeBulkRetrieveParams\nimport dev.cjav.spotted.models.episodes.EpisodeBulkRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: EpisodeBulkRetrieveParams = EpisodeBulkRetrieveParams.builder()\n        .ids("77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf")\n        .build()\n    val response: EpisodeBulkRetrieveResponse = client.episodes().bulkRetrieve(params)\n}',
       },
-      php: {
-        method: 'episodes->bulkRetrieve',
+      go: {
+        method: 'client.Episodes.BulkGet',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->episodes->bulkRetrieve(\n  ids: '77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf', market: 'ES'\n);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'episodes.bulk_retrieve',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.episodes.bulk_retrieve(\n    ids="77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf",\n)\nprint(response.episodes)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Episodes.BulkGet(context.TODO(), spotted.EpisodeBulkGetParams{\n\t\tIDs: "77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Episodes)\n}\n',
       },
       ruby: {
         method: 'episodes.bulk_retrieve',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.episodes.bulk_retrieve(ids: "77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf")\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.episodes.bulkRetrieve',
+      cli: {
+        method: 'episodes bulk_retrieve',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.episodes.bulkRetrieve({\n  ids: '77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf',\n});\n\nconsole.log(response.episodes);",
+          "spotted episodes bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf",
+      },
+      php: {
+        method: 'episodes->bulkRetrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->episodes->bulkRetrieve(\n  ids: '77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf', market: 'ES'\n);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Episodes.BulkRetrieve',
+        example:
+          'EpisodeBulkRetrieveParams parameters = new()\n{\n    Ids = "77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf"\n};\n\nvar response = await client.Episodes.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/episodes \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -921,24 +921,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.audiobooks.retrieve(id: string, market?: string): object`\n\n**get** `/audiobooks/{id}`\n\nGet Spotify catalog information for a single audiobook. Audiobooks are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.\n\n\n### Parameters\n\n- `id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids)\nfor the audiobook.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n### Returns\n\n- `{ id: string; authors: object[]; available_markets: string[]; copyrights: object[]; description: string; explicit: boolean; external_urls: object; href: string; html_description: string; images: object[]; languages: string[]; media_type: string; name: string; narrators: object[]; publisher: string; total_chapters: number; type: 'audiobook'; uri: string; edition?: string; published?: boolean; }`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst audiobook = await client.audiobooks.retrieve('7iHfbu1YPACw6oZPAFJtqe');\n\nconsole.log(audiobook);\n```",
     perLanguage: {
-      cli: {
-        method: 'audiobooks retrieve',
+      typescript: {
+        method: 'client.audiobooks.retrieve',
         example:
-          "spotted audiobooks retrieve \\\n  --access-token 'My Access Token' \\\n  --id 7iHfbu1YPACw6oZPAFJtqe",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst audiobook = await client.audiobooks.retrieve('7iHfbu1YPACw6oZPAFJtqe');\n\nconsole.log(audiobook);",
       },
-      csharp: {
-        method: 'Audiobooks.Retrieve',
+      python: {
+        method: 'audiobooks.retrieve',
         example:
-          'AudiobookRetrieveParams parameters = new() { ID = "7iHfbu1YPACw6oZPAFJtqe" };\n\nvar audiobook = await client.Audiobooks.Retrieve(parameters);\n\nConsole.WriteLine(audiobook);',
-      },
-      go: {
-        method: 'client.Audiobooks.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\taudiobook, err := client.Audiobooks.Get(\n\t\tcontext.TODO(),\n\t\t"7iHfbu1YPACw6oZPAFJtqe",\n\t\tspotted.AudiobookGetParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", audiobook)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/audiobooks/$ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\naudiobook = client.audiobooks.retrieve(\n    id="7iHfbu1YPACw6oZPAFJtqe",\n)\nprint(audiobook)',
       },
       java: {
         method: 'audiobooks().retrieve',
@@ -950,25 +941,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.audiobooks.AudiobookRetrieveParams\nimport dev.cjav.spotted.models.audiobooks.AudiobookRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val audiobook: AudiobookRetrieveResponse = client.audiobooks().retrieve("7iHfbu1YPACw6oZPAFJtqe")\n}',
       },
-      php: {
-        method: 'audiobooks->retrieve',
+      go: {
+        method: 'client.Audiobooks.Get',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$audiobook = $client->audiobooks->retrieve(\n  '7iHfbu1YPACw6oZPAFJtqe', market: 'ES'\n);\n\nvar_dump($audiobook);",
-      },
-      python: {
-        method: 'audiobooks.retrieve',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\naudiobook = client.audiobooks.retrieve(\n    id="7iHfbu1YPACw6oZPAFJtqe",\n)\nprint(audiobook)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\taudiobook, err := client.Audiobooks.Get(\n\t\tcontext.TODO(),\n\t\t"7iHfbu1YPACw6oZPAFJtqe",\n\t\tspotted.AudiobookGetParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", audiobook)\n}\n',
       },
       ruby: {
         method: 'audiobooks.retrieve',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\naudiobook = spotted.audiobooks.retrieve("7iHfbu1YPACw6oZPAFJtqe")\n\nputs(audiobook)',
       },
-      typescript: {
-        method: 'client.audiobooks.retrieve',
+      cli: {
+        method: 'audiobooks retrieve',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst audiobook = await client.audiobooks.retrieve('7iHfbu1YPACw6oZPAFJtqe');\n\nconsole.log(audiobook);",
+          "spotted audiobooks retrieve \\\n  --access-token 'My Access Token' \\\n  --id 7iHfbu1YPACw6oZPAFJtqe",
+      },
+      php: {
+        method: 'audiobooks->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$audiobook = $client->audiobooks->retrieve(\n  '7iHfbu1YPACw6oZPAFJtqe', market: 'ES'\n);\n\nvar_dump($audiobook);",
+      },
+      csharp: {
+        method: 'Audiobooks.Retrieve',
+        example:
+          'AudiobookRetrieveParams parameters = new() { ID = "7iHfbu1YPACw6oZPAFJtqe" };\n\nvar audiobook = await client.Audiobooks.Retrieve(parameters);\n\nConsole.WriteLine(audiobook);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/audiobooks/$ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -987,24 +987,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## bulk_retrieve\n\n`client.audiobooks.bulkRetrieve(ids: string, market?: string): { audiobooks: audiobook_base[]; }`\n\n**get** `/audiobooks`\n\nGet Spotify catalog information for several audiobooks identified by their Spotify IDs. Audiobooks are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.\n\n\n### Parameters\n\n- `ids: string`\n  A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example: `ids=18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ`. Maximum: 50 IDs.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n### Returns\n\n- `{ audiobooks: { id: string; authors: author_object[]; available_markets: string[]; copyrights: copyright_object[]; description: string; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; languages: string[]; media_type: string; name: string; narrators: narrator_object[]; publisher: string; total_chapters: number; type: 'audiobook'; uri: string; edition?: string; published?: boolean; }[]; }`\n\n  - `audiobooks: { id: string; authors: { name?: string; published?: boolean; }[]; available_markets: string[]; copyrights: { published?: boolean; text?: string; type?: string; }[]; description: string; explicit: boolean; external_urls: { published?: boolean; spotify?: string; }; href: string; html_description: string; images: { height: number; url: string; width: number; published?: boolean; }[]; languages: string[]; media_type: string; name: string; narrators: { name?: string; published?: boolean; }[]; publisher: string; total_chapters: number; type: 'audiobook'; uri: string; edition?: string; published?: boolean; }[]`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.audiobooks.bulkRetrieve({ ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe' });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'audiobooks bulk_retrieve',
+      typescript: {
+        method: 'client.audiobooks.bulkRetrieve',
         example:
-          "spotted audiobooks bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.audiobooks.bulkRetrieve({\n  ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe',\n});\n\nconsole.log(response.audiobooks);",
       },
-      csharp: {
-        method: 'Audiobooks.BulkRetrieve',
+      python: {
+        method: 'audiobooks.bulk_retrieve',
         example:
-          'AudiobookBulkRetrieveParams parameters = new()\n{\n    Ids = "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe"\n};\n\nvar response = await client.Audiobooks.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
-      },
-      go: {
-        method: 'client.Audiobooks.BulkGet',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Audiobooks.BulkGet(context.TODO(), spotted.AudiobookBulkGetParams{\n\t\tIDs: "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Audiobooks)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/audiobooks \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.audiobooks.bulk_retrieve(\n    ids="18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",\n)\nprint(response.audiobooks)',
       },
       java: {
         method: 'audiobooks().bulkRetrieve',
@@ -1016,25 +1007,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.audiobooks.AudiobookBulkRetrieveParams\nimport dev.cjav.spotted.models.audiobooks.AudiobookBulkRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: AudiobookBulkRetrieveParams = AudiobookBulkRetrieveParams.builder()\n        .ids("18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe")\n        .build()\n    val response: AudiobookBulkRetrieveResponse = client.audiobooks().bulkRetrieve(params)\n}',
       },
-      php: {
-        method: 'audiobooks->bulkRetrieve',
+      go: {
+        method: 'client.Audiobooks.BulkGet',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->audiobooks->bulkRetrieve(\n  ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe',\n  market: 'ES',\n);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'audiobooks.bulk_retrieve',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.audiobooks.bulk_retrieve(\n    ids="18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",\n)\nprint(response.audiobooks)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Audiobooks.BulkGet(context.TODO(), spotted.AudiobookBulkGetParams{\n\t\tIDs: "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Audiobooks)\n}\n',
       },
       ruby: {
         method: 'audiobooks.bulk_retrieve',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.audiobooks.bulk_retrieve(\n  ids: "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe"\n)\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.audiobooks.bulkRetrieve',
+      cli: {
+        method: 'audiobooks bulk_retrieve',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.audiobooks.bulkRetrieve({\n  ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe',\n});\n\nconsole.log(response.audiobooks);",
+          "spotted audiobooks bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",
+      },
+      php: {
+        method: 'audiobooks->bulkRetrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->audiobooks->bulkRetrieve(\n  ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe',\n  market: 'ES',\n);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Audiobooks.BulkRetrieve',
+        example:
+          'AudiobookBulkRetrieveParams parameters = new()\n{\n    Ids = "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe"\n};\n\nvar response = await client.Audiobooks.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/audiobooks \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -1053,24 +1053,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list_chapters\n\n`client.audiobooks.listChapters(id: string, limit?: number, market?: string, offset?: number): { id: string; audio_preview_url: string; chapter_number: number; description: string; duration_ms: number; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; type: 'episode'; uri: string; available_markets?: string[]; published?: boolean; restrictions?: chapter_restriction_object; resume_point?: resume_point_object; }`\n\n**get** `/audiobooks/{id}/chapters`\n\nGet Spotify catalog information about an audiobook's chapters. Audiobooks are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.\n\n\n### Parameters\n\n- `id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids)\nfor the audiobook.\n\n\n- `limit?: number`\n  The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n- `offset?: number`\n  The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.\n\n\n### Returns\n\n- `{ id: string; audio_preview_url: string; chapter_number: number; description: string; duration_ms: number; explicit: boolean; external_urls: { published?: boolean; spotify?: string; }; href: string; html_description: string; images: { height: number; url: string; width: number; published?: boolean; }[]; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; type: 'episode'; uri: string; available_markets?: string[]; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; resume_point?: { fully_played?: boolean; published?: boolean; resume_position_ms?: number; }; }`\n\n  - `id: string`\n  - `audio_preview_url: string`\n  - `chapter_number: number`\n  - `description: string`\n  - `duration_ms: number`\n  - `explicit: boolean`\n  - `external_urls: { published?: boolean; spotify?: string; }`\n  - `href: string`\n  - `html_description: string`\n  - `images: { height: number; url: string; width: number; published?: boolean; }[]`\n  - `is_playable: boolean`\n  - `languages: string[]`\n  - `name: string`\n  - `release_date: string`\n  - `release_date_precision: 'year' | 'month' | 'day'`\n  - `type: 'episode'`\n  - `uri: string`\n  - `available_markets?: string[]`\n  - `published?: boolean`\n  - `restrictions?: { published?: boolean; reason?: string; }`\n  - `resume_point?: { fully_played?: boolean; published?: boolean; resume_position_ms?: number; }`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\n// Automatically fetches more pages as needed.\nfor await (const simplifiedChapterObject of client.audiobooks.listChapters('7iHfbu1YPACw6oZPAFJtqe')) {\n  console.log(simplifiedChapterObject);\n}\n```",
     perLanguage: {
-      cli: {
-        method: 'audiobooks list_chapters',
+      typescript: {
+        method: 'client.audiobooks.listChapters',
         example:
-          "spotted audiobooks list-chapters \\\n  --access-token 'My Access Token' \\\n  --id 7iHfbu1YPACw6oZPAFJtqe",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const simplifiedChapterObject of client.audiobooks.listChapters(\n  '7iHfbu1YPACw6oZPAFJtqe',\n)) {\n  console.log(simplifiedChapterObject.id);\n}",
       },
-      csharp: {
-        method: 'Audiobooks.ListChapters',
+      python: {
+        method: 'audiobooks.list_chapters',
         example:
-          'AudiobookListChaptersParams parameters = new()\n{\n    ID = "7iHfbu1YPACw6oZPAFJtqe"\n};\n\nvar page = await client.Audiobooks.ListChapters(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
-      },
-      go: {
-        method: 'client.Audiobooks.ListChapters',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Audiobooks.ListChapters(\n\t\tcontext.TODO(),\n\t\t"7iHfbu1YPACw6oZPAFJtqe",\n\t\tspotted.AudiobookListChaptersParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/audiobooks/$ID/chapters \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.audiobooks.list_chapters(\n    id="7iHfbu1YPACw6oZPAFJtqe",\n)\npage = page.items[0]\nprint(page.id)',
       },
       java: {
         method: 'audiobooks().listChapters',
@@ -1082,25 +1073,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.audiobooks.AudiobookListChaptersPage\nimport dev.cjav.spotted.models.audiobooks.AudiobookListChaptersParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: AudiobookListChaptersPage = client.audiobooks().listChapters("7iHfbu1YPACw6oZPAFJtqe")\n}',
       },
-      php: {
-        method: 'audiobooks->listChapters',
+      go: {
+        method: 'client.Audiobooks.ListChapters',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->audiobooks->listChapters(\n  '7iHfbu1YPACw6oZPAFJtqe', limit: 10, market: 'ES', offset: 5\n);\n\nvar_dump($page);",
-      },
-      python: {
-        method: 'audiobooks.list_chapters',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.audiobooks.list_chapters(\n    id="7iHfbu1YPACw6oZPAFJtqe",\n)\npage = page.items[0]\nprint(page.id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Audiobooks.ListChapters(\n\t\tcontext.TODO(),\n\t\t"7iHfbu1YPACw6oZPAFJtqe",\n\t\tspotted.AudiobookListChaptersParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
       },
       ruby: {
         method: 'audiobooks.list_chapters',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\npage = spotted.audiobooks.list_chapters("7iHfbu1YPACw6oZPAFJtqe")\n\nputs(page)',
       },
-      typescript: {
-        method: 'client.audiobooks.listChapters',
+      cli: {
+        method: 'audiobooks list_chapters',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const simplifiedChapterObject of client.audiobooks.listChapters(\n  '7iHfbu1YPACw6oZPAFJtqe',\n)) {\n  console.log(simplifiedChapterObject.id);\n}",
+          "spotted audiobooks list-chapters \\\n  --access-token 'My Access Token' \\\n  --id 7iHfbu1YPACw6oZPAFJtqe",
+      },
+      php: {
+        method: 'audiobooks->listChapters',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->audiobooks->listChapters(\n  '7iHfbu1YPACw6oZPAFJtqe', limit: 10, market: 'ES', offset: 5\n);\n\nvar_dump($page);",
+      },
+      csharp: {
+        method: 'Audiobooks.ListChapters',
+        example:
+          'AudiobookListChaptersParams parameters = new()\n{\n    ID = "7iHfbu1YPACw6oZPAFJtqe"\n};\n\nvar page = await client.Audiobooks.ListChapters(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/audiobooks/$ID/chapters \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -1118,23 +1118,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.me.retrieve(): { id?: string; country?: string; display_name?: string; email?: string; explicit_content?: object; external_urls?: external_url_object; followers?: followers_object; href?: string; images?: image_object[]; product?: string; published?: boolean; type?: string; uri?: string; }`\n\n**get** `/me`\n\nGet detailed profile information about the current user (including the\ncurrent user's username).\n\n\n### Returns\n\n- `{ id?: string; country?: string; display_name?: string; email?: string; explicit_content?: { filter_enabled?: boolean; filter_locked?: boolean; published?: boolean; }; external_urls?: { published?: boolean; spotify?: string; }; followers?: { href?: string; published?: boolean; total?: number; }; href?: string; images?: { height: number; url: string; width: number; published?: boolean; }[]; product?: string; published?: boolean; type?: string; uri?: string; }`\n\n  - `id?: string`\n  - `country?: string`\n  - `display_name?: string`\n  - `email?: string`\n  - `explicit_content?: { filter_enabled?: boolean; filter_locked?: boolean; published?: boolean; }`\n  - `external_urls?: { published?: boolean; spotify?: string; }`\n  - `followers?: { href?: string; published?: boolean; total?: number; }`\n  - `href?: string`\n  - `images?: { height: number; url: string; width: number; published?: boolean; }[]`\n  - `product?: string`\n  - `published?: boolean`\n  - `type?: string`\n  - `uri?: string`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst me = await client.me.retrieve();\n\nconsole.log(me);\n```",
     perLanguage: {
-      cli: {
-        method: 'me retrieve',
-        example: "spotted me retrieve \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Retrieve',
+      typescript: {
+        method: 'client.me.retrieve',
         example:
-          'MeRetrieveParams parameters = new();\n\nvar me = await client.Me.Retrieve(parameters);\n\nConsole.WriteLine(me);',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst me = await client.me.retrieve();\n\nconsole.log(me.id);",
       },
-      go: {
-        method: 'client.Me.Get',
+      python: {
+        method: 'me.retrieve',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tme, err := client.Me.Get(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", me.ID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nme = client.me.retrieve()\nprint(me.id)',
       },
       java: {
         method: 'me().retrieve',
@@ -1146,25 +1138,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.MeRetrieveParams\nimport dev.cjav.spotted.models.me.MeRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val me: MeRetrieveResponse = client.me().retrieve()\n}',
       },
-      php: {
-        method: 'me->retrieve',
+      go: {
+        method: 'client.Me.Get',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$me = $client->me->retrieve();\n\nvar_dump($me);",
-      },
-      python: {
-        method: 'me.retrieve',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nme = client.me.retrieve()\nprint(me.id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tme, err := client.Me.Get(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", me.ID)\n}\n',
       },
       ruby: {
         method: 'me.retrieve',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nme = spotted.me.retrieve\n\nputs(me)',
       },
-      typescript: {
-        method: 'client.me.retrieve',
+      cli: {
+        method: 'me retrieve',
+        example: "spotted me retrieve \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->retrieve',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst me = await client.me.retrieve();\n\nconsole.log(me.id);",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$me = $client->me->retrieve();\n\nvar_dump($me);",
+      },
+      csharp: {
+        method: 'Me.Retrieve',
+        example:
+          'MeRetrieveParams parameters = new();\n\nvar me = await client.Me.Retrieve(parameters);\n\nConsole.WriteLine(me);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -1182,23 +1182,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.me.audiobooks.list(limit?: number, offset?: number): { added_at?: string; audiobook?: audiobook_base; published?: boolean; }`\n\n**get** `/me/audiobooks`\n\nGet a list of the audiobooks saved in the current Spotify user's 'Your Music' library.\n\n\n### Parameters\n\n- `limit?: number`\n  The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.\n\n\n- `offset?: number`\n  The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.\n\n\n### Returns\n\n- `{ added_at?: string; audiobook?: { id: string; authors: author_object[]; available_markets: string[]; copyrights: copyright_object[]; description: string; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; languages: string[]; media_type: string; name: string; narrators: narrator_object[]; publisher: string; total_chapters: number; type: 'audiobook'; uri: string; edition?: string; published?: boolean; }; published?: boolean; }`\n\n  - `added_at?: string`\n  - `audiobook?: { id: string; authors: { name?: string; published?: boolean; }[]; available_markets: string[]; copyrights: { published?: boolean; text?: string; type?: string; }[]; description: string; explicit: boolean; external_urls: { published?: boolean; spotify?: string; }; href: string; html_description: string; images: { height: number; url: string; width: number; published?: boolean; }[]; languages: string[]; media_type: string; name: string; narrators: { name?: string; published?: boolean; }[]; publisher: string; total_chapters: number; type: 'audiobook'; uri: string; edition?: string; published?: boolean; }`\n  - `published?: boolean`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\n// Automatically fetches more pages as needed.\nfor await (const audiobookListResponse of client.me.audiobooks.list()) {\n  console.log(audiobookListResponse);\n}\n```",
     perLanguage: {
-      cli: {
-        method: 'audiobooks list',
-        example: "spotted me:audiobooks list \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Audiobooks.List',
+      typescript: {
+        method: 'client.me.audiobooks.list',
         example:
-          'AudiobookListParams parameters = new();\n\nvar page = await client.Me.Audiobooks.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const audiobookListResponse of client.me.audiobooks.list()) {\n  console.log(audiobookListResponse.added_at);\n}",
       },
-      go: {
-        method: 'client.Me.Audiobooks.List',
+      python: {
+        method: 'me.audiobooks.list',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Me.Audiobooks.List(context.TODO(), spotted.MeAudiobookListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/audiobooks \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.me.audiobooks.list()\npage = page.items[0]\nprint(page.added_at)',
       },
       java: {
         method: 'me().audiobooks().list',
@@ -1210,25 +1202,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.audiobooks.AudiobookListPage\nimport dev.cjav.spotted.models.me.audiobooks.AudiobookListParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: AudiobookListPage = client.me().audiobooks().list()\n}',
       },
-      php: {
-        method: 'me->audiobooks->list',
+      go: {
+        method: 'client.Me.Audiobooks.List',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->audiobooks->list(limit: 10, offset: 5);\n\nvar_dump($page);",
-      },
-      python: {
-        method: 'me.audiobooks.list',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.me.audiobooks.list()\npage = page.items[0]\nprint(page.added_at)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Me.Audiobooks.List(context.TODO(), spotted.MeAudiobookListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
       },
       ruby: {
         method: 'me.audiobooks.list',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\npage = spotted.me.audiobooks.list\n\nputs(page)',
       },
-      typescript: {
-        method: 'client.me.audiobooks.list',
+      cli: {
+        method: 'audiobooks list',
+        example: "spotted me:audiobooks list \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->audiobooks->list',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const audiobookListResponse of client.me.audiobooks.list()) {\n  console.log(audiobookListResponse.added_at);\n}",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->audiobooks->list(limit: 10, offset: 5);\n\nvar_dump($page);",
+      },
+      csharp: {
+        method: 'Me.Audiobooks.List',
+        example:
+          'AudiobookListParams parameters = new();\n\nvar page = await client.Me.Audiobooks.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/audiobooks \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -1245,24 +1245,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## save\n\n`client.me.audiobooks.save(ids: string): void`\n\n**put** `/me/audiobooks`\n\nSave one or more audiobooks to the current Spotify user's library.\n\n**Note:** This endpoint is deprecated. Use [Save Items to Library](/documentation/web-api/reference/save-library-items) instead.\n\n\n### Parameters\n\n- `ids: string`\n  A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example: `ids=18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ`. Maximum: 50 IDs.\n\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nawait client.me.audiobooks.save({ ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe' })\n```",
     perLanguage: {
-      cli: {
-        method: 'audiobooks save',
+      typescript: {
+        method: 'client.me.audiobooks.save',
         example:
-          "spotted me:audiobooks save \\\n  --access-token 'My Access Token' \\\n  --ids 18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.audiobooks.save({\n  ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe',\n});",
       },
-      csharp: {
-        method: 'Me.Audiobooks.Save',
+      python: {
+        method: 'me.audiobooks.save',
         example:
-          'AudiobookSaveParams parameters = new()\n{\n    Ids = "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe"\n};\n\nawait client.Me.Audiobooks.Save(parameters);',
-      },
-      go: {
-        method: 'client.Me.Audiobooks.Save',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Audiobooks.Save(context.TODO(), spotted.MeAudiobookSaveParams{\n\t\tIDs: "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/audiobooks \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.audiobooks.save(\n    ids="18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",\n)',
       },
       java: {
         method: 'me().audiobooks().save',
@@ -1274,25 +1265,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.audiobooks.AudiobookSaveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: AudiobookSaveParams = AudiobookSaveParams.builder()\n        .ids("18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe")\n        .build()\n    client.me().audiobooks().save(params)\n}',
       },
-      php: {
-        method: 'me->audiobooks->save',
+      go: {
+        method: 'client.Me.Audiobooks.Save',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->audiobooks->save(\n  ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe'\n);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'me.audiobooks.save',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.audiobooks.save(\n    ids="18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",\n)',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Audiobooks.Save(context.TODO(), spotted.MeAudiobookSaveParams{\n\t\tIDs: "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'me.audiobooks.save',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.me.audiobooks.save(ids: "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe")\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.me.audiobooks.save',
+      cli: {
+        method: 'audiobooks save',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.audiobooks.save({\n  ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe',\n});",
+          "spotted me:audiobooks save \\\n  --access-token 'My Access Token' \\\n  --ids 18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",
+      },
+      php: {
+        method: 'me->audiobooks->save',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->audiobooks->save(\n  ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe'\n);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Me.Audiobooks.Save',
+        example:
+          'AudiobookSaveParams parameters = new()\n{\n    Ids = "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe"\n};\n\nawait client.Me.Audiobooks.Save(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/audiobooks \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -1309,24 +1309,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## remove\n\n`client.me.audiobooks.remove(ids: string): void`\n\n**delete** `/me/audiobooks`\n\nRemove one or more audiobooks from the Spotify user's library.\n\n**Note:** This endpoint is deprecated. Use [Remove Items from Library](/documentation/web-api/reference/remove-library-items) instead.\n\n\n### Parameters\n\n- `ids: string`\n  A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example: `ids=18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ`. Maximum: 50 IDs.\n\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nawait client.me.audiobooks.remove({ ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe' })\n```",
     perLanguage: {
-      cli: {
-        method: 'audiobooks remove',
+      typescript: {
+        method: 'client.me.audiobooks.remove',
         example:
-          "spotted me:audiobooks remove \\\n  --access-token 'My Access Token' \\\n  --ids 18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.audiobooks.remove({\n  ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe',\n});",
       },
-      csharp: {
-        method: 'Me.Audiobooks.Remove',
+      python: {
+        method: 'me.audiobooks.remove',
         example:
-          'AudiobookRemoveParams parameters = new()\n{\n    Ids = "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe"\n};\n\nawait client.Me.Audiobooks.Remove(parameters);',
-      },
-      go: {
-        method: 'client.Me.Audiobooks.Remove',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Audiobooks.Remove(context.TODO(), spotted.MeAudiobookRemoveParams{\n\t\tIDs: "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/audiobooks \\\n    -X DELETE \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.audiobooks.remove(\n    ids="18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",\n)',
       },
       java: {
         method: 'me().audiobooks().remove',
@@ -1338,25 +1329,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.audiobooks.AudiobookRemoveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: AudiobookRemoveParams = AudiobookRemoveParams.builder()\n        .ids("18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe")\n        .build()\n    client.me().audiobooks().remove(params)\n}',
       },
-      php: {
-        method: 'me->audiobooks->remove',
+      go: {
+        method: 'client.Me.Audiobooks.Remove',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->audiobooks->remove(\n  ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe'\n);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'me.audiobooks.remove',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.audiobooks.remove(\n    ids="18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",\n)',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Audiobooks.Remove(context.TODO(), spotted.MeAudiobookRemoveParams{\n\t\tIDs: "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'me.audiobooks.remove',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.me.audiobooks.remove(ids: "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe")\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.me.audiobooks.remove',
+      cli: {
+        method: 'audiobooks remove',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.audiobooks.remove({\n  ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe',\n});",
+          "spotted me:audiobooks remove \\\n  --access-token 'My Access Token' \\\n  --ids 18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",
+      },
+      php: {
+        method: 'me->audiobooks->remove',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->audiobooks->remove(\n  ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe'\n);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Me.Audiobooks.Remove',
+        example:
+          'AudiobookRemoveParams parameters = new()\n{\n    Ids = "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe"\n};\n\nawait client.Me.Audiobooks.Remove(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/audiobooks \\\n    -X DELETE \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -1374,24 +1374,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## check\n\n`client.me.audiobooks.check(ids: string): boolean[]`\n\n**get** `/me/audiobooks/contains`\n\nCheck if one or more audiobooks are already saved in the current Spotify user's library.\n\n**Note:** This endpoint is deprecated. Use [Check User's Saved Items](/documentation/web-api/reference/check-library-contains) instead.\n\n\n### Parameters\n\n- `ids: string`\n  A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example: `ids=18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ`. Maximum: 50 IDs.\n\n\n### Returns\n\n- `boolean[]`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.me.audiobooks.check({ ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe' });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'audiobooks check',
+      typescript: {
+        method: 'client.me.audiobooks.check',
         example:
-          "spotted me:audiobooks check \\\n  --access-token 'My Access Token' \\\n  --ids 18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.me.audiobooks.check({\n  ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe',\n});\n\nconsole.log(response);",
       },
-      csharp: {
-        method: 'Me.Audiobooks.Check',
+      python: {
+        method: 'me.audiobooks.check',
         example:
-          'AudiobookCheckParams parameters = new()\n{\n    Ids = "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe"\n};\n\nvar response = await client.Me.Audiobooks.Check(parameters);\n\nConsole.WriteLine(response);',
-      },
-      go: {
-        method: 'client.Me.Audiobooks.Check',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Me.Audiobooks.Check(context.TODO(), spotted.MeAudiobookCheckParams{\n\t\tIDs: "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/audiobooks/contains \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.me.audiobooks.check(\n    ids="18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",\n)\nprint(response)',
       },
       java: {
         method: 'me().audiobooks().check',
@@ -1403,25 +1394,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.audiobooks.AudiobookCheckParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: AudiobookCheckParams = AudiobookCheckParams.builder()\n        .ids("18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe")\n        .build()\n    val response: List<Boolean> = client.me().audiobooks().check(params)\n}',
       },
-      php: {
-        method: 'me->audiobooks->check',
+      go: {
+        method: 'client.Me.Audiobooks.Check',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->audiobooks->check(\n  ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe'\n);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'me.audiobooks.check',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.me.audiobooks.check(\n    ids="18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",\n)\nprint(response)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Me.Audiobooks.Check(context.TODO(), spotted.MeAudiobookCheckParams{\n\t\tIDs: "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
       },
       ruby: {
         method: 'me.audiobooks.check',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.me.audiobooks.check(ids: "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe")\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.me.audiobooks.check',
+      cli: {
+        method: 'audiobooks check',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.me.audiobooks.check({\n  ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe',\n});\n\nconsole.log(response);",
+          "spotted me:audiobooks check \\\n  --access-token 'My Access Token' \\\n  --ids 18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe",
+      },
+      php: {
+        method: 'me->audiobooks->check',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->audiobooks->check(\n  ids: '18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe'\n);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Me.Audiobooks.Check',
+        example:
+          'AudiobookCheckParams parameters = new()\n{\n    Ids = "18yVqkdbdRvS24c0Ilj2ci,1HGw3J3NxZO1TP1BTtVhpZ,7iHfbu1YPACw6oZPAFJtqe"\n};\n\nvar response = await client.Me.Audiobooks.Check(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/audiobooks/contains \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -1439,23 +1439,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.me.playlists.list(limit?: number, offset?: number): { id?: string; collaborative?: boolean; description?: string; external_urls?: external_url_object; href?: string; images?: image_object[]; items?: playlist_tracks_ref_object; name?: string; owner?: playlist_user_object; published?: boolean; snapshot_id?: string; tracks?: playlist_tracks_ref_object; type?: string; uri?: string; }`\n\n**get** `/me/playlists`\n\nGet a list of the playlists owned or followed by the current Spotify\nuser.\n\n\n### Parameters\n\n- `limit?: number`\n  The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.\n\n\n- `offset?: number`\n  'The index of the first playlist to return. Default:\n0 (the first object). Maximum offset: 100.000\\. Use with `limit` to get the\nnext set of playlists.'\n\n\n### Returns\n\n- `{ id?: string; collaborative?: boolean; description?: string; external_urls?: { published?: boolean; spotify?: string; }; href?: string; images?: { height: number; url: string; width: number; published?: boolean; }[]; items?: { href?: string; published?: boolean; total?: number; }; name?: string; owner?: { id?: string; external_urls?: external_url_object; href?: string; published?: boolean; type?: 'user'; uri?: string; }; published?: boolean; snapshot_id?: string; tracks?: { href?: string; published?: boolean; total?: number; }; type?: string; uri?: string; }`\n\n  - `id?: string`\n  - `collaborative?: boolean`\n  - `description?: string`\n  - `external_urls?: { published?: boolean; spotify?: string; }`\n  - `href?: string`\n  - `images?: { height: number; url: string; width: number; published?: boolean; }[]`\n  - `items?: { href?: string; published?: boolean; total?: number; }`\n  - `name?: string`\n  - `owner?: { id?: string; external_urls?: { published?: boolean; spotify?: string; }; href?: string; published?: boolean; type?: 'user'; uri?: string; }`\n  - `published?: boolean`\n  - `snapshot_id?: string`\n  - `tracks?: { href?: string; published?: boolean; total?: number; }`\n  - `type?: string`\n  - `uri?: string`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\n// Automatically fetches more pages as needed.\nfor await (const simplifiedPlaylistObject of client.me.playlists.list()) {\n  console.log(simplifiedPlaylistObject);\n}\n```",
     perLanguage: {
-      cli: {
-        method: 'playlists list',
-        example: "spotted me:playlists list \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Playlists.List',
+      typescript: {
+        method: 'client.me.playlists.list',
         example:
-          'PlaylistListParams parameters = new();\n\nvar page = await client.Me.Playlists.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const simplifiedPlaylistObject of client.me.playlists.list()) {\n  console.log(simplifiedPlaylistObject.id);\n}",
       },
-      go: {
-        method: 'client.Me.Playlists.List',
+      python: {
+        method: 'me.playlists.list',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Me.Playlists.List(context.TODO(), spotted.MePlaylistListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/playlists \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.me.playlists.list()\npage = page.items[0]\nprint(page.id)',
       },
       java: {
         method: 'me().playlists().list',
@@ -1467,25 +1459,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.playlists.PlaylistListPage\nimport dev.cjav.spotted.models.me.playlists.PlaylistListParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: PlaylistListPage = client.me().playlists().list()\n}',
       },
-      php: {
-        method: 'me->playlists->list',
+      go: {
+        method: 'client.Me.Playlists.List',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->playlists->list(limit: 10, offset: 5);\n\nvar_dump($page);",
-      },
-      python: {
-        method: 'me.playlists.list',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.me.playlists.list()\npage = page.items[0]\nprint(page.id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Me.Playlists.List(context.TODO(), spotted.MePlaylistListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
       },
       ruby: {
         method: 'me.playlists.list',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\npage = spotted.me.playlists.list\n\nputs(page)',
       },
-      typescript: {
-        method: 'client.me.playlists.list',
+      cli: {
+        method: 'playlists list',
+        example: "spotted me:playlists list \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->playlists->list',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const simplifiedPlaylistObject of client.me.playlists.list()) {\n  console.log(simplifiedPlaylistObject.id);\n}",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->playlists->list(limit: 10, offset: 5);\n\nvar_dump($page);",
+      },
+      csharp: {
+        method: 'Me.Playlists.List',
+        example:
+          'PlaylistListParams parameters = new();\n\nvar page = await client.Me.Playlists.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/playlists \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -1503,23 +1503,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list_top_tracks\n\n`client.me.top.listTopTracks(limit?: number, offset?: number, time_range?: string): { id?: string; album?: object; artists?: simplified_artist_object[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: external_id_object; external_urls?: external_url_object; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: linked_track_object; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: track_restriction_object; track_number?: number; type?: 'track'; uri?: string; }`\n\n**get** `/me/top/tracks`\n\nGet the current user's top tracks based on calculated affinity.\n\n\n### Parameters\n\n- `limit?: number`\n  The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.\n\n\n- `offset?: number`\n  The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.\n\n\n- `time_range?: string`\n  Over what time frame the affinities are computed. Valid values: `long_term` (calculated from ~1 year of data and including all new data as it becomes available), `medium_term` (approximately last 6 months), `short_term` (approximately last 4 weeks). Default: `medium_term`\n\n\n### Returns\n\n- `{ id?: string; album?: { id: string; album_type: 'album' | 'single' | 'compilation'; artists: object[]; available_markets: string[]; external_urls: object; href: string; images: object[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; published?: boolean; restrictions?: object; }; artists?: { id?: string; external_urls?: external_url_object; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: { ean?: string; isrc?: string; published?: boolean; upc?: string; }; external_urls?: { published?: boolean; spotify?: string; }; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: { id?: string; external_urls?: external_url_object; href?: string; published?: boolean; type?: string; uri?: string; }; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; track_number?: number; type?: 'track'; uri?: string; }`\n\n  - `id?: string`\n  - `album?: { id: string; album_type: 'album' | 'single' | 'compilation'; artists: { id?: string; external_urls?: object; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]; available_markets: string[]; external_urls: { published?: boolean; spotify?: string; }; href: string; images: { height: number; url: string; width: number; published?: boolean; }[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; published?: boolean; restrictions?: { published?: boolean; reason?: 'market' | 'product' | 'explicit'; }; }`\n  - `artists?: { id?: string; external_urls?: { published?: boolean; spotify?: string; }; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]`\n  - `available_markets?: string[]`\n  - `disc_number?: number`\n  - `duration_ms?: number`\n  - `explicit?: boolean`\n  - `external_ids?: { ean?: string; isrc?: string; published?: boolean; upc?: string; }`\n  - `external_urls?: { published?: boolean; spotify?: string; }`\n  - `href?: string`\n  - `is_local?: boolean`\n  - `is_playable?: boolean`\n  - `linked_from?: { id?: string; external_urls?: { published?: boolean; spotify?: string; }; href?: string; published?: boolean; type?: string; uri?: string; }`\n  - `name?: string`\n  - `popularity?: number`\n  - `preview_url?: string`\n  - `published?: boolean`\n  - `restrictions?: { published?: boolean; reason?: string; }`\n  - `track_number?: number`\n  - `type?: 'track'`\n  - `uri?: string`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\n// Automatically fetches more pages as needed.\nfor await (const trackObject of client.me.top.listTopTracks()) {\n  console.log(trackObject);\n}\n```",
     perLanguage: {
-      cli: {
-        method: 'top list_top_tracks',
-        example: "spotted me:top list-top-tracks \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Top.ListTopTracks',
+      typescript: {
+        method: 'client.me.top.listTopTracks',
         example:
-          'TopListTopTracksParams parameters = new();\n\nvar page = await client.Me.Top.ListTopTracks(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const trackObject of client.me.top.listTopTracks()) {\n  console.log(trackObject.id);\n}",
       },
-      go: {
-        method: 'client.Me.Top.ListTopTracks',
+      python: {
+        method: 'me.top.list_top_tracks',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Me.Top.ListTopTracks(context.TODO(), spotted.MeTopListTopTracksParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/top/tracks \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.me.top.list_top_tracks()\npage = page.items[0]\nprint(page.id)',
       },
       java: {
         method: 'me().top().listTopTracks',
@@ -1531,25 +1523,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.top.TopListTopTracksPage\nimport dev.cjav.spotted.models.me.top.TopListTopTracksParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: TopListTopTracksPage = client.me().top().listTopTracks()\n}',
       },
-      php: {
-        method: 'me->top->listTopTracks',
+      go: {
+        method: 'client.Me.Top.ListTopTracks',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->top->listTopTracks(\n  limit: 10, offset: 5, timeRange: 'medium_term'\n);\n\nvar_dump($page);",
-      },
-      python: {
-        method: 'me.top.list_top_tracks',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.me.top.list_top_tracks()\npage = page.items[0]\nprint(page.id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Me.Top.ListTopTracks(context.TODO(), spotted.MeTopListTopTracksParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
       },
       ruby: {
         method: 'me.top.list_top_tracks',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\npage = spotted.me.top.list_top_tracks\n\nputs(page)',
       },
-      typescript: {
-        method: 'client.me.top.listTopTracks',
+      cli: {
+        method: 'top list_top_tracks',
+        example: "spotted me:top list-top-tracks \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->top->listTopTracks',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const trackObject of client.me.top.listTopTracks()) {\n  console.log(trackObject.id);\n}",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->top->listTopTracks(\n  limit: 10, offset: 5, timeRange: 'medium_term'\n);\n\nvar_dump($page);",
+      },
+      csharp: {
+        method: 'Me.Top.ListTopTracks',
+        example:
+          'TopListTopTracksParams parameters = new();\n\nvar page = await client.Me.Top.ListTopTracks(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/top/tracks \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -1567,23 +1567,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list_top_artists\n\n`client.me.top.listTopArtists(limit?: number, offset?: number, time_range?: string): { id?: string; external_urls?: external_url_object; followers?: followers_object; genres?: string[]; href?: string; images?: image_object[]; name?: string; popularity?: number; published?: boolean; type?: 'artist'; uri?: string; }`\n\n**get** `/me/top/artists`\n\nGet the current user's top artists based on calculated affinity.\n\n\n### Parameters\n\n- `limit?: number`\n  The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.\n\n\n- `offset?: number`\n  The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.\n\n\n- `time_range?: string`\n  Over what time frame the affinities are computed. Valid values: `long_term` (calculated from ~1 year of data and including all new data as it becomes available), `medium_term` (approximately last 6 months), `short_term` (approximately last 4 weeks). Default: `medium_term`\n\n\n### Returns\n\n- `{ id?: string; external_urls?: { published?: boolean; spotify?: string; }; followers?: { href?: string; published?: boolean; total?: number; }; genres?: string[]; href?: string; images?: { height: number; url: string; width: number; published?: boolean; }[]; name?: string; popularity?: number; published?: boolean; type?: 'artist'; uri?: string; }`\n\n  - `id?: string`\n  - `external_urls?: { published?: boolean; spotify?: string; }`\n  - `followers?: { href?: string; published?: boolean; total?: number; }`\n  - `genres?: string[]`\n  - `href?: string`\n  - `images?: { height: number; url: string; width: number; published?: boolean; }[]`\n  - `name?: string`\n  - `popularity?: number`\n  - `published?: boolean`\n  - `type?: 'artist'`\n  - `uri?: string`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\n// Automatically fetches more pages as needed.\nfor await (const artistObject of client.me.top.listTopArtists()) {\n  console.log(artistObject);\n}\n```",
     perLanguage: {
-      cli: {
-        method: 'top list_top_artists',
-        example: "spotted me:top list-top-artists \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Top.ListTopArtists',
+      typescript: {
+        method: 'client.me.top.listTopArtists',
         example:
-          'TopListTopArtistsParams parameters = new();\n\nvar page = await client.Me.Top.ListTopArtists(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const artistObject of client.me.top.listTopArtists()) {\n  console.log(artistObject.id);\n}",
       },
-      go: {
-        method: 'client.Me.Top.ListTopArtists',
+      python: {
+        method: 'me.top.list_top_artists',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Me.Top.ListTopArtists(context.TODO(), spotted.MeTopListTopArtistsParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/top/artists \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.me.top.list_top_artists()\npage = page.items[0]\nprint(page.id)',
       },
       java: {
         method: 'me().top().listTopArtists',
@@ -1595,25 +1587,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.top.TopListTopArtistsPage\nimport dev.cjav.spotted.models.me.top.TopListTopArtistsParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: TopListTopArtistsPage = client.me().top().listTopArtists()\n}',
       },
-      php: {
-        method: 'me->top->listTopArtists',
+      go: {
+        method: 'client.Me.Top.ListTopArtists',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->top->listTopArtists(\n  limit: 10, offset: 5, timeRange: 'medium_term'\n);\n\nvar_dump($page);",
-      },
-      python: {
-        method: 'me.top.list_top_artists',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.me.top.list_top_artists()\npage = page.items[0]\nprint(page.id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Me.Top.ListTopArtists(context.TODO(), spotted.MeTopListTopArtistsParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
       },
       ruby: {
         method: 'me.top.list_top_artists',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\npage = spotted.me.top.list_top_artists\n\nputs(page)',
       },
-      typescript: {
-        method: 'client.me.top.listTopArtists',
+      cli: {
+        method: 'top list_top_artists',
+        example: "spotted me:top list-top-artists \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->top->listTopArtists',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const artistObject of client.me.top.listTopArtists()) {\n  console.log(artistObject.id);\n}",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->top->listTopArtists(\n  limit: 10, offset: 5, timeRange: 'medium_term'\n);\n\nvar_dump($page);",
+      },
+      csharp: {
+        method: 'Me.Top.ListTopArtists',
+        example:
+          'TopListTopArtistsParams parameters = new();\n\nvar page = await client.Me.Top.ListTopArtists(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/top/artists \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -1631,23 +1631,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.me.albums.list(limit?: number, market?: string, offset?: number): { added_at?: string; album?: object; published?: boolean; }`\n\n**get** `/me/albums`\n\nGet a list of the albums saved in the current Spotify user's 'Your Music' library.\n\n\n### Parameters\n\n- `limit?: number`\n  The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n- `offset?: number`\n  The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.\n\n\n### Returns\n\n- `{ added_at?: string; album?: { id: string; album_type: 'album' | 'single' | 'compilation'; available_markets: string[]; external_urls: object; href: string; images: object[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; artists?: object[]; copyrights?: object[]; external_ids?: object; genres?: string[]; label?: string; popularity?: number; published?: boolean; restrictions?: object; tracks?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: simplified_track_object[]; published?: boolean; }; }; published?: boolean; }`\n\n  - `added_at?: string`\n  - `album?: { id: string; album_type: 'album' | 'single' | 'compilation'; available_markets: string[]; external_urls: { published?: boolean; spotify?: string; }; href: string; images: { height: number; url: string; width: number; published?: boolean; }[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; artists?: { id?: string; external_urls?: object; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]; copyrights?: { published?: boolean; text?: string; type?: string; }[]; external_ids?: { ean?: string; isrc?: string; published?: boolean; upc?: string; }; genres?: string[]; label?: string; popularity?: number; published?: boolean; restrictions?: { published?: boolean; reason?: 'market' | 'product' | 'explicit'; }; tracks?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: { id?: string; artists?: simplified_artist_object[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_urls?: external_url_object; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: linked_track_object; name?: string; preview_url?: string; published?: boolean; restrictions?: track_restriction_object; track_number?: number; type?: string; uri?: string; }[]; published?: boolean; }; }`\n  - `published?: boolean`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\n// Automatically fetches more pages as needed.\nfor await (const albumListResponse of client.me.albums.list()) {\n  console.log(albumListResponse);\n}\n```",
     perLanguage: {
-      cli: {
-        method: 'albums list',
-        example: "spotted me:albums list \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Albums.List',
+      typescript: {
+        method: 'client.me.albums.list',
         example:
-          'AlbumListParams parameters = new();\n\nvar page = await client.Me.Albums.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const albumListResponse of client.me.albums.list()) {\n  console.log(albumListResponse.added_at);\n}",
       },
-      go: {
-        method: 'client.Me.Albums.List',
+      python: {
+        method: 'me.albums.list',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Me.Albums.List(context.TODO(), spotted.MeAlbumListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/albums \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.me.albums.list()\npage = page.items[0]\nprint(page.added_at)',
       },
       java: {
         method: 'me().albums().list',
@@ -1659,25 +1651,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.albums.AlbumListPage\nimport dev.cjav.spotted.models.me.albums.AlbumListParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: AlbumListPage = client.me().albums().list()\n}',
       },
-      php: {
-        method: 'me->albums->list',
+      go: {
+        method: 'client.Me.Albums.List',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->albums->list(limit: 10, market: 'ES', offset: 5);\n\nvar_dump($page);",
-      },
-      python: {
-        method: 'me.albums.list',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.me.albums.list()\npage = page.items[0]\nprint(page.added_at)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Me.Albums.List(context.TODO(), spotted.MeAlbumListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
       },
       ruby: {
         method: 'me.albums.list',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\npage = spotted.me.albums.list\n\nputs(page)',
       },
-      typescript: {
-        method: 'client.me.albums.list',
+      cli: {
+        method: 'albums list',
+        example: "spotted me:albums list \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->albums->list',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const albumListResponse of client.me.albums.list()) {\n  console.log(albumListResponse.added_at);\n}",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->albums->list(limit: 10, market: 'ES', offset: 5);\n\nvar_dump($page);",
+      },
+      csharp: {
+        method: 'Me.Albums.List',
+        example:
+          'AlbumListParams parameters = new();\n\nvar page = await client.Me.Albums.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/albums \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -1694,22 +1694,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## save\n\n`client.me.albums.save(ids?: string[], published?: boolean): void`\n\n**put** `/me/albums`\n\nSave one or more albums to the current user's 'Your Music' library.\n\n**Note:** This endpoint is deprecated. Use [Save Items to Library](/documentation/web-api/reference/save-library-items) instead.\n\n\n### Parameters\n\n- `ids?: string[]`\n  A JSON array of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example: `[\"4iV5W9uYEdYUVa79Axb7Rh\", \"1301WleyT98MSxVHPZCA6M\"]`<br/>A maximum of 50 items can be specified in one request. _**Note**: if the `ids` parameter is present in the query string, any IDs listed here in the body will be ignored._\n\n\n- `published?: boolean`\n  The playlist's public/private status (if it should be added to the user's profile or not): `true` the playlist will be public, `false` the playlist will be private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](/documentation/web-api/concepts/playlists)\n\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nawait client.me.albums.save()\n```",
     perLanguage: {
-      cli: {
-        method: 'albums save',
-        example: "spotted me:albums save \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Albums.Save',
-        example: 'AlbumSaveParams parameters = new();\n\nawait client.Me.Albums.Save(parameters);',
-      },
-      go: {
-        method: 'client.Me.Albums.Save',
+      typescript: {
+        method: 'client.me.albums.save',
         example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Albums.Save(context.TODO(), spotted.MeAlbumSaveParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.albums.save();",
       },
-      http: {
+      python: {
+        method: 'me.albums.save',
         example:
-          'curl https://api.spotify.com/v1/me/albums \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.albums.save()',
       },
       java: {
         method: 'me().albums().save',
@@ -1721,25 +1714,32 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.albums.AlbumSaveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.me().albums().save()\n}',
       },
-      php: {
-        method: 'me->albums->save',
+      go: {
+        method: 'client.Me.Albums.Save',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->albums->save(ids: ['string'], published: true);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'me.albums.save',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.albums.save()',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Albums.Save(context.TODO(), spotted.MeAlbumSaveParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'me.albums.save',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.me.albums.save\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.me.albums.save',
+      cli: {
+        method: 'albums save',
+        example: "spotted me:albums save \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->albums->save',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.albums.save();",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->albums->save(ids: ['string'], published: true);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Me.Albums.Save',
+        example: 'AlbumSaveParams parameters = new();\n\nawait client.Me.Albums.Save(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/albums \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -1756,22 +1756,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## remove\n\n`client.me.albums.remove(ids?: string[], published?: boolean): void`\n\n**delete** `/me/albums`\n\nRemove one or more albums from the current user's 'Your Music' library.\n\n**Note:** This endpoint is deprecated. Use [Remove Items from Library](/documentation/web-api/reference/remove-library-items) instead.\n\n\n### Parameters\n\n- `ids?: string[]`\n  A JSON array of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example: `[\"4iV5W9uYEdYUVa79Axb7Rh\", \"1301WleyT98MSxVHPZCA6M\"]`<br/>A maximum of 50 items can be specified in one request. _**Note**: if the `ids` parameter is present in the query string, any IDs listed here in the body will be ignored._\n\n\n- `published?: boolean`\n  The playlist's public/private status (if it should be added to the user's profile or not): `true` the playlist will be public, `false` the playlist will be private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](/documentation/web-api/concepts/playlists)\n\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nawait client.me.albums.remove()\n```",
     perLanguage: {
-      cli: {
-        method: 'albums remove',
-        example: "spotted me:albums remove \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Albums.Remove',
-        example: 'AlbumRemoveParams parameters = new();\n\nawait client.Me.Albums.Remove(parameters);',
-      },
-      go: {
-        method: 'client.Me.Albums.Remove',
+      typescript: {
+        method: 'client.me.albums.remove',
         example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Albums.Remove(context.TODO(), spotted.MeAlbumRemoveParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.albums.remove();",
       },
-      http: {
+      python: {
+        method: 'me.albums.remove',
         example:
-          'curl https://api.spotify.com/v1/me/albums \\\n    -X DELETE \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.albums.remove()',
       },
       java: {
         method: 'me().albums().remove',
@@ -1783,25 +1776,32 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.albums.AlbumRemoveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.me().albums().remove()\n}',
       },
-      php: {
-        method: 'me->albums->remove',
+      go: {
+        method: 'client.Me.Albums.Remove',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->albums->remove(ids: ['string'], published: true);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'me.albums.remove',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.albums.remove()',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Albums.Remove(context.TODO(), spotted.MeAlbumRemoveParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'me.albums.remove',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.me.albums.remove\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.me.albums.remove',
+      cli: {
+        method: 'albums remove',
+        example: "spotted me:albums remove \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->albums->remove',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.albums.remove();",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->albums->remove(ids: ['string'], published: true);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Me.Albums.Remove',
+        example: 'AlbumRemoveParams parameters = new();\n\nawait client.Me.Albums.Remove(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/albums \\\n    -X DELETE \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -1819,24 +1819,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## check\n\n`client.me.albums.check(ids: string): boolean[]`\n\n**get** `/me/albums/contains`\n\nCheck if one or more albums is already saved in the current Spotify user's 'Your Music' library.\n\n**Note:** This endpoint is deprecated. Use [Check User's Saved Items](/documentation/web-api/reference/check-library-contains) instead.\n\n\n### Parameters\n\n- `ids: string`\n  A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for the albums. Maximum: 20 IDs.\n\n\n### Returns\n\n- `boolean[]`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.me.albums.check({ ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc' });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'albums check',
+      typescript: {
+        method: 'client.me.albums.check',
         example:
-          "spotted me:albums check \\\n  --access-token 'My Access Token' \\\n  --ids 382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.me.albums.check({\n  ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc',\n});\n\nconsole.log(response);",
       },
-      csharp: {
-        method: 'Me.Albums.Check',
+      python: {
+        method: 'me.albums.check',
         example:
-          'AlbumCheckParams parameters = new()\n{\n    Ids = "382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc"\n};\n\nvar response = await client.Me.Albums.Check(parameters);\n\nConsole.WriteLine(response);',
-      },
-      go: {
-        method: 'client.Me.Albums.Check',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Me.Albums.Check(context.TODO(), spotted.MeAlbumCheckParams{\n\t\tIDs: "382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/albums/contains \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.me.albums.check(\n    ids="382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc",\n)\nprint(response)',
       },
       java: {
         method: 'me().albums().check',
@@ -1848,25 +1839,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.albums.AlbumCheckParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: AlbumCheckParams = AlbumCheckParams.builder()\n        .ids("382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc")\n        .build()\n    val response: List<Boolean> = client.me().albums().check(params)\n}',
       },
-      php: {
-        method: 'me->albums->check',
+      go: {
+        method: 'client.Me.Albums.Check',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->albums->check(\n  ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc'\n);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'me.albums.check',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.me.albums.check(\n    ids="382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc",\n)\nprint(response)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Me.Albums.Check(context.TODO(), spotted.MeAlbumCheckParams{\n\t\tIDs: "382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
       },
       ruby: {
         method: 'me.albums.check',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.me.albums.check(ids: "382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc")\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.me.albums.check',
+      cli: {
+        method: 'albums check',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.me.albums.check({\n  ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc',\n});\n\nconsole.log(response);",
+          "spotted me:albums check \\\n  --access-token 'My Access Token' \\\n  --ids 382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc",
+      },
+      php: {
+        method: 'me->albums->check',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->albums->check(\n  ids: '382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc'\n);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Me.Albums.Check',
+        example:
+          'AlbumCheckParams parameters = new()\n{\n    Ids = "382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo,2noRn2Aes5aoNVsU6iWThc"\n};\n\nvar response = await client.Me.Albums.Check(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/albums/contains \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -1884,23 +1884,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.me.tracks.list(limit?: number, market?: string, offset?: number): { added_at?: string; published?: boolean; track?: track_object; }`\n\n**get** `/me/tracks`\n\nGet a list of the songs saved in the current Spotify user's 'Your Music' library.\n\n\n### Parameters\n\n- `limit?: number`\n  The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n- `offset?: number`\n  The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.\n\n\n### Returns\n\n- `{ added_at?: string; published?: boolean; track?: { id?: string; album?: object; artists?: simplified_artist_object[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: external_id_object; external_urls?: external_url_object; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: linked_track_object; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: track_restriction_object; track_number?: number; type?: 'track'; uri?: string; }; }`\n\n  - `added_at?: string`\n  - `published?: boolean`\n  - `track?: { id?: string; album?: { id: string; album_type: 'album' | 'single' | 'compilation'; artists: object[]; available_markets: string[]; external_urls: object; href: string; images: object[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; published?: boolean; restrictions?: object; }; artists?: { id?: string; external_urls?: external_url_object; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: { ean?: string; isrc?: string; published?: boolean; upc?: string; }; external_urls?: { published?: boolean; spotify?: string; }; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: { id?: string; external_urls?: external_url_object; href?: string; published?: boolean; type?: string; uri?: string; }; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; track_number?: number; type?: 'track'; uri?: string; }`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\n// Automatically fetches more pages as needed.\nfor await (const trackListResponse of client.me.tracks.list()) {\n  console.log(trackListResponse);\n}\n```",
     perLanguage: {
-      cli: {
-        method: 'tracks list',
-        example: "spotted me:tracks list \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Tracks.List',
+      typescript: {
+        method: 'client.me.tracks.list',
         example:
-          'TrackListParams parameters = new();\n\nvar page = await client.Me.Tracks.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const trackListResponse of client.me.tracks.list()) {\n  console.log(trackListResponse.added_at);\n}",
       },
-      go: {
-        method: 'client.Me.Tracks.List',
+      python: {
+        method: 'me.tracks.list',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Me.Tracks.List(context.TODO(), spotted.MeTrackListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/tracks \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.me.tracks.list()\npage = page.items[0]\nprint(page.added_at)',
       },
       java: {
         method: 'me().tracks().list',
@@ -1912,25 +1904,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.tracks.TrackListPage\nimport dev.cjav.spotted.models.me.tracks.TrackListParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: TrackListPage = client.me().tracks().list()\n}',
       },
-      php: {
-        method: 'me->tracks->list',
+      go: {
+        method: 'client.Me.Tracks.List',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->tracks->list(limit: 10, market: 'ES', offset: 5);\n\nvar_dump($page);",
-      },
-      python: {
-        method: 'me.tracks.list',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.me.tracks.list()\npage = page.items[0]\nprint(page.added_at)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Me.Tracks.List(context.TODO(), spotted.MeTrackListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
       },
       ruby: {
         method: 'me.tracks.list',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\npage = spotted.me.tracks.list\n\nputs(page)',
       },
-      typescript: {
-        method: 'client.me.tracks.list',
+      cli: {
+        method: 'tracks list',
+        example: "spotted me:tracks list \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->tracks->list',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const trackListResponse of client.me.tracks.list()) {\n  console.log(trackListResponse.added_at);\n}",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->tracks->list(limit: 10, market: 'ES', offset: 5);\n\nvar_dump($page);",
+      },
+      csharp: {
+        method: 'Me.Tracks.List',
+        example:
+          'TrackListParams parameters = new();\n\nvar page = await client.Me.Tracks.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/tracks \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -1951,23 +1951,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## save\n\n`client.me.tracks.save(ids: string[], published?: boolean, timestamped_ids?: { id: string; added_at: string; }[]): void`\n\n**put** `/me/tracks`\n\nSave one or more tracks to the current user's 'Your Music' library.\n\n**Note:** This endpoint is deprecated. Use [Save Items to Library](/documentation/web-api/reference/save-library-items) instead.\n\n\n### Parameters\n\n- `ids: string[]`\n  A JSON array of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example: `[\"4iV5W9uYEdYUVa79Axb7Rh\", \"1301WleyT98MSxVHPZCA6M\"]`<br/>A maximum of 50 items can be specified in one request. _**Note**: if the `timestamped_ids` is present in the body, any IDs listed in the query parameters (deprecated) or the `ids` field in the body will be ignored._\n\n\n- `published?: boolean`\n  The playlist's public/private status (if it should be added to the user's profile or not): `true` the playlist will be public, `false` the playlist will be private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](/documentation/web-api/concepts/playlists)\n\n\n- `timestamped_ids?: { id: string; added_at: string; }[]`\n  A JSON array of objects containing track IDs with their corresponding timestamps. Each object must include a track ID and an `added_at` timestamp. This allows you to specify when tracks were added to maintain a specific chronological order in the user's library.<br/>A maximum of 50 items can be specified in one request. _**Note**: if the `timestamped_ids` is present in the body, any IDs listed in the query parameters (deprecated) or the `ids` field in the body will be ignored._\n\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nawait client.me.tracks.save({ ids: ['string'] })\n```",
     perLanguage: {
-      cli: {
-        method: 'tracks save',
-        example: "spotted me:tracks save \\\n  --access-token 'My Access Token' \\\n  --id string",
-      },
-      csharp: {
-        method: 'Me.Tracks.Save',
+      typescript: {
+        method: 'client.me.tracks.save',
         example:
-          'TrackSaveParams parameters = new()\n{\n    Ids =\n    [\n        "string"\n    ],\n};\n\nawait client.Me.Tracks.Save(parameters);',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.tracks.save({ ids: ['string'] });",
       },
-      go: {
-        method: 'client.Me.Tracks.Save',
+      python: {
+        method: 'me.tracks.save',
         example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Tracks.Save(context.TODO(), spotted.MeTrackSaveParams{\n\t\tIDs: []string{"string"},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/tracks \\\n    -X PUT \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN" \\\n    -d \'{\n          "ids": [\n            "string"\n          ]\n        }\'',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.tracks.save(\n    ids=["string"],\n)',
       },
       java: {
         method: 'me().tracks().save',
@@ -1979,25 +1971,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.tracks.TrackSaveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: TrackSaveParams = TrackSaveParams.builder()\n        .addId("string")\n        .build()\n    client.me().tracks().save(params)\n}',
       },
-      php: {
-        method: 'me->tracks->save',
+      go: {
+        method: 'client.Me.Tracks.Save',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->tracks->save(\n  ids: ['string'],\n  published: true,\n  timestampedIDs: [\n    [\n      'id' => 'id',\n      'addedAt' => new \\DateTimeImmutable('2019-12-27T18:11:19.117Z'),\n    ],\n  ],\n);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'me.tracks.save',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.tracks.save(\n    ids=["string"],\n)',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Tracks.Save(context.TODO(), spotted.MeTrackSaveParams{\n\t\tIDs: []string{"string"},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'me.tracks.save',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.me.tracks.save(ids: ["string"])\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.me.tracks.save',
+      cli: {
+        method: 'tracks save',
+        example: "spotted me:tracks save \\\n  --access-token 'My Access Token' \\\n  --id string",
+      },
+      php: {
+        method: 'me->tracks->save',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.tracks.save({ ids: ['string'] });",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->tracks->save(\n  ids: ['string'],\n  published: true,\n  timestampedIDs: [\n    [\n      'id' => 'id',\n      'addedAt' => new \\DateTimeImmutable('2019-12-27T18:11:19.117Z'),\n    ],\n  ],\n);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Me.Tracks.Save',
+        example:
+          'TrackSaveParams parameters = new()\n{\n    Ids =\n    [\n        "string"\n    ],\n};\n\nawait client.Me.Tracks.Save(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/tracks \\\n    -X PUT \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN" \\\n    -d \'{\n          "ids": [\n            "string"\n          ]\n        }\'',
       },
     },
   },
@@ -2014,22 +2014,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## remove\n\n`client.me.tracks.remove(ids?: string[], published?: boolean): void`\n\n**delete** `/me/tracks`\n\nRemove one or more tracks from the current user's 'Your Music' library.\n\n**Note:** This endpoint is deprecated. Use [Remove Items from Library](/documentation/web-api/reference/remove-library-items) instead.\n\n\n### Parameters\n\n- `ids?: string[]`\n  A JSON array of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example: `[\"4iV5W9uYEdYUVa79Axb7Rh\", \"1301WleyT98MSxVHPZCA6M\"]`<br/>A maximum of 50 items can be specified in one request. _**Note**: if the `ids` parameter is present in the query string, any IDs listed here in the body will be ignored._\n\n\n- `published?: boolean`\n  The playlist's public/private status (if it should be added to the user's profile or not): `true` the playlist will be public, `false` the playlist will be private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](/documentation/web-api/concepts/playlists)\n\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nawait client.me.tracks.remove()\n```",
     perLanguage: {
-      cli: {
-        method: 'tracks remove',
-        example: "spotted me:tracks remove \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Tracks.Remove',
-        example: 'TrackRemoveParams parameters = new();\n\nawait client.Me.Tracks.Remove(parameters);',
-      },
-      go: {
-        method: 'client.Me.Tracks.Remove',
+      typescript: {
+        method: 'client.me.tracks.remove',
         example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Tracks.Remove(context.TODO(), spotted.MeTrackRemoveParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.tracks.remove();",
       },
-      http: {
+      python: {
+        method: 'me.tracks.remove',
         example:
-          'curl https://api.spotify.com/v1/me/tracks \\\n    -X DELETE \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.tracks.remove()',
       },
       java: {
         method: 'me().tracks().remove',
@@ -2041,25 +2034,32 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.tracks.TrackRemoveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.me().tracks().remove()\n}',
       },
-      php: {
-        method: 'me->tracks->remove',
+      go: {
+        method: 'client.Me.Tracks.Remove',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->tracks->remove(ids: ['string'], published: true);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'me.tracks.remove',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.tracks.remove()',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Tracks.Remove(context.TODO(), spotted.MeTrackRemoveParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'me.tracks.remove',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.me.tracks.remove\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.me.tracks.remove',
+      cli: {
+        method: 'tracks remove',
+        example: "spotted me:tracks remove \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->tracks->remove',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.tracks.remove();",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->tracks->remove(ids: ['string'], published: true);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Me.Tracks.Remove',
+        example: 'TrackRemoveParams parameters = new();\n\nawait client.Me.Tracks.Remove(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/tracks \\\n    -X DELETE \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -2077,24 +2077,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## check\n\n`client.me.tracks.check(ids: string): boolean[]`\n\n**get** `/me/tracks/contains`\n\nCheck if one or more tracks is already saved in the current Spotify user's 'Your Music' library.\n\n**Note:** This endpoint is deprecated. Use [Check User's Saved Items](/documentation/web-api/reference/check-library-contains) instead.\n\n\n### Parameters\n\n- `ids: string`\n  A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example: `ids=4iV5W9uYEdYUVa79Axb7Rh,1301WleyT98MSxVHPZCA6M`. Maximum: 50 IDs.\n\n\n### Returns\n\n- `boolean[]`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.me.tracks.check({ ids: '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B' });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'tracks check',
+      typescript: {
+        method: 'client.me.tracks.check',
         example:
-          "spotted me:tracks check \\\n  --access-token 'My Access Token' \\\n  --ids 7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.me.tracks.check({\n  ids: '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B',\n});\n\nconsole.log(response);",
       },
-      csharp: {
-        method: 'Me.Tracks.Check',
+      python: {
+        method: 'me.tracks.check',
         example:
-          'TrackCheckParams parameters = new()\n{\n    Ids = "7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B"\n};\n\nvar response = await client.Me.Tracks.Check(parameters);\n\nConsole.WriteLine(response);',
-      },
-      go: {
-        method: 'client.Me.Tracks.Check',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Me.Tracks.Check(context.TODO(), spotted.MeTrackCheckParams{\n\t\tIDs: "7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/tracks/contains \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.me.tracks.check(\n    ids="7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B",\n)\nprint(response)',
       },
       java: {
         method: 'me().tracks().check',
@@ -2106,25 +2097,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.tracks.TrackCheckParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: TrackCheckParams = TrackCheckParams.builder()\n        .ids("7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B")\n        .build()\n    val response: List<Boolean> = client.me().tracks().check(params)\n}',
       },
-      php: {
-        method: 'me->tracks->check',
+      go: {
+        method: 'client.Me.Tracks.Check',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->tracks->check(\n  ids: '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B'\n);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'me.tracks.check',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.me.tracks.check(\n    ids="7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B",\n)\nprint(response)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Me.Tracks.Check(context.TODO(), spotted.MeTrackCheckParams{\n\t\tIDs: "7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
       },
       ruby: {
         method: 'me.tracks.check',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.me.tracks.check(ids: "7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B")\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.me.tracks.check',
+      cli: {
+        method: 'tracks check',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.me.tracks.check({\n  ids: '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B',\n});\n\nconsole.log(response);",
+          "spotted me:tracks check \\\n  --access-token 'My Access Token' \\\n  --ids 7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B",
+      },
+      php: {
+        method: 'me->tracks->check',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->tracks->check(\n  ids: '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B'\n);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Me.Tracks.Check',
+        example:
+          'TrackCheckParams parameters = new()\n{\n    Ids = "7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B"\n};\n\nvar response = await client.Me.Tracks.Check(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/tracks/contains \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -2142,23 +2142,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.me.episodes.list(limit?: number, market?: string, offset?: number): { added_at?: string; episode?: episode_object; published?: boolean; }`\n\n**get** `/me/episodes`\n\nGet a list of the episodes saved in the current Spotify user's library.\n\n\n### Parameters\n\n- `limit?: number`\n  The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n- `offset?: number`\n  The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.\n\n\n### Returns\n\n- `{ added_at?: string; episode?: { id: string; audio_preview_url: string; description: string; duration_ms: number; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; is_externally_hosted: boolean; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; show: show_base; type: 'episode'; uri: string; language?: string; published?: boolean; restrictions?: episode_restriction_object; resume_point?: resume_point_object; }; published?: boolean; }`\n\n  - `added_at?: string`\n  - `episode?: { id: string; audio_preview_url: string; description: string; duration_ms: number; explicit: boolean; external_urls: { published?: boolean; spotify?: string; }; href: string; html_description: string; images: { height: number; url: string; width: number; published?: boolean; }[]; is_externally_hosted: boolean; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; show: { id: string; available_markets: string[]; copyrights: copyright_object[]; description: string; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; is_externally_hosted: boolean; languages: string[]; media_type: string; name: string; publisher: string; total_episodes: number; type: 'show'; uri: string; published?: boolean; }; type: 'episode'; uri: string; language?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; resume_point?: { fully_played?: boolean; published?: boolean; resume_position_ms?: number; }; }`\n  - `published?: boolean`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\n// Automatically fetches more pages as needed.\nfor await (const episodeListResponse of client.me.episodes.list()) {\n  console.log(episodeListResponse);\n}\n```",
     perLanguage: {
-      cli: {
-        method: 'episodes list',
-        example: "spotted me:episodes list \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Episodes.List',
+      typescript: {
+        method: 'client.me.episodes.list',
         example:
-          'EpisodeListParams parameters = new();\n\nvar page = await client.Me.Episodes.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const episodeListResponse of client.me.episodes.list()) {\n  console.log(episodeListResponse.added_at);\n}",
       },
-      go: {
-        method: 'client.Me.Episodes.List',
+      python: {
+        method: 'me.episodes.list',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Me.Episodes.List(context.TODO(), spotted.MeEpisodeListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/episodes \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.me.episodes.list()\npage = page.items[0]\nprint(page.added_at)',
       },
       java: {
         method: 'me().episodes().list',
@@ -2170,25 +2162,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.episodes.EpisodeListPage\nimport dev.cjav.spotted.models.me.episodes.EpisodeListParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: EpisodeListPage = client.me().episodes().list()\n}',
       },
-      php: {
-        method: 'me->episodes->list',
+      go: {
+        method: 'client.Me.Episodes.List',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->episodes->list(limit: 10, market: 'ES', offset: 5);\n\nvar_dump($page);",
-      },
-      python: {
-        method: 'me.episodes.list',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.me.episodes.list()\npage = page.items[0]\nprint(page.added_at)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Me.Episodes.List(context.TODO(), spotted.MeEpisodeListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
       },
       ruby: {
         method: 'me.episodes.list',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\npage = spotted.me.episodes.list\n\nputs(page)',
       },
-      typescript: {
-        method: 'client.me.episodes.list',
+      cli: {
+        method: 'episodes list',
+        example: "spotted me:episodes list \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->episodes->list',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const episodeListResponse of client.me.episodes.list()) {\n  console.log(episodeListResponse.added_at);\n}",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->episodes->list(limit: 10, market: 'ES', offset: 5);\n\nvar_dump($page);",
+      },
+      csharp: {
+        method: 'Me.Episodes.List',
+        example:
+          'EpisodeListParams parameters = new();\n\nvar page = await client.Me.Episodes.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/episodes \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -2205,23 +2205,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## save\n\n`client.me.episodes.save(ids: string[], published?: boolean): void`\n\n**put** `/me/episodes`\n\nSave one or more episodes to the current user's library.\n\n**Note:** This endpoint is deprecated. Use [Save Items to Library](/documentation/web-api/reference/save-library-items) instead.\n\n\n### Parameters\n\n- `ids: string[]`\n  A JSON array of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). <br/>A maximum of 50 items can be specified in one request. _**Note**: if the `ids` parameter is present in the query string, any IDs listed here in the body will be ignored._\n\n\n- `published?: boolean`\n  The playlist's public/private status (if it should be added to the user's profile or not): `true` the playlist will be public, `false` the playlist will be private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](/documentation/web-api/concepts/playlists)\n\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nawait client.me.episodes.save({ ids: ['string'] })\n```",
     perLanguage: {
-      cli: {
-        method: 'episodes save',
-        example: "spotted me:episodes save \\\n  --access-token 'My Access Token' \\\n  --id string",
-      },
-      csharp: {
-        method: 'Me.Episodes.Save',
+      typescript: {
+        method: 'client.me.episodes.save',
         example:
-          'EpisodeSaveParams parameters = new()\n{\n    Ids =\n    [\n        "string"\n    ],\n};\n\nawait client.Me.Episodes.Save(parameters);',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.episodes.save({ ids: ['string'] });",
       },
-      go: {
-        method: 'client.Me.Episodes.Save',
+      python: {
+        method: 'me.episodes.save',
         example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Episodes.Save(context.TODO(), spotted.MeEpisodeSaveParams{\n\t\tIDs: []string{"string"},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/episodes \\\n    -X PUT \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN" \\\n    -d \'{\n          "ids": [\n            "string"\n          ]\n        }\'',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.episodes.save(\n    ids=["string"],\n)',
       },
       java: {
         method: 'me().episodes().save',
@@ -2233,25 +2225,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.episodes.EpisodeSaveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: EpisodeSaveParams = EpisodeSaveParams.builder()\n        .addId("string")\n        .build()\n    client.me().episodes().save(params)\n}',
       },
-      php: {
-        method: 'me->episodes->save',
+      go: {
+        method: 'client.Me.Episodes.Save',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->episodes->save(ids: ['string'], published: true);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'me.episodes.save',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.episodes.save(\n    ids=["string"],\n)',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Episodes.Save(context.TODO(), spotted.MeEpisodeSaveParams{\n\t\tIDs: []string{"string"},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'me.episodes.save',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.me.episodes.save(ids: ["string"])\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.me.episodes.save',
+      cli: {
+        method: 'episodes save',
+        example: "spotted me:episodes save \\\n  --access-token 'My Access Token' \\\n  --id string",
+      },
+      php: {
+        method: 'me->episodes->save',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.episodes.save({ ids: ['string'] });",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->episodes->save(ids: ['string'], published: true);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Me.Episodes.Save',
+        example:
+          'EpisodeSaveParams parameters = new()\n{\n    Ids =\n    [\n        "string"\n    ],\n};\n\nawait client.Me.Episodes.Save(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/episodes \\\n    -X PUT \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN" \\\n    -d \'{\n          "ids": [\n            "string"\n          ]\n        }\'',
       },
     },
   },
@@ -2268,22 +2268,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## remove\n\n`client.me.episodes.remove(ids?: string[], published?: boolean): void`\n\n**delete** `/me/episodes`\n\nRemove one or more episodes from the current user's library.\n\n**Note:** This endpoint is deprecated. Use [Remove Items from Library](/documentation/web-api/reference/remove-library-items) instead.\n\n\n### Parameters\n\n- `ids?: string[]`\n  A JSON array of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). <br/>A maximum of 50 items can be specified in one request. _**Note**: if the `ids` parameter is present in the query string, any IDs listed here in the body will be ignored._\n\n\n- `published?: boolean`\n  The playlist's public/private status (if it should be added to the user's profile or not): `true` the playlist will be public, `false` the playlist will be private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](/documentation/web-api/concepts/playlists)\n\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nawait client.me.episodes.remove()\n```",
     perLanguage: {
-      cli: {
-        method: 'episodes remove',
-        example: "spotted me:episodes remove \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Episodes.Remove',
-        example: 'EpisodeRemoveParams parameters = new();\n\nawait client.Me.Episodes.Remove(parameters);',
-      },
-      go: {
-        method: 'client.Me.Episodes.Remove',
+      typescript: {
+        method: 'client.me.episodes.remove',
         example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Episodes.Remove(context.TODO(), spotted.MeEpisodeRemoveParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.episodes.remove();",
       },
-      http: {
+      python: {
+        method: 'me.episodes.remove',
         example:
-          'curl https://api.spotify.com/v1/me/episodes \\\n    -X DELETE \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.episodes.remove()',
       },
       java: {
         method: 'me().episodes().remove',
@@ -2295,25 +2288,32 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.episodes.EpisodeRemoveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.me().episodes().remove()\n}',
       },
-      php: {
-        method: 'me->episodes->remove',
+      go: {
+        method: 'client.Me.Episodes.Remove',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->episodes->remove(ids: ['string'], published: true);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'me.episodes.remove',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.episodes.remove()',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Episodes.Remove(context.TODO(), spotted.MeEpisodeRemoveParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'me.episodes.remove',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.me.episodes.remove\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.me.episodes.remove',
+      cli: {
+        method: 'episodes remove',
+        example: "spotted me:episodes remove \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->episodes->remove',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.episodes.remove();",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->episodes->remove(ids: ['string'], published: true);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Me.Episodes.Remove',
+        example: 'EpisodeRemoveParams parameters = new();\n\nawait client.Me.Episodes.Remove(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/episodes \\\n    -X DELETE \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -2331,24 +2331,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## check\n\n`client.me.episodes.check(ids: string): boolean[]`\n\n**get** `/me/episodes/contains`\n\nCheck if one or more episodes is already saved in the current Spotify user's 'Your Episodes' library.\n\n**Note:** This endpoint is deprecated. Use [Check User's Saved Items](/documentation/web-api/reference/check-library-contains) instead.\n\n\n### Parameters\n\n- `ids: string`\n  A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for the episodes. Maximum: 50 IDs.\n\n\n### Returns\n\n- `boolean[]`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.me.episodes.check({ ids: '77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf' });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'episodes check',
+      typescript: {
+        method: 'client.me.episodes.check',
         example:
-          "spotted me:episodes check \\\n  --access-token 'My Access Token' \\\n  --ids 77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.me.episodes.check({\n  ids: '77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf',\n});\n\nconsole.log(response);",
       },
-      csharp: {
-        method: 'Me.Episodes.Check',
+      python: {
+        method: 'me.episodes.check',
         example:
-          'EpisodeCheckParams parameters = new()\n{\n    Ids = "77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf"\n};\n\nvar response = await client.Me.Episodes.Check(parameters);\n\nConsole.WriteLine(response);',
-      },
-      go: {
-        method: 'client.Me.Episodes.Check',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Me.Episodes.Check(context.TODO(), spotted.MeEpisodeCheckParams{\n\t\tIDs: "77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/episodes/contains \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.me.episodes.check(\n    ids="77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf",\n)\nprint(response)',
       },
       java: {
         method: 'me().episodes().check',
@@ -2360,25 +2351,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.episodes.EpisodeCheckParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: EpisodeCheckParams = EpisodeCheckParams.builder()\n        .ids("77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf")\n        .build()\n    val response: List<Boolean> = client.me().episodes().check(params)\n}',
       },
-      php: {
-        method: 'me->episodes->check',
+      go: {
+        method: 'client.Me.Episodes.Check',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->episodes->check(\n  ids: '77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf'\n);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'me.episodes.check',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.me.episodes.check(\n    ids="77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf",\n)\nprint(response)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Me.Episodes.Check(context.TODO(), spotted.MeEpisodeCheckParams{\n\t\tIDs: "77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
       },
       ruby: {
         method: 'me.episodes.check',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.me.episodes.check(ids: "77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf")\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.me.episodes.check',
+      cli: {
+        method: 'episodes check',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.me.episodes.check({\n  ids: '77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf',\n});\n\nconsole.log(response);",
+          "spotted me:episodes check \\\n  --access-token 'My Access Token' \\\n  --ids 77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf",
+      },
+      php: {
+        method: 'me->episodes->check',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->episodes->check(\n  ids: '77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf'\n);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Me.Episodes.Check',
+        example:
+          'EpisodeCheckParams parameters = new()\n{\n    Ids = "77o6BIVlYM3msb4MMIL1jH,0Q86acNRm6V9GYx55SXKwf"\n};\n\nvar response = await client.Me.Episodes.Check(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/episodes/contains \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -2397,23 +2397,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.me.shows.list(limit?: number, offset?: number): { added_at?: string; published?: boolean; show?: show_base; }`\n\n**get** `/me/shows`\n\nGet a list of shows saved in the current Spotify user's library. Optional parameters can be used to limit the number of shows returned.\n\n\n### Parameters\n\n- `limit?: number`\n  The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.\n\n\n- `offset?: number`\n  The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.\n\n\n### Returns\n\n- `{ added_at?: string; published?: boolean; show?: { id: string; available_markets: string[]; copyrights: copyright_object[]; description: string; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; is_externally_hosted: boolean; languages: string[]; media_type: string; name: string; publisher: string; total_episodes: number; type: 'show'; uri: string; published?: boolean; }; }`\n\n  - `added_at?: string`\n  - `published?: boolean`\n  - `show?: { id: string; available_markets: string[]; copyrights: { published?: boolean; text?: string; type?: string; }[]; description: string; explicit: boolean; external_urls: { published?: boolean; spotify?: string; }; href: string; html_description: string; images: { height: number; url: string; width: number; published?: boolean; }[]; is_externally_hosted: boolean; languages: string[]; media_type: string; name: string; publisher: string; total_episodes: number; type: 'show'; uri: string; published?: boolean; }`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\n// Automatically fetches more pages as needed.\nfor await (const showListResponse of client.me.shows.list()) {\n  console.log(showListResponse);\n}\n```",
     perLanguage: {
-      cli: {
-        method: 'shows list',
-        example: "spotted me:shows list \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Shows.List',
+      typescript: {
+        method: 'client.me.shows.list',
         example:
-          'ShowListParams parameters = new();\n\nvar page = await client.Me.Shows.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const showListResponse of client.me.shows.list()) {\n  console.log(showListResponse.added_at);\n}",
       },
-      go: {
-        method: 'client.Me.Shows.List',
+      python: {
+        method: 'me.shows.list',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Me.Shows.List(context.TODO(), spotted.MeShowListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/shows \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.me.shows.list()\npage = page.items[0]\nprint(page.added_at)',
       },
       java: {
         method: 'me().shows().list',
@@ -2425,25 +2417,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.shows.ShowListPage\nimport dev.cjav.spotted.models.me.shows.ShowListParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: ShowListPage = client.me().shows().list()\n}',
       },
-      php: {
-        method: 'me->shows->list',
+      go: {
+        method: 'client.Me.Shows.List',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->shows->list(limit: 10, offset: 5);\n\nvar_dump($page);",
-      },
-      python: {
-        method: 'me.shows.list',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.me.shows.list()\npage = page.items[0]\nprint(page.added_at)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Me.Shows.List(context.TODO(), spotted.MeShowListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
       },
       ruby: {
         method: 'me.shows.list',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\npage = spotted.me.shows.list\n\nputs(page)',
       },
-      typescript: {
-        method: 'client.me.shows.list',
+      cli: {
+        method: 'shows list',
+        example: "spotted me:shows list \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->shows->list',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const showListResponse of client.me.shows.list()) {\n  console.log(showListResponse.added_at);\n}",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->shows->list(limit: 10, offset: 5);\n\nvar_dump($page);",
+      },
+      csharp: {
+        method: 'Me.Shows.List',
+        example:
+          'ShowListParams parameters = new();\n\nvar page = await client.Me.Shows.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/shows \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -2460,22 +2460,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## save\n\n`client.me.shows.save(ids?: string[], published?: boolean): void`\n\n**put** `/me/shows`\n\nSave one or more shows to current Spotify user's library.\n\n**Note:** This endpoint is deprecated. Use [Save Items to Library](/documentation/web-api/reference/save-library-items) instead.\n\n\n### Parameters\n\n- `ids?: string[]`\n  A JSON array of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).  \nA maximum of 50 items can be specified in one request. *Note: if the `ids` parameter is present in the query string, any IDs listed here in the body will be ignored.*\n\n- `published?: boolean`\n  The playlist's public/private status (if it should be added to the user's profile or not): `true` the playlist will be public, `false` the playlist will be private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](/documentation/web-api/concepts/playlists)\n\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nawait client.me.shows.save()\n```",
     perLanguage: {
-      cli: {
-        method: 'shows save',
-        example: "spotted me:shows save \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Shows.Save',
-        example: 'ShowSaveParams parameters = new();\n\nawait client.Me.Shows.Save(parameters);',
-      },
-      go: {
-        method: 'client.Me.Shows.Save',
+      typescript: {
+        method: 'client.me.shows.save',
         example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Shows.Save(context.TODO(), spotted.MeShowSaveParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.shows.save();",
       },
-      http: {
+      python: {
+        method: 'me.shows.save',
         example:
-          'curl https://api.spotify.com/v1/me/shows \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.shows.save()',
       },
       java: {
         method: 'me().shows().save',
@@ -2487,25 +2480,32 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.shows.ShowSaveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.me().shows().save()\n}',
       },
-      php: {
-        method: 'me->shows->save',
+      go: {
+        method: 'client.Me.Shows.Save',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->shows->save(ids: ['string'], published: true);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'me.shows.save',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.shows.save()',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Shows.Save(context.TODO(), spotted.MeShowSaveParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'me.shows.save',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.me.shows.save\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.me.shows.save',
+      cli: {
+        method: 'shows save',
+        example: "spotted me:shows save \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->shows->save',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.shows.save();",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->shows->save(ids: ['string'], published: true);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Me.Shows.Save',
+        example: 'ShowSaveParams parameters = new();\n\nawait client.Me.Shows.Save(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/shows \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -2522,22 +2522,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## remove\n\n`client.me.shows.remove(ids?: string[], published?: boolean): void`\n\n**delete** `/me/shows`\n\nDelete one or more shows from current Spotify user's library.\n\n**Note:** This endpoint is deprecated. Use [Remove Items from Library](/documentation/web-api/reference/remove-library-items) instead.\n\n\n### Parameters\n\n- `ids?: string[]`\n  A JSON array of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).  \nA maximum of 50 items can be specified in one request. *Note: if the `ids` parameter is present in the query string, any IDs listed here in the body will be ignored.*\n\n- `published?: boolean`\n  The playlist's public/private status (if it should be added to the user's profile or not): `true` the playlist will be public, `false` the playlist will be private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](/documentation/web-api/concepts/playlists)\n\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nawait client.me.shows.remove()\n```",
     perLanguage: {
-      cli: {
-        method: 'shows remove',
-        example: "spotted me:shows remove \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Shows.Remove',
-        example: 'ShowRemoveParams parameters = new();\n\nawait client.Me.Shows.Remove(parameters);',
-      },
-      go: {
-        method: 'client.Me.Shows.Remove',
+      typescript: {
+        method: 'client.me.shows.remove',
         example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Shows.Remove(context.TODO(), spotted.MeShowRemoveParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.shows.remove();",
       },
-      http: {
+      python: {
+        method: 'me.shows.remove',
         example:
-          'curl https://api.spotify.com/v1/me/shows \\\n    -X DELETE \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.shows.remove()',
       },
       java: {
         method: 'me().shows().remove',
@@ -2549,25 +2542,32 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.shows.ShowRemoveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.me().shows().remove()\n}',
       },
-      php: {
-        method: 'me->shows->remove',
+      go: {
+        method: 'client.Me.Shows.Remove',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->shows->remove(ids: ['string'], published: true);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'me.shows.remove',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.shows.remove()',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Shows.Remove(context.TODO(), spotted.MeShowRemoveParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'me.shows.remove',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.me.shows.remove\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.me.shows.remove',
+      cli: {
+        method: 'shows remove',
+        example: "spotted me:shows remove \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->shows->remove',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.shows.remove();",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->shows->remove(ids: ['string'], published: true);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Me.Shows.Remove',
+        example: 'ShowRemoveParams parameters = new();\n\nawait client.Me.Shows.Remove(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/shows \\\n    -X DELETE \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -2585,24 +2585,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## check\n\n`client.me.shows.check(ids: string): boolean[]`\n\n**get** `/me/shows/contains`\n\nCheck if one or more shows is already saved in the current Spotify user's library.\n\n**Note:** This endpoint is deprecated. Use [Check User's Saved Items](/documentation/web-api/reference/check-library-contains) instead.\n\n\n### Parameters\n\n- `ids: string`\n  A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for the shows. Maximum: 50 IDs.\n\n\n### Returns\n\n- `boolean[]`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.me.shows.check({ ids: '5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ' });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'shows check',
+      typescript: {
+        method: 'client.me.shows.check',
         example:
-          "spotted me:shows check \\\n  --access-token 'My Access Token' \\\n  --ids 5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.me.shows.check({\n  ids: '5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ',\n});\n\nconsole.log(response);",
       },
-      csharp: {
-        method: 'Me.Shows.Check',
+      python: {
+        method: 'me.shows.check',
         example:
-          'ShowCheckParams parameters = new()\n{\n    Ids = "5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ"\n};\n\nvar response = await client.Me.Shows.Check(parameters);\n\nConsole.WriteLine(response);',
-      },
-      go: {
-        method: 'client.Me.Shows.Check',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Me.Shows.Check(context.TODO(), spotted.MeShowCheckParams{\n\t\tIDs: "5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/shows/contains \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.me.shows.check(\n    ids="5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ",\n)\nprint(response)',
       },
       java: {
         method: 'me().shows().check',
@@ -2614,25 +2605,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.shows.ShowCheckParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: ShowCheckParams = ShowCheckParams.builder()\n        .ids("5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ")\n        .build()\n    val response: List<Boolean> = client.me().shows().check(params)\n}',
       },
-      php: {
-        method: 'me->shows->check',
+      go: {
+        method: 'client.Me.Shows.Check',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->shows->check(\n  ids: '5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ'\n);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'me.shows.check',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.me.shows.check(\n    ids="5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ",\n)\nprint(response)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Me.Shows.Check(context.TODO(), spotted.MeShowCheckParams{\n\t\tIDs: "5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
       },
       ruby: {
         method: 'me.shows.check',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.me.shows.check(ids: "5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ")\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.me.shows.check',
+      cli: {
+        method: 'shows check',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.me.shows.check({\n  ids: '5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ',\n});\n\nconsole.log(response);",
+          "spotted me:shows check \\\n  --access-token 'My Access Token' \\\n  --ids 5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ",
+      },
+      php: {
+        method: 'me->shows->check',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->shows->check(\n  ids: '5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ'\n);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Me.Shows.Check',
+        example:
+          'ShowCheckParams parameters = new()\n{\n    Ids = "5CfCWKI5pZ28U0uOzXkDHe,5as3aKmN2k11yfDDDSrvaZ"\n};\n\nvar response = await client.Me.Shows.Check(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/shows/contains \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -2650,24 +2650,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## bulk_retrieve\n\n`client.me.following.bulkRetrieve(type: 'artist', after?: string, limit?: number): { artists: object; }`\n\n**get** `/me/following`\n\nGet the current user's followed artists.\n\n\n### Parameters\n\n- `type: 'artist'`\n  The ID type: currently only `artist` is supported.\n\n- `after?: string`\n  The last artist ID retrieved from the previous request.\n\n\n- `limit?: number`\n  The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.\n\n\n### Returns\n\n- `{ artists: { cursors?: { after?: string; before?: string; published?: boolean; }; href?: string; items?: object[]; limit?: number; next?: string; published?: boolean; total?: number; }; }`\n\n  - `artists: { cursors?: { after?: string; before?: string; published?: boolean; }; href?: string; items?: { id?: string; external_urls?: object; followers?: object; genres?: string[]; href?: string; images?: object[]; name?: string; popularity?: number; published?: boolean; type?: 'artist'; uri?: string; }[]; limit?: number; next?: string; published?: boolean; total?: number; }`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.me.following.bulkRetrieve({ type: 'artist' });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'following bulk_retrieve',
+      typescript: {
+        method: 'client.me.following.bulkRetrieve',
         example:
-          "spotted me:following bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --type artist",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.me.following.bulkRetrieve({ type: 'artist' });\n\nconsole.log(response.artists);",
       },
-      csharp: {
-        method: 'Me.Following.BulkRetrieve',
+      python: {
+        method: 'me.following.bulk_retrieve',
         example:
-          'FollowingBulkRetrieveParams parameters = new()\n{\n    Type = JsonSerializer.SerializeToElement("artist")\n};\n\nvar response = await client.Me.Following.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
-      },
-      go: {
-        method: 'client.Me.Following.BulkGet',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Me.Following.BulkGet(context.TODO(), spotted.MeFollowingBulkGetParams{\n\t\tType: "artist",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Artists)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/following \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.me.following.bulk_retrieve(\n    type="artist",\n)\nprint(response.artists)',
       },
       java: {
         method: 'me().following().bulkRetrieve',
@@ -2679,25 +2670,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.following.FollowingBulkRetrieveParams\nimport dev.cjav.spotted.models.me.following.FollowingBulkRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: FollowingBulkRetrieveParams = FollowingBulkRetrieveParams.builder()\n        .type(FollowingBulkRetrieveParams.Type.ARTIST)\n        .build()\n    val response: FollowingBulkRetrieveResponse = client.me().following().bulkRetrieve(params)\n}',
       },
-      php: {
-        method: 'me->following->bulkRetrieve',
+      go: {
+        method: 'client.Me.Following.BulkGet',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->following->bulkRetrieve(\n  type: 'artist', after: '0I2XqVXqHScXjHhk6AYYRe', limit: 10\n);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'me.following.bulk_retrieve',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.me.following.bulk_retrieve(\n    type="artist",\n)\nprint(response.artists)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Me.Following.BulkGet(context.TODO(), spotted.MeFollowingBulkGetParams{\n\t\tType: "artist",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Artists)\n}\n',
       },
       ruby: {
         method: 'me.following.bulk_retrieve',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.me.following.bulk_retrieve(type: :artist)\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.me.following.bulkRetrieve',
+      cli: {
+        method: 'following bulk_retrieve',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.me.following.bulkRetrieve({ type: 'artist' });\n\nconsole.log(response.artists);",
+          "spotted me:following bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --type artist",
+      },
+      php: {
+        method: 'me->following->bulkRetrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->following->bulkRetrieve(\n  type: 'artist', after: '0I2XqVXqHScXjHhk6AYYRe', limit: 10\n);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Me.Following.BulkRetrieve',
+        example:
+          'FollowingBulkRetrieveParams parameters = new()\n{\n    Type = JsonSerializer.SerializeToElement("artist")\n};\n\nvar response = await client.Me.Following.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/following \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -2714,23 +2714,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## follow\n\n`client.me.following.follow(ids: string[], published?: boolean): void`\n\n**put** `/me/following`\n\nAdd the current user as a follower of one or more artists or other Spotify users.\n\n**Note:** This endpoint is deprecated. Use [Save Items to Library](/documentation/web-api/reference/save-library-items) instead.\n\n\n### Parameters\n\n- `ids: string[]`\n  A JSON array of the artist or user [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids).\nFor example: `{ids:[\"74ASZWbe4lXaubB36ztrGX\", \"08td7MxkoHQkXnWAYD8d6Q\"]}`. A maximum of 50 IDs can be sent in one request. _**Note**: if the `ids` parameter is present in the query string, any IDs listed here in the body will be ignored._\n\n\n- `published?: boolean`\n  The playlist's public/private status (if it should be added to the user's profile or not): `true` the playlist will be public, `false` the playlist will be private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](/documentation/web-api/concepts/playlists)\n\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nawait client.me.following.follow({ ids: ['string'] })\n```",
     perLanguage: {
-      cli: {
-        method: 'following follow',
-        example: "spotted me:following follow \\\n  --access-token 'My Access Token' \\\n  --id string",
-      },
-      csharp: {
-        method: 'Me.Following.Follow',
+      typescript: {
+        method: 'client.me.following.follow',
         example:
-          'FollowingFollowParams parameters = new()\n{\n    Ids =\n    [\n        "string"\n    ],\n};\n\nawait client.Me.Following.Follow(parameters);',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.following.follow({ ids: ['string'] });",
       },
-      go: {
-        method: 'client.Me.Following.Follow',
+      python: {
+        method: 'me.following.follow',
         example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Following.Follow(context.TODO(), spotted.MeFollowingFollowParams{\n\t\tIDs: []string{"string"},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/following \\\n    -X PUT \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN" \\\n    -d \'{\n          "ids": [\n            "string"\n          ]\n        }\'',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.following.follow(\n    ids=["string"],\n)',
       },
       java: {
         method: 'me().following().follow',
@@ -2742,25 +2734,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.following.FollowingFollowParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: FollowingFollowParams = FollowingFollowParams.builder()\n        .addId("string")\n        .build()\n    client.me().following().follow(params)\n}',
       },
-      php: {
-        method: 'me->following->follow',
+      go: {
+        method: 'client.Me.Following.Follow',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->following->follow(ids: ['string'], published: true);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'me.following.follow',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.following.follow(\n    ids=["string"],\n)',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Following.Follow(context.TODO(), spotted.MeFollowingFollowParams{\n\t\tIDs: []string{"string"},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'me.following.follow',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.me.following.follow(ids: ["string"])\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.me.following.follow',
+      cli: {
+        method: 'following follow',
+        example: "spotted me:following follow \\\n  --access-token 'My Access Token' \\\n  --id string",
+      },
+      php: {
+        method: 'me->following->follow',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.following.follow({ ids: ['string'] });",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->following->follow(ids: ['string'], published: true);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Me.Following.Follow',
+        example:
+          'FollowingFollowParams parameters = new()\n{\n    Ids =\n    [\n        "string"\n    ],\n};\n\nawait client.Me.Following.Follow(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/following \\\n    -X PUT \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN" \\\n    -d \'{\n          "ids": [\n            "string"\n          ]\n        }\'',
       },
     },
   },
@@ -2777,23 +2777,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       '## unfollow\n\n`client.me.following.unfollow(ids?: string[], published?: boolean): void`\n\n**delete** `/me/following`\n\nRemove the current user as a follower of one or more artists or other Spotify users.\n\n**Note:** This endpoint is deprecated. Use [Remove Items from Library](/documentation/web-api/reference/remove-library-items) instead.\n\n\n### Parameters\n\n- `ids?: string[]`\n  A JSON array of the artist or user [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example: `{ids:["74ASZWbe4lXaubB36ztrGX", "08td7MxkoHQkXnWAYD8d6Q"]}`. A maximum of 50 IDs can be sent in one request. _**Note**: if the `ids` parameter is present in the query string, any IDs listed here in the body will be ignored._\n\n\n- `published?: boolean`\n  The playlist\'s public/private status (if it should be added to the user\'s profile or not): `true` the playlist will be public, `false` the playlist will be private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](/documentation/web-api/concepts/playlists)\n\n\n### Example\n\n```typescript\nimport Spotted from \'spotted-ts\';\n\nconst client = new Spotted();\n\nawait client.me.following.unfollow()\n```',
     perLanguage: {
-      cli: {
-        method: 'following unfollow',
-        example: "spotted me:following unfollow \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Following.Unfollow',
+      typescript: {
+        method: 'client.me.following.unfollow',
         example:
-          'FollowingUnfollowParams parameters = new();\n\nawait client.Me.Following.Unfollow(parameters);',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.following.unfollow();",
       },
-      go: {
-        method: 'client.Me.Following.Unfollow',
+      python: {
+        method: 'me.following.unfollow',
         example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Following.Unfollow(context.TODO(), spotted.MeFollowingUnfollowParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/following \\\n    -X DELETE \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.following.unfollow()',
       },
       java: {
         method: 'me().following().unfollow',
@@ -2805,25 +2797,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.following.FollowingUnfollowParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.me().following().unfollow()\n}',
       },
-      php: {
-        method: 'me->following->unfollow',
+      go: {
+        method: 'client.Me.Following.Unfollow',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->following->unfollow(ids: ['string'], published: true);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'me.following.unfollow',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.following.unfollow()',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Following.Unfollow(context.TODO(), spotted.MeFollowingUnfollowParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'me.following.unfollow',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.me.following.unfollow\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.me.following.unfollow',
+      cli: {
+        method: 'following unfollow',
+        example: "spotted me:following unfollow \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->following->unfollow',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.following.unfollow();",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->following->unfollow(ids: ['string'], published: true);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Me.Following.Unfollow',
+        example:
+          'FollowingUnfollowParams parameters = new();\n\nawait client.Me.Following.Unfollow(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/following \\\n    -X DELETE \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -2841,24 +2841,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## check\n\n`client.me.following.check(ids: string, type: 'artist' | 'user'): boolean[]`\n\n**get** `/me/following/contains`\n\nCheck to see if the current user is following one or more artists or other Spotify users.\n\n**Note:** This endpoint is deprecated. Use [Check User's Saved Items](/documentation/web-api/reference/check-library-contains) instead.\n\n\n### Parameters\n\n- `ids: string`\n  A comma-separated list of the artist or the user [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) to check. For example: `ids=74ASZWbe4lXaubB36ztrGX,08td7MxkoHQkXnWAYD8d6Q`. A maximum of 50 IDs can be sent in one request.\n\n\n- `type: 'artist' | 'user'`\n  The ID type: either `artist` or `user`.\n\n### Returns\n\n- `boolean[]`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.me.following.check({ ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6', type: 'artist' });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'following check',
+      typescript: {
+        method: 'client.me.following.check',
         example:
-          "spotted me:following check \\\n  --access-token 'My Access Token' \\\n  --ids 2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6 \\\n  --type artist",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.me.following.check({\n  ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6',\n  type: 'artist',\n});\n\nconsole.log(response);",
       },
-      csharp: {
-        method: 'Me.Following.Check',
+      python: {
+        method: 'me.following.check',
         example:
-          'FollowingCheckParams parameters = new()\n{\n    Ids = "2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6",\n    Type = Type.Artist,\n};\n\nvar response = await client.Me.Following.Check(parameters);\n\nConsole.WriteLine(response);',
-      },
-      go: {
-        method: 'client.Me.Following.Check',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Me.Following.Check(context.TODO(), spotted.MeFollowingCheckParams{\n\t\tIDs:  "2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6",\n\t\tType: spotted.MeFollowingCheckParamsTypeArtist,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/following/contains \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.me.following.check(\n    ids="2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6",\n    type="artist",\n)\nprint(response)',
       },
       java: {
         method: 'me().following().check',
@@ -2870,25 +2861,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.following.FollowingCheckParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: FollowingCheckParams = FollowingCheckParams.builder()\n        .ids("2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6")\n        .type(FollowingCheckParams.Type.ARTIST)\n        .build()\n    val response: List<Boolean> = client.me().following().check(params)\n}',
       },
-      php: {
-        method: 'me->following->check',
+      go: {
+        method: 'client.Me.Following.Check',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->following->check(\n  ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6',\n  type: 'artist',\n);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'me.following.check',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.me.following.check(\n    ids="2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6",\n    type="artist",\n)\nprint(response)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Me.Following.Check(context.TODO(), spotted.MeFollowingCheckParams{\n\t\tIDs:  "2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6",\n\t\tType: spotted.MeFollowingCheckParamsTypeArtist,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
       },
       ruby: {
         method: 'me.following.check',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.me.following.check(\n  ids: "2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6",\n  type: :artist\n)\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.me.following.check',
+      cli: {
+        method: 'following check',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.me.following.check({\n  ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6',\n  type: 'artist',\n});\n\nconsole.log(response);",
+          "spotted me:following check \\\n  --access-token 'My Access Token' \\\n  --ids 2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6 \\\n  --type artist",
+      },
+      php: {
+        method: 'me->following->check',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->following->check(\n  ids: '2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6',\n  type: 'artist',\n);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Me.Following.Check',
+        example:
+          'FollowingCheckParams parameters = new()\n{\n    Ids = "2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6",\n    Type = Type.Artist,\n};\n\nvar response = await client.Me.Following.Check(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/following/contains \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -2907,23 +2907,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## get_state\n\n`client.me.player.getState(additional_types?: string, market?: string): { actions?: object; context?: context_object; currently_playing_type?: string; device?: device_object; is_playing?: boolean; item?: track_object | episode_object; progress_ms?: number; published?: boolean; repeat_state?: string; shuffle_state?: boolean; timestamp?: number; }`\n\n**get** `/me/player`\n\nGet information about the user’s current playback state, including track or episode, progress, and active device.\n\n\n### Parameters\n\n- `additional_types?: string`\n  A comma-separated list of item types that your client supports besides the default `track` type. Valid types are: `track` and `episode`.<br/>\n_**Note**: This parameter was introduced to allow existing clients to maintain their current behaviour and might be deprecated in the future._<br/>\nIn addition to providing this parameter, make sure that your client properly handles cases of new types in the future by checking against the `type` field of each object.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n### Returns\n\n- `{ actions?: { interrupting_playback?: boolean; pausing?: boolean; published?: boolean; resuming?: boolean; seeking?: boolean; skipping_next?: boolean; skipping_prev?: boolean; toggling_repeat_context?: boolean; toggling_repeat_track?: boolean; toggling_shuffle?: boolean; transferring_playback?: boolean; }; context?: { external_urls?: external_url_object; href?: string; published?: boolean; type?: string; uri?: string; }; currently_playing_type?: string; device?: { id?: string; is_active?: boolean; is_private_session?: boolean; is_restricted?: boolean; name?: string; published?: boolean; supports_volume?: boolean; type?: string; volume_percent?: number; }; is_playing?: boolean; item?: { id?: string; album?: object; artists?: simplified_artist_object[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: external_id_object; external_urls?: external_url_object; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: linked_track_object; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: track_restriction_object; track_number?: number; type?: 'track'; uri?: string; } | { id: string; audio_preview_url: string; description: string; duration_ms: number; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; is_externally_hosted: boolean; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; show: show_base; type: 'episode'; uri: string; language?: string; published?: boolean; restrictions?: episode_restriction_object; resume_point?: resume_point_object; }; progress_ms?: number; published?: boolean; repeat_state?: string; shuffle_state?: boolean; timestamp?: number; }`\n\n  - `actions?: { interrupting_playback?: boolean; pausing?: boolean; published?: boolean; resuming?: boolean; seeking?: boolean; skipping_next?: boolean; skipping_prev?: boolean; toggling_repeat_context?: boolean; toggling_repeat_track?: boolean; toggling_shuffle?: boolean; transferring_playback?: boolean; }`\n  - `context?: { external_urls?: { published?: boolean; spotify?: string; }; href?: string; published?: boolean; type?: string; uri?: string; }`\n  - `currently_playing_type?: string`\n  - `device?: { id?: string; is_active?: boolean; is_private_session?: boolean; is_restricted?: boolean; name?: string; published?: boolean; supports_volume?: boolean; type?: string; volume_percent?: number; }`\n  - `is_playing?: boolean`\n  - `item?: { id?: string; album?: { id: string; album_type: 'album' | 'single' | 'compilation'; artists: object[]; available_markets: string[]; external_urls: object; href: string; images: object[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; published?: boolean; restrictions?: object; }; artists?: { id?: string; external_urls?: external_url_object; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: { ean?: string; isrc?: string; published?: boolean; upc?: string; }; external_urls?: { published?: boolean; spotify?: string; }; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: { id?: string; external_urls?: external_url_object; href?: string; published?: boolean; type?: string; uri?: string; }; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; track_number?: number; type?: 'track'; uri?: string; } | { id: string; audio_preview_url: string; description: string; duration_ms: number; explicit: boolean; external_urls: { published?: boolean; spotify?: string; }; href: string; html_description: string; images: { height: number; url: string; width: number; published?: boolean; }[]; is_externally_hosted: boolean; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; show: { id: string; available_markets: string[]; copyrights: copyright_object[]; description: string; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; is_externally_hosted: boolean; languages: string[]; media_type: string; name: string; publisher: string; total_episodes: number; type: 'show'; uri: string; published?: boolean; }; type: 'episode'; uri: string; language?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; resume_point?: { fully_played?: boolean; published?: boolean; resume_position_ms?: number; }; }`\n  - `progress_ms?: number`\n  - `published?: boolean`\n  - `repeat_state?: string`\n  - `shuffle_state?: boolean`\n  - `timestamp?: number`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.me.player.getState();\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'player get_state',
-        example: "spotted me:player get-state \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Player.GetState',
+      typescript: {
+        method: 'client.me.player.getState',
         example:
-          'PlayerGetStateParams parameters = new();\n\nvar response = await client.Me.Player.GetState(parameters);\n\nConsole.WriteLine(response);',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.me.player.getState();\n\nconsole.log(response.actions);",
       },
-      go: {
-        method: 'client.Me.Player.GetState',
+      python: {
+        method: 'me.player.get_state',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Me.Player.GetState(context.TODO(), spotted.MePlayerGetStateParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Actions)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/player \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.me.player.get_state()\nprint(response.actions)',
       },
       java: {
         method: 'me().player().getState',
@@ -2935,25 +2927,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerGetStateParams\nimport dev.cjav.spotted.models.me.player.PlayerGetStateResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: PlayerGetStateResponse = client.me().player().getState()\n}',
       },
-      php: {
-        method: 'me->player->getState',
+      go: {
+        method: 'client.Me.Player.GetState',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->player->getState(\n  additionalTypes: 'additional_types', market: 'ES'\n);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'me.player.get_state',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.me.player.get_state()\nprint(response.actions)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Me.Player.GetState(context.TODO(), spotted.MePlayerGetStateParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Actions)\n}\n',
       },
       ruby: {
         method: 'me.player.get_state',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.me.player.get_state\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.me.player.getState',
+      cli: {
+        method: 'player get_state',
+        example: "spotted me:player get-state \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->player->getState',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.me.player.getState();\n\nconsole.log(response.actions);",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->player->getState(\n  additionalTypes: 'additional_types', market: 'ES'\n);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Me.Player.GetState',
+        example:
+          'PlayerGetStateParams parameters = new();\n\nvar response = await client.Me.Player.GetState(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/player \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -2970,24 +2970,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## transfer\n\n`client.me.player.transfer(device_ids: string[], play?: boolean, published?: boolean): void`\n\n**put** `/me/player`\n\nTransfer playback to a new device and optionally begin playback. This API only works for users who have Spotify Premium. The order of execution is not guaranteed when you use this API with other Player API endpoints.\n\n\n### Parameters\n\n- `device_ids: string[]`\n  A JSON array containing the ID of the device on which playback should be started/transferred.<br/>For example:`{device_ids:[\"74ASZWbe4lXaubB36ztrGX\"]}`<br/>_**Note**: Although an array is accepted, only a single device_id is currently supported. Supplying more than one will return `400 Bad Request`_\n\n\n- `play?: boolean`\n  **true**: ensure playback happens on new device.<br/>**false** or not provided: keep the current playback state.\n\n\n- `published?: boolean`\n  The playlist's public/private status (if it should be added to the user's profile or not): `true` the playlist will be public, `false` the playlist will be private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](/documentation/web-api/concepts/playlists)\n\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nawait client.me.player.transfer({ device_ids: ['74ASZWbe4lXaubB36ztrGX'] })\n```",
     perLanguage: {
-      cli: {
-        method: 'player transfer',
+      typescript: {
+        method: 'client.me.player.transfer',
         example:
-          "spotted me:player transfer \\\n  --access-token 'My Access Token' \\\n  --device-id 74ASZWbe4lXaubB36ztrGX",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.player.transfer({ device_ids: ['74ASZWbe4lXaubB36ztrGX'] });",
       },
-      csharp: {
-        method: 'Me.Player.Transfer',
+      python: {
+        method: 'me.player.transfer',
         example:
-          'PlayerTransferParams parameters = new()\n{\n    DeviceIds =\n    [\n        "74ASZWbe4lXaubB36ztrGX"\n    ],\n};\n\nawait client.Me.Player.Transfer(parameters);',
-      },
-      go: {
-        method: 'client.Me.Player.Transfer',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Player.Transfer(context.TODO(), spotted.MePlayerTransferParams{\n\t\tDeviceIDs: []string{"74ASZWbe4lXaubB36ztrGX"},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/player \\\n    -X PUT \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN" \\\n    -d \'{\n          "device_ids": [\n            "74ASZWbe4lXaubB36ztrGX"\n          ]\n        }\'',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.player.transfer(\n    device_ids=["74ASZWbe4lXaubB36ztrGX"],\n)',
       },
       java: {
         method: 'me().player().transfer',
@@ -2999,25 +2990,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerTransferParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: PlayerTransferParams = PlayerTransferParams.builder()\n        .addDeviceId("74ASZWbe4lXaubB36ztrGX")\n        .build()\n    client.me().player().transfer(params)\n}',
       },
-      php: {
-        method: 'me->player->transfer',
+      go: {
+        method: 'client.Me.Player.Transfer',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->transfer(\n  deviceIDs: ['74ASZWbe4lXaubB36ztrGX'], play: true, published: true\n);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'me.player.transfer',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.player.transfer(\n    device_ids=["74ASZWbe4lXaubB36ztrGX"],\n)',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Player.Transfer(context.TODO(), spotted.MePlayerTransferParams{\n\t\tDeviceIDs: []string{"74ASZWbe4lXaubB36ztrGX"},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'me.player.transfer',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.me.player.transfer(device_ids: ["74ASZWbe4lXaubB36ztrGX"])\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.me.player.transfer',
+      cli: {
+        method: 'player transfer',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.player.transfer({ device_ids: ['74ASZWbe4lXaubB36ztrGX'] });",
+          "spotted me:player transfer \\\n  --access-token 'My Access Token' \\\n  --device-id 74ASZWbe4lXaubB36ztrGX",
+      },
+      php: {
+        method: 'me->player->transfer',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->transfer(\n  deviceIDs: ['74ASZWbe4lXaubB36ztrGX'], play: true, published: true\n);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Me.Player.Transfer',
+        example:
+          'PlayerTransferParams parameters = new()\n{\n    DeviceIds =\n    [\n        "74ASZWbe4lXaubB36ztrGX"\n    ],\n};\n\nawait client.Me.Player.Transfer(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/player \\\n    -X PUT \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN" \\\n    -d \'{\n          "device_ids": [\n            "74ASZWbe4lXaubB36ztrGX"\n          ]\n        }\'',
       },
     },
   },
@@ -3035,23 +3035,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## get_devices\n\n`client.me.player.getDevices(): { devices: device_object[]; }`\n\n**get** `/me/player/devices`\n\nGet information about a user’s available Spotify Connect devices. Some device models are not supported and will not be listed in the API response.\n\n\n### Returns\n\n- `{ devices: { id?: string; is_active?: boolean; is_private_session?: boolean; is_restricted?: boolean; name?: string; published?: boolean; supports_volume?: boolean; type?: string; volume_percent?: number; }[]; }`\n\n  - `devices: { id?: string; is_active?: boolean; is_private_session?: boolean; is_restricted?: boolean; name?: string; published?: boolean; supports_volume?: boolean; type?: string; volume_percent?: number; }[]`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.me.player.getDevices();\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'player get_devices',
-        example: "spotted me:player get-devices \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Player.GetDevices',
+      typescript: {
+        method: 'client.me.player.getDevices',
         example:
-          'PlayerGetDevicesParams parameters = new();\n\nvar response = await client.Me.Player.GetDevices(parameters);\n\nConsole.WriteLine(response);',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.me.player.getDevices();\n\nconsole.log(response.devices);",
       },
-      go: {
-        method: 'client.Me.Player.GetDevices',
+      python: {
+        method: 'me.player.get_devices',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Me.Player.GetDevices(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Devices)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/player/devices \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.me.player.get_devices()\nprint(response.devices)',
       },
       java: {
         method: 'me().player().getDevices',
@@ -3063,25 +3055,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerGetDevicesParams\nimport dev.cjav.spotted.models.me.player.PlayerGetDevicesResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: PlayerGetDevicesResponse = client.me().player().getDevices()\n}',
       },
-      php: {
-        method: 'me->player->getDevices',
+      go: {
+        method: 'client.Me.Player.GetDevices',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->player->getDevices();\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'me.player.get_devices',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.me.player.get_devices()\nprint(response.devices)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Me.Player.GetDevices(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Devices)\n}\n',
       },
       ruby: {
         method: 'me.player.get_devices',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.me.player.get_devices\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.me.player.getDevices',
+      cli: {
+        method: 'player get_devices',
+        example: "spotted me:player get-devices \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->player->getDevices',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.me.player.getDevices();\n\nconsole.log(response.devices);",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->player->getDevices();\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Me.Player.GetDevices',
+        example:
+          'PlayerGetDevicesParams parameters = new();\n\nvar response = await client.Me.Player.GetDevices(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/player/devices \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -3099,23 +3099,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## get_currently_playing\n\n`client.me.player.getCurrentlyPlaying(additional_types?: string, market?: string): { actions?: object; context?: context_object; currently_playing_type?: string; is_playing?: boolean; item?: track_object | episode_object; progress_ms?: number; published?: boolean; timestamp?: number; }`\n\n**get** `/me/player/currently-playing`\n\nGet the object currently being played on the user's Spotify account.\n\n\n### Parameters\n\n- `additional_types?: string`\n  A comma-separated list of item types that your client supports besides the default `track` type. Valid types are: `track` and `episode`.<br/>\n_**Note**: This parameter was introduced to allow existing clients to maintain their current behaviour and might be deprecated in the future._<br/>\nIn addition to providing this parameter, make sure that your client properly handles cases of new types in the future by checking against the `type` field of each object.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n### Returns\n\n- `{ actions?: { interrupting_playback?: boolean; pausing?: boolean; published?: boolean; resuming?: boolean; seeking?: boolean; skipping_next?: boolean; skipping_prev?: boolean; toggling_repeat_context?: boolean; toggling_repeat_track?: boolean; toggling_shuffle?: boolean; transferring_playback?: boolean; }; context?: { external_urls?: external_url_object; href?: string; published?: boolean; type?: string; uri?: string; }; currently_playing_type?: string; is_playing?: boolean; item?: { id?: string; album?: object; artists?: simplified_artist_object[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: external_id_object; external_urls?: external_url_object; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: linked_track_object; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: track_restriction_object; track_number?: number; type?: 'track'; uri?: string; } | { id: string; audio_preview_url: string; description: string; duration_ms: number; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; is_externally_hosted: boolean; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; show: show_base; type: 'episode'; uri: string; language?: string; published?: boolean; restrictions?: episode_restriction_object; resume_point?: resume_point_object; }; progress_ms?: number; published?: boolean; timestamp?: number; }`\n\n  - `actions?: { interrupting_playback?: boolean; pausing?: boolean; published?: boolean; resuming?: boolean; seeking?: boolean; skipping_next?: boolean; skipping_prev?: boolean; toggling_repeat_context?: boolean; toggling_repeat_track?: boolean; toggling_shuffle?: boolean; transferring_playback?: boolean; }`\n  - `context?: { external_urls?: { published?: boolean; spotify?: string; }; href?: string; published?: boolean; type?: string; uri?: string; }`\n  - `currently_playing_type?: string`\n  - `is_playing?: boolean`\n  - `item?: { id?: string; album?: { id: string; album_type: 'album' | 'single' | 'compilation'; artists: object[]; available_markets: string[]; external_urls: object; href: string; images: object[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; published?: boolean; restrictions?: object; }; artists?: { id?: string; external_urls?: external_url_object; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: { ean?: string; isrc?: string; published?: boolean; upc?: string; }; external_urls?: { published?: boolean; spotify?: string; }; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: { id?: string; external_urls?: external_url_object; href?: string; published?: boolean; type?: string; uri?: string; }; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; track_number?: number; type?: 'track'; uri?: string; } | { id: string; audio_preview_url: string; description: string; duration_ms: number; explicit: boolean; external_urls: { published?: boolean; spotify?: string; }; href: string; html_description: string; images: { height: number; url: string; width: number; published?: boolean; }[]; is_externally_hosted: boolean; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; show: { id: string; available_markets: string[]; copyrights: copyright_object[]; description: string; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; is_externally_hosted: boolean; languages: string[]; media_type: string; name: string; publisher: string; total_episodes: number; type: 'show'; uri: string; published?: boolean; }; type: 'episode'; uri: string; language?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; resume_point?: { fully_played?: boolean; published?: boolean; resume_position_ms?: number; }; }`\n  - `progress_ms?: number`\n  - `published?: boolean`\n  - `timestamp?: number`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.me.player.getCurrentlyPlaying();\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'player get_currently_playing',
-        example: "spotted me:player get-currently-playing \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Player.GetCurrentlyPlaying',
+      typescript: {
+        method: 'client.me.player.getCurrentlyPlaying',
         example:
-          'PlayerGetCurrentlyPlayingParams parameters = new();\n\nvar response = await client.Me.Player.GetCurrentlyPlaying(parameters);\n\nConsole.WriteLine(response);',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.me.player.getCurrentlyPlaying();\n\nconsole.log(response.actions);",
       },
-      go: {
-        method: 'client.Me.Player.GetCurrentlyPlaying',
+      python: {
+        method: 'me.player.get_currently_playing',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Me.Player.GetCurrentlyPlaying(context.TODO(), spotted.MePlayerGetCurrentlyPlayingParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Actions)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/player/currently-playing \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.me.player.get_currently_playing()\nprint(response.actions)',
       },
       java: {
         method: 'me().player().getCurrentlyPlaying',
@@ -3127,25 +3119,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerGetCurrentlyPlayingParams\nimport dev.cjav.spotted.models.me.player.PlayerGetCurrentlyPlayingResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: PlayerGetCurrentlyPlayingResponse = client.me().player().getCurrentlyPlaying()\n}',
       },
-      php: {
-        method: 'me->player->getCurrentlyPlaying',
+      go: {
+        method: 'client.Me.Player.GetCurrentlyPlaying',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->player->getCurrentlyPlaying(\n  additionalTypes: 'additional_types', market: 'ES'\n);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'me.player.get_currently_playing',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.me.player.get_currently_playing()\nprint(response.actions)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Me.Player.GetCurrentlyPlaying(context.TODO(), spotted.MePlayerGetCurrentlyPlayingParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Actions)\n}\n',
       },
       ruby: {
         method: 'me.player.get_currently_playing',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.me.player.get_currently_playing\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.me.player.getCurrentlyPlaying',
+      cli: {
+        method: 'player get_currently_playing',
+        example: "spotted me:player get-currently-playing \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->player->getCurrentlyPlaying',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.me.player.getCurrentlyPlaying();\n\nconsole.log(response.actions);",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->me->player->getCurrentlyPlaying(\n  additionalTypes: 'additional_types', market: 'ES'\n);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Me.Player.GetCurrentlyPlaying',
+        example:
+          'PlayerGetCurrentlyPlayingParams parameters = new();\n\nvar response = await client.Me.Player.GetCurrentlyPlaying(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/player/currently-playing \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -3169,23 +3169,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       '## start_playback\n\n`client.me.player.startPlayback(device_id?: string, context_uri?: string, offset?: object, position_ms?: number, published?: boolean, uris?: string[]): void`\n\n**put** `/me/player/play`\n\nStart a new context or resume current playback on the user\'s active device. This API only works for users who have Spotify Premium. The order of execution is not guaranteed when you use this API with other Player API endpoints.\n\n\n### Parameters\n\n- `device_id?: string`\n  The id of the device this command is targeting. If not supplied, the user\'s currently active device is the target.\n\n- `context_uri?: string`\n  Optional. Spotify URI of the context to play.\nValid contexts are albums, artists & playlists.\n`{context_uri:"spotify:album:1Je1IMUlBXcx1Fz0WE7oPT"}`\n\n\n- `offset?: object`\n  Optional. Indicates from where in the context playback should start. Only available when context_uri corresponds to an album or playlist object\n"position" is zero based and can’t be negative. Example: `"offset": {"position": 5}`\n"uri" is a string representing the uri of the item to start at. Example: `"offset": {"uri": "spotify:track:1301WleyT98MSxVHPZCA6M"}`\n\n\n- `position_ms?: number`\n  Indicates from what position to start playback. Must be a positive number. Passing in a position that is greater than the length of the track will cause the player to start playing the next song.\n\n\n- `published?: boolean`\n  The playlist\'s public/private status (if it should be added to the user\'s profile or not): `true` the playlist will be public, `false` the playlist will be private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](/documentation/web-api/concepts/playlists)\n\n\n- `uris?: string[]`\n  Optional. A JSON array of the Spotify track URIs to play.\nFor example: `{"uris": ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh", "spotify:track:1301WleyT98MSxVHPZCA6M"]}`\n\n\n### Example\n\n```typescript\nimport Spotted from \'spotted-ts\';\n\nconst client = new Spotted();\n\nawait client.me.player.startPlayback()\n```',
     perLanguage: {
-      cli: {
-        method: 'player start_playback',
-        example: "spotted me:player start-playback \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Player.StartPlayback',
+      typescript: {
+        method: 'client.me.player.startPlayback',
         example:
-          'PlayerStartPlaybackParams parameters = new();\n\nawait client.Me.Player.StartPlayback(parameters);',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.player.startPlayback();",
       },
-      go: {
-        method: 'client.Me.Player.StartPlayback',
+      python: {
+        method: 'me.player.start_playback',
         example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Player.StartPlayback(context.TODO(), spotted.MePlayerStartPlaybackParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/player/play \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.player.start_playback()',
       },
       java: {
         method: 'me().player().startPlayback',
@@ -3197,25 +3189,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerStartPlaybackParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.me().player().startPlayback()\n}',
       },
-      php: {
-        method: 'me->player->startPlayback',
+      go: {
+        method: 'client.Me.Player.StartPlayback',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->startPlayback(\n  deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8',\n  contextUri: 'spotify:album:5ht7ItJgpBH7W6vJ5BqpPr',\n  offset: ['position' => 'bar'],\n  positionMs: 0,\n  published: true,\n  uris: ['string'],\n);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'me.player.start_playback',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.player.start_playback()',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Player.StartPlayback(context.TODO(), spotted.MePlayerStartPlaybackParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'me.player.start_playback',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.me.player.start_playback\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.me.player.startPlayback',
+      cli: {
+        method: 'player start_playback',
+        example: "spotted me:player start-playback \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->player->startPlayback',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.player.startPlayback();",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->startPlayback(\n  deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8',\n  contextUri: 'spotify:album:5ht7ItJgpBH7W6vJ5BqpPr',\n  offset: ['position' => 'bar'],\n  positionMs: 0,\n  published: true,\n  uris: ['string'],\n);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Me.Player.StartPlayback',
+        example:
+          'PlayerStartPlaybackParams parameters = new();\n\nawait client.Me.Player.StartPlayback(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/player/play \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -3232,23 +3232,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## pause_playback\n\n`client.me.player.pausePlayback(device_id?: string): void`\n\n**put** `/me/player/pause`\n\nPause playback on the user's account. This API only works for users who have Spotify Premium. The order of execution is not guaranteed when you use this API with other Player API endpoints.\n\n\n### Parameters\n\n- `device_id?: string`\n  The id of the device this command is targeting. If not supplied, the user's currently active device is the target.\n\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nawait client.me.player.pausePlayback()\n```",
     perLanguage: {
-      cli: {
-        method: 'player pause_playback',
-        example: "spotted me:player pause-playback \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Player.PausePlayback',
+      typescript: {
+        method: 'client.me.player.pausePlayback',
         example:
-          'PlayerPausePlaybackParams parameters = new();\n\nawait client.Me.Player.PausePlayback(parameters);',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.player.pausePlayback();",
       },
-      go: {
-        method: 'client.Me.Player.PausePlayback',
+      python: {
+        method: 'me.player.pause_playback',
         example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Player.PausePlayback(context.TODO(), spotted.MePlayerPausePlaybackParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/player/pause \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.player.pause_playback()',
       },
       java: {
         method: 'me().player().pausePlayback',
@@ -3260,25 +3252,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerPausePlaybackParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.me().player().pausePlayback()\n}',
       },
-      php: {
-        method: 'me->player->pausePlayback',
+      go: {
+        method: 'client.Me.Player.PausePlayback',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->pausePlayback(\n  deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8'\n);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'me.player.pause_playback',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.player.pause_playback()',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Player.PausePlayback(context.TODO(), spotted.MePlayerPausePlaybackParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'me.player.pause_playback',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.me.player.pause_playback\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.me.player.pausePlayback',
+      cli: {
+        method: 'player pause_playback',
+        example: "spotted me:player pause-playback \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->player->pausePlayback',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.player.pausePlayback();",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->pausePlayback(\n  deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8'\n);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Me.Player.PausePlayback',
+        example:
+          'PlayerPausePlaybackParams parameters = new();\n\nawait client.Me.Player.PausePlayback(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/player/pause \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -3295,22 +3295,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## skip_next\n\n`client.me.player.skipNext(device_id?: string): void`\n\n**post** `/me/player/next`\n\nSkips to next track in the user’s queue. This API only works for users who have Spotify Premium. The order of execution is not guaranteed when you use this API with other Player API endpoints.\n\n\n### Parameters\n\n- `device_id?: string`\n  The id of the device this command is targeting. If not supplied, the user's currently active device is the target.\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nawait client.me.player.skipNext()\n```",
     perLanguage: {
-      cli: {
-        method: 'player skip_next',
-        example: "spotted me:player skip-next \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Player.SkipNext',
-        example: 'PlayerSkipNextParams parameters = new();\n\nawait client.Me.Player.SkipNext(parameters);',
-      },
-      go: {
-        method: 'client.Me.Player.SkipNext',
+      typescript: {
+        method: 'client.me.player.skipNext',
         example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Player.SkipNext(context.TODO(), spotted.MePlayerSkipNextParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.player.skipNext();",
       },
-      http: {
+      python: {
+        method: 'me.player.skip_next',
         example:
-          'curl https://api.spotify.com/v1/me/player/next \\\n    -X POST \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.player.skip_next()',
       },
       java: {
         method: 'me().player().skipNext',
@@ -3322,25 +3315,32 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerSkipNextParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.me().player().skipNext()\n}',
       },
-      php: {
-        method: 'me->player->skipNext',
+      go: {
+        method: 'client.Me.Player.SkipNext',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->skipNext(\n  deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8'\n);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'me.player.skip_next',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.player.skip_next()',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Player.SkipNext(context.TODO(), spotted.MePlayerSkipNextParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'me.player.skip_next',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.me.player.skip_next\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.me.player.skipNext',
+      cli: {
+        method: 'player skip_next',
+        example: "spotted me:player skip-next \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->player->skipNext',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.player.skipNext();",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->skipNext(\n  deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8'\n);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Me.Player.SkipNext',
+        example: 'PlayerSkipNextParams parameters = new();\n\nawait client.Me.Player.SkipNext(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/player/next \\\n    -X POST \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -3357,23 +3357,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## skip_previous\n\n`client.me.player.skipPrevious(device_id?: string): void`\n\n**post** `/me/player/previous`\n\nSkips to previous track in the user’s queue. This API only works for users who have Spotify Premium. The order of execution is not guaranteed when you use this API with other Player API endpoints.\n\n\n### Parameters\n\n- `device_id?: string`\n  The id of the device this command is targeting. If\nnot supplied, the user's currently active device is the target.\n\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nawait client.me.player.skipPrevious()\n```",
     perLanguage: {
-      cli: {
-        method: 'player skip_previous',
-        example: "spotted me:player skip-previous \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Player.SkipPrevious',
+      typescript: {
+        method: 'client.me.player.skipPrevious',
         example:
-          'PlayerSkipPreviousParams parameters = new();\n\nawait client.Me.Player.SkipPrevious(parameters);',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.player.skipPrevious();",
       },
-      go: {
-        method: 'client.Me.Player.SkipPrevious',
+      python: {
+        method: 'me.player.skip_previous',
         example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Player.SkipPrevious(context.TODO(), spotted.MePlayerSkipPreviousParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/player/previous \\\n    -X POST \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.player.skip_previous()',
       },
       java: {
         method: 'me().player().skipPrevious',
@@ -3385,25 +3377,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerSkipPreviousParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.me().player().skipPrevious()\n}',
       },
-      php: {
-        method: 'me->player->skipPrevious',
+      go: {
+        method: 'client.Me.Player.SkipPrevious',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->skipPrevious(\n  deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8'\n);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'me.player.skip_previous',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.player.skip_previous()',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Player.SkipPrevious(context.TODO(), spotted.MePlayerSkipPreviousParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'me.player.skip_previous',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.me.player.skip_previous\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.me.player.skipPrevious',
+      cli: {
+        method: 'player skip_previous',
+        example: "spotted me:player skip-previous \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->player->skipPrevious',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.player.skipPrevious();",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->skipPrevious(\n  deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8'\n);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Me.Player.SkipPrevious',
+        example:
+          'PlayerSkipPreviousParams parameters = new();\n\nawait client.Me.Player.SkipPrevious(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/player/previous \\\n    -X POST \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -3420,24 +3420,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## seek_to_position\n\n`client.me.player.seekToPosition(position_ms: number, device_id?: string): void`\n\n**put** `/me/player/seek`\n\nSeeks to the given position in the user’s currently playing track. This API only works for users who have Spotify Premium. The order of execution is not guaranteed when you use this API with other Player API endpoints.\n\n\n### Parameters\n\n- `position_ms: number`\n  The position in milliseconds to seek to. Must be a\npositive number. Passing in a position that is greater than the length of\nthe track will cause the player to start playing the next song.\n\n\n- `device_id?: string`\n  The id of the device this command is targeting. If\nnot supplied, the user's currently active device is the target.\n\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nawait client.me.player.seekToPosition({ position_ms: 25000 })\n```",
     perLanguage: {
-      cli: {
-        method: 'player seek_to_position',
+      typescript: {
+        method: 'client.me.player.seekToPosition',
         example:
-          "spotted me:player seek-to-position \\\n  --access-token 'My Access Token' \\\n  --position-ms 25000",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.player.seekToPosition({ position_ms: 25000 });",
       },
-      csharp: {
-        method: 'Me.Player.SeekToPosition',
+      python: {
+        method: 'me.player.seek_to_position',
         example:
-          'PlayerSeekToPositionParams parameters = new() { PositionMs = 25000 };\n\nawait client.Me.Player.SeekToPosition(parameters);',
-      },
-      go: {
-        method: 'client.Me.Player.SeekToPosition',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Player.SeekToPosition(context.TODO(), spotted.MePlayerSeekToPositionParams{\n\t\tPositionMs: 25000,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/player/seek \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.player.seek_to_position(\n    position_ms=25000,\n)',
       },
       java: {
         method: 'me().player().seekToPosition',
@@ -3449,25 +3440,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerSeekToPositionParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: PlayerSeekToPositionParams = PlayerSeekToPositionParams.builder()\n        .positionMs(25000L)\n        .build()\n    client.me().player().seekToPosition(params)\n}',
       },
-      php: {
-        method: 'me->player->seekToPosition',
+      go: {
+        method: 'client.Me.Player.SeekToPosition',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->seekToPosition(\n  positionMs: 25000, deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8'\n);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'me.player.seek_to_position',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.player.seek_to_position(\n    position_ms=25000,\n)',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Player.SeekToPosition(context.TODO(), spotted.MePlayerSeekToPositionParams{\n\t\tPositionMs: 25000,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'me.player.seek_to_position',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.me.player.seek_to_position(position_ms: 25000)\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.me.player.seekToPosition',
+      cli: {
+        method: 'player seek_to_position',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.player.seekToPosition({ position_ms: 25000 });",
+          "spotted me:player seek-to-position \\\n  --access-token 'My Access Token' \\\n  --position-ms 25000",
+      },
+      php: {
+        method: 'me->player->seekToPosition',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->seekToPosition(\n  positionMs: 25000, deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8'\n);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Me.Player.SeekToPosition',
+        example:
+          'PlayerSeekToPositionParams parameters = new() { PositionMs = 25000 };\n\nawait client.Me.Player.SeekToPosition(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/player/seek \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -3484,24 +3484,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## set_repeat_mode\n\n`client.me.player.setRepeatMode(state: string, device_id?: string): void`\n\n**put** `/me/player/repeat`\n\nSet the repeat mode for the user's playback. This API only works for users who have Spotify Premium. The order of execution is not guaranteed when you use this API with other Player API endpoints.\n\n\n### Parameters\n\n- `state: string`\n  **track**, **context** or **off**.<br/>\n**track** will repeat the current track.<br/>\n**context** will repeat the current context.<br/>\n**off** will turn repeat off.\n\n\n- `device_id?: string`\n  The id of the device this command is targeting. If\nnot supplied, the user's currently active device is the target.\n\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nawait client.me.player.setRepeatMode({ state: 'context' })\n```",
     perLanguage: {
-      cli: {
-        method: 'player set_repeat_mode',
+      typescript: {
+        method: 'client.me.player.setRepeatMode',
         example:
-          "spotted me:player set-repeat-mode \\\n  --access-token 'My Access Token' \\\n  --state context",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.player.setRepeatMode({ state: 'context' });",
       },
-      csharp: {
-        method: 'Me.Player.SetRepeatMode',
+      python: {
+        method: 'me.player.set_repeat_mode',
         example:
-          'PlayerSetRepeatModeParams parameters = new() { State = "context" };\n\nawait client.Me.Player.SetRepeatMode(parameters);',
-      },
-      go: {
-        method: 'client.Me.Player.SetRepeatMode',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Player.SetRepeatMode(context.TODO(), spotted.MePlayerSetRepeatModeParams{\n\t\tState: "context",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/player/repeat \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.player.set_repeat_mode(\n    state="context",\n)',
       },
       java: {
         method: 'me().player().setRepeatMode',
@@ -3513,25 +3504,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerSetRepeatModeParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: PlayerSetRepeatModeParams = PlayerSetRepeatModeParams.builder()\n        .state("context")\n        .build()\n    client.me().player().setRepeatMode(params)\n}',
       },
-      php: {
-        method: 'me->player->setRepeatMode',
+      go: {
+        method: 'client.Me.Player.SetRepeatMode',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->setRepeatMode(\n  state: 'context', deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8'\n);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'me.player.set_repeat_mode',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.player.set_repeat_mode(\n    state="context",\n)',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Player.SetRepeatMode(context.TODO(), spotted.MePlayerSetRepeatModeParams{\n\t\tState: "context",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'me.player.set_repeat_mode',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.me.player.set_repeat_mode(state: "context")\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.me.player.setRepeatMode',
+      cli: {
+        method: 'player set_repeat_mode',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.player.setRepeatMode({ state: 'context' });",
+          "spotted me:player set-repeat-mode \\\n  --access-token 'My Access Token' \\\n  --state context",
+      },
+      php: {
+        method: 'me->player->setRepeatMode',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->setRepeatMode(\n  state: 'context', deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8'\n);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Me.Player.SetRepeatMode',
+        example:
+          'PlayerSetRepeatModeParams parameters = new() { State = "context" };\n\nawait client.Me.Player.SetRepeatMode(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/player/repeat \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -3548,24 +3548,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## set_volume\n\n`client.me.player.setVolume(volume_percent: number, device_id?: string): void`\n\n**put** `/me/player/volume`\n\nSet the volume for the user’s current playback device. This API only works for users who have Spotify Premium. The order of execution is not guaranteed when you use this API with other Player API endpoints.\n\n\n### Parameters\n\n- `volume_percent: number`\n  The volume to set. Must be a value from 0 to 100 inclusive.\n\n\n- `device_id?: string`\n  The id of the device this command is targeting. If not supplied, the user's currently active device is the target.\n\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nawait client.me.player.setVolume({ volume_percent: 50 })\n```",
     perLanguage: {
-      cli: {
-        method: 'player set_volume',
+      typescript: {
+        method: 'client.me.player.setVolume',
         example:
-          "spotted me:player set-volume \\\n  --access-token 'My Access Token' \\\n  --volume-percent 50",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.player.setVolume({ volume_percent: 50 });",
       },
-      csharp: {
-        method: 'Me.Player.SetVolume',
+      python: {
+        method: 'me.player.set_volume',
         example:
-          'PlayerSetVolumeParams parameters = new() { VolumePercent = 50 };\n\nawait client.Me.Player.SetVolume(parameters);',
-      },
-      go: {
-        method: 'client.Me.Player.SetVolume',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Player.SetVolume(context.TODO(), spotted.MePlayerSetVolumeParams{\n\t\tVolumePercent: 50,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/player/volume \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.player.set_volume(\n    volume_percent=50,\n)',
       },
       java: {
         method: 'me().player().setVolume',
@@ -3577,25 +3568,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerSetVolumeParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: PlayerSetVolumeParams = PlayerSetVolumeParams.builder()\n        .volumePercent(50L)\n        .build()\n    client.me().player().setVolume(params)\n}',
       },
-      php: {
-        method: 'me->player->setVolume',
+      go: {
+        method: 'client.Me.Player.SetVolume',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->setVolume(\n  volumePercent: 50, deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8'\n);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'me.player.set_volume',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.player.set_volume(\n    volume_percent=50,\n)',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Player.SetVolume(context.TODO(), spotted.MePlayerSetVolumeParams{\n\t\tVolumePercent: 50,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'me.player.set_volume',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.me.player.set_volume(volume_percent: 50)\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.me.player.setVolume',
+      cli: {
+        method: 'player set_volume',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.player.setVolume({ volume_percent: 50 });",
+          "spotted me:player set-volume \\\n  --access-token 'My Access Token' \\\n  --volume-percent 50",
+      },
+      php: {
+        method: 'me->player->setVolume',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->setVolume(\n  volumePercent: 50, deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8'\n);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Me.Player.SetVolume',
+        example:
+          'PlayerSetVolumeParams parameters = new() { VolumePercent = 50 };\n\nawait client.Me.Player.SetVolume(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/player/volume \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -3612,23 +3612,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## toggle_shuffle\n\n`client.me.player.toggleShuffle(state: boolean, device_id?: string): void`\n\n**put** `/me/player/shuffle`\n\nToggle shuffle on or off for user’s playback. This API only works for users who have Spotify Premium. The order of execution is not guaranteed when you use this API with other Player API endpoints.\n\n\n### Parameters\n\n- `state: boolean`\n  **true** : Shuffle user's playback.<br/>\n**false** : Do not shuffle user's playback.\n\n\n- `device_id?: string`\n  The id of the device this command is targeting. If\nnot supplied, the user's currently active device is the target.\n\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nawait client.me.player.toggleShuffle({ state: true })\n```",
     perLanguage: {
-      cli: {
-        method: 'player toggle_shuffle',
-        example: "spotted me:player toggle-shuffle \\\n  --access-token 'My Access Token' \\\n  --state",
-      },
-      csharp: {
-        method: 'Me.Player.ToggleShuffle',
+      typescript: {
+        method: 'client.me.player.toggleShuffle',
         example:
-          'PlayerToggleShuffleParams parameters = new() { State = true };\n\nawait client.Me.Player.ToggleShuffle(parameters);',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.player.toggleShuffle({ state: true });",
       },
-      go: {
-        method: 'client.Me.Player.ToggleShuffle',
+      python: {
+        method: 'me.player.toggle_shuffle',
         example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Player.ToggleShuffle(context.TODO(), spotted.MePlayerToggleShuffleParams{\n\t\tState: true,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/player/shuffle \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.player.toggle_shuffle(\n    state=True,\n)',
       },
       java: {
         method: 'me().player().toggleShuffle',
@@ -3640,25 +3632,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerToggleShuffleParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: PlayerToggleShuffleParams = PlayerToggleShuffleParams.builder()\n        .state(true)\n        .build()\n    client.me().player().toggleShuffle(params)\n}',
       },
-      php: {
-        method: 'me->player->toggleShuffle',
+      go: {
+        method: 'client.Me.Player.ToggleShuffle',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->toggleShuffle(\n  state: true, deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8'\n);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'me.player.toggle_shuffle',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.player.toggle_shuffle(\n    state=True,\n)',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Player.ToggleShuffle(context.TODO(), spotted.MePlayerToggleShuffleParams{\n\t\tState: true,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'me.player.toggle_shuffle',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.me.player.toggle_shuffle(state: true)\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.me.player.toggleShuffle',
+      cli: {
+        method: 'player toggle_shuffle',
+        example: "spotted me:player toggle-shuffle \\\n  --access-token 'My Access Token' \\\n  --state",
+      },
+      php: {
+        method: 'me->player->toggleShuffle',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.player.toggleShuffle({ state: true });",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->toggleShuffle(\n  state: true, deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8'\n);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Me.Player.ToggleShuffle',
+        example:
+          'PlayerToggleShuffleParams parameters = new() { State = true };\n\nawait client.Me.Player.ToggleShuffle(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/player/shuffle \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -3677,23 +3677,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list_recently_played\n\n`client.me.player.listRecentlyPlayed(after?: number, before?: number, limit?: number): { context?: context_object; played_at?: string; published?: boolean; track?: track_object; }`\n\n**get** `/me/player/recently-played`\n\nGet tracks from the current user's recently played tracks.\n_**Note**: Currently doesn't support podcast episodes._\n\n\n### Parameters\n\n- `after?: number`\n  A Unix timestamp in milliseconds. Returns all items\nafter (but not including) this cursor position. If `after` is specified, `before`\nmust not be specified.\n\n\n- `before?: number`\n  A Unix timestamp in milliseconds. Returns all items\nbefore (but not including) this cursor position. If `before` is specified,\n`after` must not be specified.\n\n\n- `limit?: number`\n  The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.\n\n\n### Returns\n\n- `{ context?: { external_urls?: external_url_object; href?: string; published?: boolean; type?: string; uri?: string; }; played_at?: string; published?: boolean; track?: { id?: string; album?: object; artists?: simplified_artist_object[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: external_id_object; external_urls?: external_url_object; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: linked_track_object; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: track_restriction_object; track_number?: number; type?: 'track'; uri?: string; }; }`\n\n  - `context?: { external_urls?: { published?: boolean; spotify?: string; }; href?: string; published?: boolean; type?: string; uri?: string; }`\n  - `played_at?: string`\n  - `published?: boolean`\n  - `track?: { id?: string; album?: { id: string; album_type: 'album' | 'single' | 'compilation'; artists: object[]; available_markets: string[]; external_urls: object; href: string; images: object[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; published?: boolean; restrictions?: object; }; artists?: { id?: string; external_urls?: external_url_object; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: { ean?: string; isrc?: string; published?: boolean; upc?: string; }; external_urls?: { published?: boolean; spotify?: string; }; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: { id?: string; external_urls?: external_url_object; href?: string; published?: boolean; type?: string; uri?: string; }; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; track_number?: number; type?: 'track'; uri?: string; }`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\n// Automatically fetches more pages as needed.\nfor await (const playerListRecentlyPlayedResponse of client.me.player.listRecentlyPlayed()) {\n  console.log(playerListRecentlyPlayedResponse);\n}\n```",
     perLanguage: {
-      cli: {
-        method: 'player list_recently_played',
-        example: "spotted me:player list-recently-played \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Player.ListRecentlyPlayed',
+      typescript: {
+        method: 'client.me.player.listRecentlyPlayed',
         example:
-          'PlayerListRecentlyPlayedParams parameters = new();\n\nvar page = await client.Me.Player.ListRecentlyPlayed(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const playerListRecentlyPlayedResponse of client.me.player.listRecentlyPlayed()) {\n  console.log(playerListRecentlyPlayedResponse.context);\n}",
       },
-      go: {
-        method: 'client.Me.Player.ListRecentlyPlayed',
+      python: {
+        method: 'me.player.list_recently_played',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Me.Player.ListRecentlyPlayed(context.TODO(), spotted.MePlayerListRecentlyPlayedParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/player/recently-played \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.me.player.list_recently_played()\npage = page.items[0]\nprint(page.context)',
       },
       java: {
         method: 'me().player().listRecentlyPlayed',
@@ -3705,25 +3697,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.PlayerListRecentlyPlayedPage\nimport dev.cjav.spotted.models.me.player.PlayerListRecentlyPlayedParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: PlayerListRecentlyPlayedPage = client.me().player().listRecentlyPlayed()\n}',
       },
-      php: {
-        method: 'me->player->listRecentlyPlayed',
+      go: {
+        method: 'client.Me.Player.ListRecentlyPlayed',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->player->listRecentlyPlayed(\n  after: 1484811043508, before: 0, limit: 10\n);\n\nvar_dump($page);",
-      },
-      python: {
-        method: 'me.player.list_recently_played',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.me.player.list_recently_played()\npage = page.items[0]\nprint(page.context)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Me.Player.ListRecentlyPlayed(context.TODO(), spotted.MePlayerListRecentlyPlayedParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
       },
       ruby: {
         method: 'me.player.list_recently_played',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\npage = spotted.me.player.list_recently_played\n\nputs(page)',
       },
-      typescript: {
-        method: 'client.me.player.listRecentlyPlayed',
+      cli: {
+        method: 'player list_recently_played',
+        example: "spotted me:player list-recently-played \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->player->listRecentlyPlayed',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const playerListRecentlyPlayedResponse of client.me.player.listRecentlyPlayed()) {\n  console.log(playerListRecentlyPlayedResponse.context);\n}",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->me->player->listRecentlyPlayed(\n  after: 1484811043508, before: 0, limit: 10\n);\n\nvar_dump($page);",
+      },
+      csharp: {
+        method: 'Me.Player.ListRecentlyPlayed',
+        example:
+          'PlayerListRecentlyPlayedParams parameters = new();\n\nvar page = await client.Me.Player.ListRecentlyPlayed(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/player/recently-played \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -3739,23 +3739,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## get\n\n`client.me.player.queue.get(): { currently_playing?: track_object | episode_object; published?: boolean; queue?: track_object | episode_object[]; }`\n\n**get** `/me/player/queue`\n\nGet the list of objects that make up the user's queue.\n\n\n### Returns\n\n- `{ currently_playing?: { id?: string; album?: object; artists?: simplified_artist_object[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: external_id_object; external_urls?: external_url_object; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: linked_track_object; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: track_restriction_object; track_number?: number; type?: 'track'; uri?: string; } | { id: string; audio_preview_url: string; description: string; duration_ms: number; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; is_externally_hosted: boolean; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; show: show_base; type: 'episode'; uri: string; language?: string; published?: boolean; restrictions?: episode_restriction_object; resume_point?: resume_point_object; }; published?: boolean; queue?: { id?: string; album?: object; artists?: simplified_artist_object[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: external_id_object; external_urls?: external_url_object; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: linked_track_object; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: track_restriction_object; track_number?: number; type?: 'track'; uri?: string; } | { id: string; audio_preview_url: string; description: string; duration_ms: number; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; is_externally_hosted: boolean; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; show: show_base; type: 'episode'; uri: string; language?: string; published?: boolean; restrictions?: episode_restriction_object; resume_point?: resume_point_object; }[]; }`\n\n  - `currently_playing?: { id?: string; album?: { id: string; album_type: 'album' | 'single' | 'compilation'; artists: object[]; available_markets: string[]; external_urls: object; href: string; images: object[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; published?: boolean; restrictions?: object; }; artists?: { id?: string; external_urls?: external_url_object; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: { ean?: string; isrc?: string; published?: boolean; upc?: string; }; external_urls?: { published?: boolean; spotify?: string; }; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: { id?: string; external_urls?: external_url_object; href?: string; published?: boolean; type?: string; uri?: string; }; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; track_number?: number; type?: 'track'; uri?: string; } | { id: string; audio_preview_url: string; description: string; duration_ms: number; explicit: boolean; external_urls: { published?: boolean; spotify?: string; }; href: string; html_description: string; images: { height: number; url: string; width: number; published?: boolean; }[]; is_externally_hosted: boolean; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; show: { id: string; available_markets: string[]; copyrights: copyright_object[]; description: string; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; is_externally_hosted: boolean; languages: string[]; media_type: string; name: string; publisher: string; total_episodes: number; type: 'show'; uri: string; published?: boolean; }; type: 'episode'; uri: string; language?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; resume_point?: { fully_played?: boolean; published?: boolean; resume_position_ms?: number; }; }`\n  - `published?: boolean`\n  - `queue?: { id?: string; album?: { id: string; album_type: 'album' | 'single' | 'compilation'; artists: object[]; available_markets: string[]; external_urls: object; href: string; images: object[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; published?: boolean; restrictions?: object; }; artists?: { id?: string; external_urls?: external_url_object; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: { ean?: string; isrc?: string; published?: boolean; upc?: string; }; external_urls?: { published?: boolean; spotify?: string; }; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: { id?: string; external_urls?: external_url_object; href?: string; published?: boolean; type?: string; uri?: string; }; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; track_number?: number; type?: 'track'; uri?: string; } | { id: string; audio_preview_url: string; description: string; duration_ms: number; explicit: boolean; external_urls: { published?: boolean; spotify?: string; }; href: string; html_description: string; images: { height: number; url: string; width: number; published?: boolean; }[]; is_externally_hosted: boolean; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; show: { id: string; available_markets: string[]; copyrights: copyright_object[]; description: string; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; is_externally_hosted: boolean; languages: string[]; media_type: string; name: string; publisher: string; total_episodes: number; type: 'show'; uri: string; published?: boolean; }; type: 'episode'; uri: string; language?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; resume_point?: { fully_played?: boolean; published?: boolean; resume_position_ms?: number; }; }[]`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst queue = await client.me.player.queue.get();\n\nconsole.log(queue);\n```",
     perLanguage: {
-      cli: {
-        method: 'queue get',
-        example: "spotted me:player:queue get \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Me.Player.Queue.Get',
+      typescript: {
+        method: 'client.me.player.queue.get',
         example:
-          'QueueGetParams parameters = new();\n\nvar queue = await client.Me.Player.Queue.Get(parameters);\n\nConsole.WriteLine(queue);',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst queue = await client.me.player.queue.get();\n\nconsole.log(queue.currently_playing);",
       },
-      go: {
-        method: 'client.Me.Player.Queue.Get',
+      python: {
+        method: 'me.player.queue.get',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tqueue, err := client.Me.Player.Queue.Get(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", queue.CurrentlyPlaying)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/player/queue \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nqueue = client.me.player.queue.get()\nprint(queue.currently_playing)',
       },
       java: {
         method: 'me().player().queue().get',
@@ -3767,25 +3759,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.queue.QueueGetParams\nimport dev.cjav.spotted.models.me.player.queue.QueueGetResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val queue: QueueGetResponse = client.me().player().queue().get()\n}',
       },
-      php: {
-        method: 'me->player->queue->get',
+      go: {
+        method: 'client.Me.Player.Queue.Get',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$queue = $client->me->player->queue->get();\n\nvar_dump($queue);",
-      },
-      python: {
-        method: 'me.player.queue.get',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nqueue = client.me.player.queue.get()\nprint(queue.currently_playing)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tqueue, err := client.Me.Player.Queue.Get(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", queue.CurrentlyPlaying)\n}\n',
       },
       ruby: {
         method: 'me.player.queue.get',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nqueue = spotted.me.player.queue.get\n\nputs(queue)',
       },
-      typescript: {
-        method: 'client.me.player.queue.get',
+      cli: {
+        method: 'queue get',
+        example: "spotted me:player:queue get \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'me->player->queue->get',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst queue = await client.me.player.queue.get();\n\nconsole.log(queue.currently_playing);",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$queue = $client->me->player->queue->get();\n\nvar_dump($queue);",
+      },
+      csharp: {
+        method: 'Me.Player.Queue.Get',
+        example:
+          'QueueGetParams parameters = new();\n\nvar queue = await client.Me.Player.Queue.Get(parameters);\n\nConsole.WriteLine(queue);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/player/queue \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -3802,24 +3802,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## add\n\n`client.me.player.queue.add(uri: string, device_id?: string): void`\n\n**post** `/me/player/queue`\n\nAdd an item to be played next in the user's current playback queue. This API only works for users who have Spotify Premium. The order of execution is not guaranteed when you use this API with other Player API endpoints.\n\n\n### Parameters\n\n- `uri: string`\n  The uri of the item to add to the queue. Must be a track or an episode uri.\n\n\n- `device_id?: string`\n  The id of the device this command is targeting. If\nnot supplied, the user's currently active device is the target.\n\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nawait client.me.player.queue.add({ uri: 'spotify:track:4iV5W9uYEdYUVa79Axb7Rh' })\n```",
     perLanguage: {
-      cli: {
-        method: 'queue add',
+      typescript: {
+        method: 'client.me.player.queue.add',
         example:
-          "spotted me:player:queue add \\\n  --access-token 'My Access Token' \\\n  --uri spotify:track:4iV5W9uYEdYUVa79Axb7Rh",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.player.queue.add({ uri: 'spotify:track:4iV5W9uYEdYUVa79Axb7Rh' });",
       },
-      csharp: {
-        method: 'Me.Player.Queue.Add',
+      python: {
+        method: 'me.player.queue.add',
         example:
-          'QueueAddParams parameters = new()\n{\n    Uri = "spotify:track:4iV5W9uYEdYUVa79Axb7Rh"\n};\n\nawait client.Me.Player.Queue.Add(parameters);',
-      },
-      go: {
-        method: 'client.Me.Player.Queue.Add',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Player.Queue.Add(context.TODO(), spotted.MePlayerQueueAddParams{\n\t\tUri: "spotify:track:4iV5W9uYEdYUVa79Axb7Rh",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/me/player/queue \\\n    -X POST \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.player.queue.add(\n    uri="spotify:track:4iV5W9uYEdYUVa79Axb7Rh",\n)',
       },
       java: {
         method: 'me().player().queue().add',
@@ -3831,25 +3822,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.me.player.queue.QueueAddParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: QueueAddParams = QueueAddParams.builder()\n        .uri("spotify:track:4iV5W9uYEdYUVa79Axb7Rh")\n        .build()\n    client.me().player().queue().add(params)\n}',
       },
-      php: {
-        method: 'me->player->queue->add',
+      go: {
+        method: 'client.Me.Player.Queue.Add',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->queue->add(\n  uri: 'spotify:track:4iV5W9uYEdYUVa79Axb7Rh',\n  deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8',\n);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'me.player.queue.add',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.me.player.queue.add(\n    uri="spotify:track:4iV5W9uYEdYUVa79Axb7Rh",\n)',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Me.Player.Queue.Add(context.TODO(), spotted.MePlayerQueueAddParams{\n\t\tUri: "spotify:track:4iV5W9uYEdYUVa79Axb7Rh",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'me.player.queue.add',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.me.player.queue.add(uri: "spotify:track:4iV5W9uYEdYUVa79Axb7Rh")\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.me.player.queue.add',
+      cli: {
+        method: 'queue add',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.me.player.queue.add({ uri: 'spotify:track:4iV5W9uYEdYUVa79Axb7Rh' });",
+          "spotted me:player:queue add \\\n  --access-token 'My Access Token' \\\n  --uri spotify:track:4iV5W9uYEdYUVa79Axb7Rh",
+      },
+      php: {
+        method: 'me->player->queue->add',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->me->player->queue->add(\n  uri: 'spotify:track:4iV5W9uYEdYUVa79Axb7Rh',\n  deviceID: '0d1841b0976bae2a3a310dd74c0f3df354899bc8',\n);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Me.Player.Queue.Add',
+        example:
+          'QueueAddParams parameters = new()\n{\n    Uri = "spotify:track:4iV5W9uYEdYUVa79Axb7Rh"\n};\n\nawait client.Me.Player.Queue.Add(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/me/player/queue \\\n    -X POST \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -3868,24 +3868,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.chapters.retrieve(id: string, market?: string): { id: string; audio_preview_url: string; audiobook: audiobook_base; chapter_number: number; description: string; duration_ms: number; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; type: 'episode'; uri: string; available_markets?: string[]; published?: boolean; restrictions?: chapter_restriction_object; resume_point?: resume_point_object; }`\n\n**get** `/chapters/{id}`\n\nGet Spotify catalog information for a single audiobook chapter. Chapters are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.\n\n\n### Parameters\n\n- `id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids)\nfor the chapter.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n### Returns\n\n- `{ id: string; audio_preview_url: string; audiobook: { id: string; authors: author_object[]; available_markets: string[]; copyrights: copyright_object[]; description: string; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; languages: string[]; media_type: string; name: string; narrators: narrator_object[]; publisher: string; total_chapters: number; type: 'audiobook'; uri: string; edition?: string; published?: boolean; }; chapter_number: number; description: string; duration_ms: number; explicit: boolean; external_urls: { published?: boolean; spotify?: string; }; href: string; html_description: string; images: { height: number; url: string; width: number; published?: boolean; }[]; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; type: 'episode'; uri: string; available_markets?: string[]; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; resume_point?: { fully_played?: boolean; published?: boolean; resume_position_ms?: number; }; }`\n\n  - `id: string`\n  - `audio_preview_url: string`\n  - `audiobook: { id: string; authors: { name?: string; published?: boolean; }[]; available_markets: string[]; copyrights: { published?: boolean; text?: string; type?: string; }[]; description: string; explicit: boolean; external_urls: { published?: boolean; spotify?: string; }; href: string; html_description: string; images: { height: number; url: string; width: number; published?: boolean; }[]; languages: string[]; media_type: string; name: string; narrators: { name?: string; published?: boolean; }[]; publisher: string; total_chapters: number; type: 'audiobook'; uri: string; edition?: string; published?: boolean; }`\n  - `chapter_number: number`\n  - `description: string`\n  - `duration_ms: number`\n  - `explicit: boolean`\n  - `external_urls: { published?: boolean; spotify?: string; }`\n  - `href: string`\n  - `html_description: string`\n  - `images: { height: number; url: string; width: number; published?: boolean; }[]`\n  - `is_playable: boolean`\n  - `languages: string[]`\n  - `name: string`\n  - `release_date: string`\n  - `release_date_precision: 'year' | 'month' | 'day'`\n  - `type: 'episode'`\n  - `uri: string`\n  - `available_markets?: string[]`\n  - `published?: boolean`\n  - `restrictions?: { published?: boolean; reason?: string; }`\n  - `resume_point?: { fully_played?: boolean; published?: boolean; resume_position_ms?: number; }`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst chapter = await client.chapters.retrieve('0D5wENdkdwbqlrHoaJ9g29');\n\nconsole.log(chapter);\n```",
     perLanguage: {
-      cli: {
-        method: 'chapters retrieve',
+      typescript: {
+        method: 'client.chapters.retrieve',
         example:
-          "spotted chapters retrieve \\\n  --access-token 'My Access Token' \\\n  --id 0D5wENdkdwbqlrHoaJ9g29",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst chapter = await client.chapters.retrieve('0D5wENdkdwbqlrHoaJ9g29');\n\nconsole.log(chapter.id);",
       },
-      csharp: {
-        method: 'Chapters.Retrieve',
+      python: {
+        method: 'chapters.retrieve',
         example:
-          'ChapterRetrieveParams parameters = new() { ID = "0D5wENdkdwbqlrHoaJ9g29" };\n\nvar chapter = await client.Chapters.Retrieve(parameters);\n\nConsole.WriteLine(chapter);',
-      },
-      go: {
-        method: 'client.Chapters.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tchapter, err := client.Chapters.Get(\n\t\tcontext.TODO(),\n\t\t"0D5wENdkdwbqlrHoaJ9g29",\n\t\tspotted.ChapterGetParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", chapter.ID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/chapters/$ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nchapter = client.chapters.retrieve(\n    id="0D5wENdkdwbqlrHoaJ9g29",\n)\nprint(chapter.id)',
       },
       java: {
         method: 'chapters().retrieve',
@@ -3897,25 +3888,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.chapters.ChapterRetrieveParams\nimport dev.cjav.spotted.models.chapters.ChapterRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val chapter: ChapterRetrieveResponse = client.chapters().retrieve("0D5wENdkdwbqlrHoaJ9g29")\n}',
       },
-      php: {
-        method: 'chapters->retrieve',
+      go: {
+        method: 'client.Chapters.Get',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$chapter = $client->chapters->retrieve('0D5wENdkdwbqlrHoaJ9g29', market: 'ES');\n\nvar_dump($chapter);",
-      },
-      python: {
-        method: 'chapters.retrieve',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nchapter = client.chapters.retrieve(\n    id="0D5wENdkdwbqlrHoaJ9g29",\n)\nprint(chapter.id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tchapter, err := client.Chapters.Get(\n\t\tcontext.TODO(),\n\t\t"0D5wENdkdwbqlrHoaJ9g29",\n\t\tspotted.ChapterGetParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", chapter.ID)\n}\n',
       },
       ruby: {
         method: 'chapters.retrieve',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nchapter = spotted.chapters.retrieve("0D5wENdkdwbqlrHoaJ9g29")\n\nputs(chapter)',
       },
-      typescript: {
-        method: 'client.chapters.retrieve',
+      cli: {
+        method: 'chapters retrieve',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst chapter = await client.chapters.retrieve('0D5wENdkdwbqlrHoaJ9g29');\n\nconsole.log(chapter.id);",
+          "spotted chapters retrieve \\\n  --access-token 'My Access Token' \\\n  --id 0D5wENdkdwbqlrHoaJ9g29",
+      },
+      php: {
+        method: 'chapters->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$chapter = $client->chapters->retrieve('0D5wENdkdwbqlrHoaJ9g29', market: 'ES');\n\nvar_dump($chapter);",
+      },
+      csharp: {
+        method: 'Chapters.Retrieve',
+        example:
+          'ChapterRetrieveParams parameters = new() { ID = "0D5wENdkdwbqlrHoaJ9g29" };\n\nvar chapter = await client.Chapters.Retrieve(parameters);\n\nConsole.WriteLine(chapter);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/chapters/$ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -3934,24 +3934,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## bulk_retrieve\n\n`client.chapters.bulkRetrieve(ids: string, market?: string): { chapters: object[]; }`\n\n**get** `/chapters`\n\nGet Spotify catalog information for several audiobook chapters identified by their Spotify IDs. Chapters are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.\n\n\n### Parameters\n\n- `ids: string`\n  A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example: `ids=0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU`. Maximum: 50 IDs.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n### Returns\n\n- `{ chapters: { id: string; audio_preview_url: string; audiobook: object; chapter_number: number; description: string; duration_ms: number; explicit: boolean; external_urls: object; href: string; html_description: string; images: object[]; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; type: 'episode'; uri: string; available_markets?: string[]; published?: boolean; restrictions?: object; resume_point?: object; }[]; }`\n\n  - `chapters: { id: string; audio_preview_url: string; audiobook: { id: string; authors: object[]; available_markets: string[]; copyrights: object[]; description: string; explicit: boolean; external_urls: object; href: string; html_description: string; images: object[]; languages: string[]; media_type: string; name: string; narrators: object[]; publisher: string; total_chapters: number; type: 'audiobook'; uri: string; edition?: string; published?: boolean; }; chapter_number: number; description: string; duration_ms: number; explicit: boolean; external_urls: { published?: boolean; spotify?: string; }; href: string; html_description: string; images: { height: number; url: string; width: number; published?: boolean; }[]; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; type: 'episode'; uri: string; available_markets?: string[]; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; resume_point?: { fully_played?: boolean; published?: boolean; resume_position_ms?: number; }; }[]`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.chapters.bulkRetrieve({ ids: '0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29' });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'chapters bulk_retrieve',
+      typescript: {
+        method: 'client.chapters.bulkRetrieve',
         example:
-          "spotted chapters bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.chapters.bulkRetrieve({\n  ids: '0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29',\n});\n\nconsole.log(response.chapters);",
       },
-      csharp: {
-        method: 'Chapters.BulkRetrieve',
+      python: {
+        method: 'chapters.bulk_retrieve',
         example:
-          'ChapterBulkRetrieveParams parameters = new()\n{\n    Ids = "0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29"\n};\n\nvar response = await client.Chapters.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
-      },
-      go: {
-        method: 'client.Chapters.BulkGet',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Chapters.BulkGet(context.TODO(), spotted.ChapterBulkGetParams{\n\t\tIDs: "0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Chapters)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/chapters \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.chapters.bulk_retrieve(\n    ids="0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29",\n)\nprint(response.chapters)',
       },
       java: {
         method: 'chapters().bulkRetrieve',
@@ -3963,25 +3954,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.chapters.ChapterBulkRetrieveParams\nimport dev.cjav.spotted.models.chapters.ChapterBulkRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: ChapterBulkRetrieveParams = ChapterBulkRetrieveParams.builder()\n        .ids("0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29")\n        .build()\n    val response: ChapterBulkRetrieveResponse = client.chapters().bulkRetrieve(params)\n}',
       },
-      php: {
-        method: 'chapters->bulkRetrieve',
+      go: {
+        method: 'client.Chapters.BulkGet',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->chapters->bulkRetrieve(\n  ids: '0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29',\n  market: 'ES',\n);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'chapters.bulk_retrieve',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.chapters.bulk_retrieve(\n    ids="0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29",\n)\nprint(response.chapters)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Chapters.BulkGet(context.TODO(), spotted.ChapterBulkGetParams{\n\t\tIDs: "0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Chapters)\n}\n',
       },
       ruby: {
         method: 'chapters.bulk_retrieve',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.chapters.bulk_retrieve(\n  ids: "0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29"\n)\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.chapters.bulkRetrieve',
+      cli: {
+        method: 'chapters bulk_retrieve',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.chapters.bulkRetrieve({\n  ids: '0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29',\n});\n\nconsole.log(response.chapters);",
+          "spotted chapters bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29",
+      },
+      php: {
+        method: 'chapters->bulkRetrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->chapters->bulkRetrieve(\n  ids: '0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29',\n  market: 'ES',\n);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Chapters.BulkRetrieve',
+        example:
+          'ChapterBulkRetrieveParams parameters = new()\n{\n    Ids = "0IsXVP0JmcB2adSE338GkK,3ZXb8FKZGU0EHALYX6uCzU,0D5wENdkdwbqlrHoaJ9g29"\n};\n\nvar response = await client.Chapters.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/chapters \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -3999,24 +3999,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.tracks.retrieve(id: string, market?: string): { id?: string; album?: object; artists?: simplified_artist_object[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: external_id_object; external_urls?: external_url_object; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: linked_track_object; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: track_restriction_object; track_number?: number; type?: 'track'; uri?: string; }`\n\n**get** `/tracks/{id}`\n\nGet Spotify catalog information for a single track identified by its\nunique Spotify ID.\n\n\n### Parameters\n\n- `id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids)\nfor the track.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n### Returns\n\n- `{ id?: string; album?: { id: string; album_type: 'album' | 'single' | 'compilation'; artists: object[]; available_markets: string[]; external_urls: object; href: string; images: object[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; published?: boolean; restrictions?: object; }; artists?: { id?: string; external_urls?: external_url_object; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: { ean?: string; isrc?: string; published?: boolean; upc?: string; }; external_urls?: { published?: boolean; spotify?: string; }; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: { id?: string; external_urls?: external_url_object; href?: string; published?: boolean; type?: string; uri?: string; }; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; track_number?: number; type?: 'track'; uri?: string; }`\n\n  - `id?: string`\n  - `album?: { id: string; album_type: 'album' | 'single' | 'compilation'; artists: { id?: string; external_urls?: object; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]; available_markets: string[]; external_urls: { published?: boolean; spotify?: string; }; href: string; images: { height: number; url: string; width: number; published?: boolean; }[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; published?: boolean; restrictions?: { published?: boolean; reason?: 'market' | 'product' | 'explicit'; }; }`\n  - `artists?: { id?: string; external_urls?: { published?: boolean; spotify?: string; }; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]`\n  - `available_markets?: string[]`\n  - `disc_number?: number`\n  - `duration_ms?: number`\n  - `explicit?: boolean`\n  - `external_ids?: { ean?: string; isrc?: string; published?: boolean; upc?: string; }`\n  - `external_urls?: { published?: boolean; spotify?: string; }`\n  - `href?: string`\n  - `is_local?: boolean`\n  - `is_playable?: boolean`\n  - `linked_from?: { id?: string; external_urls?: { published?: boolean; spotify?: string; }; href?: string; published?: boolean; type?: string; uri?: string; }`\n  - `name?: string`\n  - `popularity?: number`\n  - `preview_url?: string`\n  - `published?: boolean`\n  - `restrictions?: { published?: boolean; reason?: string; }`\n  - `track_number?: number`\n  - `type?: 'track'`\n  - `uri?: string`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst trackObject = await client.tracks.retrieve('11dFghVXANMlKmJXsNCbNl');\n\nconsole.log(trackObject);\n```",
     perLanguage: {
-      cli: {
-        method: 'tracks retrieve',
+      typescript: {
+        method: 'client.tracks.retrieve',
         example:
-          "spotted tracks retrieve \\\n  --access-token 'My Access Token' \\\n  --id 11dFghVXANMlKmJXsNCbNl",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst trackObject = await client.tracks.retrieve('11dFghVXANMlKmJXsNCbNl');\n\nconsole.log(trackObject.id);",
       },
-      csharp: {
-        method: 'Tracks.Retrieve',
+      python: {
+        method: 'tracks.retrieve',
         example:
-          'TrackRetrieveParams parameters = new() { ID = "11dFghVXANMlKmJXsNCbNl" };\n\nvar trackObject = await client.Tracks.Retrieve(parameters);\n\nConsole.WriteLine(trackObject);',
-      },
-      go: {
-        method: 'client.Tracks.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\ttrackObject, err := client.Tracks.Get(\n\t\tcontext.TODO(),\n\t\t"11dFghVXANMlKmJXsNCbNl",\n\t\tspotted.TrackGetParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", trackObject.ID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/tracks/$ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\ntrack_object = client.tracks.retrieve(\n    id="11dFghVXANMlKmJXsNCbNl",\n)\nprint(track_object.id)',
       },
       java: {
         method: 'tracks().retrieve',
@@ -4028,25 +4019,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.TrackObject\nimport dev.cjav.spotted.models.tracks.TrackRetrieveParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val trackObject: TrackObject = client.tracks().retrieve("11dFghVXANMlKmJXsNCbNl")\n}',
       },
-      php: {
-        method: 'tracks->retrieve',
+      go: {
+        method: 'client.Tracks.Get',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$trackObject = $client->tracks->retrieve(\n  '11dFghVXANMlKmJXsNCbNl', market: 'ES'\n);\n\nvar_dump($trackObject);",
-      },
-      python: {
-        method: 'tracks.retrieve',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\ntrack_object = client.tracks.retrieve(\n    id="11dFghVXANMlKmJXsNCbNl",\n)\nprint(track_object.id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\ttrackObject, err := client.Tracks.Get(\n\t\tcontext.TODO(),\n\t\t"11dFghVXANMlKmJXsNCbNl",\n\t\tspotted.TrackGetParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", trackObject.ID)\n}\n',
       },
       ruby: {
         method: 'tracks.retrieve',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\ntrack_object = spotted.tracks.retrieve("11dFghVXANMlKmJXsNCbNl")\n\nputs(track_object)',
       },
-      typescript: {
-        method: 'client.tracks.retrieve',
+      cli: {
+        method: 'tracks retrieve',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst trackObject = await client.tracks.retrieve('11dFghVXANMlKmJXsNCbNl');\n\nconsole.log(trackObject.id);",
+          "spotted tracks retrieve \\\n  --access-token 'My Access Token' \\\n  --id 11dFghVXANMlKmJXsNCbNl",
+      },
+      php: {
+        method: 'tracks->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$trackObject = $client->tracks->retrieve(\n  '11dFghVXANMlKmJXsNCbNl', market: 'ES'\n);\n\nvar_dump($trackObject);",
+      },
+      csharp: {
+        method: 'Tracks.Retrieve',
+        example:
+          'TrackRetrieveParams parameters = new() { ID = "11dFghVXANMlKmJXsNCbNl" };\n\nvar trackObject = await client.Tracks.Retrieve(parameters);\n\nConsole.WriteLine(trackObject);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/tracks/$ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -4064,24 +4064,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## bulk_retrieve\n\n`client.tracks.bulkRetrieve(ids: string, market?: string): { tracks: track_object[]; }`\n\n**get** `/tracks`\n\nGet Spotify catalog information for multiple tracks based on their Spotify IDs.\n\n\n### Parameters\n\n- `ids: string`\n  A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids). For example: `ids=4iV5W9uYEdYUVa79Axb7Rh,1301WleyT98MSxVHPZCA6M`. Maximum: 50 IDs.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n### Returns\n\n- `{ tracks: { id?: string; album?: object; artists?: simplified_artist_object[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: external_id_object; external_urls?: external_url_object; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: linked_track_object; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: track_restriction_object; track_number?: number; type?: 'track'; uri?: string; }[]; }`\n\n  - `tracks: { id?: string; album?: { id: string; album_type: 'album' | 'single' | 'compilation'; artists: object[]; available_markets: string[]; external_urls: object; href: string; images: object[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; published?: boolean; restrictions?: object; }; artists?: { id?: string; external_urls?: external_url_object; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: { ean?: string; isrc?: string; published?: boolean; upc?: string; }; external_urls?: { published?: boolean; spotify?: string; }; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: { id?: string; external_urls?: external_url_object; href?: string; published?: boolean; type?: string; uri?: string; }; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; track_number?: number; type?: 'track'; uri?: string; }[]`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.tracks.bulkRetrieve({ ids: '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B' });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'tracks bulk_retrieve',
+      typescript: {
+        method: 'client.tracks.bulkRetrieve',
         example:
-          "spotted tracks bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.tracks.bulkRetrieve({\n  ids: '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B',\n});\n\nconsole.log(response.tracks);",
       },
-      csharp: {
-        method: 'Tracks.BulkRetrieve',
+      python: {
+        method: 'tracks.bulk_retrieve',
         example:
-          'TrackBulkRetrieveParams parameters = new()\n{\n    Ids = "7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B"\n};\n\nvar response = await client.Tracks.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
-      },
-      go: {
-        method: 'client.Tracks.BulkGet',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Tracks.BulkGet(context.TODO(), spotted.TrackBulkGetParams{\n\t\tIDs: "7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Tracks)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/tracks \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.tracks.bulk_retrieve(\n    ids="7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B",\n)\nprint(response.tracks)',
       },
       java: {
         method: 'tracks().bulkRetrieve',
@@ -4093,25 +4084,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.tracks.TrackBulkRetrieveParams\nimport dev.cjav.spotted.models.tracks.TrackBulkRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: TrackBulkRetrieveParams = TrackBulkRetrieveParams.builder()\n        .ids("7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B")\n        .build()\n    val response: TrackBulkRetrieveResponse = client.tracks().bulkRetrieve(params)\n}',
       },
-      php: {
-        method: 'tracks->bulkRetrieve',
+      go: {
+        method: 'client.Tracks.BulkGet',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->tracks->bulkRetrieve(\n  ids: '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B',\n  market: 'ES',\n);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'tracks.bulk_retrieve',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.tracks.bulk_retrieve(\n    ids="7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B",\n)\nprint(response.tracks)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Tracks.BulkGet(context.TODO(), spotted.TrackBulkGetParams{\n\t\tIDs: "7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Tracks)\n}\n',
       },
       ruby: {
         method: 'tracks.bulk_retrieve',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.tracks.bulk_retrieve(ids: "7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B")\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.tracks.bulkRetrieve',
+      cli: {
+        method: 'tracks bulk_retrieve',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.tracks.bulkRetrieve({\n  ids: '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B',\n});\n\nconsole.log(response.tracks);",
+          "spotted tracks bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B",
+      },
+      php: {
+        method: 'tracks->bulkRetrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->tracks->bulkRetrieve(\n  ids: '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B',\n  market: 'ES',\n);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Tracks.BulkRetrieve',
+        example:
+          'TrackBulkRetrieveParams parameters = new()\n{\n    Ids = "7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B"\n};\n\nvar response = await client.Tracks.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/tracks \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -4137,24 +4137,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## query\n\n`client.search.query(q: string, type: 'album' | 'artist' | 'playlist' | 'track' | 'show' | 'episode' | 'audiobook'[], include_external?: 'audio', limit?: number, market?: string, offset?: number): { albums?: object; artists?: object; audiobooks?: object; episodes?: object; playlists?: paging_playlist_object; shows?: object; tracks?: object; }`\n\n**get** `/search`\n\nGet Spotify catalog information about albums, artists, playlists, tracks, shows, episodes or audiobooks\nthat match a keyword string. Audiobooks are only available within the US, UK, Canada, Ireland, New Zealand and Australia markets.\n\n\n### Parameters\n\n- `q: string`\n  Your search query.\n\nYou can narrow down your search using field filters. The available filters are `album`, `artist`, `track`, `year`, `upc`, `tag:hipster`, `tag:new`, `isrc`, and `genre`. Each field filter only applies to certain result types.\n\nThe `artist` and `year` filters can be used while searching albums, artists and tracks. You can filter on a single `year` or a range (e.g. 1955-1960).<br />\nThe `album` filter can be used while searching albums and tracks.<br />\nThe `genre` filter can be used while searching artists and tracks.<br />\nThe `isrc` and `track` filters can be used while searching tracks.<br />\nThe `upc`, `tag:new` and `tag:hipster` filters can only be used while searching albums. The `tag:new` filter will return albums released in the past two weeks and `tag:hipster` can be used to return only albums with the lowest 10% popularity.<br />\n\n\n- `type: 'album' | 'artist' | 'playlist' | 'track' | 'show' | 'episode' | 'audiobook'[]`\n  A comma-separated list of item types to search across. Search results include hits\nfrom all the specified item types. For example: `q=abacab&type=album,track` returns\nboth albums and tracks matching \"abacab\".\n\n\n- `include_external?: 'audio'`\n  If `include_external=audio` is specified it signals that the client can play externally hosted audio content, and marks\nthe content as playable in the response. By default externally hosted audio content is marked as unplayable in the response.\n\n- `limit?: number`\n  The maximum number of results to return in each item type.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n- `offset?: number`\n  The index of the first result to return. Use\nwith limit to get the next page of search results.\n\n\n### Returns\n\n- `{ albums?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: { id: string; album_type: 'album' | 'single' | 'compilation'; artists: simplified_artist_object[]; available_markets: string[]; external_urls: external_url_object; href: string; images: image_object[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; published?: boolean; restrictions?: album_restriction_object; }[]; published?: boolean; }; artists?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: object[]; published?: boolean; }; audiobooks?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: object[]; published?: boolean; }; episodes?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: object[]; published?: boolean; }; playlists?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: simplified_playlist_object[]; published?: boolean; }; shows?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: object[]; published?: boolean; }; tracks?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: object[]; published?: boolean; }; }`\n\n  - `albums?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: { id: string; album_type: 'album' | 'single' | 'compilation'; artists: { id?: string; external_urls?: external_url_object; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]; available_markets: string[]; external_urls: { published?: boolean; spotify?: string; }; href: string; images: { height: number; url: string; width: number; published?: boolean; }[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; published?: boolean; restrictions?: { published?: boolean; reason?: 'market' | 'product' | 'explicit'; }; }[]; published?: boolean; }`\n  - `artists?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: { id?: string; external_urls?: object; followers?: object; genres?: string[]; href?: string; images?: object[]; name?: string; popularity?: number; published?: boolean; type?: 'artist'; uri?: string; }[]; published?: boolean; }`\n  - `audiobooks?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: { id: string; authors: object[]; available_markets: string[]; copyrights: object[]; description: string; explicit: boolean; external_urls: object; href: string; html_description: string; images: object[]; languages: string[]; media_type: string; name: string; narrators: object[]; publisher: string; total_chapters: number; type: 'audiobook'; uri: string; edition?: string; published?: boolean; }[]; published?: boolean; }`\n  - `episodes?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: { id: string; audio_preview_url: string; description: string; duration_ms: number; explicit: boolean; external_urls: object; href: string; html_description: string; images: object[]; is_externally_hosted: boolean; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; type: 'episode'; uri: string; language?: string; published?: boolean; restrictions?: object; resume_point?: object; }[]; published?: boolean; }`\n  - `playlists?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: { id?: string; collaborative?: boolean; description?: string; external_urls?: external_url_object; href?: string; images?: image_object[]; items?: playlist_tracks_ref_object; name?: string; owner?: playlist_user_object; published?: boolean; snapshot_id?: string; tracks?: playlist_tracks_ref_object; type?: string; uri?: string; }[]; published?: boolean; }`\n  - `shows?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: { id: string; available_markets: string[]; copyrights: object[]; description: string; explicit: boolean; external_urls: object; href: string; html_description: string; images: object[]; is_externally_hosted: boolean; languages: string[]; media_type: string; name: string; publisher: string; total_episodes: number; type: 'show'; uri: string; published?: boolean; }[]; published?: boolean; }`\n  - `tracks?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: { id?: string; album?: { id: string; album_type: 'album' | 'single' | 'compilation'; artists: simplified_artist_object[]; available_markets: string[]; external_urls: external_url_object; href: string; images: image_object[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; published?: boolean; restrictions?: album_restriction_object; }; artists?: object[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: object; external_urls?: object; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: object; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: object; track_number?: number; type?: 'track'; uri?: string; }[]; published?: boolean; }`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.search.query({ q: 'remaster%20track:Doxy%20artist:Miles%20Davis', type: ['album'] });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'search query',
+      typescript: {
+        method: 'client.search.query',
         example:
-          "spotted search query \\\n  --access-token 'My Access Token' \\\n  --q 'remaster%20track:Doxy%20artist:Miles%20Davis' \\\n  --type album",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.search.query({\n  q: 'remaster%20track:Doxy%20artist:Miles%20Davis',\n  type: ['album'],\n});\n\nconsole.log(response.albums);",
       },
-      csharp: {
-        method: 'Search.Query',
+      python: {
+        method: 'search.query',
         example:
-          'SearchQueryParams parameters = new()\n{\n    Q = "remaster%20track:Doxy%20artist:Miles%20Davis",\n    Type =\n    [\n        Type.Album\n    ],\n};\n\nvar response = await client.Search.Query(parameters);\n\nConsole.WriteLine(response);',
-      },
-      go: {
-        method: 'client.Search.Query',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Search.Query(context.TODO(), spotted.SearchQueryParams{\n\t\tQ:    "remaster%20track:Doxy%20artist:Miles%20Davis",\n\t\tType: []string{"album"},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Albums)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/search \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.search.query(\n    q="remaster%20track:Doxy%20artist:Miles%20Davis",\n    type=["album"],\n)\nprint(response.albums)',
       },
       java: {
         method: 'search().query',
@@ -4166,25 +4157,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.search.SearchQueryParams\nimport dev.cjav.spotted.models.search.SearchQueryResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: SearchQueryParams = SearchQueryParams.builder()\n        .q("remaster%20track:Doxy%20artist:Miles%20Davis")\n        .addType(SearchQueryParams.Type.ALBUM)\n        .build()\n    val response: SearchQueryResponse = client.search().query(params)\n}',
       },
-      php: {
-        method: 'search->query',
+      go: {
+        method: 'client.Search.Query',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->search->query(\n  q: 'remaster%20track:Doxy%20artist:Miles%20Davis',\n  type: ['album'],\n  includeExternal: 'audio',\n  limit: 10,\n  market: 'ES',\n  offset: 5,\n);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'search.query',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.search.query(\n    q="remaster%20track:Doxy%20artist:Miles%20Davis",\n    type=["album"],\n)\nprint(response.albums)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Search.Query(context.TODO(), spotted.SearchQueryParams{\n\t\tQ:    "remaster%20track:Doxy%20artist:Miles%20Davis",\n\t\tType: []string{"album"},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Albums)\n}\n',
       },
       ruby: {
         method: 'search.query',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.search.query(q: "remaster%20track:Doxy%20artist:Miles%20Davis", type: [:album])\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.search.query',
+      cli: {
+        method: 'search query',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.search.query({\n  q: 'remaster%20track:Doxy%20artist:Miles%20Davis',\n  type: ['album'],\n});\n\nconsole.log(response.albums);",
+          "spotted search query \\\n  --access-token 'My Access Token' \\\n  --q 'remaster%20track:Doxy%20artist:Miles%20Davis' \\\n  --type album",
+      },
+      php: {
+        method: 'search->query',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->search->query(\n  q: 'remaster%20track:Doxy%20artist:Miles%20Davis',\n  type: ['album'],\n  includeExternal: 'audio',\n  limit: 10,\n  market: 'ES',\n  offset: 5,\n);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Search.Query',
+        example:
+          'SearchQueryParams parameters = new()\n{\n    Q = "remaster%20track:Doxy%20artist:Miles%20Davis",\n    Type =\n    [\n        Type.Album\n    ],\n};\n\nvar response = await client.Search.Query(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/search \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -4202,24 +4202,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.playlists.retrieve(playlist_id: string, additional_types?: string, fields?: string, market?: string): { id?: string; collaborative?: boolean; description?: string; external_urls?: external_url_object; followers?: followers_object; href?: string; images?: image_object[]; items?: object; name?: string; owner?: playlist_user_object; published?: boolean; snapshot_id?: string; tracks?: object; type?: string; uri?: string; }`\n\n**get** `/playlists/{playlist_id}`\n\nGet a playlist owned by a Spotify user.\n\n\n### Parameters\n\n- `playlist_id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) of the playlist.\n\n\n- `additional_types?: string`\n  A comma-separated list of item types that your client supports besides the default `track` type. Valid types are: `track` and `episode`.<br/>\n_**Note**: This parameter was introduced to allow existing clients to maintain their current behaviour and might be deprecated in the future._<br/>\nIn addition to providing this parameter, make sure that your client properly handles cases of new types in the future by checking against the `type` field of each object.\n\n\n- `fields?: string`\n  Filters for the query: a comma-separated list of the\nfields to return. If omitted, all fields are returned. For example, to get\njust the playlist''s description and URI: `fields=description,uri`. A dot\nseparator can be used to specify non-reoccurring fields, while parentheses\ncan be used to specify reoccurring fields within objects. For example, to\nget just the added date and user ID of the adder: `fields=tracks.items(added_at,added_by.id)`.\nUse multiple parentheses to drill down into nested objects, for example: `fields=tracks.items(track(name,href,album(name,href)))`.\nFields can be excluded by prefixing them with an exclamation mark, for example:\n`fields=tracks.items(track(name,href,album(!name,href)))`\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n### Returns\n\n- `{ id?: string; collaborative?: boolean; description?: string; external_urls?: { published?: boolean; spotify?: string; }; followers?: { href?: string; published?: boolean; total?: number; }; href?: string; images?: { height: number; url: string; width: number; published?: boolean; }[]; items?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: object[]; published?: boolean; }; name?: string; owner?: { id?: string; external_urls?: external_url_object; href?: string; published?: boolean; type?: 'user'; uri?: string; }; published?: boolean; snapshot_id?: string; tracks?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: object[]; published?: boolean; }; type?: string; uri?: string; }`\n\n  - `id?: string`\n  - `collaborative?: boolean`\n  - `description?: string`\n  - `external_urls?: { published?: boolean; spotify?: string; }`\n  - `followers?: { href?: string; published?: boolean; total?: number; }`\n  - `href?: string`\n  - `images?: { height: number; url: string; width: number; published?: boolean; }[]`\n  - `items?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: { added_at?: string; added_by?: object; is_local?: boolean; item?: object | object; published?: boolean; track?: object | object; }[]; published?: boolean; }`\n  - `name?: string`\n  - `owner?: { id?: string; external_urls?: { published?: boolean; spotify?: string; }; href?: string; published?: boolean; type?: 'user'; uri?: string; }`\n  - `published?: boolean`\n  - `snapshot_id?: string`\n  - `tracks?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: { added_at?: string; added_by?: object; is_local?: boolean; item?: object | object; published?: boolean; track?: object | object; }[]; published?: boolean; }`\n  - `type?: string`\n  - `uri?: string`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst playlist = await client.playlists.retrieve('3cEYpjA9oz9GiPac4AsH4n');\n\nconsole.log(playlist);\n```",
     perLanguage: {
-      cli: {
-        method: 'playlists retrieve',
+      typescript: {
+        method: 'client.playlists.retrieve',
         example:
-          "spotted playlists retrieve \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst playlist = await client.playlists.retrieve('3cEYpjA9oz9GiPac4AsH4n');\n\nconsole.log(playlist.id);",
       },
-      csharp: {
-        method: 'Playlists.Retrieve',
+      python: {
+        method: 'playlists.retrieve',
         example:
-          'PlaylistRetrieveParams parameters = new()\n{\n    PlaylistID = "3cEYpjA9oz9GiPac4AsH4n"\n};\n\nvar playlist = await client.Playlists.Retrieve(parameters);\n\nConsole.WriteLine(playlist);',
-      },
-      go: {
-        method: 'client.Playlists.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tplaylist, err := client.Playlists.Get(\n\t\tcontext.TODO(),\n\t\t"3cEYpjA9oz9GiPac4AsH4n",\n\t\tspotted.PlaylistGetParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", playlist.ID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/playlists/$PLAYLIST_ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nplaylist = client.playlists.retrieve(\n    playlist_id="3cEYpjA9oz9GiPac4AsH4n",\n)\nprint(playlist.id)',
       },
       java: {
         method: 'playlists().retrieve',
@@ -4231,25 +4222,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.playlists.PlaylistRetrieveParams\nimport dev.cjav.spotted.models.playlists.PlaylistRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val playlist: PlaylistRetrieveResponse = client.playlists().retrieve("3cEYpjA9oz9GiPac4AsH4n")\n}',
       },
-      php: {
-        method: 'playlists->retrieve',
+      go: {
+        method: 'client.Playlists.Get',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$playlist = $client->playlists->retrieve(\n  '3cEYpjA9oz9GiPac4AsH4n',\n  additionalTypes: 'additional_types',\n  fields: 'items(added_by.id,track(name,href,album(name,href)))',\n  market: 'ES',\n);\n\nvar_dump($playlist);",
-      },
-      python: {
-        method: 'playlists.retrieve',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nplaylist = client.playlists.retrieve(\n    playlist_id="3cEYpjA9oz9GiPac4AsH4n",\n)\nprint(playlist.id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tplaylist, err := client.Playlists.Get(\n\t\tcontext.TODO(),\n\t\t"3cEYpjA9oz9GiPac4AsH4n",\n\t\tspotted.PlaylistGetParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", playlist.ID)\n}\n',
       },
       ruby: {
         method: 'playlists.retrieve',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nplaylist = spotted.playlists.retrieve("3cEYpjA9oz9GiPac4AsH4n")\n\nputs(playlist)',
       },
-      typescript: {
-        method: 'client.playlists.retrieve',
+      cli: {
+        method: 'playlists retrieve',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst playlist = await client.playlists.retrieve('3cEYpjA9oz9GiPac4AsH4n');\n\nconsole.log(playlist.id);",
+          "spotted playlists retrieve \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
+      },
+      php: {
+        method: 'playlists->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$playlist = $client->playlists->retrieve(\n  '3cEYpjA9oz9GiPac4AsH4n',\n  additionalTypes: 'additional_types',\n  fields: 'items(added_by.id,track(name,href,album(name,href)))',\n  market: 'ES',\n);\n\nvar_dump($playlist);",
+      },
+      csharp: {
+        method: 'Playlists.Retrieve',
+        example:
+          'PlaylistRetrieveParams parameters = new()\n{\n    PlaylistID = "3cEYpjA9oz9GiPac4AsH4n"\n};\n\nvar playlist = await client.Playlists.Retrieve(parameters);\n\nConsole.WriteLine(playlist);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/playlists/$PLAYLIST_ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -4272,24 +4272,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## update\n\n`client.playlists.update(playlist_id: string, collaborative?: boolean, description?: string, name?: string, published?: boolean): void`\n\n**put** `/playlists/{playlist_id}`\n\nChange a playlist's name and public/private state. (The user must, of\ncourse, own the playlist.)\n\n\n### Parameters\n\n- `playlist_id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) of the playlist.\n\n\n- `collaborative?: boolean`\n  If `true`, the playlist will become collaborative and other users will be able to modify the playlist in their Spotify client. <br/>\n_**Note**: You can only set `collaborative` to `true` on non-public playlists._\n\n\n- `description?: string`\n  Value for playlist description as displayed in Spotify Clients and in the Web API.\n\n\n- `name?: string`\n  The new name for the playlist, for example `\"My New Playlist Title\"`\n\n\n- `published?: boolean`\n  The playlist's public/private status (if it should be added to the user's profile or not): `true` the playlist will be public, `false` the playlist will be private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](/documentation/web-api/concepts/playlists)\n\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nawait client.playlists.update('3cEYpjA9oz9GiPac4AsH4n')\n```",
     perLanguage: {
-      cli: {
-        method: 'playlists update',
+      typescript: {
+        method: 'client.playlists.update',
         example:
-          "spotted playlists update \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.playlists.update('3cEYpjA9oz9GiPac4AsH4n');",
       },
-      csharp: {
-        method: 'Playlists.Update',
+      python: {
+        method: 'playlists.update',
         example:
-          'PlaylistUpdateParams parameters = new()\n{\n    PlaylistID = "3cEYpjA9oz9GiPac4AsH4n"\n};\n\nawait client.Playlists.Update(parameters);',
-      },
-      go: {
-        method: 'client.Playlists.Update',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Playlists.Update(\n\t\tcontext.TODO(),\n\t\t"3cEYpjA9oz9GiPac4AsH4n",\n\t\tspotted.PlaylistUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/playlists/$PLAYLIST_ID \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.playlists.update(\n    playlist_id="3cEYpjA9oz9GiPac4AsH4n",\n)',
       },
       java: {
         method: 'playlists().update',
@@ -4301,25 +4292,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.playlists.PlaylistUpdateParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.playlists().update("3cEYpjA9oz9GiPac4AsH4n")\n}',
       },
-      php: {
-        method: 'playlists->update',
+      go: {
+        method: 'client.Playlists.Update',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->playlists->update(\n  '3cEYpjA9oz9GiPac4AsH4n',\n  collaborative: true,\n  description: 'Updated playlist description',\n  name: 'Updated Playlist Name',\n  published: true,\n);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'playlists.update',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.playlists.update(\n    playlist_id="3cEYpjA9oz9GiPac4AsH4n",\n)',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Playlists.Update(\n\t\tcontext.TODO(),\n\t\t"3cEYpjA9oz9GiPac4AsH4n",\n\t\tspotted.PlaylistUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'playlists.update',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.playlists.update("3cEYpjA9oz9GiPac4AsH4n")\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.playlists.update',
+      cli: {
+        method: 'playlists update',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.playlists.update('3cEYpjA9oz9GiPac4AsH4n');",
+          "spotted playlists update \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
+      },
+      php: {
+        method: 'playlists->update',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->playlists->update(\n  '3cEYpjA9oz9GiPac4AsH4n',\n  collaborative: true,\n  description: 'Updated playlist description',\n  name: 'Updated Playlist Name',\n  published: true,\n);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Playlists.Update',
+        example:
+          'PlaylistUpdateParams parameters = new()\n{\n    PlaylistID = "3cEYpjA9oz9GiPac4AsH4n"\n};\n\nawait client.Playlists.Update(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/playlists/$PLAYLIST_ID \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -4345,24 +4345,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.playlists.tracks.list(playlist_id: string, additional_types?: string, fields?: string, limit?: number, market?: string, offset?: number): { added_at?: string; added_by?: playlist_user_object; is_local?: boolean; item?: track_object | episode_object; published?: boolean; track?: track_object | episode_object; }`\n\n**get** `/playlists/{playlist_id}/tracks`\n\n**Deprecated:** Use [Get Playlist Items](/documentation/web-api/reference/get-playlists-items) instead.\n\nGet full details of the items of a playlist owned by a Spotify user.\n\n\n### Parameters\n\n- `playlist_id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) of the playlist.\n\n\n- `additional_types?: string`\n  A comma-separated list of item types that your client supports besides the default `track` type. Valid types are: `track` and `episode`.<br/>\n_**Note**: This parameter was introduced to allow existing clients to maintain their current behaviour and might be deprecated in the future._<br/>\nIn addition to providing this parameter, make sure that your client properly handles cases of new types in the future by checking against the `type` field of each object.\n\n\n- `fields?: string`\n  Filters for the query: a comma-separated list of the\nfields to return. If omitted, all fields are returned. For example, to get\njust the total number of items and the request limit:<br/>`fields=total,limit`<br/>A\ndot separator can be used to specify non-reoccurring fields, while parentheses\ncan be used to specify reoccurring fields within objects. For example, to\nget just the added date and user ID of the adder:<br/>`fields=items(added_at,added_by.id)`<br/>Use\nmultiple parentheses to drill down into nested objects, for example:<br/>`fields=items(track(name,href,album(name,href)))`<br/>Fields\ncan be excluded by prefixing them with an exclamation mark, for example:<br/>`fields=items.track.album(!external_urls,images)`\n\n\n- `limit?: number`\n  The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 100.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n- `offset?: number`\n  The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.\n\n\n### Returns\n\n- `{ added_at?: string; added_by?: { id?: string; external_urls?: external_url_object; href?: string; published?: boolean; type?: 'user'; uri?: string; }; is_local?: boolean; item?: { id?: string; album?: object; artists?: simplified_artist_object[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: external_id_object; external_urls?: external_url_object; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: linked_track_object; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: track_restriction_object; track_number?: number; type?: 'track'; uri?: string; } | { id: string; audio_preview_url: string; description: string; duration_ms: number; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; is_externally_hosted: boolean; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; show: show_base; type: 'episode'; uri: string; language?: string; published?: boolean; restrictions?: episode_restriction_object; resume_point?: resume_point_object; }; published?: boolean; track?: { id?: string; album?: object; artists?: simplified_artist_object[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: external_id_object; external_urls?: external_url_object; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: linked_track_object; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: track_restriction_object; track_number?: number; type?: 'track'; uri?: string; } | { id: string; audio_preview_url: string; description: string; duration_ms: number; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; is_externally_hosted: boolean; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; show: show_base; type: 'episode'; uri: string; language?: string; published?: boolean; restrictions?: episode_restriction_object; resume_point?: resume_point_object; }; }`\n\n  - `added_at?: string`\n  - `added_by?: { id?: string; external_urls?: { published?: boolean; spotify?: string; }; href?: string; published?: boolean; type?: 'user'; uri?: string; }`\n  - `is_local?: boolean`\n  - `item?: { id?: string; album?: { id: string; album_type: 'album' | 'single' | 'compilation'; artists: object[]; available_markets: string[]; external_urls: object; href: string; images: object[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; published?: boolean; restrictions?: object; }; artists?: { id?: string; external_urls?: external_url_object; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: { ean?: string; isrc?: string; published?: boolean; upc?: string; }; external_urls?: { published?: boolean; spotify?: string; }; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: { id?: string; external_urls?: external_url_object; href?: string; published?: boolean; type?: string; uri?: string; }; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; track_number?: number; type?: 'track'; uri?: string; } | { id: string; audio_preview_url: string; description: string; duration_ms: number; explicit: boolean; external_urls: { published?: boolean; spotify?: string; }; href: string; html_description: string; images: { height: number; url: string; width: number; published?: boolean; }[]; is_externally_hosted: boolean; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; show: { id: string; available_markets: string[]; copyrights: copyright_object[]; description: string; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; is_externally_hosted: boolean; languages: string[]; media_type: string; name: string; publisher: string; total_episodes: number; type: 'show'; uri: string; published?: boolean; }; type: 'episode'; uri: string; language?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; resume_point?: { fully_played?: boolean; published?: boolean; resume_position_ms?: number; }; }`\n  - `published?: boolean`\n  - `track?: { id?: string; album?: { id: string; album_type: 'album' | 'single' | 'compilation'; artists: object[]; available_markets: string[]; external_urls: object; href: string; images: object[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; published?: boolean; restrictions?: object; }; artists?: { id?: string; external_urls?: external_url_object; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: { ean?: string; isrc?: string; published?: boolean; upc?: string; }; external_urls?: { published?: boolean; spotify?: string; }; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: { id?: string; external_urls?: external_url_object; href?: string; published?: boolean; type?: string; uri?: string; }; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; track_number?: number; type?: 'track'; uri?: string; } | { id: string; audio_preview_url: string; description: string; duration_ms: number; explicit: boolean; external_urls: { published?: boolean; spotify?: string; }; href: string; html_description: string; images: { height: number; url: string; width: number; published?: boolean; }[]; is_externally_hosted: boolean; is_playable: boolean; languages: string[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; show: { id: string; available_markets: string[]; copyrights: copyright_object[]; description: string; explicit: boolean; external_urls: external_url_object; href: string; html_description: string; images: image_object[]; is_externally_hosted: boolean; languages: string[]; media_type: string; name: string; publisher: string; total_episodes: number; type: 'show'; uri: string; published?: boolean; }; type: 'episode'; uri: string; language?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; resume_point?: { fully_played?: boolean; published?: boolean; resume_position_ms?: number; }; }`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\n// Automatically fetches more pages as needed.\nfor await (const playlistTrackObject of client.playlists.tracks.list('3cEYpjA9oz9GiPac4AsH4n')) {\n  console.log(playlistTrackObject);\n}\n```",
     perLanguage: {
-      cli: {
-        method: 'tracks list',
+      typescript: {
+        method: 'client.playlists.tracks.list',
         example:
-          "spotted playlists:tracks list \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const playlistTrackObject of client.playlists.tracks.list('3cEYpjA9oz9GiPac4AsH4n')) {\n  console.log(playlistTrackObject.added_at);\n}",
       },
-      csharp: {
-        method: 'Playlists.Tracks.List',
+      python: {
+        method: 'playlists.tracks.list',
         example:
-          'TrackListParams parameters = new() { PlaylistID = "3cEYpjA9oz9GiPac4AsH4n" };\n\nvar page = await client.Playlists.Tracks.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
-      },
-      go: {
-        method: 'client.Playlists.Tracks.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Playlists.Tracks.List(\n\t\tcontext.TODO(),\n\t\t"3cEYpjA9oz9GiPac4AsH4n",\n\t\tspotted.PlaylistTrackListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/playlists/$PLAYLIST_ID/tracks \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.playlists.tracks.list(\n    playlist_id="3cEYpjA9oz9GiPac4AsH4n",\n)\npage = page.items[0]\nprint(page.added_at)',
       },
       java: {
         method: 'playlists().tracks().list',
@@ -4374,25 +4365,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.playlists.tracks.TrackListPage\nimport dev.cjav.spotted.models.playlists.tracks.TrackListParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: TrackListPage = client.playlists().tracks().list("3cEYpjA9oz9GiPac4AsH4n")\n}',
       },
-      php: {
-        method: 'playlists->tracks->list',
+      go: {
+        method: 'client.Playlists.Tracks.List',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->playlists->tracks->list(\n  '3cEYpjA9oz9GiPac4AsH4n',\n  additionalTypes: 'additional_types',\n  fields: 'items(added_by.id,track(name,href,album(name,href)))',\n  limit: 10,\n  market: 'ES',\n  offset: 5,\n);\n\nvar_dump($page);",
-      },
-      python: {
-        method: 'playlists.tracks.list',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.playlists.tracks.list(\n    playlist_id="3cEYpjA9oz9GiPac4AsH4n",\n)\npage = page.items[0]\nprint(page.added_at)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Playlists.Tracks.List(\n\t\tcontext.TODO(),\n\t\t"3cEYpjA9oz9GiPac4AsH4n",\n\t\tspotted.PlaylistTrackListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
       },
       ruby: {
         method: 'playlists.tracks.list',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\npage = spotted.playlists.tracks.list("3cEYpjA9oz9GiPac4AsH4n")\n\nputs(page)',
       },
-      typescript: {
-        method: 'client.playlists.tracks.list',
+      cli: {
+        method: 'tracks list',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const playlistTrackObject of client.playlists.tracks.list('3cEYpjA9oz9GiPac4AsH4n')) {\n  console.log(playlistTrackObject.added_at);\n}",
+          "spotted playlists:tracks list \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
+      },
+      php: {
+        method: 'playlists->tracks->list',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->playlists->tracks->list(\n  '3cEYpjA9oz9GiPac4AsH4n',\n  additionalTypes: 'additional_types',\n  fields: 'items(added_by.id,track(name,href,album(name,href)))',\n  limit: 10,\n  market: 'ES',\n  offset: 5,\n);\n\nvar_dump($page);",
+      },
+      csharp: {
+        method: 'Playlists.Tracks.List',
+        example:
+          'TrackListParams parameters = new() { PlaylistID = "3cEYpjA9oz9GiPac4AsH4n" };\n\nvar page = await client.Playlists.Tracks.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/playlists/$PLAYLIST_ID/tracks \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -4410,24 +4410,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       '## add\n\n`client.playlists.tracks.add(playlist_id: string, position?: number, published?: boolean, uris?: string[]): { snapshot_id?: string; }`\n\n**post** `/playlists/{playlist_id}/tracks`\n\n**Deprecated:** Use [Add Items to Playlist](/documentation/web-api/reference/add-items-to-playlist) instead.\n\nAdd one or more items to a user\'s playlist.\n\n\n### Parameters\n\n- `playlist_id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) of the playlist.\n\n\n- `position?: number`\n  The position to insert the items, a zero-based index. For example, to insert the items in the first position: `position=0` ; to insert the items in the third position: `position=2`. If omitted, the items will be appended to the playlist. Items are added in the order they appear in the uris array. For example: `{"uris": ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh","spotify:track:1301WleyT98MSxVHPZCA6M"], "position": 3}`\n\n\n- `published?: boolean`\n  The playlist\'s public/private status (if it should be added to the user\'s profile or not): `true` the playlist will be public, `false` the playlist will be private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](/documentation/web-api/concepts/playlists)\n\n\n- `uris?: string[]`\n  A JSON array of the [Spotify URIs](/documentation/web-api/concepts/spotify-uris-ids) to add. For example: `{"uris": ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh","spotify:track:1301WleyT98MSxVHPZCA6M", "spotify:episode:512ojhOuo1ktJprKbVcKyQ"]}`<br/>A maximum of 100 items can be added in one request. _**Note**: if the `uris` parameter is present in the query string, any URIs listed here in the body will be ignored._\n\n\n### Returns\n\n- `{ snapshot_id?: string; }`\n\n  - `snapshot_id?: string`\n\n### Example\n\n```typescript\nimport Spotted from \'spotted-ts\';\n\nconst client = new Spotted();\n\nconst response = await client.playlists.tracks.add(\'3cEYpjA9oz9GiPac4AsH4n\');\n\nconsole.log(response);\n```',
     perLanguage: {
-      cli: {
-        method: 'tracks add',
+      typescript: {
+        method: 'client.playlists.tracks.add',
         example:
-          "spotted playlists:tracks add \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.playlists.tracks.add('3cEYpjA9oz9GiPac4AsH4n');\n\nconsole.log(response.snapshot_id);",
       },
-      csharp: {
-        method: 'Playlists.Tracks.Add',
+      python: {
+        method: 'playlists.tracks.add',
         example:
-          'TrackAddParams parameters = new() { PlaylistID = "3cEYpjA9oz9GiPac4AsH4n" };\n\nvar response = await client.Playlists.Tracks.Add(parameters);\n\nConsole.WriteLine(response);',
-      },
-      go: {
-        method: 'client.Playlists.Tracks.Add',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Playlists.Tracks.Add(\n\t\tcontext.TODO(),\n\t\t"3cEYpjA9oz9GiPac4AsH4n",\n\t\tspotted.PlaylistTrackAddParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.SnapshotID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/playlists/$PLAYLIST_ID/tracks \\\n    -X POST \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.playlists.tracks.add(\n    playlist_id="3cEYpjA9oz9GiPac4AsH4n",\n)\nprint(response.snapshot_id)',
       },
       java: {
         method: 'playlists().tracks().add',
@@ -4439,25 +4430,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.playlists.tracks.TrackAddParams\nimport dev.cjav.spotted.models.playlists.tracks.TrackAddResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: TrackAddResponse = client.playlists().tracks().add("3cEYpjA9oz9GiPac4AsH4n")\n}',
       },
-      php: {
-        method: 'playlists->tracks->add',
+      go: {
+        method: 'client.Playlists.Tracks.Add',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->playlists->tracks->add(\n  '3cEYpjA9oz9GiPac4AsH4n', position: 0, published: true, uris: ['string']\n);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'playlists.tracks.add',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.playlists.tracks.add(\n    playlist_id="3cEYpjA9oz9GiPac4AsH4n",\n)\nprint(response.snapshot_id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Playlists.Tracks.Add(\n\t\tcontext.TODO(),\n\t\t"3cEYpjA9oz9GiPac4AsH4n",\n\t\tspotted.PlaylistTrackAddParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.SnapshotID)\n}\n',
       },
       ruby: {
         method: 'playlists.tracks.add',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.playlists.tracks.add("3cEYpjA9oz9GiPac4AsH4n")\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.playlists.tracks.add',
+      cli: {
+        method: 'tracks add',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.playlists.tracks.add('3cEYpjA9oz9GiPac4AsH4n');\n\nconsole.log(response.snapshot_id);",
+          "spotted playlists:tracks add \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
+      },
+      php: {
+        method: 'playlists->tracks->add',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->playlists->tracks->add(\n  '3cEYpjA9oz9GiPac4AsH4n', position: 0, published: true, uris: ['string']\n);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Playlists.Tracks.Add',
+        example:
+          'TrackAddParams parameters = new() { PlaylistID = "3cEYpjA9oz9GiPac4AsH4n" };\n\nvar response = await client.Playlists.Tracks.Add(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/playlists/$PLAYLIST_ID/tracks \\\n    -X POST \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -4483,24 +4483,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## update\n\n`client.playlists.tracks.update(playlist_id: string, insert_before?: number, published?: boolean, range_length?: number, range_start?: number, snapshot_id?: string, uris?: string[]): { snapshot_id?: string; }`\n\n**put** `/playlists/{playlist_id}/tracks`\n\n**Deprecated:** Use [Update Playlist Items](/documentation/web-api/reference/reorder-or-replace-playlists-items) instead.\n\nEither reorder or replace items in a playlist depending on the request's parameters.\nTo reorder items, include `range_start`, `insert_before`, `range_length` and `snapshot_id` in the request's body.\nTo replace items, include `uris` as either a query parameter or in the request's body.\nReplacing items in a playlist will overwrite its existing items. This operation can be used for replacing or clearing items in a playlist.\n<br/>\n**Note**: Replace and reorder are mutually exclusive operations which share the same endpoint, but have different parameters.\nThese operations can't be applied together in a single request.\n\n\n### Parameters\n\n- `playlist_id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) of the playlist.\n\n\n- `insert_before?: number`\n  The position where the items should be inserted.<br/>To reorder the items to the end of the playlist, simply set _insert_before_ to the position after the last item.<br/>Examples:<br/>To reorder the first item to the last position in a playlist with 10 items, set _range_start_ to 0, and _insert_before_ to 10.<br/>To reorder the last item in a playlist with 10 items to the start of the playlist, set _range_start_ to 9, and _insert_before_ to 0.\n\n\n- `published?: boolean`\n  The playlist's public/private status (if it should be added to the user's profile or not): `true` the playlist will be public, `false` the playlist will be private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](/documentation/web-api/concepts/playlists)\n\n\n- `range_length?: number`\n  The amount of items to be reordered. Defaults to 1 if not set.<br/>The range of items to be reordered begins from the _range_start_ position, and includes the _range_length_ subsequent items.<br/>Example:<br/>To move the items at index 9-10 to the start of the playlist, _range_start_ is set to 9, and _range_length_ is set to 2.\n\n\n- `range_start?: number`\n  The position of the first item to be reordered.\n\n\n- `snapshot_id?: string`\n  The playlist's snapshot ID against which you want to make the changes.\n\n\n- `uris?: string[]`\n\n### Returns\n\n- `{ snapshot_id?: string; }`\n\n  - `snapshot_id?: string`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst track = await client.playlists.tracks.update('3cEYpjA9oz9GiPac4AsH4n');\n\nconsole.log(track);\n```",
     perLanguage: {
-      cli: {
-        method: 'tracks update',
+      typescript: {
+        method: 'client.playlists.tracks.update',
         example:
-          "spotted playlists:tracks update \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst track = await client.playlists.tracks.update('3cEYpjA9oz9GiPac4AsH4n');\n\nconsole.log(track.snapshot_id);",
       },
-      csharp: {
-        method: 'Playlists.Tracks.Update',
+      python: {
+        method: 'playlists.tracks.update',
         example:
-          'TrackUpdateParams parameters = new() { PlaylistID = "3cEYpjA9oz9GiPac4AsH4n" };\n\nvar track = await client.Playlists.Tracks.Update(parameters);\n\nConsole.WriteLine(track);',
-      },
-      go: {
-        method: 'client.Playlists.Tracks.Update',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\ttrack, err := client.Playlists.Tracks.Update(\n\t\tcontext.TODO(),\n\t\t"3cEYpjA9oz9GiPac4AsH4n",\n\t\tspotted.PlaylistTrackUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", track.SnapshotID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/playlists/$PLAYLIST_ID/tracks \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\ntrack = client.playlists.tracks.update(\n    playlist_id="3cEYpjA9oz9GiPac4AsH4n",\n)\nprint(track.snapshot_id)',
       },
       java: {
         method: 'playlists().tracks().update',
@@ -4512,25 +4503,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.playlists.tracks.TrackUpdateParams\nimport dev.cjav.spotted.models.playlists.tracks.TrackUpdateResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val track: TrackUpdateResponse = client.playlists().tracks().update("3cEYpjA9oz9GiPac4AsH4n")\n}',
       },
-      php: {
-        method: 'playlists->tracks->update',
+      go: {
+        method: 'client.Playlists.Tracks.Update',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$track = $client->playlists->tracks->update(\n  '3cEYpjA9oz9GiPac4AsH4n',\n  insertBefore: 3,\n  published: true,\n  rangeLength: 2,\n  rangeStart: 1,\n  snapshotID: 'snapshot_id',\n  uris: ['string'],\n);\n\nvar_dump($track);",
-      },
-      python: {
-        method: 'playlists.tracks.update',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\ntrack = client.playlists.tracks.update(\n    playlist_id="3cEYpjA9oz9GiPac4AsH4n",\n)\nprint(track.snapshot_id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\ttrack, err := client.Playlists.Tracks.Update(\n\t\tcontext.TODO(),\n\t\t"3cEYpjA9oz9GiPac4AsH4n",\n\t\tspotted.PlaylistTrackUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", track.SnapshotID)\n}\n',
       },
       ruby: {
         method: 'playlists.tracks.update',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\ntrack = spotted.playlists.tracks.update("3cEYpjA9oz9GiPac4AsH4n")\n\nputs(track)',
       },
-      typescript: {
-        method: 'client.playlists.tracks.update',
+      cli: {
+        method: 'tracks update',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst track = await client.playlists.tracks.update('3cEYpjA9oz9GiPac4AsH4n');\n\nconsole.log(track.snapshot_id);",
+          "spotted playlists:tracks update \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
+      },
+      php: {
+        method: 'playlists->tracks->update',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$track = $client->playlists->tracks->update(\n  '3cEYpjA9oz9GiPac4AsH4n',\n  insertBefore: 3,\n  published: true,\n  rangeLength: 2,\n  rangeStart: 1,\n  snapshotID: 'snapshot_id',\n  uris: ['string'],\n);\n\nvar_dump($track);",
+      },
+      csharp: {
+        method: 'Playlists.Tracks.Update',
+        example:
+          'TrackUpdateParams parameters = new() { PlaylistID = "3cEYpjA9oz9GiPac4AsH4n" };\n\nvar track = await client.Playlists.Tracks.Update(parameters);\n\nConsole.WriteLine(track);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/playlists/$PLAYLIST_ID/tracks \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -4553,24 +4553,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       '## remove\n\n`client.playlists.tracks.remove(playlist_id: string, tracks: { uri?: string; }[], published?: boolean, snapshot_id?: string): { snapshot_id?: string; }`\n\n**delete** `/playlists/{playlist_id}/tracks`\n\n**Deprecated:** Use [Remove Playlist Items](/documentation/web-api/reference/remove-items-playlist) instead.\n\nRemove one or more items from a user\'s playlist.\n\n\n### Parameters\n\n- `playlist_id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) of the playlist.\n\n\n- `tracks: { uri?: string; }[]`\n  An array of objects containing [Spotify URIs](/documentation/web-api/concepts/spotify-uris-ids) of the tracks or episodes to remove.\nFor example: `{ "tracks": [{ "uri": "spotify:track:4iV5W9uYEdYUVa79Axb7Rh" },{ "uri": "spotify:track:1301WleyT98MSxVHPZCA6M" }] }`. A maximum of 100 objects can be sent at once.\n\n\n- `published?: boolean`\n  The playlist\'s public/private status (if it should be added to the user\'s profile or not): `true` the playlist will be public, `false` the playlist will be private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](/documentation/web-api/concepts/playlists)\n\n\n- `snapshot_id?: string`\n  The playlist\'s snapshot ID against which you want to make the changes.\nThe API will validate that the specified items exist and in the specified positions and make the changes,\neven if more recent changes have been made to the playlist.\n\n\n### Returns\n\n- `{ snapshot_id?: string; }`\n\n  - `snapshot_id?: string`\n\n### Example\n\n```typescript\nimport Spotted from \'spotted-ts\';\n\nconst client = new Spotted();\n\nconst track = await client.playlists.tracks.remove(\'3cEYpjA9oz9GiPac4AsH4n\', { tracks: [{}] });\n\nconsole.log(track);\n```',
     perLanguage: {
-      cli: {
-        method: 'tracks remove',
+      typescript: {
+        method: 'client.playlists.tracks.remove',
         example:
-          "spotted playlists:tracks remove \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n \\\n  --track '{}'",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst track = await client.playlists.tracks.remove('3cEYpjA9oz9GiPac4AsH4n', { tracks: [{}] });\n\nconsole.log(track.snapshot_id);",
       },
-      csharp: {
-        method: 'Playlists.Tracks.Remove',
+      python: {
+        method: 'playlists.tracks.remove',
         example:
-          'TrackRemoveParams parameters = new()\n{\n    PlaylistID = "3cEYpjA9oz9GiPac4AsH4n",\n    Tracks =\n    [\n        new() { Uri = "uri" }\n    ],\n};\n\nvar track = await client.Playlists.Tracks.Remove(parameters);\n\nConsole.WriteLine(track);',
-      },
-      go: {
-        method: 'client.Playlists.Tracks.Remove',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\ttrack, err := client.Playlists.Tracks.Remove(\n\t\tcontext.TODO(),\n\t\t"3cEYpjA9oz9GiPac4AsH4n",\n\t\tspotted.PlaylistTrackRemoveParams{\n\t\t\tTracks: []spotted.PlaylistTrackRemoveParamsTrack{{}},\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", track.SnapshotID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/playlists/$PLAYLIST_ID/tracks \\\n    -X DELETE \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\ntrack = client.playlists.tracks.remove(\n    playlist_id="3cEYpjA9oz9GiPac4AsH4n",\n    tracks=[{}],\n)\nprint(track.snapshot_id)',
       },
       java: {
         method: 'playlists().tracks().remove',
@@ -4582,25 +4573,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.playlists.tracks.TrackRemoveParams\nimport dev.cjav.spotted.models.playlists.tracks.TrackRemoveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: TrackRemoveParams = TrackRemoveParams.builder()\n        .playlistId("3cEYpjA9oz9GiPac4AsH4n")\n        .addTrack(TrackRemoveParams.Track.builder().build())\n        .build()\n    val track: TrackRemoveResponse = client.playlists().tracks().remove(params)\n}',
       },
-      php: {
-        method: 'playlists->tracks->remove',
+      go: {
+        method: 'client.Playlists.Tracks.Remove',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$track = $client->playlists->tracks->remove(\n  '3cEYpjA9oz9GiPac4AsH4n',\n  tracks: [['uri' => 'uri']],\n  published: true,\n  snapshotID: 'snapshot_id',\n);\n\nvar_dump($track);",
-      },
-      python: {
-        method: 'playlists.tracks.remove',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\ntrack = client.playlists.tracks.remove(\n    playlist_id="3cEYpjA9oz9GiPac4AsH4n",\n    tracks=[{}],\n)\nprint(track.snapshot_id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\ttrack, err := client.Playlists.Tracks.Remove(\n\t\tcontext.TODO(),\n\t\t"3cEYpjA9oz9GiPac4AsH4n",\n\t\tspotted.PlaylistTrackRemoveParams{\n\t\t\tTracks: []spotted.PlaylistTrackRemoveParamsTrack{{}},\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", track.SnapshotID)\n}\n',
       },
       ruby: {
         method: 'playlists.tracks.remove',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\ntrack = spotted.playlists.tracks.remove("3cEYpjA9oz9GiPac4AsH4n", tracks: [{}])\n\nputs(track)',
       },
-      typescript: {
-        method: 'client.playlists.tracks.remove',
+      cli: {
+        method: 'tracks remove',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst track = await client.playlists.tracks.remove('3cEYpjA9oz9GiPac4AsH4n', { tracks: [{}] });\n\nconsole.log(track.snapshot_id);",
+          "spotted playlists:tracks remove \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n \\\n  --track '{}'",
+      },
+      php: {
+        method: 'playlists->tracks->remove',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$track = $client->playlists->tracks->remove(\n  '3cEYpjA9oz9GiPac4AsH4n',\n  tracks: [['uri' => 'uri']],\n  published: true,\n  snapshotID: 'snapshot_id',\n);\n\nvar_dump($track);",
+      },
+      csharp: {
+        method: 'Playlists.Tracks.Remove',
+        example:
+          'TrackRemoveParams parameters = new()\n{\n    PlaylistID = "3cEYpjA9oz9GiPac4AsH4n",\n    Tracks =\n    [\n        new() { Uri = "uri" }\n    ],\n};\n\nvar track = await client.Playlists.Tracks.Remove(parameters);\n\nConsole.WriteLine(track);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/playlists/$PLAYLIST_ID/tracks \\\n    -X DELETE \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -4617,24 +4617,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## follow\n\n`client.playlists.followers.follow(playlist_id: string, published?: boolean): void`\n\n**put** `/playlists/{playlist_id}/followers`\n\nAdd the current user as a follower of a playlist.\n\n**Note:** This endpoint is deprecated. Use [Save Items to Library](/documentation/web-api/reference/save-library-items) instead.\n\n\n### Parameters\n\n- `playlist_id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) of the playlist.\n\n\n- `published?: boolean`\n  The playlist's public/private status (if it should be added to the user's profile or not): `true` the playlist will be public, `false` the playlist will be private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](/documentation/web-api/concepts/playlists)\n\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nawait client.playlists.followers.follow('3cEYpjA9oz9GiPac4AsH4n')\n```",
     perLanguage: {
-      cli: {
-        method: 'followers follow',
+      typescript: {
+        method: 'client.playlists.followers.follow',
         example:
-          "spotted playlists:followers follow \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.playlists.followers.follow('3cEYpjA9oz9GiPac4AsH4n');",
       },
-      csharp: {
-        method: 'Playlists.Followers.Follow',
+      python: {
+        method: 'playlists.followers.follow',
         example:
-          'FollowerFollowParams parameters = new()\n{\n    PlaylistID = "3cEYpjA9oz9GiPac4AsH4n"\n};\n\nawait client.Playlists.Followers.Follow(parameters);',
-      },
-      go: {
-        method: 'client.Playlists.Followers.Follow',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Playlists.Followers.Follow(\n\t\tcontext.TODO(),\n\t\t"3cEYpjA9oz9GiPac4AsH4n",\n\t\tspotted.PlaylistFollowerFollowParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/playlists/$PLAYLIST_ID/followers \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.playlists.followers.follow(\n    playlist_id="3cEYpjA9oz9GiPac4AsH4n",\n)',
       },
       java: {
         method: 'playlists().followers().follow',
@@ -4646,25 +4637,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.playlists.followers.FollowerFollowParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.playlists().followers().follow("3cEYpjA9oz9GiPac4AsH4n")\n}',
       },
-      php: {
-        method: 'playlists->followers->follow',
+      go: {
+        method: 'client.Playlists.Followers.Follow',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->playlists->followers->follow(\n  '3cEYpjA9oz9GiPac4AsH4n', published: true\n);\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'playlists.followers.follow',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.playlists.followers.follow(\n    playlist_id="3cEYpjA9oz9GiPac4AsH4n",\n)',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Playlists.Followers.Follow(\n\t\tcontext.TODO(),\n\t\t"3cEYpjA9oz9GiPac4AsH4n",\n\t\tspotted.PlaylistFollowerFollowParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'playlists.followers.follow',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.playlists.followers.follow("3cEYpjA9oz9GiPac4AsH4n")\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.playlists.followers.follow',
+      cli: {
+        method: 'followers follow',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.playlists.followers.follow('3cEYpjA9oz9GiPac4AsH4n');",
+          "spotted playlists:followers follow \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
+      },
+      php: {
+        method: 'playlists->followers->follow',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->playlists->followers->follow(\n  '3cEYpjA9oz9GiPac4AsH4n', published: true\n);\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Playlists.Followers.Follow',
+        example:
+          'FollowerFollowParams parameters = new()\n{\n    PlaylistID = "3cEYpjA9oz9GiPac4AsH4n"\n};\n\nawait client.Playlists.Followers.Follow(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/playlists/$PLAYLIST_ID/followers \\\n    -X PUT \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -4681,24 +4681,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## unfollow\n\n`client.playlists.followers.unfollow(playlist_id: string): void`\n\n**delete** `/playlists/{playlist_id}/followers`\n\nRemove the current user as a follower of a playlist.\n\n**Note:** This endpoint is deprecated. Use [Remove Items from Library](/documentation/web-api/reference/remove-library-items) instead.\n\n\n### Parameters\n\n- `playlist_id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) of the playlist.\n\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nawait client.playlists.followers.unfollow('3cEYpjA9oz9GiPac4AsH4n')\n```",
     perLanguage: {
-      cli: {
-        method: 'followers unfollow',
+      typescript: {
+        method: 'client.playlists.followers.unfollow',
         example:
-          "spotted playlists:followers unfollow \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.playlists.followers.unfollow('3cEYpjA9oz9GiPac4AsH4n');",
       },
-      csharp: {
-        method: 'Playlists.Followers.Unfollow',
+      python: {
+        method: 'playlists.followers.unfollow',
         example:
-          'FollowerUnfollowParams parameters = new()\n{\n    PlaylistID = "3cEYpjA9oz9GiPac4AsH4n"\n};\n\nawait client.Playlists.Followers.Unfollow(parameters);',
-      },
-      go: {
-        method: 'client.Playlists.Followers.Unfollow',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Playlists.Followers.Unfollow(context.TODO(), "3cEYpjA9oz9GiPac4AsH4n")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/playlists/$PLAYLIST_ID/followers \\\n    -X DELETE \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.playlists.followers.unfollow(\n    "3cEYpjA9oz9GiPac4AsH4n",\n)',
       },
       java: {
         method: 'playlists().followers().unfollow',
@@ -4710,25 +4701,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.playlists.followers.FollowerUnfollowParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    client.playlists().followers().unfollow("3cEYpjA9oz9GiPac4AsH4n")\n}',
       },
-      php: {
-        method: 'playlists->followers->unfollow',
+      go: {
+        method: 'client.Playlists.Followers.Unfollow',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->playlists->followers->unfollow('3cEYpjA9oz9GiPac4AsH4n');\n\nvar_dump($result);",
-      },
-      python: {
-        method: 'playlists.followers.unfollow',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nclient.playlists.followers.unfollow(\n    "3cEYpjA9oz9GiPac4AsH4n",\n)',
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\terr := client.Playlists.Followers.Unfollow(context.TODO(), "3cEYpjA9oz9GiPac4AsH4n")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
       },
       ruby: {
         method: 'playlists.followers.unfollow',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresult = spotted.playlists.followers.unfollow("3cEYpjA9oz9GiPac4AsH4n")\n\nputs(result)',
       },
-      typescript: {
-        method: 'client.playlists.followers.unfollow',
+      cli: {
+        method: 'followers unfollow',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nawait client.playlists.followers.unfollow('3cEYpjA9oz9GiPac4AsH4n');",
+          "spotted playlists:followers unfollow \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
+      },
+      php: {
+        method: 'playlists->followers->unfollow',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$result = $client->playlists->followers->unfollow('3cEYpjA9oz9GiPac4AsH4n');\n\nvar_dump($result);",
+      },
+      csharp: {
+        method: 'Playlists.Followers.Unfollow',
+        example:
+          'FollowerUnfollowParams parameters = new()\n{\n    PlaylistID = "3cEYpjA9oz9GiPac4AsH4n"\n};\n\nawait client.Playlists.Followers.Unfollow(parameters);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/playlists/$PLAYLIST_ID/followers \\\n    -X DELETE \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -4746,24 +4746,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## check\n\n`client.playlists.followers.check(playlist_id: string, ids?: string): boolean[]`\n\n**get** `/playlists/{playlist_id}/followers/contains`\n\nCheck to see if the current user is following a specified playlist.\n\n**Note:** This endpoint is deprecated. Use [Check User's Saved Items](/documentation/web-api/reference/check-library-contains) instead.\n\n\n### Parameters\n\n- `playlist_id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) of the playlist.\n\n\n- `ids?: string`\n  **Deprecated** A single item list containing current user's [Spotify Username](/documentation/web-api/concepts/spotify-uris-ids). Maximum: 1 id.\n\n\n### Returns\n\n- `boolean[]`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.playlists.followers.check('3cEYpjA9oz9GiPac4AsH4n');\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'followers check',
+      typescript: {
+        method: 'client.playlists.followers.check',
         example:
-          "spotted playlists:followers check \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.playlists.followers.check('3cEYpjA9oz9GiPac4AsH4n');\n\nconsole.log(response);",
       },
-      csharp: {
-        method: 'Playlists.Followers.Check',
+      python: {
+        method: 'playlists.followers.check',
         example:
-          'FollowerCheckParams parameters = new()\n{\n    PlaylistID = "3cEYpjA9oz9GiPac4AsH4n"\n};\n\nvar response = await client.Playlists.Followers.Check(parameters);\n\nConsole.WriteLine(response);',
-      },
-      go: {
-        method: 'client.Playlists.Followers.Check',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Playlists.Followers.Check(\n\t\tcontext.TODO(),\n\t\t"3cEYpjA9oz9GiPac4AsH4n",\n\t\tspotted.PlaylistFollowerCheckParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/playlists/$PLAYLIST_ID/followers/contains \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.playlists.followers.check(\n    playlist_id="3cEYpjA9oz9GiPac4AsH4n",\n)\nprint(response)',
       },
       java: {
         method: 'playlists().followers().check',
@@ -4775,25 +4766,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.playlists.followers.FollowerCheckParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: List<Boolean> = client.playlists().followers().check("3cEYpjA9oz9GiPac4AsH4n")\n}',
       },
-      php: {
-        method: 'playlists->followers->check',
+      go: {
+        method: 'client.Playlists.Followers.Check',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->playlists->followers->check(\n  '3cEYpjA9oz9GiPac4AsH4n', ids: 'jmperezperez'\n);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'playlists.followers.check',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.playlists.followers.check(\n    playlist_id="3cEYpjA9oz9GiPac4AsH4n",\n)\nprint(response)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Playlists.Followers.Check(\n\t\tcontext.TODO(),\n\t\t"3cEYpjA9oz9GiPac4AsH4n",\n\t\tspotted.PlaylistFollowerCheckParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
       },
       ruby: {
         method: 'playlists.followers.check',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.playlists.followers.check("3cEYpjA9oz9GiPac4AsH4n")\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.playlists.followers.check',
+      cli: {
+        method: 'followers check',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.playlists.followers.check('3cEYpjA9oz9GiPac4AsH4n');\n\nconsole.log(response);",
+          "spotted playlists:followers check \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
+      },
+      php: {
+        method: 'playlists->followers->check',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->playlists->followers->check(\n  '3cEYpjA9oz9GiPac4AsH4n', ids: 'jmperezperez'\n);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Playlists.Followers.Check',
+        example:
+          'FollowerCheckParams parameters = new()\n{\n    PlaylistID = "3cEYpjA9oz9GiPac4AsH4n"\n};\n\nvar response = await client.Playlists.Followers.Check(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/playlists/$PLAYLIST_ID/followers/contains \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -4810,24 +4810,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.playlists.images.list(playlist_id: string): object[]`\n\n**get** `/playlists/{playlist_id}/images`\n\nGet the current image associated with a specific playlist.\n\n\n### Parameters\n\n- `playlist_id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) of the playlist.\n\n\n### Returns\n\n- `{ height: number; url: string; width: number; published?: boolean; }[]`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst imageObjects = await client.playlists.images.list('3cEYpjA9oz9GiPac4AsH4n');\n\nconsole.log(imageObjects);\n```",
     perLanguage: {
-      cli: {
-        method: 'images list',
+      typescript: {
+        method: 'client.playlists.images.list',
         example:
-          "spotted playlists:images list \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst imageObjects = await client.playlists.images.list('3cEYpjA9oz9GiPac4AsH4n');\n\nconsole.log(imageObjects);",
       },
-      csharp: {
-        method: 'Playlists.Images.List',
+      python: {
+        method: 'playlists.images.list',
         example:
-          'ImageListParams parameters = new() { PlaylistID = "3cEYpjA9oz9GiPac4AsH4n" };\n\nvar imageObjects = await client.Playlists.Images.List(parameters);\n\nConsole.WriteLine(imageObjects);',
-      },
-      go: {
-        method: 'client.Playlists.Images.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\timageObjects, err := client.Playlists.Images.List(context.TODO(), "3cEYpjA9oz9GiPac4AsH4n")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", imageObjects)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/playlists/$PLAYLIST_ID/images \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nimage_objects = client.playlists.images.list(\n    "3cEYpjA9oz9GiPac4AsH4n",\n)\nprint(image_objects)',
       },
       java: {
         method: 'playlists().images().list',
@@ -4839,25 +4830,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.ImageObject\nimport dev.cjav.spotted.models.playlists.images.ImageListParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val imageObjects: List<ImageObject> = client.playlists().images().list("3cEYpjA9oz9GiPac4AsH4n")\n}',
       },
-      php: {
-        method: 'playlists->images->list',
+      go: {
+        method: 'client.Playlists.Images.List',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$imageObjects = $client->playlists->images->list('3cEYpjA9oz9GiPac4AsH4n');\n\nvar_dump($imageObjects);",
-      },
-      python: {
-        method: 'playlists.images.list',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nimage_objects = client.playlists.images.list(\n    "3cEYpjA9oz9GiPac4AsH4n",\n)\nprint(image_objects)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\timageObjects, err := client.Playlists.Images.List(context.TODO(), "3cEYpjA9oz9GiPac4AsH4n")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", imageObjects)\n}\n',
       },
       ruby: {
         method: 'playlists.images.list',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nimage_objects = spotted.playlists.images.list("3cEYpjA9oz9GiPac4AsH4n")\n\nputs(image_objects)',
       },
-      typescript: {
-        method: 'client.playlists.images.list',
+      cli: {
+        method: 'images list',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst imageObjects = await client.playlists.images.list('3cEYpjA9oz9GiPac4AsH4n');\n\nconsole.log(imageObjects);",
+          "spotted playlists:images list \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n",
+      },
+      php: {
+        method: 'playlists->images->list',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$imageObjects = $client->playlists->images->list('3cEYpjA9oz9GiPac4AsH4n');\n\nvar_dump($imageObjects);",
+      },
+      csharp: {
+        method: 'Playlists.Images.List',
+        example:
+          'ImageListParams parameters = new() { PlaylistID = "3cEYpjA9oz9GiPac4AsH4n" };\n\nvar imageObjects = await client.Playlists.Images.List(parameters);\n\nConsole.WriteLine(imageObjects);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/playlists/$PLAYLIST_ID/images \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -4874,24 +4874,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## update\n\n`client.playlists.images.update(playlist_id: string, body: string): string`\n\n**put** `/playlists/{playlist_id}/images`\n\nReplace the image used to represent a specific playlist.\n\n\n### Parameters\n\n- `playlist_id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) of the playlist.\n\n\n- `body: string`\n  Base64 encoded JPEG image data, maximum payload size is 256 KB.\n\n### Returns\n\n- `string`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst image = await client.playlists.images.update('3cEYpjA9oz9GiPac4AsH4n', fs.createReadStream('path/to/file'));\n\nconsole.log(image);\n\nconst content = await image.blob()\nconsole.log(content)\n```",
     perLanguage: {
-      cli: {
-        method: 'images update',
+      typescript: {
+        method: 'client.playlists.images.update',
         example:
-          "spotted playlists:images update \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n \\\n  --body 'Example data'",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst image = await client.playlists.images.update(\n  '3cEYpjA9oz9GiPac4AsH4n',\n  fs.createReadStream('path/to/file'),\n);\n\nconsole.log(image);\n\nconst content = await image.blob();\nconsole.log(content);",
       },
-      csharp: {
-        method: 'Playlists.Images.Update',
+      python: {
+        method: 'playlists.images.update',
         example:
-          'ImageUpdateParams parameters = new()\n{\n    PlaylistID = "3cEYpjA9oz9GiPac4AsH4n",\n    Body = Encoding.UTF8.GetBytes("Example data"),\n};\n\nvar image = await client.Playlists.Images.Update(parameters);\n\nConsole.WriteLine(image);',
-      },
-      go: {
-        method: 'client.Playlists.Images.Update',
-        example:
-          'package main\n\nimport (\n\t"bytes"\n\t"context"\n\t"fmt"\n\t"io"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\timage, err := client.Playlists.Images.Update(\n\t\tcontext.TODO(),\n\t\t"3cEYpjA9oz9GiPac4AsH4n",\n\t\tio.Reader(bytes.NewBuffer([]byte("Example data"))),\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", image)\n}\n',
-      },
-      http: {
-        example:
-          "curl https://api.spotify.com/v1/playlists/$PLAYLIST_ID/images \\\n    -X PUT \\\n    -H 'Content-Type: image/jpeg' \\\n    -H \"Authorization: Bearer $SPOTIFY_ACCESS_TOKEN\" \\\n    -F 'body=@/path/to/body'",
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nimage = client.playlists.images.update(\n    playlist_id="3cEYpjA9oz9GiPac4AsH4n",\n    body=b"Example data",\n)\nprint(image)\ncontent = image.read()\nprint(content)',
       },
       java: {
         method: 'playlists().images().update',
@@ -4903,25 +4894,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.core.http.HttpResponse\nimport dev.cjav.spotted.models.playlists.images.ImageUpdateParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val image: HttpResponse = client.playlists().images().update(\n      "3cEYpjA9oz9GiPac4AsH4n", "Example data"\n    )\n}',
       },
-      php: {
-        method: 'playlists->images->update',
+      go: {
+        method: 'client.Playlists.Images.Update',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$image = $client->playlists->images->update(\n  '3cEYpjA9oz9GiPac4AsH4n',\n  FileParam::fromString('Example data', filename: uniqid('file-upload-', true)),\n);\n\nvar_dump($image);",
-      },
-      python: {
-        method: 'playlists.images.update',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nimage = client.playlists.images.update(\n    playlist_id="3cEYpjA9oz9GiPac4AsH4n",\n    body=b"Example data",\n)\nprint(image)\ncontent = image.read()\nprint(content)',
+          'package main\n\nimport (\n\t"bytes"\n\t"context"\n\t"fmt"\n\t"io"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\timage, err := client.Playlists.Images.Update(\n\t\tcontext.TODO(),\n\t\t"3cEYpjA9oz9GiPac4AsH4n",\n\t\tio.Reader(bytes.NewBuffer([]byte("Example data"))),\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", image)\n}\n',
       },
       ruby: {
         method: 'playlists.images.update',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nimage = spotted.playlists.images.update("3cEYpjA9oz9GiPac4AsH4n", body: StringIO.new("Example data"))\n\nputs(image)',
       },
-      typescript: {
-        method: 'client.playlists.images.update',
+      cli: {
+        method: 'images update',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst image = await client.playlists.images.update(\n  '3cEYpjA9oz9GiPac4AsH4n',\n  fs.createReadStream('path/to/file'),\n);\n\nconsole.log(image);\n\nconst content = await image.blob();\nconsole.log(content);",
+          "spotted playlists:images update \\\n  --access-token 'My Access Token' \\\n  --playlist-id 3cEYpjA9oz9GiPac4AsH4n \\\n  --body 'Example data'",
+      },
+      php: {
+        method: 'playlists->images->update',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$image = $client->playlists->images->update(\n  '3cEYpjA9oz9GiPac4AsH4n',\n  FileParam::fromString('Example data', filename: uniqid('file-upload-', true)),\n);\n\nvar_dump($image);",
+      },
+      csharp: {
+        method: 'Playlists.Images.Update',
+        example:
+          'ImageUpdateParams parameters = new()\n{\n    PlaylistID = "3cEYpjA9oz9GiPac4AsH4n",\n    Body = Encoding.UTF8.GetBytes("Example data"),\n};\n\nvar image = await client.Playlists.Images.Update(parameters);\n\nConsole.WriteLine(image);',
+      },
+      http: {
+        example:
+          "curl https://api.spotify.com/v1/playlists/$PLAYLIST_ID/images \\\n    -X PUT \\\n    -H 'Content-Type: image/jpeg' \\\n    -H \"Authorization: Bearer $SPOTIFY_ACCESS_TOKEN\" \\\n    -F 'body=@/path/to/body'",
       },
     },
   },
@@ -4939,24 +4939,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve_profile\n\n`client.users.retrieveProfile(user_id: string): { id?: string; display_name?: string; external_urls?: external_url_object; followers?: followers_object; href?: string; images?: image_object[]; published?: boolean; type?: 'user'; uri?: string; }`\n\n**get** `/users/{user_id}`\n\nGet public profile information about a Spotify user.\n\n\n### Parameters\n\n- `user_id: string`\n  The user's [Spotify user ID](/documentation/web-api/concepts/spotify-uris-ids).\n\n\n### Returns\n\n- `{ id?: string; display_name?: string; external_urls?: { published?: boolean; spotify?: string; }; followers?: { href?: string; published?: boolean; total?: number; }; href?: string; images?: { height: number; url: string; width: number; published?: boolean; }[]; published?: boolean; type?: 'user'; uri?: string; }`\n\n  - `id?: string`\n  - `display_name?: string`\n  - `external_urls?: { published?: boolean; spotify?: string; }`\n  - `followers?: { href?: string; published?: boolean; total?: number; }`\n  - `href?: string`\n  - `images?: { height: number; url: string; width: number; published?: boolean; }[]`\n  - `published?: boolean`\n  - `type?: 'user'`\n  - `uri?: string`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.users.retrieveProfile('smedjan');\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'users retrieve_profile',
+      typescript: {
+        method: 'client.users.retrieveProfile',
         example:
-          "spotted users retrieve-profile \\\n  --access-token 'My Access Token' \\\n  --user-id smedjan",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.users.retrieveProfile('smedjan');\n\nconsole.log(response.id);",
       },
-      csharp: {
-        method: 'Users.RetrieveProfile',
+      python: {
+        method: 'users.retrieve_profile',
         example:
-          'UserRetrieveProfileParams parameters = new() { UserID = "smedjan" };\n\nvar response = await client.Users.RetrieveProfile(parameters);\n\nConsole.WriteLine(response);',
-      },
-      go: {
-        method: 'client.Users.GetProfile',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Users.GetProfile(context.TODO(), "smedjan")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/users/$USER_ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.users.retrieve_profile(\n    "smedjan",\n)\nprint(response.id)',
       },
       java: {
         method: 'users().retrieveProfile',
@@ -4968,25 +4959,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.users.UserRetrieveProfileParams\nimport dev.cjav.spotted.models.users.UserRetrieveProfileResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: UserRetrieveProfileResponse = client.users().retrieveProfile("smedjan")\n}',
       },
-      php: {
-        method: 'users->retrieveProfile',
+      go: {
+        method: 'client.Users.GetProfile',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->users->retrieveProfile('smedjan');\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'users.retrieve_profile',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.users.retrieve_profile(\n    "smedjan",\n)\nprint(response.id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Users.GetProfile(context.TODO(), "smedjan")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ID)\n}\n',
       },
       ruby: {
         method: 'users.retrieve_profile',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.users.retrieve_profile("smedjan")\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.users.retrieveProfile',
+      cli: {
+        method: 'users retrieve_profile',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.users.retrieveProfile('smedjan');\n\nconsole.log(response.id);",
+          "spotted users retrieve-profile \\\n  --access-token 'My Access Token' \\\n  --user-id smedjan",
+      },
+      php: {
+        method: 'users->retrieveProfile',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->users->retrieveProfile('smedjan');\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Users.RetrieveProfile',
+        example:
+          'UserRetrieveProfileParams parameters = new() { UserID = "smedjan" };\n\nvar response = await client.Users.RetrieveProfile(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/users/$USER_ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -5004,24 +5004,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.users.playlists.list(user_id: string, limit?: number, offset?: number): { id?: string; collaborative?: boolean; description?: string; external_urls?: external_url_object; href?: string; images?: image_object[]; items?: playlist_tracks_ref_object; name?: string; owner?: playlist_user_object; published?: boolean; snapshot_id?: string; tracks?: playlist_tracks_ref_object; type?: string; uri?: string; }`\n\n**get** `/users/{user_id}/playlists`\n\nGet a list of the playlists owned or followed by a Spotify user.\n\n\n### Parameters\n\n- `user_id: string`\n  The user's [Spotify user ID](/documentation/web-api/concepts/spotify-uris-ids).\n\n\n- `limit?: number`\n  The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.\n\n\n- `offset?: number`\n  The index of the first playlist to return. Default:\n0 (the first object). Maximum offset: 100.000\\. Use with `limit` to get the\nnext set of playlists.\n\n\n### Returns\n\n- `{ id?: string; collaborative?: boolean; description?: string; external_urls?: { published?: boolean; spotify?: string; }; href?: string; images?: { height: number; url: string; width: number; published?: boolean; }[]; items?: { href?: string; published?: boolean; total?: number; }; name?: string; owner?: { id?: string; external_urls?: external_url_object; href?: string; published?: boolean; type?: 'user'; uri?: string; }; published?: boolean; snapshot_id?: string; tracks?: { href?: string; published?: boolean; total?: number; }; type?: string; uri?: string; }`\n\n  - `id?: string`\n  - `collaborative?: boolean`\n  - `description?: string`\n  - `external_urls?: { published?: boolean; spotify?: string; }`\n  - `href?: string`\n  - `images?: { height: number; url: string; width: number; published?: boolean; }[]`\n  - `items?: { href?: string; published?: boolean; total?: number; }`\n  - `name?: string`\n  - `owner?: { id?: string; external_urls?: { published?: boolean; spotify?: string; }; href?: string; published?: boolean; type?: 'user'; uri?: string; }`\n  - `published?: boolean`\n  - `snapshot_id?: string`\n  - `tracks?: { href?: string; published?: boolean; total?: number; }`\n  - `type?: string`\n  - `uri?: string`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\n// Automatically fetches more pages as needed.\nfor await (const simplifiedPlaylistObject of client.users.playlists.list('smedjan')) {\n  console.log(simplifiedPlaylistObject);\n}\n```",
     perLanguage: {
-      cli: {
-        method: 'playlists list',
+      typescript: {
+        method: 'client.users.playlists.list',
         example:
-          "spotted users:playlists list \\\n  --access-token 'My Access Token' \\\n  --user-id smedjan",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const simplifiedPlaylistObject of client.users.playlists.list('smedjan')) {\n  console.log(simplifiedPlaylistObject.id);\n}",
       },
-      csharp: {
-        method: 'Users.Playlists.List',
+      python: {
+        method: 'users.playlists.list',
         example:
-          'PlaylistListParams parameters = new() { UserID = "smedjan" };\n\nvar page = await client.Users.Playlists.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
-      },
-      go: {
-        method: 'client.Users.Playlists.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Users.Playlists.List(\n\t\tcontext.TODO(),\n\t\t"smedjan",\n\t\tspotted.UserPlaylistListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/users/$USER_ID/playlists \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.users.playlists.list(\n    user_id="smedjan",\n)\npage = page.items[0]\nprint(page.id)',
       },
       java: {
         method: 'users().playlists().list',
@@ -5033,25 +5024,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.users.playlists.PlaylistListPage\nimport dev.cjav.spotted.models.users.playlists.PlaylistListParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: PlaylistListPage = client.users().playlists().list("smedjan")\n}',
       },
-      php: {
-        method: 'users->playlists->list',
+      go: {
+        method: 'client.Users.Playlists.List',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->users->playlists->list('smedjan', limit: 10, offset: 5);\n\nvar_dump($page);",
-      },
-      python: {
-        method: 'users.playlists.list',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.users.playlists.list(\n    user_id="smedjan",\n)\npage = page.items[0]\nprint(page.id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Users.Playlists.List(\n\t\tcontext.TODO(),\n\t\t"smedjan",\n\t\tspotted.UserPlaylistListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
       },
       ruby: {
         method: 'users.playlists.list',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\npage = spotted.users.playlists.list("smedjan")\n\nputs(page)',
       },
-      typescript: {
-        method: 'client.users.playlists.list',
+      cli: {
+        method: 'playlists list',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const simplifiedPlaylistObject of client.users.playlists.list('smedjan')) {\n  console.log(simplifiedPlaylistObject.id);\n}",
+          "spotted users:playlists list \\\n  --access-token 'My Access Token' \\\n  --user-id smedjan",
+      },
+      php: {
+        method: 'users->playlists->list',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->users->playlists->list('smedjan', limit: 10, offset: 5);\n\nvar_dump($page);",
+      },
+      csharp: {
+        method: 'Users.Playlists.List',
+        example:
+          'PlaylistListParams parameters = new() { UserID = "smedjan" };\n\nvar page = await client.Users.Playlists.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/users/$USER_ID/playlists \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -5076,24 +5076,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.users.playlists.create(user_id: string, name: string, collaborative?: boolean, description?: string, published?: boolean): { id?: string; collaborative?: boolean; description?: string; external_urls?: external_url_object; followers?: followers_object; href?: string; images?: image_object[]; items?: object; name?: string; owner?: playlist_user_object; published?: boolean; snapshot_id?: string; tracks?: object; type?: string; uri?: string; }`\n\n**post** `/users/{user_id}/playlists`\n\n**Deprecated**: Use [Create Playlist](/documentation/web-api/reference/create-playlist) instead.\n\nCreate a playlist for a Spotify user. (The playlist will be empty until\nyou [add tracks](/documentation/web-api/reference/add-tracks-to-playlist).)\nEach user is generally limited to a maximum of 11000 playlists.\n\n\n### Parameters\n\n- `user_id: string`\n  The user's [Spotify user ID](/documentation/web-api/concepts/spotify-uris-ids).\n\n\n- `name: string`\n  The name for the new playlist, for example `\"Your Coolest Playlist\"`. This name does not need to be unique; a user may have several playlists with the same name.\n\n\n- `collaborative?: boolean`\n  Defaults to `false`. If `true` the playlist will be collaborative. _**Note**: to create a collaborative playlist you must also set `public` to `false`. To create collaborative playlists you must have granted `playlist-modify-private` and `playlist-modify-public` [scopes](/documentation/web-api/concepts/scopes/#list-of-scopes)._\n\n\n- `description?: string`\n  value for playlist description as displayed in Spotify Clients and in the Web API.\n\n\n- `published?: boolean`\n  The playlist's public/private status (if it should be added to the user's profile or not): `true` the playlist will be public, `false` the playlist will be private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](/documentation/web-api/concepts/playlists)\n\n\n### Returns\n\n- `{ id?: string; collaborative?: boolean; description?: string; external_urls?: { published?: boolean; spotify?: string; }; followers?: { href?: string; published?: boolean; total?: number; }; href?: string; images?: { height: number; url: string; width: number; published?: boolean; }[]; items?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: object[]; published?: boolean; }; name?: string; owner?: { id?: string; external_urls?: external_url_object; href?: string; published?: boolean; type?: 'user'; uri?: string; }; published?: boolean; snapshot_id?: string; tracks?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: object[]; published?: boolean; }; type?: string; uri?: string; }`\n\n  - `id?: string`\n  - `collaborative?: boolean`\n  - `description?: string`\n  - `external_urls?: { published?: boolean; spotify?: string; }`\n  - `followers?: { href?: string; published?: boolean; total?: number; }`\n  - `href?: string`\n  - `images?: { height: number; url: string; width: number; published?: boolean; }[]`\n  - `items?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: { added_at?: string; added_by?: object; is_local?: boolean; item?: object | object; published?: boolean; track?: object | object; }[]; published?: boolean; }`\n  - `name?: string`\n  - `owner?: { id?: string; external_urls?: { published?: boolean; spotify?: string; }; href?: string; published?: boolean; type?: 'user'; uri?: string; }`\n  - `published?: boolean`\n  - `snapshot_id?: string`\n  - `tracks?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: { added_at?: string; added_by?: object; is_local?: boolean; item?: object | object; published?: boolean; track?: object | object; }[]; published?: boolean; }`\n  - `type?: string`\n  - `uri?: string`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst playlist = await client.users.playlists.create('smedjan', { name: 'New Playlist' });\n\nconsole.log(playlist);\n```",
     perLanguage: {
-      cli: {
-        method: 'playlists create',
+      typescript: {
+        method: 'client.users.playlists.create',
         example:
-          "spotted users:playlists create \\\n  --access-token 'My Access Token' \\\n  --user-id smedjan \\\n  --name 'New Playlist'",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst playlist = await client.users.playlists.create('smedjan', { name: 'New Playlist' });\n\nconsole.log(playlist.id);",
       },
-      csharp: {
-        method: 'Users.Playlists.Create',
+      python: {
+        method: 'users.playlists.create',
         example:
-          'PlaylistCreateParams parameters = new()\n{\n    UserID = "smedjan",\n    Name = "New Playlist",\n};\n\nvar playlist = await client.Users.Playlists.Create(parameters);\n\nConsole.WriteLine(playlist);',
-      },
-      go: {
-        method: 'client.Users.Playlists.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tplaylist, err := client.Users.Playlists.New(\n\t\tcontext.TODO(),\n\t\t"smedjan",\n\t\tspotted.UserPlaylistNewParams{\n\t\t\tName: "New Playlist",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", playlist.ID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/users/$USER_ID/playlists \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN" \\\n    -d \'{\n          "name": "New Playlist"\n        }\'',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nplaylist = client.users.playlists.create(\n    user_id="smedjan",\n    name="New Playlist",\n)\nprint(playlist.id)',
       },
       java: {
         method: 'users().playlists().create',
@@ -5105,25 +5096,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.users.playlists.PlaylistCreateParams\nimport dev.cjav.spotted.models.users.playlists.PlaylistCreateResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: PlaylistCreateParams = PlaylistCreateParams.builder()\n        .userId("smedjan")\n        .name("New Playlist")\n        .build()\n    val playlist: PlaylistCreateResponse = client.users().playlists().create(params)\n}',
       },
-      php: {
-        method: 'users->playlists->create',
+      go: {
+        method: 'client.Users.Playlists.New',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$playlist = $client->users->playlists->create(\n  'smedjan',\n  name: 'New Playlist',\n  collaborative: true,\n  description: 'New playlist description',\n  published: true,\n);\n\nvar_dump($playlist);",
-      },
-      python: {
-        method: 'users.playlists.create',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nplaylist = client.users.playlists.create(\n    user_id="smedjan",\n    name="New Playlist",\n)\nprint(playlist.id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tplaylist, err := client.Users.Playlists.New(\n\t\tcontext.TODO(),\n\t\t"smedjan",\n\t\tspotted.UserPlaylistNewParams{\n\t\t\tName: "New Playlist",\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", playlist.ID)\n}\n',
       },
       ruby: {
         method: 'users.playlists.create',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nplaylist = spotted.users.playlists.create("smedjan", name: "New Playlist")\n\nputs(playlist)',
       },
-      typescript: {
-        method: 'client.users.playlists.create',
+      cli: {
+        method: 'playlists create',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst playlist = await client.users.playlists.create('smedjan', { name: 'New Playlist' });\n\nconsole.log(playlist.id);",
+          "spotted users:playlists create \\\n  --access-token 'My Access Token' \\\n  --user-id smedjan \\\n  --name 'New Playlist'",
+      },
+      php: {
+        method: 'users->playlists->create',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$playlist = $client->users->playlists->create(\n  'smedjan',\n  name: 'New Playlist',\n  collaborative: true,\n  description: 'New playlist description',\n  published: true,\n);\n\nvar_dump($playlist);",
+      },
+      csharp: {
+        method: 'Users.Playlists.Create',
+        example:
+          'PlaylistCreateParams parameters = new()\n{\n    UserID = "smedjan",\n    Name = "New Playlist",\n};\n\nvar playlist = await client.Users.Playlists.Create(parameters);\n\nConsole.WriteLine(playlist);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/users/$USER_ID/playlists \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN" \\\n    -d \'{\n          "name": "New Playlist"\n        }\'',
       },
     },
   },
@@ -5142,23 +5142,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## get_featured_playlists\n\n`client.browse.getFeaturedPlaylists(limit?: number, locale?: string, offset?: number): { message?: string; playlists?: paging_playlist_object; published?: boolean; }`\n\n**get** `/browse/featured-playlists`\n\nGet a list of Spotify featured playlists (shown, for example, on a Spotify player's 'Browse' tab).\n\n\n### Parameters\n\n- `limit?: number`\n  The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.\n\n\n- `locale?: string`\n  The desired language, consisting of an [ISO 639-1](http://en.wikipedia.org/wiki/ISO_639-1) language code and an [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), joined by an underscore. For example: `es_MX`, meaning &quot;Spanish (Mexico)&quot;. Provide this parameter if you want the category strings returned in a particular language.<br/> _**Note**: if `locale` is not supplied, or if the specified language is not available, the category strings returned will be in the Spotify default language (American English)._\n\n\n- `offset?: number`\n  The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.\n\n\n### Returns\n\n- `{ message?: string; playlists?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: simplified_playlist_object[]; published?: boolean; }; published?: boolean; }`\n\n  - `message?: string`\n  - `playlists?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: { id?: string; collaborative?: boolean; description?: string; external_urls?: external_url_object; href?: string; images?: image_object[]; items?: playlist_tracks_ref_object; name?: string; owner?: playlist_user_object; published?: boolean; snapshot_id?: string; tracks?: playlist_tracks_ref_object; type?: string; uri?: string; }[]; published?: boolean; }`\n  - `published?: boolean`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.browse.getFeaturedPlaylists();\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'browse get_featured_playlists',
-        example: "spotted browse get-featured-playlists \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Browse.GetFeaturedPlaylists',
+      typescript: {
+        method: 'client.browse.getFeaturedPlaylists',
         example:
-          'BrowseGetFeaturedPlaylistsParams parameters = new();\n\nvar response = await client.Browse.GetFeaturedPlaylists(parameters);\n\nConsole.WriteLine(response);',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.browse.getFeaturedPlaylists();\n\nconsole.log(response.message);",
       },
-      go: {
-        method: 'client.Browse.GetFeaturedPlaylists',
+      python: {
+        method: 'browse.get_featured_playlists',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Browse.GetFeaturedPlaylists(context.TODO(), spotted.BrowseGetFeaturedPlaylistsParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Message)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/browse/featured-playlists \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.browse.get_featured_playlists()\nprint(response.message)',
       },
       java: {
         method: 'browse().getFeaturedPlaylists',
@@ -5170,25 +5162,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.browse.BrowseGetFeaturedPlaylistsParams\nimport dev.cjav.spotted.models.browse.BrowseGetFeaturedPlaylistsResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: BrowseGetFeaturedPlaylistsResponse = client.browse().getFeaturedPlaylists()\n}',
       },
-      php: {
-        method: 'browse->getFeaturedPlaylists',
+      go: {
+        method: 'client.Browse.GetFeaturedPlaylists',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->browse->getFeaturedPlaylists(\n  limit: 10, locale: 'sv_SE', offset: 5\n);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'browse.get_featured_playlists',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.browse.get_featured_playlists()\nprint(response.message)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Browse.GetFeaturedPlaylists(context.TODO(), spotted.BrowseGetFeaturedPlaylistsParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Message)\n}\n',
       },
       ruby: {
         method: 'browse.get_featured_playlists',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.browse.get_featured_playlists\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.browse.getFeaturedPlaylists',
+      cli: {
+        method: 'browse get_featured_playlists',
+        example: "spotted browse get-featured-playlists \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'browse->getFeaturedPlaylists',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.browse.getFeaturedPlaylists();\n\nconsole.log(response.message);",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->browse->getFeaturedPlaylists(\n  limit: 10, locale: 'sv_SE', offset: 5\n);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Browse.GetFeaturedPlaylists',
+        example:
+          'BrowseGetFeaturedPlaylistsParams parameters = new();\n\nvar response = await client.Browse.GetFeaturedPlaylists(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/browse/featured-playlists \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -5207,23 +5207,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## get_new_releases\n\n`client.browse.getNewReleases(limit?: number, offset?: number): { albums: object; }`\n\n**get** `/browse/new-releases`\n\nGet a list of new album releases featured in Spotify (shown, for example, on a Spotify player’s “Browse” tab).\n\n\n### Parameters\n\n- `limit?: number`\n  The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.\n\n\n- `offset?: number`\n  The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.\n\n\n### Returns\n\n- `{ albums: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: { id: string; album_type: 'album' | 'single' | 'compilation'; artists: simplified_artist_object[]; available_markets: string[]; external_urls: external_url_object; href: string; images: image_object[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; published?: boolean; restrictions?: album_restriction_object; }[]; published?: boolean; }; }`\n\n  - `albums: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: { id: string; album_type: 'album' | 'single' | 'compilation'; artists: { id?: string; external_urls?: external_url_object; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]; available_markets: string[]; external_urls: { published?: boolean; spotify?: string; }; href: string; images: { height: number; url: string; width: number; published?: boolean; }[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; published?: boolean; restrictions?: { published?: boolean; reason?: 'market' | 'product' | 'explicit'; }; }[]; published?: boolean; }`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.browse.getNewReleases();\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'browse get_new_releases',
-        example: "spotted browse get-new-releases \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Browse.GetNewReleases',
+      typescript: {
+        method: 'client.browse.getNewReleases',
         example:
-          'BrowseGetNewReleasesParams parameters = new();\n\nvar response = await client.Browse.GetNewReleases(parameters);\n\nConsole.WriteLine(response);',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.browse.getNewReleases();\n\nconsole.log(response.albums);",
       },
-      go: {
-        method: 'client.Browse.GetNewReleases',
+      python: {
+        method: 'browse.get_new_releases',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Browse.GetNewReleases(context.TODO(), spotted.BrowseGetNewReleasesParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Albums)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/browse/new-releases \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.browse.get_new_releases()\nprint(response.albums)',
       },
       java: {
         method: 'browse().getNewReleases',
@@ -5235,25 +5227,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.browse.BrowseGetNewReleasesParams\nimport dev.cjav.spotted.models.browse.BrowseGetNewReleasesResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: BrowseGetNewReleasesResponse = client.browse().getNewReleases()\n}',
       },
-      php: {
-        method: 'browse->getNewReleases',
+      go: {
+        method: 'client.Browse.GetNewReleases',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->browse->getNewReleases(limit: 10, offset: 5);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'browse.get_new_releases',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.browse.get_new_releases()\nprint(response.albums)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Browse.GetNewReleases(context.TODO(), spotted.BrowseGetNewReleasesParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Albums)\n}\n',
       },
       ruby: {
         method: 'browse.get_new_releases',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.browse.get_new_releases\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.browse.getNewReleases',
+      cli: {
+        method: 'browse get_new_releases',
+        example: "spotted browse get-new-releases \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'browse->getNewReleases',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.browse.getNewReleases();\n\nconsole.log(response.albums);",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->browse->getNewReleases(limit: 10, offset: 5);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Browse.GetNewReleases',
+        example:
+          'BrowseGetNewReleasesParams parameters = new();\n\nvar response = await client.Browse.GetNewReleases(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/browse/new-releases \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -5272,23 +5272,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.browse.categories.list(limit?: number, locale?: string, offset?: number): { id: string; href: string; icons: image_object[]; name: string; published?: boolean; }`\n\n**get** `/browse/categories`\n\nGet a list of categories used to tag items in Spotify (on, for example, the Spotify player’s “Browse” tab).\n\n\n### Parameters\n\n- `limit?: number`\n  The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.\n\n\n- `locale?: string`\n  The desired language, consisting of an [ISO 639-1](http://en.wikipedia.org/wiki/ISO_639-1) language code and an [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), joined by an underscore. For example: `es_MX`, meaning &quot;Spanish (Mexico)&quot;. Provide this parameter if you want the category strings returned in a particular language.<br/> _**Note**: if `locale` is not supplied, or if the specified language is not available, the category strings returned will be in the Spotify default language (American English)._\n\n\n- `offset?: number`\n  The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.\n\n\n### Returns\n\n- `{ id: string; href: string; icons: { height: number; url: string; width: number; published?: boolean; }[]; name: string; published?: boolean; }`\n\n  - `id: string`\n  - `href: string`\n  - `icons: { height: number; url: string; width: number; published?: boolean; }[]`\n  - `name: string`\n  - `published?: boolean`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\n// Automatically fetches more pages as needed.\nfor await (const categoryListResponse of client.browse.categories.list()) {\n  console.log(categoryListResponse);\n}\n```",
     perLanguage: {
-      cli: {
-        method: 'categories list',
-        example: "spotted browse:categories list \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Browse.Categories.List',
+      typescript: {
+        method: 'client.browse.categories.list',
         example:
-          'CategoryListParams parameters = new();\n\nvar page = await client.Browse.Categories.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const categoryListResponse of client.browse.categories.list()) {\n  console.log(categoryListResponse.id);\n}",
       },
-      go: {
-        method: 'client.Browse.Categories.List',
+      python: {
+        method: 'browse.categories.list',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Browse.Categories.List(context.TODO(), spotted.BrowseCategoryListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/browse/categories \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.browse.categories.list()\npage = page.items[0]\nprint(page.id)',
       },
       java: {
         method: 'browse().categories().list',
@@ -5300,25 +5292,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.browse.categories.CategoryListPage\nimport dev.cjav.spotted.models.browse.categories.CategoryListParams\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val page: CategoryListPage = client.browse().categories().list()\n}',
       },
-      php: {
-        method: 'browse->categories->list',
+      go: {
+        method: 'client.Browse.Categories.List',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->browse->categories->list(\n  limit: 10, locale: 'sv_SE', offset: 5\n);\n\nvar_dump($page);",
-      },
-      python: {
-        method: 'browse.categories.list',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\npage = client.browse.categories.list()\npage = page.items[0]\nprint(page.id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tpage, err := client.Browse.Categories.List(context.TODO(), spotted.BrowseCategoryListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
       },
       ruby: {
         method: 'browse.categories.list',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\npage = spotted.browse.categories.list\n\nputs(page)',
       },
-      typescript: {
-        method: 'client.browse.categories.list',
+      cli: {
+        method: 'categories list',
+        example: "spotted browse:categories list \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'browse->categories->list',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const categoryListResponse of client.browse.categories.list()) {\n  console.log(categoryListResponse.id);\n}",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$page = $client->browse->categories->list(\n  limit: 10, locale: 'sv_SE', offset: 5\n);\n\nvar_dump($page);",
+      },
+      csharp: {
+        method: 'Browse.Categories.List',
+        example:
+          'CategoryListParams parameters = new();\n\nvar page = await client.Browse.Categories.List(parameters);\nawait foreach (var item in page.Paginate())\n{\n    Console.WriteLine(item);\n}',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/browse/categories \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -5337,24 +5337,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.browse.categories.retrieve(category_id: string, locale?: string): { id: string; href: string; icons: image_object[]; name: string; published?: boolean; }`\n\n**get** `/browse/categories/{category_id}`\n\nGet a single category used to tag items in Spotify (on, for example, the Spotify player’s “Browse” tab).\n\n\n### Parameters\n\n- `category_id: string`\n  The [Spotify category ID](/documentation/web-api/concepts/spotify-uris-ids) for the category.\n\n\n- `locale?: string`\n  The desired language, consisting of an [ISO 639-1](http://en.wikipedia.org/wiki/ISO_639-1) language code and an [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), joined by an underscore. For example: `es_MX`, meaning &quot;Spanish (Mexico)&quot;. Provide this parameter if you want the category strings returned in a particular language.<br/> _**Note**: if `locale` is not supplied, or if the specified language is not available, the category strings returned will be in the Spotify default language (American English)._\n\n\n### Returns\n\n- `{ id: string; href: string; icons: { height: number; url: string; width: number; published?: boolean; }[]; name: string; published?: boolean; }`\n\n  - `id: string`\n  - `href: string`\n  - `icons: { height: number; url: string; width: number; published?: boolean; }[]`\n  - `name: string`\n  - `published?: boolean`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst category = await client.browse.categories.retrieve('dinner');\n\nconsole.log(category);\n```",
     perLanguage: {
-      cli: {
-        method: 'categories retrieve',
+      typescript: {
+        method: 'client.browse.categories.retrieve',
         example:
-          "spotted browse:categories retrieve \\\n  --access-token 'My Access Token' \\\n  --category-id dinner",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst category = await client.browse.categories.retrieve('dinner');\n\nconsole.log(category.id);",
       },
-      csharp: {
-        method: 'Browse.Categories.Retrieve',
+      python: {
+        method: 'browse.categories.retrieve',
         example:
-          'CategoryRetrieveParams parameters = new() { CategoryID = "dinner" };\n\nvar category = await client.Browse.Categories.Retrieve(parameters);\n\nConsole.WriteLine(category);',
-      },
-      go: {
-        method: 'client.Browse.Categories.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tcategory, err := client.Browse.Categories.Get(\n\t\tcontext.TODO(),\n\t\t"dinner",\n\t\tspotted.BrowseCategoryGetParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", category.ID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/browse/categories/$CATEGORY_ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\ncategory = client.browse.categories.retrieve(\n    category_id="dinner",\n)\nprint(category.id)',
       },
       java: {
         method: 'browse().categories().retrieve',
@@ -5366,25 +5357,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.browse.categories.CategoryRetrieveParams\nimport dev.cjav.spotted.models.browse.categories.CategoryRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val category: CategoryRetrieveResponse = client.browse().categories().retrieve("dinner")\n}',
       },
-      php: {
-        method: 'browse->categories->retrieve',
+      go: {
+        method: 'client.Browse.Categories.Get',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$category = $client->browse->categories->retrieve('dinner', locale: 'sv_SE');\n\nvar_dump($category);",
-      },
-      python: {
-        method: 'browse.categories.retrieve',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\ncategory = client.browse.categories.retrieve(\n    category_id="dinner",\n)\nprint(category.id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tcategory, err := client.Browse.Categories.Get(\n\t\tcontext.TODO(),\n\t\t"dinner",\n\t\tspotted.BrowseCategoryGetParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", category.ID)\n}\n',
       },
       ruby: {
         method: 'browse.categories.retrieve',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\ncategory = spotted.browse.categories.retrieve("dinner")\n\nputs(category)',
       },
-      typescript: {
-        method: 'client.browse.categories.retrieve',
+      cli: {
+        method: 'categories retrieve',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst category = await client.browse.categories.retrieve('dinner');\n\nconsole.log(category.id);",
+          "spotted browse:categories retrieve \\\n  --access-token 'My Access Token' \\\n  --category-id dinner",
+      },
+      php: {
+        method: 'browse->categories->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$category = $client->browse->categories->retrieve('dinner', locale: 'sv_SE');\n\nvar_dump($category);",
+      },
+      csharp: {
+        method: 'Browse.Categories.Retrieve',
+        example:
+          'CategoryRetrieveParams parameters = new() { CategoryID = "dinner" };\n\nvar category = await client.Browse.Categories.Retrieve(parameters);\n\nConsole.WriteLine(category);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/browse/categories/$CATEGORY_ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -5402,24 +5402,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## get_playlists\n\n`client.browse.categories.getPlaylists(category_id: string, limit?: number, offset?: number): { message?: string; playlists?: paging_playlist_object; published?: boolean; }`\n\n**get** `/browse/categories/{category_id}/playlists`\n\nGet a list of Spotify playlists tagged with a particular category.\n\n\n### Parameters\n\n- `category_id: string`\n  The [Spotify category ID](/documentation/web-api/concepts/spotify-uris-ids) for the category.\n\n\n- `limit?: number`\n  The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.\n\n\n- `offset?: number`\n  The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.\n\n\n### Returns\n\n- `{ message?: string; playlists?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: simplified_playlist_object[]; published?: boolean; }; published?: boolean; }`\n\n  - `message?: string`\n  - `playlists?: { href: string; limit: number; next: string; offset: number; previous: string; total: number; items?: { id?: string; collaborative?: boolean; description?: string; external_urls?: external_url_object; href?: string; images?: image_object[]; items?: playlist_tracks_ref_object; name?: string; owner?: playlist_user_object; published?: boolean; snapshot_id?: string; tracks?: playlist_tracks_ref_object; type?: string; uri?: string; }[]; published?: boolean; }`\n  - `published?: boolean`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.browse.categories.getPlaylists('dinner');\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'categories get_playlists',
+      typescript: {
+        method: 'client.browse.categories.getPlaylists',
         example:
-          "spotted browse:categories get-playlists \\\n  --access-token 'My Access Token' \\\n  --category-id dinner",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.browse.categories.getPlaylists('dinner');\n\nconsole.log(response.message);",
       },
-      csharp: {
-        method: 'Browse.Categories.GetPlaylists',
+      python: {
+        method: 'browse.categories.get_playlists',
         example:
-          'CategoryGetPlaylistsParams parameters = new() { CategoryID = "dinner" };\n\nvar response = await client.Browse.Categories.GetPlaylists(parameters);\n\nConsole.WriteLine(response);',
-      },
-      go: {
-        method: 'client.Browse.Categories.GetPlaylists',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Browse.Categories.GetPlaylists(\n\t\tcontext.TODO(),\n\t\t"dinner",\n\t\tspotted.BrowseCategoryGetPlaylistsParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Message)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/browse/categories/$CATEGORY_ID/playlists \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.browse.categories.get_playlists(\n    category_id="dinner",\n)\nprint(response.message)',
       },
       java: {
         method: 'browse().categories().getPlaylists',
@@ -5431,25 +5422,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.browse.categories.CategoryGetPlaylistsParams\nimport dev.cjav.spotted.models.browse.categories.CategoryGetPlaylistsResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: CategoryGetPlaylistsResponse = client.browse().categories().getPlaylists("dinner")\n}',
       },
-      php: {
-        method: 'browse->categories->getPlaylists',
+      go: {
+        method: 'client.Browse.Categories.GetPlaylists',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->browse->categories->getPlaylists(\n  'dinner', limit: 10, offset: 5\n);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'browse.categories.get_playlists',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.browse.categories.get_playlists(\n    category_id="dinner",\n)\nprint(response.message)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Browse.Categories.GetPlaylists(\n\t\tcontext.TODO(),\n\t\t"dinner",\n\t\tspotted.BrowseCategoryGetPlaylistsParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Message)\n}\n',
       },
       ruby: {
         method: 'browse.categories.get_playlists',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.browse.categories.get_playlists("dinner")\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.browse.categories.getPlaylists',
+      cli: {
+        method: 'categories get_playlists',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.browse.categories.getPlaylists('dinner');\n\nconsole.log(response.message);",
+          "spotted browse:categories get-playlists \\\n  --access-token 'My Access Token' \\\n  --category-id dinner",
+      },
+      php: {
+        method: 'browse->categories->getPlaylists',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->browse->categories->getPlaylists(\n  'dinner', limit: 10, offset: 5\n);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Browse.Categories.GetPlaylists',
+        example:
+          'CategoryGetPlaylistsParams parameters = new() { CategoryID = "dinner" };\n\nvar response = await client.Browse.Categories.GetPlaylists(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/browse/categories/$CATEGORY_ID/playlists \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -5467,24 +5467,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## bulk_retrieve\n\n`client.audioFeatures.bulkRetrieve(ids: string): { audio_features: object[]; }`\n\n**get** `/audio-features`\n\nGet audio features for multiple tracks based on their Spotify IDs.\n\n\n### Parameters\n\n- `ids: string`\n  A comma-separated list of the [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids)\nfor the tracks. Maximum: 100 IDs.\n\n\n### Returns\n\n- `{ audio_features: { id?: string; acousticness?: number; analysis_url?: string; danceability?: number; duration_ms?: number; energy?: number; instrumentalness?: number; key?: number; liveness?: number; loudness?: number; mode?: number; published?: boolean; speechiness?: number; tempo?: number; time_signature?: number; track_href?: string; type?: 'audio_features'; uri?: string; valence?: number; }[]; }`\n\n  - `audio_features: { id?: string; acousticness?: number; analysis_url?: string; danceability?: number; duration_ms?: number; energy?: number; instrumentalness?: number; key?: number; liveness?: number; loudness?: number; mode?: number; published?: boolean; speechiness?: number; tempo?: number; time_signature?: number; track_href?: string; type?: 'audio_features'; uri?: string; valence?: number; }[]`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.audioFeatures.bulkRetrieve({ ids: '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B' });\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'audio_features bulk_retrieve',
+      typescript: {
+        method: 'client.audioFeatures.bulkRetrieve',
         example:
-          "spotted audio-features bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.audioFeatures.bulkRetrieve({\n  ids: '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B',\n});\n\nconsole.log(response.audio_features);",
       },
-      csharp: {
-        method: 'AudioFeatures.BulkRetrieve',
+      python: {
+        method: 'audio_features.bulk_retrieve',
         example:
-          'AudioFeatureBulkRetrieveParams parameters = new()\n{\n    Ids = "7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B"\n};\n\nvar response = await client.AudioFeatures.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
-      },
-      go: {
-        method: 'client.AudioFeatures.BulkGet',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.AudioFeatures.BulkGet(context.TODO(), spotted.AudioFeatureBulkGetParams{\n\t\tIDs: "7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.AudioFeatures)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/audio-features \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.audio_features.bulk_retrieve(\n    ids="7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B",\n)\nprint(response.audio_features)',
       },
       java: {
         method: 'audioFeatures().bulkRetrieve',
@@ -5496,25 +5487,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.audiofeatures.AudioFeatureBulkRetrieveParams\nimport dev.cjav.spotted.models.audiofeatures.AudioFeatureBulkRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val params: AudioFeatureBulkRetrieveParams = AudioFeatureBulkRetrieveParams.builder()\n        .ids("7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B")\n        .build()\n    val response: AudioFeatureBulkRetrieveResponse = client.audioFeatures().bulkRetrieve(params)\n}',
       },
-      php: {
-        method: 'audioFeatures->bulkRetrieve',
+      go: {
+        method: 'client.AudioFeatures.BulkGet',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->audioFeatures->bulkRetrieve(\n  ids: '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B'\n);\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'audio_features.bulk_retrieve',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.audio_features.bulk_retrieve(\n    ids="7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B",\n)\nprint(response.audio_features)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.AudioFeatures.BulkGet(context.TODO(), spotted.AudioFeatureBulkGetParams{\n\t\tIDs: "7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.AudioFeatures)\n}\n',
       },
       ruby: {
         method: 'audio_features.bulk_retrieve',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.audio_features.bulk_retrieve(\n  ids: "7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B"\n)\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.audioFeatures.bulkRetrieve',
+      cli: {
+        method: 'audio_features bulk_retrieve',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.audioFeatures.bulkRetrieve({\n  ids: '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B',\n});\n\nconsole.log(response.audio_features);",
+          "spotted audio-features bulk-retrieve \\\n  --access-token 'My Access Token' \\\n  --ids 7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B",
+      },
+      php: {
+        method: 'audioFeatures->bulkRetrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->audioFeatures->bulkRetrieve(\n  ids: '7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B'\n);\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'AudioFeatures.BulkRetrieve',
+        example:
+          'AudioFeatureBulkRetrieveParams parameters = new()\n{\n    Ids = "7ouMYWpwJ422jRcDASZB7P,4VqPOruhp5EdPBeR92t6lQ,2takcwOaAZWiXQijPHIx7B"\n};\n\nvar response = await client.AudioFeatures.BulkRetrieve(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/audio-features \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -5532,24 +5532,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.audioFeatures.retrieve(id: string): { id?: string; acousticness?: number; analysis_url?: string; danceability?: number; duration_ms?: number; energy?: number; instrumentalness?: number; key?: number; liveness?: number; loudness?: number; mode?: number; published?: boolean; speechiness?: number; tempo?: number; time_signature?: number; track_href?: string; type?: 'audio_features'; uri?: string; valence?: number; }`\n\n**get** `/audio-features/{id}`\n\nGet audio feature information for a single track identified by its unique\nSpotify ID.\n\n\n### Parameters\n\n- `id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids) for the track.\n\n\n### Returns\n\n- `{ id?: string; acousticness?: number; analysis_url?: string; danceability?: number; duration_ms?: number; energy?: number; instrumentalness?: number; key?: number; liveness?: number; loudness?: number; mode?: number; published?: boolean; speechiness?: number; tempo?: number; time_signature?: number; track_href?: string; type?: 'audio_features'; uri?: string; valence?: number; }`\n\n  - `id?: string`\n  - `acousticness?: number`\n  - `analysis_url?: string`\n  - `danceability?: number`\n  - `duration_ms?: number`\n  - `energy?: number`\n  - `instrumentalness?: number`\n  - `key?: number`\n  - `liveness?: number`\n  - `loudness?: number`\n  - `mode?: number`\n  - `published?: boolean`\n  - `speechiness?: number`\n  - `tempo?: number`\n  - `time_signature?: number`\n  - `track_href?: string`\n  - `type?: 'audio_features'`\n  - `uri?: string`\n  - `valence?: number`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst audioFeature = await client.audioFeatures.retrieve('11dFghVXANMlKmJXsNCbNl');\n\nconsole.log(audioFeature);\n```",
     perLanguage: {
-      cli: {
-        method: 'audio_features retrieve',
+      typescript: {
+        method: 'client.audioFeatures.retrieve',
         example:
-          "spotted audio-features retrieve \\\n  --access-token 'My Access Token' \\\n  --id 11dFghVXANMlKmJXsNCbNl",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst audioFeature = await client.audioFeatures.retrieve('11dFghVXANMlKmJXsNCbNl');\n\nconsole.log(audioFeature.id);",
       },
-      csharp: {
-        method: 'AudioFeatures.Retrieve',
+      python: {
+        method: 'audio_features.retrieve',
         example:
-          'AudioFeatureRetrieveParams parameters = new() { ID = "11dFghVXANMlKmJXsNCbNl" };\n\nvar audioFeature = await client.AudioFeatures.Retrieve(parameters);\n\nConsole.WriteLine(audioFeature);',
-      },
-      go: {
-        method: 'client.AudioFeatures.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\taudioFeature, err := client.AudioFeatures.Get(context.TODO(), "11dFghVXANMlKmJXsNCbNl")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", audioFeature.ID)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/audio-features/$ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\naudio_feature = client.audio_features.retrieve(\n    "11dFghVXANMlKmJXsNCbNl",\n)\nprint(audio_feature.id)',
       },
       java: {
         method: 'audioFeatures().retrieve',
@@ -5561,25 +5552,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.audiofeatures.AudioFeatureRetrieveParams\nimport dev.cjav.spotted.models.audiofeatures.AudioFeatureRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val audioFeature: AudioFeatureRetrieveResponse = client.audioFeatures().retrieve("11dFghVXANMlKmJXsNCbNl")\n}',
       },
-      php: {
-        method: 'audioFeatures->retrieve',
+      go: {
+        method: 'client.AudioFeatures.Get',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$audioFeature = $client->audioFeatures->retrieve('11dFghVXANMlKmJXsNCbNl');\n\nvar_dump($audioFeature);",
-      },
-      python: {
-        method: 'audio_features.retrieve',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\naudio_feature = client.audio_features.retrieve(\n    "11dFghVXANMlKmJXsNCbNl",\n)\nprint(audio_feature.id)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\taudioFeature, err := client.AudioFeatures.Get(context.TODO(), "11dFghVXANMlKmJXsNCbNl")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", audioFeature.ID)\n}\n',
       },
       ruby: {
         method: 'audio_features.retrieve',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\naudio_feature = spotted.audio_features.retrieve("11dFghVXANMlKmJXsNCbNl")\n\nputs(audio_feature)',
       },
-      typescript: {
-        method: 'client.audioFeatures.retrieve',
+      cli: {
+        method: 'audio_features retrieve',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst audioFeature = await client.audioFeatures.retrieve('11dFghVXANMlKmJXsNCbNl');\n\nconsole.log(audioFeature.id);",
+          "spotted audio-features retrieve \\\n  --access-token 'My Access Token' \\\n  --id 11dFghVXANMlKmJXsNCbNl",
+      },
+      php: {
+        method: 'audioFeatures->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$audioFeature = $client->audioFeatures->retrieve('11dFghVXANMlKmJXsNCbNl');\n\nvar_dump($audioFeature);",
+      },
+      csharp: {
+        method: 'AudioFeatures.Retrieve',
+        example:
+          'AudioFeatureRetrieveParams parameters = new() { ID = "11dFghVXANMlKmJXsNCbNl" };\n\nvar audioFeature = await client.AudioFeatures.Retrieve(parameters);\n\nConsole.WriteLine(audioFeature);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/audio-features/$ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -5598,24 +5598,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.audioAnalysis.retrieve(id: string): { bars?: time_interval_object[]; beats?: time_interval_object[]; meta?: object; published?: boolean; sections?: object[]; segments?: object[]; tatums?: time_interval_object[]; track?: object; }`\n\n**get** `/audio-analysis/{id}`\n\nGet a low-level audio analysis for a track in the Spotify catalog. The audio analysis describes the track’s structure and musical content, including rhythm, pitch, and timbre.\n\n\n### Parameters\n\n- `id: string`\n  The [Spotify ID](/documentation/web-api/concepts/spotify-uris-ids)\nfor the track.\n\n\n### Returns\n\n- `{ bars?: { confidence?: number; duration?: number; published?: boolean; start?: number; }[]; beats?: { confidence?: number; duration?: number; published?: boolean; start?: number; }[]; meta?: { analysis_time?: number; analyzer_version?: string; detailed_status?: string; input_process?: string; platform?: string; status_code?: number; timestamp?: number; }; published?: boolean; sections?: { confidence?: number; duration?: number; key?: number; key_confidence?: number; loudness?: number; mode?: -1 | 0 | 1; mode_confidence?: number; published?: boolean; start?: number; tempo?: number; tempo_confidence?: number; time_signature?: number; time_signature_confidence?: number; }[]; segments?: { confidence?: number; duration?: number; loudness_end?: number; loudness_max?: number; loudness_max_time?: number; loudness_start?: number; pitches?: number[]; published?: boolean; start?: number; timbre?: number[]; }[]; tatums?: { confidence?: number; duration?: number; published?: boolean; start?: number; }[]; track?: { analysis_channels?: number; analysis_sample_rate?: number; code_version?: number; codestring?: string; duration?: number; echoprint_version?: number; echoprintstring?: string; end_of_fade_in?: number; key?: number; key_confidence?: number; loudness?: number; mode?: number; mode_confidence?: number; num_samples?: number; offset_seconds?: number; rhythm_version?: number; rhythmstring?: string; sample_md5?: string; start_of_fade_out?: number; synch_version?: number; synchstring?: string; tempo?: number; tempo_confidence?: number; time_signature?: number; time_signature_confidence?: number; window_seconds?: number; }; }`\n\n  - `bars?: { confidence?: number; duration?: number; published?: boolean; start?: number; }[]`\n  - `beats?: { confidence?: number; duration?: number; published?: boolean; start?: number; }[]`\n  - `meta?: { analysis_time?: number; analyzer_version?: string; detailed_status?: string; input_process?: string; platform?: string; status_code?: number; timestamp?: number; }`\n  - `published?: boolean`\n  - `sections?: { confidence?: number; duration?: number; key?: number; key_confidence?: number; loudness?: number; mode?: -1 | 0 | 1; mode_confidence?: number; published?: boolean; start?: number; tempo?: number; tempo_confidence?: number; time_signature?: number; time_signature_confidence?: number; }[]`\n  - `segments?: { confidence?: number; duration?: number; loudness_end?: number; loudness_max?: number; loudness_max_time?: number; loudness_start?: number; pitches?: number[]; published?: boolean; start?: number; timbre?: number[]; }[]`\n  - `tatums?: { confidence?: number; duration?: number; published?: boolean; start?: number; }[]`\n  - `track?: { analysis_channels?: number; analysis_sample_rate?: number; code_version?: number; codestring?: string; duration?: number; echoprint_version?: number; echoprintstring?: string; end_of_fade_in?: number; key?: number; key_confidence?: number; loudness?: number; mode?: number; mode_confidence?: number; num_samples?: number; offset_seconds?: number; rhythm_version?: number; rhythmstring?: string; sample_md5?: string; start_of_fade_out?: number; synch_version?: number; synchstring?: string; tempo?: number; tempo_confidence?: number; time_signature?: number; time_signature_confidence?: number; window_seconds?: number; }`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst audioAnalysis = await client.audioAnalysis.retrieve('11dFghVXANMlKmJXsNCbNl');\n\nconsole.log(audioAnalysis);\n```",
     perLanguage: {
-      cli: {
-        method: 'audio_analysis retrieve',
+      typescript: {
+        method: 'client.audioAnalysis.retrieve',
         example:
-          "spotted audio-analysis retrieve \\\n  --access-token 'My Access Token' \\\n  --id 11dFghVXANMlKmJXsNCbNl",
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst audioAnalysis = await client.audioAnalysis.retrieve('11dFghVXANMlKmJXsNCbNl');\n\nconsole.log(audioAnalysis.bars);",
       },
-      csharp: {
-        method: 'AudioAnalysis.Retrieve',
+      python: {
+        method: 'audio_analysis.retrieve',
         example:
-          'AudioAnalysisRetrieveParams parameters = new()\n{\n    ID = "11dFghVXANMlKmJXsNCbNl"\n};\n\nvar audioAnalysis = await client.AudioAnalysis.Retrieve(parameters);\n\nConsole.WriteLine(audioAnalysis);',
-      },
-      go: {
-        method: 'client.AudioAnalysis.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\taudioAnalysis, err := client.AudioAnalysis.Get(context.TODO(), "11dFghVXANMlKmJXsNCbNl")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", audioAnalysis.Bars)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/audio-analysis/$ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\naudio_analysis = client.audio_analysis.retrieve(\n    "11dFghVXANMlKmJXsNCbNl",\n)\nprint(audio_analysis.bars)',
       },
       java: {
         method: 'audioAnalysis().retrieve',
@@ -5627,25 +5618,34 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.audioanalysis.AudioAnalysisRetrieveParams\nimport dev.cjav.spotted.models.audioanalysis.AudioAnalysisRetrieveResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val audioAnalysis: AudioAnalysisRetrieveResponse = client.audioAnalysis().retrieve("11dFghVXANMlKmJXsNCbNl")\n}',
       },
-      php: {
-        method: 'audioAnalysis->retrieve',
+      go: {
+        method: 'client.AudioAnalysis.Get',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$audioAnalysis = $client->audioAnalysis->retrieve('11dFghVXANMlKmJXsNCbNl');\n\nvar_dump($audioAnalysis);",
-      },
-      python: {
-        method: 'audio_analysis.retrieve',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\naudio_analysis = client.audio_analysis.retrieve(\n    "11dFghVXANMlKmJXsNCbNl",\n)\nprint(audio_analysis.bars)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\taudioAnalysis, err := client.AudioAnalysis.Get(context.TODO(), "11dFghVXANMlKmJXsNCbNl")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", audioAnalysis.Bars)\n}\n',
       },
       ruby: {
         method: 'audio_analysis.retrieve',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\naudio_analysis = spotted.audio_analysis.retrieve("11dFghVXANMlKmJXsNCbNl")\n\nputs(audio_analysis)',
       },
-      typescript: {
-        method: 'client.audioAnalysis.retrieve',
+      cli: {
+        method: 'audio_analysis retrieve',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst audioAnalysis = await client.audioAnalysis.retrieve('11dFghVXANMlKmJXsNCbNl');\n\nconsole.log(audioAnalysis.bars);",
+          "spotted audio-analysis retrieve \\\n  --access-token 'My Access Token' \\\n  --id 11dFghVXANMlKmJXsNCbNl",
+      },
+      php: {
+        method: 'audioAnalysis->retrieve',
+        example:
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$audioAnalysis = $client->audioAnalysis->retrieve('11dFghVXANMlKmJXsNCbNl');\n\nvar_dump($audioAnalysis);",
+      },
+      csharp: {
+        method: 'AudioAnalysis.Retrieve',
+        example:
+          'AudioAnalysisRetrieveParams parameters = new()\n{\n    ID = "11dFghVXANMlKmJXsNCbNl"\n};\n\nvar audioAnalysis = await client.AudioAnalysis.Retrieve(parameters);\n\nConsole.WriteLine(audioAnalysis);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/audio-analysis/$ID \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -5712,23 +5712,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## get\n\n`client.recommendations.get(limit?: number, market?: string, max_acousticness?: number, max_danceability?: number, max_duration_ms?: number, max_energy?: number, max_instrumentalness?: number, max_key?: number, max_liveness?: number, max_loudness?: number, max_mode?: number, max_popularity?: number, max_speechiness?: number, max_tempo?: number, max_time_signature?: number, max_valence?: number, min_acousticness?: number, min_danceability?: number, min_duration_ms?: number, min_energy?: number, min_instrumentalness?: number, min_key?: number, min_liveness?: number, min_loudness?: number, min_mode?: number, min_popularity?: number, min_speechiness?: number, min_tempo?: number, min_time_signature?: number, min_valence?: number, seed_artists?: string, seed_genres?: string, seed_tracks?: string, target_acousticness?: number, target_danceability?: number, target_duration_ms?: number, target_energy?: number, target_instrumentalness?: number, target_key?: number, target_liveness?: number, target_loudness?: number, target_mode?: number, target_popularity?: number, target_speechiness?: number, target_tempo?: number, target_time_signature?: number, target_valence?: number): { seeds: object[]; tracks: track_object[]; published?: boolean; }`\n\n**get** `/recommendations`\n\nRecommendations are generated based on the available information for a given seed entity and matched against similar artists and tracks. If there is sufficient information about the provided seeds, a list of tracks will be returned together with pool size details.\n\nFor artists and tracks that are very new or obscure there might not be enough data to generate a list of tracks.\n\n\n### Parameters\n\n- `limit?: number`\n  The target size of the list of recommended tracks. For seeds with unusually small pools or when highly restrictive filtering is applied, it may be impossible to generate the requested number of recommended tracks. Debugging information for such cases is available in the response. Default: 20\\. Minimum: 1\\. Maximum: 100.\n\n\n- `market?: string`\n  An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).\n  If a country code is specified, only content that is available in that market will be returned.<br/>\n  If a valid user access token is specified in the request header, the country associated with\n  the user account will take priority over this parameter.<br/>\n  _**Note**: If neither market or user country are provided, the content is considered unavailable for the client._<br/>\n  Users can view the country that is associated with their account in the [account settings](https://www.spotify.com/account/overview/).\n\n\n- `max_acousticness?: number`\n  For each tunable track attribute, a hard ceiling on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.\n\n\n- `max_danceability?: number`\n  For each tunable track attribute, a hard ceiling on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.\n\n\n- `max_duration_ms?: number`\n  For each tunable track attribute, a hard ceiling on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.\n\n\n- `max_energy?: number`\n  For each tunable track attribute, a hard ceiling on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.\n\n\n- `max_instrumentalness?: number`\n  For each tunable track attribute, a hard ceiling on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.\n\n\n- `max_key?: number`\n  For each tunable track attribute, a hard ceiling on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.\n\n\n- `max_liveness?: number`\n  For each tunable track attribute, a hard ceiling on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.\n\n\n- `max_loudness?: number`\n  For each tunable track attribute, a hard ceiling on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.\n\n\n- `max_mode?: number`\n  For each tunable track attribute, a hard ceiling on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.\n\n\n- `max_popularity?: number`\n  For each tunable track attribute, a hard ceiling on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.\n\n\n- `max_speechiness?: number`\n  For each tunable track attribute, a hard ceiling on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.\n\n\n- `max_tempo?: number`\n  For each tunable track attribute, a hard ceiling on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.\n\n\n- `max_time_signature?: number`\n  For each tunable track attribute, a hard ceiling on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.\n\n\n- `max_valence?: number`\n  For each tunable track attribute, a hard ceiling on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.\n\n\n- `min_acousticness?: number`\n  For each tunable track attribute, a hard floor on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.\n\n\n- `min_danceability?: number`\n  For each tunable track attribute, a hard floor on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.\n\n\n- `min_duration_ms?: number`\n  For each tunable track attribute, a hard floor on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.\n\n\n- `min_energy?: number`\n  For each tunable track attribute, a hard floor on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.\n\n\n- `min_instrumentalness?: number`\n  For each tunable track attribute, a hard floor on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.\n\n\n- `min_key?: number`\n  For each tunable track attribute, a hard floor on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.\n\n\n- `min_liveness?: number`\n  For each tunable track attribute, a hard floor on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.\n\n\n- `min_loudness?: number`\n  For each tunable track attribute, a hard floor on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.\n\n\n- `min_mode?: number`\n  For each tunable track attribute, a hard floor on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.\n\n\n- `min_popularity?: number`\n  For each tunable track attribute, a hard floor on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.\n\n\n- `min_speechiness?: number`\n  For each tunable track attribute, a hard floor on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.\n\n\n- `min_tempo?: number`\n  For each tunable track attribute, a hard floor on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.\n\n\n- `min_time_signature?: number`\n  For each tunable track attribute, a hard floor on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.\n\n\n- `min_valence?: number`\n  For each tunable track attribute, a hard floor on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.\n\n\n- `seed_artists?: string`\n  A comma separated list of [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for seed artists.  Up to 5 seed values may be provided in any combination of `seed_artists`, `seed_tracks` and `seed_genres`.<br/> _**Note**: only required if `seed_genres` and `seed_tracks` are not set_.\n\n\n- `seed_genres?: string`\n  A comma separated list of any genres in the set of [available genre seeds](/documentation/web-api/reference/get-recommendation-genres). Up to 5 seed values may be provided in any combination of `seed_artists`, `seed_tracks` and `seed_genres`.<br/> _**Note**: only required if `seed_artists` and `seed_tracks` are not set_.\n\n\n- `seed_tracks?: string`\n  A comma separated list of [Spotify IDs](/documentation/web-api/concepts/spotify-uris-ids) for a seed track.  Up to 5 seed values may be provided in any combination of `seed_artists`, `seed_tracks` and `seed_genres`.<br/> _**Note**: only required if `seed_artists` and `seed_genres` are not set_.\n\n\n- `target_acousticness?: number`\n  For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.\n\n\n- `target_danceability?: number`\n  For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.\n\n\n- `target_duration_ms?: number`\n  Target duration of the track (ms)\n\n- `target_energy?: number`\n  For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.\n\n\n- `target_instrumentalness?: number`\n  For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.\n\n\n- `target_key?: number`\n  For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.\n\n\n- `target_liveness?: number`\n  For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.\n\n\n- `target_loudness?: number`\n  For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.\n\n\n- `target_mode?: number`\n  For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.\n\n\n- `target_popularity?: number`\n  For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.\n\n\n- `target_speechiness?: number`\n  For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.\n\n\n- `target_tempo?: number`\n  Target tempo (BPM)\n\n- `target_time_signature?: number`\n  For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.\n\n\n- `target_valence?: number`\n  For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.\n\n\n### Returns\n\n- `{ seeds: { id?: string; afterFilteringSize?: number; afterRelinkingSize?: number; href?: string; initialPoolSize?: number; published?: boolean; type?: string; }[]; tracks: { id?: string; album?: object; artists?: simplified_artist_object[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: external_id_object; external_urls?: external_url_object; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: linked_track_object; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: track_restriction_object; track_number?: number; type?: 'track'; uri?: string; }[]; published?: boolean; }`\n\n  - `seeds: { id?: string; afterFilteringSize?: number; afterRelinkingSize?: number; href?: string; initialPoolSize?: number; published?: boolean; type?: string; }[]`\n  - `tracks: { id?: string; album?: { id: string; album_type: 'album' | 'single' | 'compilation'; artists: object[]; available_markets: string[]; external_urls: object; href: string; images: object[]; name: string; release_date: string; release_date_precision: 'year' | 'month' | 'day'; total_tracks: number; type: 'album'; uri: string; published?: boolean; restrictions?: object; }; artists?: { id?: string; external_urls?: external_url_object; href?: string; name?: string; published?: boolean; type?: 'artist'; uri?: string; }[]; available_markets?: string[]; disc_number?: number; duration_ms?: number; explicit?: boolean; external_ids?: { ean?: string; isrc?: string; published?: boolean; upc?: string; }; external_urls?: { published?: boolean; spotify?: string; }; href?: string; is_local?: boolean; is_playable?: boolean; linked_from?: { id?: string; external_urls?: external_url_object; href?: string; published?: boolean; type?: string; uri?: string; }; name?: string; popularity?: number; preview_url?: string; published?: boolean; restrictions?: { published?: boolean; reason?: string; }; track_number?: number; type?: 'track'; uri?: string; }[]`\n  - `published?: boolean`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst recommendation = await client.recommendations.get();\n\nconsole.log(recommendation);\n```",
     perLanguage: {
-      cli: {
-        method: 'recommendations get',
-        example: "spotted recommendations get \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Recommendations.Get',
+      typescript: {
+        method: 'client.recommendations.get',
         example:
-          'RecommendationGetParams parameters = new();\n\nvar recommendation = await client.Recommendations.Get(parameters);\n\nConsole.WriteLine(recommendation);',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst recommendation = await client.recommendations.get();\n\nconsole.log(recommendation.seeds);",
       },
-      go: {
-        method: 'client.Recommendations.Get',
+      python: {
+        method: 'recommendations.get',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\trecommendation, err := client.Recommendations.Get(context.TODO(), spotted.RecommendationGetParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", recommendation.Seeds)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/recommendations \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nrecommendation = client.recommendations.get()\nprint(recommendation.seeds)',
       },
       java: {
         method: 'recommendations().get',
@@ -5740,25 +5732,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.recommendations.RecommendationGetParams\nimport dev.cjav.spotted.models.recommendations.RecommendationGetResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val recommendation: RecommendationGetResponse = client.recommendations().get()\n}',
       },
-      php: {
-        method: 'recommendations->get',
+      go: {
+        method: 'client.Recommendations.Get',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$recommendation = $client->recommendations->get(\n  limit: 10,\n  market: 'ES',\n  maxAcousticness: 0,\n  maxDanceability: 0,\n  maxDurationMs: 0,\n  maxEnergy: 0,\n  maxInstrumentalness: 0,\n  maxKey: 0,\n  maxLiveness: 0,\n  maxLoudness: 0,\n  maxMode: 0,\n  maxPopularity: 0,\n  maxSpeechiness: 0,\n  maxTempo: 0,\n  maxTimeSignature: 0,\n  maxValence: 0,\n  minAcousticness: 0,\n  minDanceability: 0,\n  minDurationMs: 0,\n  minEnergy: 0,\n  minInstrumentalness: 0,\n  minKey: 0,\n  minLiveness: 0,\n  minLoudness: 0,\n  minMode: 0,\n  minPopularity: 0,\n  minSpeechiness: 0,\n  minTempo: 0,\n  minTimeSignature: 11,\n  minValence: 0,\n  seedArtists: '4NHQUGzhtTLFvgF5SZesLK',\n  seedGenres: 'classical,country',\n  seedTracks: '0c6xIDDpzE81m2q797ordA',\n  targetAcousticness: 0,\n  targetDanceability: 0,\n  targetDurationMs: 0,\n  targetEnergy: 0,\n  targetInstrumentalness: 0,\n  targetKey: 0,\n  targetLiveness: 0,\n  targetLoudness: 0,\n  targetMode: 0,\n  targetPopularity: 0,\n  targetSpeechiness: 0,\n  targetTempo: 0,\n  targetTimeSignature: 0,\n  targetValence: 0,\n);\n\nvar_dump($recommendation);",
-      },
-      python: {
-        method: 'recommendations.get',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nrecommendation = client.recommendations.get()\nprint(recommendation.seeds)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\trecommendation, err := client.Recommendations.Get(context.TODO(), spotted.RecommendationGetParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", recommendation.Seeds)\n}\n',
       },
       ruby: {
         method: 'recommendations.get',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nrecommendation = spotted.recommendations.get\n\nputs(recommendation)',
       },
-      typescript: {
-        method: 'client.recommendations.get',
+      cli: {
+        method: 'recommendations get',
+        example: "spotted recommendations get \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'recommendations->get',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst recommendation = await client.recommendations.get();\n\nconsole.log(recommendation.seeds);",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$recommendation = $client->recommendations->get(\n  limit: 10,\n  market: 'ES',\n  maxAcousticness: 0,\n  maxDanceability: 0,\n  maxDurationMs: 0,\n  maxEnergy: 0,\n  maxInstrumentalness: 0,\n  maxKey: 0,\n  maxLiveness: 0,\n  maxLoudness: 0,\n  maxMode: 0,\n  maxPopularity: 0,\n  maxSpeechiness: 0,\n  maxTempo: 0,\n  maxTimeSignature: 0,\n  maxValence: 0,\n  minAcousticness: 0,\n  minDanceability: 0,\n  minDurationMs: 0,\n  minEnergy: 0,\n  minInstrumentalness: 0,\n  minKey: 0,\n  minLiveness: 0,\n  minLoudness: 0,\n  minMode: 0,\n  minPopularity: 0,\n  minSpeechiness: 0,\n  minTempo: 0,\n  minTimeSignature: 11,\n  minValence: 0,\n  seedArtists: '4NHQUGzhtTLFvgF5SZesLK',\n  seedGenres: 'classical,country',\n  seedTracks: '0c6xIDDpzE81m2q797ordA',\n  targetAcousticness: 0,\n  targetDanceability: 0,\n  targetDurationMs: 0,\n  targetEnergy: 0,\n  targetInstrumentalness: 0,\n  targetKey: 0,\n  targetLiveness: 0,\n  targetLoudness: 0,\n  targetMode: 0,\n  targetPopularity: 0,\n  targetSpeechiness: 0,\n  targetTempo: 0,\n  targetTimeSignature: 0,\n  targetValence: 0,\n);\n\nvar_dump($recommendation);",
+      },
+      csharp: {
+        method: 'Recommendations.Get',
+        example:
+          'RecommendationGetParams parameters = new();\n\nvar recommendation = await client.Recommendations.Get(parameters);\n\nConsole.WriteLine(recommendation);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/recommendations \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -5775,23 +5775,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list_available_genre_seeds\n\n`client.recommendations.listAvailableGenreSeeds(): { genres: string[]; }`\n\n**get** `/recommendations/available-genre-seeds`\n\nRetrieve a list of available genres seed parameter values for [recommendations](/documentation/web-api/reference/get-recommendations).\n\n\n### Returns\n\n- `{ genres: string[]; }`\n\n  - `genres: string[]`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst response = await client.recommendations.listAvailableGenreSeeds();\n\nconsole.log(response);\n```",
     perLanguage: {
-      cli: {
-        method: 'recommendations list_available_genre_seeds',
-        example: "spotted recommendations list-available-genre-seeds \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Recommendations.ListAvailableGenreSeeds',
+      typescript: {
+        method: 'client.recommendations.listAvailableGenreSeeds',
         example:
-          'RecommendationListAvailableGenreSeedsParams parameters = new();\n\nvar response = await client.Recommendations.ListAvailableGenreSeeds(parameters);\n\nConsole.WriteLine(response);',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.recommendations.listAvailableGenreSeeds();\n\nconsole.log(response.genres);",
       },
-      go: {
-        method: 'client.Recommendations.ListAvailableGenreSeeds',
+      python: {
+        method: 'recommendations.list_available_genre_seeds',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Recommendations.ListAvailableGenreSeeds(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Genres)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/recommendations/available-genre-seeds \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.recommendations.list_available_genre_seeds()\nprint(response.genres)',
       },
       java: {
         method: 'recommendations().listAvailableGenreSeeds',
@@ -5803,25 +5795,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.recommendations.RecommendationListAvailableGenreSeedsParams\nimport dev.cjav.spotted.models.recommendations.RecommendationListAvailableGenreSeedsResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val response: RecommendationListAvailableGenreSeedsResponse = client.recommendations().listAvailableGenreSeeds()\n}',
       },
-      php: {
-        method: 'recommendations->listAvailableGenreSeeds',
+      go: {
+        method: 'client.Recommendations.ListAvailableGenreSeeds',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->recommendations->listAvailableGenreSeeds();\n\nvar_dump($response);",
-      },
-      python: {
-        method: 'recommendations.list_available_genre_seeds',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nresponse = client.recommendations.list_available_genre_seeds()\nprint(response.genres)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tresponse, err := client.Recommendations.ListAvailableGenreSeeds(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Genres)\n}\n',
       },
       ruby: {
         method: 'recommendations.list_available_genre_seeds',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nresponse = spotted.recommendations.list_available_genre_seeds\n\nputs(response)',
       },
-      typescript: {
-        method: 'client.recommendations.listAvailableGenreSeeds',
+      cli: {
+        method: 'recommendations list_available_genre_seeds',
+        example: "spotted recommendations list-available-genre-seeds \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'recommendations->listAvailableGenreSeeds',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst response = await client.recommendations.listAvailableGenreSeeds();\n\nconsole.log(response.genres);",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$response = $client->recommendations->listAvailableGenreSeeds();\n\nvar_dump($response);",
+      },
+      csharp: {
+        method: 'Recommendations.ListAvailableGenreSeeds',
+        example:
+          'RecommendationListAvailableGenreSeedsParams parameters = new();\n\nvar response = await client.Recommendations.ListAvailableGenreSeeds(parameters);\n\nConsole.WriteLine(response);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/recommendations/available-genre-seeds \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
@@ -5837,23 +5837,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.markets.list(): { markets?: string[]; }`\n\n**get** `/markets`\n\nGet the list of markets where Spotify is available.\n\n\n### Returns\n\n- `{ markets?: string[]; }`\n\n  - `markets?: string[]`\n\n### Example\n\n```typescript\nimport Spotted from 'spotted-ts';\n\nconst client = new Spotted();\n\nconst markets = await client.markets.list();\n\nconsole.log(markets);\n```",
     perLanguage: {
-      cli: {
-        method: 'markets list',
-        example: "spotted markets list \\\n  --access-token 'My Access Token'",
-      },
-      csharp: {
-        method: 'Markets.List',
+      typescript: {
+        method: 'client.markets.list',
         example:
-          'MarketListParams parameters = new();\n\nvar markets = await client.Markets.List(parameters);\n\nConsole.WriteLine(markets);',
+          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst markets = await client.markets.list();\n\nconsole.log(markets.markets);",
       },
-      go: {
-        method: 'client.Markets.List',
+      python: {
+        method: 'markets.list',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tmarkets, err := client.Markets.List(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", markets.Markets)\n}\n',
-      },
-      http: {
-        example:
-          'curl https://api.spotify.com/v1/markets \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
+          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nmarkets = client.markets.list()\nprint(markets.markets)',
       },
       java: {
         method: 'markets().list',
@@ -5865,25 +5857,33 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package dev.cjav.spotted.example\n\nimport dev.cjav.spotted.client.SpottedClient\nimport dev.cjav.spotted.client.okhttp.SpottedOkHttpClient\nimport dev.cjav.spotted.models.markets.MarketListParams\nimport dev.cjav.spotted.models.markets.MarketListResponse\n\nfun main() {\n    val client: SpottedClient = SpottedOkHttpClient.fromEnv()\n\n    val markets: MarketListResponse = client.markets().list()\n}',
       },
-      php: {
-        method: 'markets->list',
+      go: {
+        method: 'client.Markets.List',
         example:
-          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$markets = $client->markets->list();\n\nvar_dump($markets);",
-      },
-      python: {
-        method: 'markets.list',
-        example:
-          'import os\nfrom spotted import Spotted\n\nclient = Spotted(\n    access_token=os.environ.get("SPOTIFY_ACCESS_TOKEN"),  # This is the default and can be omitted\n)\nmarkets = client.markets.list()\nprint(markets.markets)',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/cjavdev/spotted-go"\n\t"github.com/cjavdev/spotted-go/option"\n)\n\nfunc main() {\n\tclient := spotted.NewClient(\n\t\toption.WithAccessToken("My Access Token"),\n\t)\n\tmarkets, err := client.Markets.List(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", markets.Markets)\n}\n',
       },
       ruby: {
         method: 'markets.list',
         example:
           'require "spotted"\n\nspotted = Spotted::Client.new(access_token: "My Access Token")\n\nmarkets = spotted.markets.list\n\nputs(markets)',
       },
-      typescript: {
-        method: 'client.markets.list',
+      cli: {
+        method: 'markets list',
+        example: "spotted markets list \\\n  --access-token 'My Access Token'",
+      },
+      php: {
+        method: 'markets->list',
         example:
-          "import Spotted from 'spotted-ts';\n\nconst client = new Spotted({\n  accessToken: process.env['SPOTIFY_ACCESS_TOKEN'], // This is the default and can be omitted\n});\n\nconst markets = await client.markets.list();\n\nconsole.log(markets.markets);",
+          "<?php\n\nrequire_once dirname(__DIR__) . '/vendor/autoload.php';\n\n$client = new Client(accessToken: 'My Access Token');\n\n$markets = $client->markets->list();\n\nvar_dump($markets);",
+      },
+      csharp: {
+        method: 'Markets.List',
+        example:
+          'MarketListParams parameters = new();\n\nvar markets = await client.Markets.List(parameters);\n\nConsole.WriteLine(markets);',
+      },
+      http: {
+        example:
+          'curl https://api.spotify.com/v1/markets \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN"',
       },
     },
   },
