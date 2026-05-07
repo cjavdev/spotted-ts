@@ -5123,7 +5123,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          'curl https://api.spotify.com/v1/users/$USER_ID/playlists \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN" \\\n    -d \'{\n          "name": "New Playlist"\n        }\'',
+          'curl https://api.spotify.com/v1/users/$USER_ID/playlists \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: Bearer $SPOTIFY_ACCESS_TOKEN" \\\n    -d \'{\n          "name": "New Playlist",\n          "description": "New playlist description"\n        }\'',
       },
     },
   },
