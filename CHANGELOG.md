@@ -1,5 +1,52 @@
 # Changelog
 
+## 0.23.5 (2026-09-01)
+
+Full Changelog: [v0.23.4...v0.23.5](https://github.com/cjavdev/spotted-ts/compare/v0.23.4...v0.23.5)
+
+### Features
+
+* **api:** api update ([38304be](https://github.com/cjavdev/spotted-ts/commit/38304be423c283617c7a82e6e3fee1cdaf70a0e3))
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([ab082b2](https://github.com/cjavdev/spotted-ts/commit/ab082b227910ddccb831b9fc6c34d711d2cff80a))
+* support setting headers via env ([3d47f17](https://github.com/cjavdev/spotted-ts/commit/3d47f1739d5eebd72ff9af4013f4eccb7f7e277b))
+
+
+### Bug Fixes
+
+* **client:** emit method aliases after the methods they reference ([0f57f2a](https://github.com/cjavdev/spotted-ts/commit/0f57f2a96b73c971e7d241c7637a339424810d7c))
+* **client:** send content-type header for requests with an omitted optional body ([eae584b](https://github.com/cjavdev/spotted-ts/commit/eae584b714f5370c5a21a4677737b607f1c0f9ea))
+* **mcp:** use `pure-lockfile` when building mcp server ([8bdd0ae](https://github.com/cjavdev/spotted-ts/commit/8bdd0ae2ace3f3f249ab3f29de3fcd2c4eaa1ff0))
+* **stlc:** stop hand-edited CI workflows from blocking seals and builds ([c5647cb](https://github.com/cjavdev/spotted-ts/commit/c5647cb1f52aad878ef25916c788dc8a116a67c7))
+* **typescript:** upgrade tsc-multi so that it works with Node 26 ([3082d3c](https://github.com/cjavdev/spotted-ts/commit/3082d3caa7893813d0d4f0aa212c11c6bf1dd9ab))
+
+
+### Chores
+
+* avoid formatting file that gets changed during releases ([f319075](https://github.com/cjavdev/spotted-ts/commit/f3190751d0bfa219a1c357b1b9801dc1cfb38664))
+* **format:** run eslint and prettier separately ([8654daa](https://github.com/cjavdev/spotted-ts/commit/8654daaa4cd0fb080572440e00f774df9fe03a4d))
+* **internal:** codegen related update ([cc52011](https://github.com/cjavdev/spotted-ts/commit/cc5201189b547cccaa0c1c3f947db3cadc30155b))
+* **internal:** codegen related update ([af5cb82](https://github.com/cjavdev/spotted-ts/commit/af5cb82360bfe666b73666013b305c92f3f8b58d))
+* **internal:** codegen related update ([3875115](https://github.com/cjavdev/spotted-ts/commit/38751150144b9bcf00efc3419b2f38fdb915066f))
+* **internal:** codegen related update ([c01e0f2](https://github.com/cjavdev/spotted-ts/commit/c01e0f2b620fefb12c283b82fd1c9603944e6d94))
+* **internal:** codegen related update ([2de9947](https://github.com/cjavdev/spotted-ts/commit/2de9947f8fb9fe3a6397fb4c63d0855821db59e2))
+* **internal:** codegen related update ([fbbe4ae](https://github.com/cjavdev/spotted-ts/commit/fbbe4ae47bbb2da9d4b6793a6b23a289625d72fc))
+* **internal:** codegen related update ([49d8520](https://github.com/cjavdev/spotted-ts/commit/49d8520ed7d819c043b4fa95e262c1b0fc180b8d))
+* **internal:** codegen related update ([c08640e](https://github.com/cjavdev/spotted-ts/commit/c08640ea595ce3e9d9496b3bd83929bda8bd0179))
+* **internal:** more robust bootstrap script ([b5af1c5](https://github.com/cjavdev/spotted-ts/commit/b5af1c5da46fb340a75885d5409e8ee126ae052a))
+* **internal:** update docs ordering ([dc0b78f](https://github.com/cjavdev/spotted-ts/commit/dc0b78f9aef8e1a41ac289ad5f3547a1b1c85cf8))
+* redact api-key headers in debug logs ([32a0c9d](https://github.com/cjavdev/spotted-ts/commit/32a0c9de70979fcacfead94689e3ae5e89fadf36))
+* restructure docs search code ([580aad8](https://github.com/cjavdev/spotted-ts/commit/580aad8bb1b887e0df31a7e35471fae19666c422))
+* **tests:** remove redundant File import ([434782b](https://github.com/cjavdev/spotted-ts/commit/434782b6c5ae895a1f83148b9a4dfbb1ff1c59e2))
+* update CLI documentation ([42799ae](https://github.com/cjavdev/spotted-ts/commit/42799aec8ef94cc3f5b35a9fd0d267a1cbbcd09a))
+
+
+### Documentation
+
+* clarify forwards compat behavior ([884997e](https://github.com/cjavdev/spotted-ts/commit/884997ecd3f5cce66889581f5a5905cff1a5a5c1))
+* update http mcp docs ([8df19e0](https://github.com/cjavdev/spotted-ts/commit/8df19e0f15ca7c477671448eead912fc430eece5))
+* update logging docs ([f612473](https://github.com/cjavdev/spotted-ts/commit/f6124739b92e41ab6a57e4de0c1f47d102471f8c))
+* update with proxy auth info ([3428d9d](https://github.com/cjavdev/spotted-ts/commit/3428d9d64cf1b9b4c8b9f43581c96a4c55e24600))
+
 ## 0.23.4 (2026-04-10)
 
 Full Changelog: [v0.23.3...v0.23.4](https://github.com/cjavdev/spotted-ts/compare/v0.23.3...v0.23.4)

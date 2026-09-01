@@ -28,7 +28,7 @@ export const newMcpServer = async ({
   new McpServer(
     {
       name: 'spotted_ts_api',
-      version: '0.23.4',
+      version: '0.23.5',
     },
     {
       instructions: await getInstructions({ stainlessApiKey, customInstructionsPath }),
